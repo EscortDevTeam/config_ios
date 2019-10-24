@@ -1,0 +1,990 @@
+{
+    "version": "44",
+    "0": {
+        "screen": 2,
+        "title_ru": "Выберите язык",
+        "title_en": "Choose language",
+        "title_pr": "Selecione seu idioma",
+        "title_es": "Seleccione su idioma"
+    },
+    "1": {
+        "screen": 3,
+        "title_ru": "Выберите тип подключения",
+        "title_en": "Select connection type",
+        "title_pr": "Selecione o tipo de conexão",
+        "title_es": "Seleccione el tipo de conexión"
+    },
+    "2": {
+        "screen": 4,
+        "title_ru": "Тип bluetooth датчика",
+        "title_en": "Type of bluetooth sensor",
+        "title_pr": "Digite o sensor bluetooth",
+        "title_es": "Tipo del sensor Bluetooth"
+    },
+    "3": {
+        "screen": 4,
+        "title_ru": "Для дальнейшей работы необходимо включить Bluetooth",
+        "title_en": "For further work, you must enable Bluetooth",
+        "title_pr": "For further work, you must enable Bluetooth",
+        "title_es": "Para continuar el funcionamiento es necesario activar Bluetooth"
+    },
+    "4": {
+        "screen": 4,
+        "title_ru": "TL BLE",
+        "title_en": "TL BLE",
+        "title_pr": "TL BLE",
+        "title_es": "TL BLE"
+    },
+    "5": {
+        "screen": 4,
+        "title_ru": "Escort NET",
+        "title_en": "Escort NET",
+        "title_pr": "Escort NET",
+        "title_es": "Escort NET"
+    },
+    "6": {
+        "screen": 4,
+        "title_ru": "DB 2",
+        "title_en": "DB 2",
+        "title_pr": "DB 2",
+        "title_es": "DB 2"
+    },
+    "7": {
+        "screen": 4,
+        "title_ru": "DGV 200",
+        "title_en": "DGV 200",
+        "title_pr": "DGV 200",
+        "title_es": "DGV 200"
+    },
+    "8": {
+        "screen": 5,
+        "title_ru": "Тип проводного датчика",
+        "title_en": "Type of wired sensor",
+        "title_pr": "Type of wired sensor",
+        "title_es": "Tipo del sensor alámbrico"
+    },
+    "9": {
+        "screen": 6,
+        "title_ru": "Список доступных устройств",
+        "title_en": "List of available devices",
+        "title_pr": "Lista de dispositivos disponíveis",
+        "title_es": "La lista de dispositivos disponibles"
+    },
+    "10": {
+        "screen": 7,
+        "title_ru": "TD BLE",
+        "title_en": "TD BLE",
+        "title_pr": "TD BLE",
+        "title_es": "TD BLE"
+    },
+    "11": {
+        "screen": 8,
+        "title_ru": "Настройки TD BLE",
+        "title_en": "TD BLE Settings",
+        "title_pr": "Configurações do TD BLE",
+        "title_es": "Configuraciones de TD BLE"
+    },
+    "12": {
+        "screen": 9,
+        "title_ru": "ДУТ",
+        "title_en": "FLS",
+        "title_pr": "FLS",
+        "title_es": "FLS"
+    },
+    "13": {
+        "screen": 10,
+        "title_ru": "Настройки TD 500",
+        "title_en": "TD 500 Settings",
+        "title_pr": "Configurações do TD 500",
+        "title_es": "Configuraciones de TD 500"
+    },
+    "14": {
+        "screen": 11,
+        "title_ru": "Доп. возможности",
+        "title_en": "Additional Features",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Opciones adicionales"
+    },
+    "15": {
+        "screen": 12,
+        "title_ru": "Доп. возможности",
+        "title_en": "Additional Features",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Opciones adicionales"
+    },
+    "16": {
+        "screen": 13,
+        "title_ru": "Справка",
+        "title_en": "Help",
+        "title_pr": "Help",
+        "title_es": "Ayuda"
+    },
+    "17": {
+        "screen": 14,
+        "title_ru": "ДУ 180",
+        "title_en": "DU 180",
+        "title_pr": "DU 180",
+        "title_es": "DU 180"
+    },
+    "18": {
+        "screen": 0,
+        "title_ru": "Ok",
+        "title_en": "Ok",
+        "title_pr": "Ok",
+        "title_es": "Ok"
+    },
+    "19": {
+        "screen": 2,
+        "title_ru": "Отмена",
+        "title_en": "Cancel",
+        "title_pr": "Cancel",
+        "title_es": "Cancelar"
+    },
+    "20": {
+        "screen": 2,
+        "title_ru": "Не удалось загрузить языковую базу. Проверьте подключение к интернету",
+        "title_en": "Language pack loading failure. Please check internet connection",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "No se ha logrado subir la base de idiomas. Revise la conexión a Internet"
+    },
+    "21": {
+        "screen": 2,
+        "title_ru": "Закрыть приложение",
+        "title_en": "Close the app",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Cerrar la aplicación"
+    },
+    "22": {
+        "screen": 3,
+        "title_ru": "Ваше устройство не поддерживает работу с Bluetooth LE",
+        "title_en": "Your device does not support Bluetooth LE",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Su dispositivo no soporta la operación con Bluetooth LE"
+    },
+    "23": {
+        "screen": 3,
+        "title_ru": "Языковая база обновлена",
+        "title_en": "Language pack is updated successfully",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "La base de idiomas fue actualizada"
+    },
+    "24": {
+        "screen": 3,
+        "title_ru": "Не удалось обновить языковую базу",
+        "title_en": "Language pack updating failure",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "No se ha logrado actuallizar la base de idiomas"
+    },
+    "25": {
+        "screen": 4,
+        "title_ru": "Разрешение на использование местоположения отклонено",
+        "title_en": "User's location access denied",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Permiso de uso de la localización fue denegado"
+    },
+    "26": {
+        "screen": 4,
+        "title_ru": "Для корректной работы приложения, необходимо разрешение на\r\nиспользование местоположения. Для этого перейдите в\r\nнастройки.",
+        "title_en": "For correct operation location access is needed. Go to Settings",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Para un funcionamiento correcto de la aplicación, se necesita su permiso para uso de la localización. Para hacer esto, pasa a las configuraciones."
+    },
+    "27": {
+        "screen": 4,
+        "title_ru": "Настройки",
+        "title_en": "Settings",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Configuraciones"
+    },
+    "28": {
+        "screen": 4,
+        "title_ru": "Для обнаружения Bluetooth устройств необходимо разрешение на использование местоположения",
+        "title_en": "Location access needed.",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Para detectar los dispositivos Bluetooth es necesario permitir el uso de la localización"
+    },
+    "29": {
+        "screen": 4,
+        "title_ru": "Понятно",
+        "title_en": "OK, I got it",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Entendido"
+    },
+    "30": {
+        "screen": 5,
+        "title_ru": "Поиск устройств...",
+        "title_en": "Searching…",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Búsqueda de los dispositivos..."
+    },
+    "31": {
+        "screen": 5,
+        "title_ru": "Устройства не обнаружены",
+        "title_en": "No devices found",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Dispositivos no se han encontrado"
+    },
+    "32": {
+        "screen": 5,
+        "title_ru": "Начать поиск заново",
+        "title_en": "Search again",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Volver a empezar la búsqueda"
+    },
+    "33": {
+        "screen": 5,
+        "title_ru": "Не удалось установить соединение",
+        "title_en": "Connection failure",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "No se ha logrado establecer la conexión."
+    },
+    "34": {
+        "screen": 6,
+        "title_ru": "Уровень",
+        "title_en": "Level",
+        "title_pr": "Level",
+        "title_es": "Nivel"
+    },
+    "35": {
+        "screen": 6,
+        "title_ru": "RSSI",
+        "title_en": "RSSI",
+        "title_pr": "RSSI",
+        "title_es": "RSSI"
+    },
+    "36": {
+        "screen": 6,
+        "title_ru": "Vbat",
+        "title_en": "Vbat",
+        "title_pr": "Vbat",
+        "title_es": "Vbat"
+    },
+    "37": {
+        "screen": 6,
+        "title_ru": "ID",
+        "title_en": "ID",
+        "title_pr": "ID",
+        "title_es": "ID"
+    },
+    "38": {
+        "screen": 6,
+        "title_ru": "MAC",
+        "title_en": "MAC",
+        "title_pr": "MAC",
+        "title_es": "MAC"
+    },
+    "39": {
+        "screen": 6,
+        "title_ru": "Отключен",
+        "title_en": "Disconnected",
+        "title_pr": "Desconectado",
+        "title_es": "Desconectado"
+    },
+    "40": {
+        "screen": 6,
+        "title_ru": "Включен",
+        "title_en": "Connected",
+        "title_pr": "Conectado",
+        "title_es": "Conectado"
+    },
+    "41": {
+        "screen": 6,
+        "title_ru": "Настройки",
+        "title_en": "Settings",
+        "title_pr": "Configurações",
+        "title_es": "Configuraciones"
+    },
+    "42": {
+        "screen": 6,
+        "title_ru": "Доп. возможности",
+        "title_en": "Additional Features",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Opciones adicionales"
+    },
+    "43": {
+        "screen": 6,
+        "title_ru": "Справка",
+        "title_en": "Reference",
+        "title_pr": "Ajuda",
+        "title_es": "Ayuda"
+    },
+    "44": {
+        "screen": 6,
+        "title_ru": "На датчике установлен пароль",
+        "title_en": "Sensor is password-protected",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Sensor está protegido por la contraseña"
+    },
+    "45": {
+        "screen": 6,
+        "title_ru": "На датчике пароль не установлен",
+        "title_en": "Sensor is not password-protected",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Sensor no está protegido por la contraseña"
+    },
+    "46": {
+        "screen": 6,
+        "title_ru": "Связь потеряна. Соединение восстанавливается...",
+        "title_en": "Connection is lost. Re-connecting…",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "La comunicación fue perdida. La conexión se está restableciendo..."
+    },
+    "47": {
+        "screen": 6,
+        "title_ru": "Подождать",
+        "title_en": "Wait",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Esperar"
+    },
+    "48": {
+        "screen": 6,
+        "title_ru": "Выбрать другой тип соединения",
+        "title_en": "Choose another connection mode",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Seleccionar otro tipo de conexión"
+    },
+    "49": {
+        "screen": 6,
+        "title_ru": "Скопировано в буфер",
+        "title_en": "Сopied to clipboard",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Copiado al Portapapeles"
+    },
+    "50": {
+        "screen": 7,
+        "title_ru": "Мин. уровень",
+        "title_en": "Minimum level",
+        "title_pr": "O nível mínimo",
+        "title_es": "Nivel mínimo"
+    },
+    "51": {
+        "screen": 7,
+        "title_ru": "Макс. уровень",
+        "title_en": "Maximum level",
+        "title_pr": "Nível máximo",
+        "title_es": "Nivel máximo"
+    },
+    "52": {
+        "screen": 7,
+        "title_ru": "Фильтрация",
+        "title_en": "Filtration",
+        "title_pr": "Filtração",
+        "title_es": "Filtración"
+    },
+    "53": {
+        "screen": 7,
+        "title_ru": "Записать параметры в устройство",
+        "title_en": "Write parameters to the device",
+        "title_pr": "Escreva parâmetros para o dispositivo",
+        "title_es": "Grabar los parámetros al dispositivo"
+    },
+    "54": {
+        "screen": 7,
+        "title_ru": "Пустой",
+        "title_en": "Empty",
+        "title_pr": "Vazio",
+        "title_es": "Vacío"
+    },
+    "55": {
+        "screen": 7,
+        "title_ru": "Полный",
+        "title_en": "Full",
+        "title_pr": "Completo",
+        "title_es": "Completo"
+    },
+    "56": {
+        "screen": 7,
+        "title_ru": "Стабилен",
+        "title_en": "Stable",
+        "title_pr": "Estável",
+        "title_es": "Estable"
+    },
+    "57": {
+        "screen": 7,
+        "title_ru": "Не удалось изменить значение",
+        "title_en": "Value changing failure",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "No se ha logrado modificar el valor"
+    },
+    "58": {
+        "screen": 7,
+        "title_ru": "Значение успешно откалибровано",
+        "title_en": "Value changed – calibration is done successfully",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "El valor fue exitosamente calibrado"
+    },
+    "59": {
+        "screen": 7,
+        "title_ru": "Не удалось откалибровать значение",
+        "title_en": "Value not changed – calibration failure",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "No se ha logrado calibrar el valor"
+    },
+    "60": {
+        "screen": 7,
+        "title_ru": "Полный должен быть больше Пустой",
+        "title_en": "“Full” value shall be higher than “Empty” value",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Lleno debe ser mayor que Vacío"
+    },
+    "61": {
+        "screen": 7,
+        "title_ru": "Необходимо сначала ввести пароль",
+        "title_en": "Enter password to continue",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Primero debe introducir la contraseña"
+    },
+    "62": {
+        "screen": 8,
+        "title_ru": "Сет. адрес",
+        "title_en": "Network address",
+        "title_pr": "Endereço de rede",
+        "title_es": "Dirección de red"
+    },
+    "63": {
+        "screen": 8,
+        "title_ru": "Режим",
+        "title_en": "Mode",
+        "title_pr": "Mode",
+        "title_es": "Modo"
+    },
+    "64": {
+        "screen": 8,
+        "title_ru": "Фильтрация",
+        "title_en": "Filtration",
+        "title_pr": "Filtração",
+        "title_es": "Filtración"
+    },
+    "65": {
+        "screen": 8,
+        "title_ru": "Уровень",
+        "title_en": "Level",
+        "title_pr": "Level",
+        "title_es": "Nivel"
+    },
+    "66": {
+        "screen": 8,
+        "title_ru": "Частота",
+        "title_en": "Frequency",
+        "title_pr": "Freqüência",
+        "title_es": "Frecuencia"
+    },
+    "67": {
+        "screen": 8,
+        "title_ru": "Напряжение",
+        "title_en": "Voltage",
+        "title_pr": "Estresse",
+        "title_es": "Voltaje"
+    },
+    "68": {
+        "screen": 8,
+        "title_ru": "Настройки",
+        "title_en": "Settings",
+        "title_pr": "Configurações",
+        "title_es": "Configuraciones"
+    },
+    "69": {
+        "screen": 8,
+        "title_ru": "Доп. возможности",
+        "title_en": "Additional Features",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Opciones adicionales"
+    },
+    "70": {
+        "screen": 8,
+        "title_ru": "Справка",
+        "title_en": "Reference",
+        "title_pr": "Ajuda",
+        "title_es": "Ayuda"
+    },
+    "71": {
+        "screen": 8,
+        "title_ru": "Устройство отключено, попробуйте использовать другой\r\nинтерфейс.",
+        "title_en": "Device is turned off. Try to use another interface",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Dispositivo está desconectado, intente usar otra interfaz."
+    },
+    "72": {
+        "screen": 8,
+        "title_ru": "Нет",
+        "title_en": "No filtration",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Sin filtración"
+    },
+    "73": {
+        "screen": 8,
+        "title_ru": "до 200 литров",
+        "title_en": "0 … 200 liters",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "hasta 200 litros"
+    },
+    "74": {
+        "screen": 8,
+        "title_ru": "от 200 до 1000 литров",
+        "title_en": "200 … 1000 liters",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "de 200 hasta 1000 litros"
+    },
+    "75": {
+        "screen": 8,
+        "title_ru": "более 1000 литров",
+        "title_en": "More than 1000 liters",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "más de 1000 litros"
+    },
+    "76": {
+        "screen": 8,
+        "title_ru": "тяжёлые условия",
+        "title_en": "Severe road conditions",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Condiciones pesadas"
+    },
+    "77": {
+        "screen": 9,
+        "title_ru": "Сет. адрес",
+        "title_en": "Network address",
+        "title_pr": "Endereço de rede",
+        "title_es": "Dirección de red"
+    },
+    "78": {
+        "screen": 9,
+        "title_ru": "Мин. уровень",
+        "title_en": "Minimum level",
+        "title_pr": "O nível mínimo",
+        "title_es": "Nivel mínimo"
+    },
+    "79": {
+        "screen": 9,
+        "title_ru": "Макс. уровень",
+        "title_en": "Maximum level",
+        "title_pr": "Nível máximo",
+        "title_es": "Nivel máximo"
+    },
+    "80": {
+        "screen": 9,
+        "title_ru": "Фильтрация",
+        "title_en": "Filtration",
+        "title_pr": "Filtração",
+        "title_es": "Filtración"
+    },
+    "81": {
+        "screen": 9,
+        "title_ru": "Режим",
+        "title_en": "Mode",
+        "title_pr": "Mode",
+        "title_es": "Modo"
+    },
+    "82": {
+        "screen": 9,
+        "title_ru": "Записать параметры в устройство",
+        "title_en": "Set parameters",
+        "title_pr": "Escreva parâmetros para o dispositivo",
+        "title_es": "Grabar los parámetros al dispositivo"
+    },
+    "83": {
+        "screen": 9,
+        "title_ru": "Пустой",
+        "title_en": "Empty",
+        "title_pr": "Vazio",
+        "title_es": "Vacío"
+    },
+    "84": {
+        "screen": 9,
+        "title_ru": "Полный",
+        "title_en": "Full",
+        "title_pr": "Completo",
+        "title_es": "Lleno"
+    },
+    "85": {
+        "screen": 9,
+        "title_ru": "Не стабилен",
+        "title_en": "Not stable",
+        "title_pr": "Não estável",
+        "title_es": "No estable"
+    },
+    "86": {
+        "screen": 9,
+        "title_ru": "RS485",
+        "title_en": "RS485",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "RS-485"
+    },
+    "87": {
+        "screen": 9,
+        "title_ru": "Аналоговый",
+        "title_en": "Analog",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Analógico"
+    },
+    "88": {
+        "screen": 9,
+        "title_ru": "Частотный",
+        "title_en": "Frequency",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "De frecuencia"
+    },
+    "89": {
+        "screen": 9,
+        "title_ru": "Периодический",
+        "title_en": "Periodic(impulse)",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "De impulsos"
+    },
+    "90": {
+        "screen": 9,
+        "title_ru": "Периодический RS485",
+        "title_en": "Periodic RS485",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "RS-485 periódico"
+    },
+    "91": {
+        "screen": 9,
+        "title_ru": "RS232",
+        "title_en": "RS232",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "RS-232"
+    },
+    "92": {
+        "screen": 9,
+        "title_ru": "Введен неверный пароль",
+        "title_en": "Wrong password",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Ha introducido la contraseña incorrecta"
+    },
+    "93": {
+        "screen": 9,
+        "title_ru": "Параметры успешно записаны",
+        "title_en": "Settings applied successfully",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Los parámetros fueron exitosamente grabados"
+    },
+    "94": {
+        "screen": 9,
+        "title_ru": "Не удалось записать параметры",
+        "title_en": "Settings applying failure",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "No se ha logrado grabar los parámetros"
+    },
+    "95": {
+        "screen": 9,
+        "title_ru": "Сетевой адрес принимает значение от 0 до 255",
+        "title_en": "“Network address” accepts values from 0 to 255",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "\"La dirección de la red\" toma el valor de 0 hasta 255"
+    },
+    "96": {
+        "screen": 10,
+        "title_ru": "Пароль на изменение настроек",
+        "title_en": "Password for changing settings",
+        "title_pr": "Senha para alterar configurações",
+        "title_es": "Contraseña para modificar las configuraciones"
+    },
+    "97": {
+        "screen": 10,
+        "title_ru": "Пароль",
+        "title_en": "Password",
+        "title_pr": "Senha",
+        "title_es": "Contraseña"
+    },
+    "98": {
+        "screen": 10,
+        "title_ru": "Введите значение...",
+        "title_en": "Enter value...",
+        "title_pr": "Digite um valor...",
+        "title_es": "Introduzca el valor..."
+    },
+    "99": {
+        "screen": 10,
+        "title_ru": "Ввести",
+        "title_en": "Enter",
+        "title_pr": "Introduzir",
+        "title_es": "Introducir"
+    },
+    "100": {
+        "screen": 10,
+        "title_ru": "Удалить",
+        "title_en": "Remove",
+        "title_pr": "Remover",
+        "title_es": "Eliminar"
+    },
+    "101": {
+        "screen": 10,
+        "title_ru": "Ручной ввод конфигурации",
+        "title_en": "Manual configuration input",
+        "title_pr": "Entrada de configuração manual",
+        "title_es": "Introducción manual de la configuración"
+    },
+    "102": {
+        "screen": 10,
+        "title_ru": "Полный",
+        "title_en": "Full",
+        "title_pr": "Completo",
+        "title_es": "Lleno"
+    },
+    "103": {
+        "screen": 10,
+        "title_ru": "Пустой",
+        "title_en": "Empty",
+        "title_pr": "Vazio",
+        "title_es": "Vacío"
+    },
+    "104": {
+        "screen": 10,
+        "title_ru": "Введите сетевой адрес",
+        "title_en": "Enter the network address",
+        "title_pr": "Digite o endereço de rede",
+        "title_es": "Introduzca la dirección de red"
+    },
+    "105": {
+        "screen": 10,
+        "title_ru": "Установить",
+        "title_en": "Set",
+        "title_pr": "Instalar",
+        "title_es": "Establecer"
+    },
+    "106": {
+        "screen": 10,
+        "title_ru": "Перезагрузка TD-BLE",
+        "title_en": "Reloading TD-BLE",
+        "title_pr": "Recarregando TD-BLE",
+        "title_es": "Reinicio de TD-BLE"
+    },
+    "107": {
+        "screen": 10,
+        "title_ru": "Данные успешно изменены",
+        "title_en": "Data updated successfully",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Los datos fueron exitosamente modificados"
+    },
+    "108": {
+        "screen": 10,
+        "title_ru": "Не удалось изменить данные",
+        "title_en": "Data update failure",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "No se ha logrado modificar los datos"
+    },
+    "109": {
+        "screen": 10,
+        "title_ru": "Пароль успешно установлен",
+        "title_en": "Password set successfully",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "La contraseña fue exitosamente establecida"
+    },
+    "110": {
+        "screen": 10,
+        "title_ru": "Не удалось установить пароль",
+        "title_en": "Password setting failure",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "No se ha logrado establecer la contraseña"
+    },
+    "111": {
+        "screen": 10,
+        "title_ru": "Пароль успешно удален",
+        "title_en": "Password deleted successfully",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "La contraseña fue exitosamente eliminada"
+    },
+    "112": {
+        "screen": 10,
+        "title_ru": "Не удалось удалить пароль",
+        "title_en": "Password deletion failure",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "No se ha logrado eliminar la contraseña"
+    },
+    "113": {
+        "screen": 10,
+        "title_ru": "Перезагружается...",
+        "title_en": "Reloading…",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Reiniciando..."
+    },
+    "114": {
+        "screen": 10,
+        "title_ru": "Не удалось перезагрузить",
+        "title_en": "Failed to reload",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "No se ha logrado reiniciar"
+    },
+    "115": {
+        "screen": 10,
+        "title_ru": "Пароль введен",
+        "title_en": "Password is entered",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "La contraseña fue introducida"
+    },
+    "116": {
+        "screen": 10,
+        "title_ru": "Заполните хотя бы одно из полей",
+        "title_en": "Fill at least one field",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Complete por lo menos uno de los campos "
+    },
+    "117": {
+        "screen": 10,
+        "title_ru": "Пустой принимает значение от 1 до 2147483647",
+        "title_en": "“Empty” accepts values from 1 to 2147483647",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "\"Vacío\" toma el valor de 1 hasta 2147483647"
+    },
+    "118": {
+        "screen": 10,
+        "title_ru": "Полный принимает значение от 1 до 2147483648",
+        "title_en": "“Full” accepts values from 1 to 2147483648",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "\"Lleno\" toma el valor de 1 hasta 2147483648"
+    },
+    "119": {
+        "screen": 10,
+        "title_ru": "Пароль принимает значения от 0 до 999999",
+        "title_en": "“Password” accepts values from 1 to 999999",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "\"Contraseña\" toma el valor de 0 hasta 999999"
+    },
+    "120": {
+        "screen": 10,
+        "title_ru": "Пароль принимает значения от 0 до 2000000000",
+        "title_en": "“Password” accepts values from 1 to 2000000000",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "\"Contraseña\" toma el valor de 0 hasta 2000000000"
+    },
+    "121": {
+        "screen": 10,
+        "title_ru": "Значение Полный успешно изменено",
+        "title_en": "“Full” value changed successfully",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Valor \"Lleno\" fue exitosamente modificado"
+    },
+    "122": {
+        "screen": 10,
+        "title_ru": "Значение Полный изменить не удалось",
+        "title_en": "“Full” value changing failure",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "No se ha logrado modificar el valor \"Lleno\""
+    },
+    "123": {
+        "screen": 10,
+        "title_ru": "Значение Пустой изменить не удалось",
+        "title_en": "“Empty” value changing failure",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "No se ha logrado modificar el valor \"Vacío\""
+    },
+    "124": {
+        "screen": 11,
+        "title_ru": "Пароль на изменение настроек",
+        "title_en": "Password for changing settings",
+        "title_pr": "Senha para alterar configurações",
+        "title_es": "Contraseña para modificar las configuraciones"
+    },
+    "125": {
+        "screen": 11,
+        "title_ru": "Пароль",
+        "title_en": "Password",
+        "title_pr": "Senha",
+        "title_es": "Contraseña"
+    },
+    "126": {
+        "screen": 11,
+        "title_ru": "Значение Пустой успешно изменено",
+        "title_en": "“Empty” value changed successfully",
+        "title_pr": "“Empty” value changed successfully",
+        "title_es": "El valor “Vacío” fue exitósamente modificado"
+    },
+    "127": {
+        "screen": 11,
+        "title_ru": "Установить",
+        "title_en": "Install",
+        "title_pr": "Instalar",
+        "title_es": "Establecer"
+    },
+    "128": {
+        "screen": 12,
+        "title_ru": "Здесь скоро появится справочная информация, мы над этим работаем.",
+        "title_en": "Help information will be here soon, we are working on it.\r\n",
+        "title_pr": "Era uma vez vivia um velho com uma velha. Então o velho disse à velha: \"Vá e raspe a caixa, anote o sushi e raspe a farinha em um coque.\" A velha pegou as asas, raspou a caixa, beliscou e coçou dois punhados de farinha no saco.",
+        "title_es": "Había una vez un anciano con una anciana. Entonces el anciano le dijo a la anciana: \"Ve y hurga en la caja, toma nota del sushi y corta la harina en un moño\". La anciana tomó las alas, la frotó alrededor de la caja, pellizcó y rascó dos puñados de harina "
+    },
+    "129": {
+        "screen": 55,
+        "title_ru": "Ошибка",
+        "title_en": "Error",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Error"
+    },
+    "130": {
+        "screen": 55,
+        "title_ru": "Повторить",
+        "title_en": "Repeat",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Repetir"
+    },
+    "131": {
+        "screen": 55,
+        "title_ru": "Внимание",
+        "title_en": "Attention",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Atención"
+    },
+    "132": {
+        "screen": 55,
+        "title_ru": "Язык",
+        "title_en": "Language",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Idioma"
+    },
+    "133": {
+        "screen": 55,
+        "title_ru": "Требуется калибровка",
+        "title_en": "Calibration required",
+        "title_pr": "Recursos Adicionais",
+        "title_es": "Se requiere la calibración"
+    },
+    "134": {
+        "screen": 55,
+        "title_ru": "Медианный",
+        "title_en": "Median",
+        "title_pr": "Median",
+        "title_es": "De la mediana"
+    },
+    "135": {
+        "screen": 55,
+        "title_ru": "Интеллектуальный",
+        "title_en": "Intelligent",
+        "title_pr": "Intelligent",
+        "title_es": "Intelectual"
+    },
+    "136": {
+        "screen": 55,
+        "title_ru": "Тип сглаживания",
+        "title_en": "Type of smoothing",
+        "title_pr": "Type of smoothing",
+        "title_es": "Tipo de filtración"
+    },
+    "137": {
+        "screen": 55,
+        "title_ru": "Степень сглаживания",
+        "title_en": "Degree of smoothing",
+        "title_pr": "Type of smoothing",
+        "title_es": "Nivel de filtración"
+    },
+    "138": {
+        "screen": 55,
+        "title_ru": "Устройства поблизости",
+        "title_en": "Nearby devices",
+        "title_pr": "Despocitivos en la cercanía",
+        "title_es": "Despocitivos en la cercanía"
+    },
+    "139": {
+        "screen": 55,
+        "title_ru": "Устройства с низким уровнем сигнала",
+        "title_en": "Low signal devices",
+        "title_pr": "Dispositivos con baja intensidad de señal",
+        "title_es": "Dispositivos con baja intensidad de señal"
+    },
+    "140": {
+        "screen": 55,
+        "title_ru": "Такие устройства не найдены",
+        "title_en": "Devices not found",
+        "title_pr": "Estos dispositivos no se han encontrado",
+        "title_es": "Estos dispositivos no se han encontrado"
+    }
+}
