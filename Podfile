@@ -5,8 +5,8 @@ target 'Escort' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-	pod 'SwiftyJSON'
-	pod 'ImpressiveNotifications'
-	pod 'AJMessage'
-	pod 'AppCenter'
+    pod 'SwiftyJSON', '~> 4.0'
+pod 'AJMessage'
+pod 'ImpressiveNotifications'
+
 end
