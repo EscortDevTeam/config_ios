@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "75064AFA-BB8B-4FFB-AC6E-DC54B7B2D363"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B7FAE5BF-2D26-4753-A1EA-9E88FC78938D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Escort/Views/DeviceSelectController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "updateLangues(code:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B7FAE5BF-2D26-4753-A1EA-9E88FC78938D - 786d4e676c2d9397"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Escort.DeviceSelectController.updateLangues(code: Swift.String) -&gt; ()"
+                  moduleName = "Escort"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/volodyazverev/Documents/%D0%AD%D1%81%D0%BA%D0%BE%D1%80%D1%82/Escort/Escort/Views/DeviceSelectController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "1004">
+               </Location>
+               <Location
+                  uuid = "B7FAE5BF-2D26-4753-A1EA-9E88FC78938D - 786d4e676c2d9397"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Escort.DeviceSelectController.updateLangues(code: Swift.String) -&gt; ()"
+                  moduleName = "Escort"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/volodyazverev/Documents/%D0%AD%D1%81%D0%BA%D0%BE%D1%80%D1%82/Escort/Escort/Views/DeviceSelectController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "1832">
+               </Location>
+               <Location
+                  uuid = "B7FAE5BF-2D26-4753-A1EA-9E88FC78938D - 786d4e676c2d9397"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Escort.DeviceSelectController.updateLangues(code: Swift.String) -&gt; ()"
+                  moduleName = "Escort"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/volodyazverev/Documents/%D0%AD%D1%81%D0%BA%D0%BE%D1%80%D1%82/Escort/Escort/Views/DeviceSelectController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "2660">
+               </Location>
+               <Location
+                  uuid = "B7FAE5BF-2D26-4753-A1EA-9E88FC78938D - 786d4e676c2d9397"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Escort.DeviceSelectController.updateLangues(code: Swift.String) -&gt; ()"
+                  moduleName = "Escort"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/volodyazverev/Documents/%D0%AD%D1%81%D0%BA%D0%BE%D1%80%D1%82/Escort/Escort/Views/DeviceSelectController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "3488">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6DF898E9-B007-4E2E-B3C6-53FA64E2A7BF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Escort/Views/DeviceBleSettingsController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "461"
+            endingLineNumber = "461"
+            landmarkName = "viewShow()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

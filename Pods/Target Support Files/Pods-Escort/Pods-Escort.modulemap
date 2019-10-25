@@ -1,0 +1,6 @@
+framework module Pods_Escort {
+  umbrella header "Pods-Escort-umbrella.h"
+
+  export *
+  module * { export * }
+}
