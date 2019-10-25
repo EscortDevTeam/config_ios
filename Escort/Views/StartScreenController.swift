@@ -151,9 +151,9 @@ class StartScreenController: UIViewController {
         }
     }
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-        print("viewWillDisappear")
+        super.viewWillAppear(true)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+
     }
     private func viewShow() {
         view.backgroundColor = .white

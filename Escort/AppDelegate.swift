@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let navgiationController = UINavigationController()
         navgiationController.navigationBar.isHidden = true
-        navgiationController.interactivePopGestureRecognizer?.isEnabled = false
+//        navgiationController.interactivePopGestureRecognizer?.isEnabled = true
 
         navgiationController.pushViewController(StartScreenController(), animated: true)
 

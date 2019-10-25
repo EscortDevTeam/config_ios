@@ -15,6 +15,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         updateLangues(code: code)
         viewShow()
     }
+    let viewAlpha = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
     let searchBar = UISearchBar(frame: CGRect(x: 0, y: headerHeight, width: screenWidth, height: 35))
     var refreshControl = UIRefreshControl()
     var attributedTitle = NSAttributedString()
@@ -1258,16 +1259,11 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.75)
         searchBar.delegate = self
         manager = CBCentralManager ( delegate : self , queue : nil , options : nil )
         viewShow()
         updateLangues(code: code)
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(sender:)))
-        rightSwipe.direction = .right
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(sender:)))
-        leftSwipe.direction = .left
-
-        view.addGestureRecognizer(rightSwipe)
     }
 
     var tr = 0
@@ -1276,7 +1272,9 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
 
         scanBLEDevices()
         activityIndicator.startAnimating()
+        self.view.addSubview(viewAlpha)
         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+            self.viewAlpha.removeFromSuperview()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 self.activityIndicator.stopAnimating()
             }
@@ -1309,25 +1307,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         rightCount = 0
         searchBarCancelButtonClicked(searchBar)
     }
-        @objc func handleSwipe(sender: UISwipeGestureRecognizer) {
-            if sender.state == .ended {
-                switch sender.direction {
-                case .right:
-                if rightCount == 0 {
-                    print("Right")
-                    let popUpVC = UIStoryboard(name: "MainSelf", bundle: nil).instantiateViewController(withIdentifier: "popUpVCid") as! PopupViewController // 1
-                    self.searchBar.endEditing(true)
-                    self.addChild(popUpVC) // 2
-                    popUpVC.view.frame = self.view.frame  // 3
-                    self.view.addSubview(popUpVC.view) // 4
-                    popUpVC.didMove(toParent: self) // 5
-                    rightCount += 1
-                }
-                default: break
-                }
-                    
-            }
-        }
+
     func scanBLEDevices() {
         let uuid = NSUUID().uuidString.lowercased()
         print("uuid: \(uuid)")
@@ -1379,6 +1359,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
             let (headerView, backView) = headerSet(title: "\(openDevices)", showBack: true)
             self.view.addSubview(headerView)
             self.view.addSubview(backView!)
+            self.view.addSubview(self.viewAlpha)
             backView!.addTapGesture{
                 self.navigationController?.popViewController(animated: true)
                 self.view.subviews.forEach({ $0.removeFromSuperview() })
@@ -1390,9 +1371,11 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
             
         }
         view.addSubview(bgImage)
-        view.addSubview(activityIndicator)
+        viewAlpha.addSubview(activityIndicator)
         activityIndicator.startAnimating()
         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+            self.viewAlpha.removeFromSuperview()
+            self.view.backgroundColor = UIColor(rgb: 0x1F2222).withAlphaComponent(1)
             self.activityIndicator.stopAnimating()
             self.mainPartShow()
             
@@ -1446,8 +1429,8 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
 
         let cellHeight = 60
-        var y = headerHeight - 58
-        var yS = headerHeight - 58
+        var y = headerHeight - 70
+        var yS = headerHeight - 70
         
 
         for (i, peripheral) in data.enumerated() {
@@ -1528,6 +1511,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                 temp = nil
                 DeviceIndex = i
                 self.activityIndicator.startAnimating()
+                self.view.addSubview(self.viewAlpha)
                 zeroTwo = 0
                 zero = 0
                 countNot = 0
@@ -1538,15 +1522,12 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                         navController.pushViewController(self.DeviceBLEC, animated: true)
                     }
                     print("Connected to " +  peripheral.name!)
-                self.view.subviews.forEach({ $0.removeFromSuperview() })
+                    self.viewAlpha.removeFromSuperview()
+                    self.view.subviews.forEach({ $0.removeFromSuperview() })
                     while let subview = self.scrollView.subviews.last {
                         subview.removeFromSuperview()
                     }
-
                 })
-                
-
-                
             }
             
             y = y + CGFloat(cellHeight)

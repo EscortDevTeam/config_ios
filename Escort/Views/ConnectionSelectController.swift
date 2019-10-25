@@ -234,21 +234,13 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
             }
         }.resume()
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         dataGetTwo()
         updateLangues(code: code)
         viewShow()
-
-        
-//        timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(sender:)))
-        rightSwipe.direction = .right
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(sender:)))
-        leftSwipe.direction = .left
-
-        view.addGestureRecognizer(rightSwipe)
+        //        timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
     }
 //    @objc func timerAction(){
 //            viewShow()
@@ -256,30 +248,14 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
 //        }
 
     override func viewDidAppear(_ animated: Bool) {
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+
         popUpVC.delegate = self
         rightCount = 0
         updateLangues(code: code)
         viewShow()
         boolBLE = false
         print("12")
-    }
-    @objc func handleSwipe(sender: UISwipeGestureRecognizer) {
-        if sender.state == .ended {
-            switch sender.direction {
-            case .right:
-            if rightCount <= 0 {
-                print("Right")
-                let popUpVC = UIStoryboard(name: "MainSelf", bundle: nil).instantiateViewController(withIdentifier: "popUpVCid") as! PopupViewController // 1
-                self.addChild(popUpVC) // 2
-                popUpVC.view.frame = self.view.frame  // 3
-                self.view.addSubview(popUpVC.view) // 4
-                popUpVC.didMove(toParent: self) // 5
-                rightCount += 1
-            }
-            default: break
-            }
-                
-        }
     }
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)

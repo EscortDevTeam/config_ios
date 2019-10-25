@@ -77,7 +77,7 @@ func headerSet(title: String, showBack: Bool) -> (UIView, UIView?) {
 
     let dy: Int = screenWidth == 320 ? 0 : 10
 
-    let backView = UIView(frame: CGRect(x: 0, y: dy + (hasNotch ? 45 : 25), width: 60, height: 30))
+    let backView = UIView(frame: CGRect(x: 0, y: dy + (hasNotch ? 45 : 25), width: 80, height: 40))
     let back = UIImageView(image: UIImage(named: "back.png")!)
     back.frame = CGRect(x: 8, y: 0, width: 8, height: 19)
     backView.addSubview(back)

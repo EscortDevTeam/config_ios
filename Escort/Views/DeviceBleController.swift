@@ -11,6 +11,8 @@ import CoreBluetooth
 import ImpressiveNotifications
 
 class DeviceBleController: UIViewController {
+    
+    let viewAlpha = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
     var level = ""
     var mass = ""
     var peripheralMain: CBPeripheral? = nil
@@ -41,11 +43,13 @@ class DeviceBleController: UIViewController {
     let attributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     var timer = Timer()
     var count = 0
+    var timerTrue = 0
     
     var refreshControl = UIRefreshControl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.75)
         viewShow()
     }
     @objc func refresh(sender:AnyObject) {
@@ -63,10 +67,14 @@ class DeviceBleController: UIViewController {
         item = 0
         
         viewShow()
-        timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+        if timerTrue == 0 {
+            timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+            timerTrue = 1
+        }
         
         if reloadBack == 1{
             self.navigationController?.popViewController(animated: true)
+            timerTrue = 0
             reloadBack = 0
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 5.5) {
@@ -84,7 +92,7 @@ class DeviceBleController: UIViewController {
     @objc func timerAction(){
             viewShowMain()
         count += 1
-        print(count)
+        print("count: \(count)")
         }
     
     fileprivate lazy var bgImage: UIImageView = {
@@ -162,17 +170,18 @@ class DeviceBleController: UIViewController {
         let (headerView, backView) = headerSet(title: "TD BLE", showBack: true)
         view.addSubview(headerView)
         view.addSubview(backView!)
-        view.addSubview(activityIndicator)
-        
+        viewAlpha.addSubview(activityIndicator)
+        view.addSubview(viewAlpha)
         self.view.isUserInteractionEnabled = false
 
         activityIndicator.startAnimating()
-        delay(interval: 5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+            self.view.isUserInteractionEnabled = true
+            self.refreshControl.endRefreshing()
             self.activityIndicator.stopAnimating()
             self.viewShowMain()
-            self.view.isUserInteractionEnabled = true
-
-
+            self.viewAlpha.removeFromSuperview()
+            
         }
     }
     private func viewShowMain() {
@@ -183,9 +192,13 @@ class DeviceBleController: UIViewController {
                 let (headerView, backView) = headerSet(title: "TD BLE", showBack: true)
                 view.addSubview(headerView)
                 view.addSubview(backView!)
-                view.addSubview(activityIndicator)
+//                viewAlpha.addSubview(activityIndicator)
+//                view.addSubview(viewAlpha)
                 
+            self.view.isUserInteractionEnabled = true
+
                 backView!.addTapGesture{
+                    self.timerTrue = 0
                     self.view.subviews.forEach({ $0.removeFromSuperview() })
                     self.timer.invalidate()
                     self.nameDevice = ""
@@ -193,11 +206,11 @@ class DeviceBleController: UIViewController {
                     self.navigationController?.popViewController(animated: true)
 
                 }
-        let battaryView = UIView(frame: CGRect(x:screenWidth-60, y: screenHeight/6-31, width: 10, height: 14))
+        let battaryView = UIView(frame: CGRect(x:screenWidth-58, y: screenHeight/6-29, width: 8, height: 10))
         battaryView.backgroundColor = .white
-        let battaryViewTwo = UIView(frame: CGRect(x:screenWidth-50, y: screenHeight/6-31, width: 10, height: 14))
+        let battaryViewTwo = UIView(frame: CGRect(x:screenWidth-50, y: screenHeight/6-29, width: 8, height: 10))
         battaryViewTwo.backgroundColor = .white
-        let battaryViewFull = UIView(frame: CGRect(x:screenWidth-40, y: screenHeight/6-31, width: 9, height: 14))
+        let battaryViewFull = UIView(frame: CGRect(x:screenWidth-42, y: screenHeight/6-29, width: 9, height: 10))
         battaryViewFull.backgroundColor = .white
         view.addSubview(bgImage)
         view.addSubview(sensorImage)

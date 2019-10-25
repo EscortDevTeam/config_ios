@@ -20,36 +20,36 @@ class DeviceSelectController: UIViewController, SecondVCDelegate {
     let DevicesListC = DevicesListController()
     
     func updateLangues(code: String){
-            popUpVC.parsedData = parsedData
-            DevicesListC.parsedData = parsedData
+        popUpVC.parsedData = parsedData
+        DevicesListC.parsedData = parsedData
         if let name0 = parsedData["47"] {
             let dict = name0 as? [String: Any]
             switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        print(name1 as! NSString)
-                        wait = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        print(name1 as! NSString)
-                        wait = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        print(name1 as! NSString)
-                        wait = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        print(name1 as! NSString)
-                        wait = name1 as! String
-                    }
-                default:
-                    print("")
+            case "ru":
+                if let name1 = dict!["title_ru"]{
+                    print(name1 as! NSString)
+                    wait = name1 as! String
+                }
+            case "en":
+                if let name1 = dict!["title_en"]{
+                    print(name1 as! NSString)
+                    wait = name1 as! String
+                }
+            case "pr":
+                if let name1 = dict!["title_pr"]{
+                    print(name1 as! NSString)
+                    wait = name1 as! String
+                }
+            case "es":
+                if let name1 = dict!["title_es"]{
+                    print(name1 as! NSString)
+                    wait = name1 as! String
+                }
+            default:
+                print("")
             }
         }
-
+        
         if let name0 = parsedData["132"] {
             let dict = name0 as? [String: Any]
             switch code {
@@ -73,49 +73,47 @@ class DeviceSelectController: UIViewController, SecondVCDelegate {
                 print("")
             }
         }
-                if let name0 = parsedData["9"] {
-                    let dict = name0 as? [String: Any]
-                    switch code {
-                    case "ru":
-                        if let name1 = dict!["title_ru"]{
-                            print(name1 as! NSString)
-                            openDevices = name1 as! String
-                        }
-                        print(code)
-                    case "en":
-                        if let name1 = dict!["title_en"]{
-                            print(name1 as! NSString)
-                            openDevices = name1 as! String
-                        }
-                        print(code)
-                    case "pr":
-                        if let name1 = dict!["title_pr"]{
-                            print(name1 as! NSString)
-                            openDevices = name1 as! String
-                        }
-                        print(code)
-                    case "es":
-                        if let name1 = dict!["title_es"]{
-                            print(name1 as! NSString)
-                            openDevices = name1 as! String
-                        }
-                        print(code)
-                    default:
-                        print("")
-                    }
+        if let name0 = parsedData["9"] {
+            let dict = name0 as? [String: Any]
+            switch code {
+            case "ru":
+                if let name1 = dict!["title_ru"]{
+                    print(name1 as! NSString)
+                    openDevices = name1 as! String
                 }
+                print(code)
+            case "en":
+                if let name1 = dict!["title_en"]{
+                    print(name1 as! NSString)
+                    openDevices = name1 as! String
+                }
+                print(code)
+            case "pr":
+                if let name1 = dict!["title_pr"]{
+                    print(name1 as! NSString)
+                    openDevices = name1 as! String
+                }
+                print(code)
+            case "es":
+                if let name1 = dict!["title_es"]{
+                    print(name1 as! NSString)
+                    openDevices = name1 as! String
+                }
+                print(code)
+            default:
+                print("")
+            }
+        }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         viewShow()
         updateLangues(code: code)
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(sender:)))
-        rightSwipe.direction = .right
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(sender:)))
-        leftSwipe.direction = .left
-
-        view.addGestureRecognizer(rightSwipe)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
     var t = 0
     override func viewDidAppear(_ animated: Bool) {
@@ -124,29 +122,9 @@ class DeviceSelectController: UIViewController, SecondVCDelegate {
             rightCount = 0
             viewShow()
             updateLangues(code: code)
-
         }
-        
     }
-        @objc func handleSwipe(sender: UISwipeGestureRecognizer) {
-            if sender.state == .ended {
-                switch sender.direction {
-                case .right:
-                if rightCount == 0 {
-                    print("Right")
-                    let popUpVC = UIStoryboard(name: "MainSelf", bundle: nil).instantiateViewController(withIdentifier: "popUpVCid") as! PopupViewController // 1
-                    self.addChild(popUpVC) // 2
-                    popUpVC.view.frame = self.view.frame  // 3
-                    self.view.addSubview(popUpVC.view) // 4
-                    popUpVC.didMove(toParent: self) // 5
-                    rightCount += 1
-                }
-                default: break
-                }
-                    
-            }
-        }
-
+    
     fileprivate lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
         v.removeFromSuperview()
