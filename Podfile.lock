@@ -1,15 +1,15 @@
 PODS:
   - AJMessage (1.2.1)
   - ImpressiveNotifications (0.5.0)
-  - SwiftyJSON (5.0.0)
+  - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
   - AJMessage
   - ImpressiveNotifications
-  - SwiftyJSON
+  - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
-  trunk:
+  https://github.com/CocoaPods/Specs.git:
     - AJMessage
     - ImpressiveNotifications
     - SwiftyJSON
@@ -17,8 +17,8 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AJMessage: aac20e04fbee91d20355d2e7582171e8fc3a760e
   ImpressiveNotifications: 9a3921276e916e244abb7e4b2a6661133479a17c
-  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+  SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 68267d9aff540b3e63790a16a212f3eacfcaed17
+PODFILE CHECKSUM: 1814f8fc8af4e98a0b2d2611ccfc2f5d91c00ab5
 
 COCOAPODS: 1.8.4

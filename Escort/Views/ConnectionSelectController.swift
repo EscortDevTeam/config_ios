@@ -234,9 +234,7 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
             }
         }.resume()
     }
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         dataGetTwo()
