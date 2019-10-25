@@ -20,13 +20,6 @@ class DeviceBleSettingsAddController: UIViewController {
         viewShow()
         
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-//        viewShow()
-    }
-
-    
-
     
     fileprivate lazy var bgImage: UIImageView = {
         let img = UIImageView(image: UIImage(named: "bg-figures.png")!)
@@ -134,34 +127,34 @@ class DeviceBleSettingsAddController: UIViewController {
         y = y + deltaY
         
         let v = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth), height: 40))
-                
-                let lblTitle = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
-                lblTitle.text = password
-                lblTitle.textColor = UIColor(rgb: 0xE9E9E9)
-                lblTitle.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
-                
-                let input = UITextField(frame: CGRect(x: 120, y: 0, width: Int(screenWidth/2-30), height: 40))
-                input.text = ""
-                input.placeholder = "\(enterValue)"
-                input.textColor = UIColor(rgb: 0xE9E9E9)
-                input.font = UIFont(name:"FuturaPT-Light", size: 18.0)
-                input.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
-                input.layer.borderWidth = 1.0
-                input.layer.cornerRadius = 4.0
-                input.layer.borderColor = UIColor(rgb: 0x959595).cgColor
-                input.backgroundColor = .clear
-                input.leftViewMode = .always
-                input.keyboardType = UIKeyboardType.decimalPad
-                
-                    let lblPrefix = UILabel(frame: CGRect(x: screenWidth-80, y: 10, width: 100, height: 20))
-                    lblPrefix.text = ""
-                    lblPrefix.textColor = UIColor(rgb: 0xE9E9E9)
-                    lblPrefix.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
-                    v.addSubview(lblPrefix)
-                
-                
-                v.addSubview(lblTitle)
-                v.addSubview(input)
+        
+        let lblTitle = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
+        lblTitle.text = password
+        lblTitle.textColor = UIColor(rgb: 0xE9E9E9)
+        lblTitle.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
+        
+        let input = UITextField(frame: CGRect(x: 120, y: 0, width: Int(screenWidth/2-30), height: 40))
+        input.text = ""
+        input.placeholder = "\(enterValue)"
+        input.textColor = UIColor(rgb: 0xE9E9E9)
+        input.font = UIFont(name:"FuturaPT-Light", size: 18.0)
+        input.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
+        input.layer.borderWidth = 1.0
+        input.layer.cornerRadius = 4.0
+        input.layer.borderColor = UIColor(rgb: 0x959595).cgColor
+        input.backgroundColor = .clear
+        input.leftViewMode = .always
+        input.keyboardType = UIKeyboardType.decimalPad
+        
+        let lblPrefix = UILabel(frame: CGRect(x: screenWidth-80, y: 10, width: 100, height: 20))
+        lblPrefix.text = ""
+        lblPrefix.textColor = UIColor(rgb: 0xE9E9E9)
+        lblPrefix.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
+        v.addSubview(lblPrefix)
+        
+        
+        v.addSubview(lblTitle)
+        v.addSubview(input)
         scrollView.addSubview(v)
         y = y + deltaY
         
@@ -186,15 +179,15 @@ class DeviceBleSettingsAddController: UIViewController {
             }
             let alert = UIAlertController(title: "Пароль записан", message: "Пароль записан на текущую сессию", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                  switch action.style{
-                  case .default:
-                        print("default")
-                  case .cancel:
-                        print("cancel")
-
-                  case .destructive:
-                        print("destructive")
-            }}))
+                switch action.style{
+                case .default:
+                    print("default")
+                case .cancel:
+                    print("cancel")
+                    
+                case .destructive:
+                    print("destructive")
+                }}))
             self.present(alert, animated: true, completion: nil)
         }
         
@@ -216,71 +209,71 @@ class DeviceBleSettingsAddController: UIViewController {
         
         y = y + deltaY
         
-//        scrollView.addSubview(textLineCreate(title: "\(setFull)", text: "\(full)", x: x, y: y, prefix: "\(full)"))
+        //        scrollView.addSubview(textLineCreate(title: "\(setFull)", text: "\(full)", x: x, y: y, prefix: "\(full)"))
         let v1 = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth), height: 40))
-                        
-                        let lblTitle1 = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
-                        lblTitle1.text = setFull
-                        lblTitle1.textColor = UIColor(rgb: 0xE9E9E9)
-                        lblTitle1.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
-                        
-                        let input1 = UITextField(frame: CGRect(x: 120, y: 0, width: Int(screenWidth/2-30), height: 40))
-                        input1.text = "\(full)"
-                        input1.placeholder = "\(enterValue)"
-                        input1.textColor = UIColor(rgb: 0xE9E9E9)
-                        input1.font = UIFont(name:"FuturaPT-Light", size: 18.0)
-                        input1.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
-                        input1.layer.borderWidth = 1.0
-                        input1.layer.cornerRadius = 4.0
-                        input1.layer.borderColor = UIColor(rgb: 0x959595).cgColor
-                        input1.backgroundColor = .clear
-                        input1.leftViewMode = .always
-                        input1.keyboardType = UIKeyboardType.decimalPad
-                        
-                            let lblPrefix1 = UILabel(frame: CGRect(x: screenWidth-80, y: 10, width: 100, height: 20))
-                            lblPrefix1.text = "\(full)"
-                            lblPrefix1.textColor = UIColor(rgb: 0xE9E9E9)
-                            lblPrefix1.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
-                            v1.addSubview(lblPrefix1)
-                        
-                        
-                        v1.addSubview(lblTitle1)
-                        v1.addSubview(input1)
-                        scrollView.addSubview(v1)
+        
+        let lblTitle1 = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
+        lblTitle1.text = setFull
+        lblTitle1.textColor = UIColor(rgb: 0xE9E9E9)
+        lblTitle1.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
+        
+        let input1 = UITextField(frame: CGRect(x: 120, y: 0, width: Int(screenWidth/2-30), height: 40))
+        input1.text = "\(full)"
+        input1.placeholder = "\(enterValue)"
+        input1.textColor = UIColor(rgb: 0xE9E9E9)
+        input1.font = UIFont(name:"FuturaPT-Light", size: 18.0)
+        input1.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
+        input1.layer.borderWidth = 1.0
+        input1.layer.cornerRadius = 4.0
+        input1.layer.borderColor = UIColor(rgb: 0x959595).cgColor
+        input1.backgroundColor = .clear
+        input1.leftViewMode = .always
+        input1.keyboardType = UIKeyboardType.decimalPad
+        
+        let lblPrefix1 = UILabel(frame: CGRect(x: screenWidth-80, y: 10, width: 100, height: 20))
+        lblPrefix1.text = "\(full)"
+        lblPrefix1.textColor = UIColor(rgb: 0xE9E9E9)
+        lblPrefix1.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
+        v1.addSubview(lblPrefix1)
+        
+        
+        v1.addSubview(lblTitle1)
+        v1.addSubview(input1)
+        scrollView.addSubview(v1)
         
         y = y + deltaY
-
+        
         let v2 = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth), height: 40))
-                        
-                        let lblTitle2 = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
-                        lblTitle2.text = setNothing
-                        lblTitle2.textColor = UIColor(rgb: 0xE9E9E9)
-                        lblTitle2.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
-                        
-                        let input2 = UITextField(frame: CGRect(x: 120, y: 0, width: Int(screenWidth/2-30), height: 40))
-                        input2.text = "\(nothing)"
-                        input2.placeholder = "\(enterValue)"
-                        input2.textColor = UIColor(rgb: 0xE9E9E9)
-                        input2.font = UIFont(name:"FuturaPT-Light", size: 18.0)
-                        input2.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
-                        input2.layer.borderWidth = 1.0
-                        input2.layer.cornerRadius = 4.0
-                        input2.layer.borderColor = UIColor(rgb: 0x959595).cgColor
-                        input2.backgroundColor = .clear
-                        input2.leftViewMode = .always
-                        input2.keyboardType = UIKeyboardType.decimalPad
-                        
-                            let lblPrefix2 = UILabel(frame: CGRect(x: screenWidth-80, y: 10, width: 100, height: 20))
-                            lblPrefix2.text = "\(nothing)"
-                            lblPrefix2.textColor = UIColor(rgb: 0xE9E9E9)
-                            lblPrefix2.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
-                            v2.addSubview(lblPrefix2)
-                        
-                        
-                        v2.addSubview(lblTitle2)
-                        v2.addSubview(input2)
-                        scrollView.addSubview(v2)
-
+        
+        let lblTitle2 = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
+        lblTitle2.text = setNothing
+        lblTitle2.textColor = UIColor(rgb: 0xE9E9E9)
+        lblTitle2.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
+        
+        let input2 = UITextField(frame: CGRect(x: 120, y: 0, width: Int(screenWidth/2-30), height: 40))
+        input2.text = "\(nothing)"
+        input2.placeholder = "\(enterValue)"
+        input2.textColor = UIColor(rgb: 0xE9E9E9)
+        input2.font = UIFont(name:"FuturaPT-Light", size: 18.0)
+        input2.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
+        input2.layer.borderWidth = 1.0
+        input2.layer.cornerRadius = 4.0
+        input2.layer.borderColor = UIColor(rgb: 0x959595).cgColor
+        input2.backgroundColor = .clear
+        input2.leftViewMode = .always
+        input2.keyboardType = UIKeyboardType.decimalPad
+        
+        let lblPrefix2 = UILabel(frame: CGRect(x: screenWidth-80, y: 10, width: 100, height: 20))
+        lblPrefix2.text = "\(nothing)"
+        lblPrefix2.textColor = UIColor(rgb: 0xE9E9E9)
+        lblPrefix2.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
+        v2.addSubview(lblPrefix2)
+        
+        
+        v2.addSubview(lblTitle2)
+        v2.addSubview(input2)
+        scrollView.addSubview(v2)
+        
         y = y + deltaY
         
         let btn3 = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth-60), height: 44))
@@ -312,36 +305,36 @@ class DeviceBleSettingsAddController: UIViewController {
                     if errorWRN == false {
                         let alert = UIAlertController(title: "Данные успешно изменены", message: "", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                              switch action.style{
-                              case .default:
-                                    print("default")
+                            switch action.style{
+                            case .default:
+                                print("default")
                                 self.navigationController?.popViewController(animated: true)
-                              case .cancel:
-                                    print("cancel")
-
-                              case .destructive:
-                                    print("destructive")
-
-
-                        }}))
+                            case .cancel:
+                                print("cancel")
+                                
+                            case .destructive:
+                                print("destructive")
+                                
+                                
+                            }}))
                         self.present(alert, animated: true, completion: nil)
                     }
-                
+                    
                 }
             } else {
                 let alert = UIAlertController(title: "\(ifFull)", message: "", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                      switch action.style{
-                      case .default:
-                            print("default")
-                      case .cancel:
-                            print("cancel")
-
-                      case .destructive:
-                            print("destructive")
-
-
-                }}))
+                    switch action.style{
+                    case .default:
+                        print("default")
+                    case .cancel:
+                        print("cancel")
+                        
+                    case .destructive:
+                        print("destructive")
+                        
+                        
+                    }}))
                 self.present(alert, animated: true, completion: nil)
             }
         }
@@ -361,8 +354,8 @@ class DeviceBleSettingsAddController: UIViewController {
         
         scrollView.addSubview(btn4)
         scrollView.addSubview(btn4Text)
-
-
+        
+        
         btn4Text.addTapGesture {
             reload = 1
             self.view.addSubview(self.activityIndicator)
@@ -374,34 +367,34 @@ class DeviceBleSettingsAddController: UIViewController {
                 if errorWRN == false {
                     let alert = UIAlertController(title: "Успешная перезагрузка", message: "Устройство успешно перезагрузилось, повторите попытку входа", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                          switch action.style{
-                          case .default:
-                                print("default")
-                                reloadBack = 1
+                        switch action.style{
+                        case .default:
+                            print("default")
+                            reloadBack = 1
                             self.navigationController?.popViewController(animated: true)
-
-                          case .cancel:
-                                print("cancel")
-
-                          case .destructive:
-                                print("destructive")
-
-
-                    }}))
+                            
+                        case .cancel:
+                            print("cancel")
+                            
+                        case .destructive:
+                            print("destructive")
+                            
+                            
+                        }}))
                     self.present(alert, animated: true, completion: nil)
                 } else {
                     let alert = UIAlertController(title: "\(failReloud)", message: "", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                          switch action.style{
-                          case .default:
-                                print("default")
-                                errorWRN = false
-                          case .cancel:
-                                print("cancel")
-
-                          case .destructive:
-                                print("destructive")
-                    }}))
+                        switch action.style{
+                        case .default:
+                            print("default")
+                            errorWRN = false
+                        case .cancel:
+                            print("cancel")
+                            
+                        case .destructive:
+                            print("destructive")
+                        }}))
                     self.present(alert, animated: true, completion: nil)
                 }
             }

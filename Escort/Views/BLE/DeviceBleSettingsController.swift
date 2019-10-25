@@ -13,8 +13,13 @@ var nothing = "-----"
 var cnt = "-----"
 var prov = ""
 var prov2 = ""
+var police = false
 
 class DeviceBleSettingsController: UIViewController {
+    
+    let viewLoad = UIView(frame:CGRect(x: 30, y: headerHeight + 325, width: 200, height: 40))
+    let viewLoadTwo = UIView(frame:CGRect(x: 30, y: headerHeight + 415, width: 200, height: 40))
+    let viewAlpha = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
     let uPicker = UIPickerView()
     let uPicker2 = UIPickerView()
     let dataSource = ["1023", "4095"]
@@ -33,15 +38,14 @@ class DeviceBleSettingsController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.75)
         viewShow()
         uPicker.dataSource = self
         uPicker.delegate = self
         uPicker2.dataSource = self
         uPicker2.delegate = self
     }
-    override func viewDidAppear(_ animated: Bool) {
-        viewShow()
-    }
+
     
     fileprivate lazy var bgImage: UIImageView = {
         let img = UIImageView(image: UIImage(named: "bg-figures.png")!)
@@ -79,12 +83,13 @@ class DeviceBleSettingsController: UIViewController {
         return v
     }
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
-            let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white)
-            activity.center = view.center
-            activity.hidesWhenStopped = true
-            activity.startAnimating()
-            return activity
-        }()
+        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white)
+        activity.center = view.center
+        activity.transform = CGAffineTransform(scaleX: 2, y: 2)
+        activity.hidesWhenStopped = true
+        activity.startAnimating()
+        return activity
+    }()
     
     private func viewShow() {
         view.subviews.forEach({ $0.removeFromSuperview() })
@@ -93,6 +98,7 @@ class DeviceBleSettingsController: UIViewController {
         let (headerView, backView) = headerSet(title: "\(settingMain)", showBack: true)
         view.addSubview(headerView)
         view.addSubview(backView!)
+
         
         backView!.addTapGesture{
             self.navigationController?.popViewController(animated: true)
@@ -103,31 +109,31 @@ class DeviceBleSettingsController: UIViewController {
         var y = 40 + Int(headerHeight)
         let x = 30, deltaY = 65, deltaYLite = 20
         let v2 = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth-160), height: 20))
-                let lblTitle = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
-                lblTitle.text = "\(minLevel)"
-                lblTitle.textColor = UIColor(rgb: 0xE9E9E9)
-                lblTitle.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
-                
-                let check = UIImageView(image: UIImage(named: "check-green.png")!)
-                check.frame = CGRect(x: x+120, y: y+4, width: 22, height: 26)
-                
-                input.frame = CGRect(x: 160, y: 0, width: Int(screenWidth/2-30), height: 40)
-                input.text = "1"
-                input.placeholder = "\(enterValue)"
-                input.textColor = UIColor(rgb: 0xE9E9E9)
-                input.font = UIFont(name:"FuturaPT-Light", size: 18.0)
-                input.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
-                input.layer.borderWidth = 1.0
-                input.layer.cornerRadius = 4.0
-                input.layer.borderColor = UIColor(rgb: 0x959595).cgColor
-                input.backgroundColor = .clear
-                input.leftViewMode = .always
-                input.isEnabled = false
-
-                
-                v2.addSubview(lblTitle)
-                v2.addSubview(input)
-                view.addSubview(v2)
+        let lblTitle = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
+        lblTitle.text = "\(minLevel)"
+        lblTitle.textColor = UIColor(rgb: 0xE9E9E9)
+        lblTitle.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
+        
+        let check = UIImageView(image: UIImage(named: "check-green.png")!)
+        check.frame = CGRect(x: x+120, y: y+4, width: 22, height: 26)
+        
+        input.frame = CGRect(x: 160, y: 0, width: Int(screenWidth/2-30), height: 40)
+        input.text = "1"
+        input.placeholder = "\(enterValue)"
+        input.textColor = UIColor(rgb: 0xE9E9E9)
+        input.font = UIFont(name:"FuturaPT-Light", size: 18.0)
+        input.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
+        input.layer.borderWidth = 1.0
+        input.layer.cornerRadius = 4.0
+        input.layer.borderColor = UIColor(rgb: 0x959595).cgColor
+        input.backgroundColor = .clear
+        input.leftViewMode = .always
+        input.isEnabled = false
+        
+        
+        v2.addSubview(lblTitle)
+        v2.addSubview(input)
+        view.addSubview(v2)
         
         uPicker.frame = CGRect(x: x+170, y: y+60, width: 100, height: 100)
 //        view.addSubview(uPicker)
@@ -295,8 +301,10 @@ class DeviceBleSettingsController: UIViewController {
         
 
         btn1.addTapGesture {
-            self.view.addSubview(self.activityIndicator)
             self.activityIndicator.startAnimating()
+            self.viewAlpha.addSubview(self.activityIndicator)
+            self.view.addSubview(self.viewAlpha)
+            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
             self.view.isUserInteractionEnabled = false
             let b = (self.input4.text! as NSString).integerValue
             reload = 6
@@ -307,26 +315,29 @@ class DeviceBleSettingsController: UIViewController {
                 let a = 32768 + b
                 wmPar = "\(a)"
             }
-
-
-//            self.view.addSubview(check)
+            self.viewLoad.isHidden = true
+            self.viewLoadTwo.isHidden = true
+            
+            //            self.view.addSubview(check)
             DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
                 self.check4.image = UIImage(named: "check-green.png")
                 self.check3.image = UIImage(named: "check-green.png")
-//                check.image = UIImage(named: "check-green.png")
-//                self.view.addSubview(check)
-
+                //                check.image = UIImage(named: "check-green.png")
+                //                self.view.addSubview(check)
+                
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 7.0) {
                 self.check4.removeFromSuperview()
                 self.check3.removeFromSuperview()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    police = false
                     self.viewShow()
-                    self.activityIndicator.stopAnimating()
-                    self.view.isUserInteractionEnabled = true
+                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+//                    self.viewAlpha.removeFromSuperview()
+//                    self.view.isUserInteractionEnabled = true
                 }
-//                check.removeFromSuperview()
-
+                //                check.removeFromSuperview()
+                
             }
         }
 
@@ -373,86 +384,99 @@ class DeviceBleSettingsController: UIViewController {
         view.addSubview(btn3Text)
         
         btn2.addTapGesture {
-                    reload = 3
-                    self.view.addSubview(self.activityIndicator)
-                    self.activityIndicator.startAnimating()
-                    self.view.isUserInteractionEnabled = false
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 8.0) {
-                        if errorWRN == false {
-                            self.view.isUserInteractionEnabled = true
-                            self.activityIndicator.stopAnimating()
-                            let alert = UIAlertController(title: "\(valueYes)", message: "\(nothingIfYes)", preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                                  switch action.style{
-                                  case .default:
-                                        print("default")
-                                        self.viewShow()
-                                  case .cancel:
-                                        print("cancel")
-
-                                  case .destructive:
-                                        print("destructive")
-                            }}))
-                            self.present(alert, animated: true, completion: nil)
-                        } else {
-                            errorWRN = false
-                            self.view.isUserInteractionEnabled = true
-                            self.activityIndicator.stopAnimating()
-                            let alert = UIAlertController(title: "\(valueNo)", message: "\(nothingIfNo)", preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                                  switch action.style{
-                                  case .default:
-                                        print("default")
-                                        self.viewShow()
-                                  case .cancel:
-                                        print("cancel")
-
-                                  case .destructive:
-                                        print("destructive")
-                            }}))
-                            self.present(alert, animated: true, completion: nil)
-                            
-                        }
-            }
-                }
-        btn3.addTapGesture {
-            reload = 2
-            self.view.addSubview(self.activityIndicator)
+            reload = 3
             self.activityIndicator.startAnimating()
+            self.viewAlpha.addSubview(self.activityIndicator)
+            self.view.addSubview(self.viewAlpha)
+            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
             self.view.isUserInteractionEnabled = false
+            self.viewLoad.isHidden = true
+            self.viewLoadTwo.isHidden = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 8.0) {
                 if errorWRN == false {
-                self.view.isUserInteractionEnabled = true
-                self.activityIndicator.stopAnimating()
-                let alert = UIAlertController(title: "\(valueYes)", message: "\(fullIfYes)", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                      switch action.style{
-                      case .default:
+                    self.view.isUserInteractionEnabled = true
+                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                    self.viewAlpha.removeFromSuperview()
+                    self.viewLoad.isHidden = false
+                    self.viewLoadTwo.isHidden = false
+                    let alert = UIAlertController(title: "\(valueYes)", message: "\(nothingIfYes)", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                        switch action.style{
+                        case .default:
                             print("default")
-                            self.viewShow()
-                      case .cancel:
+                        case .cancel:
                             print("cancel")
-
-                      case .destructive:
+                        case .destructive:
                             print("destructive")
-                }}))
-                self.present(alert, animated: true, completion: nil)
+                        }}))
+                    self.present(alert, animated: true, completion: nil)
                 } else {
                     errorWRN = false
                     self.view.isUserInteractionEnabled = true
-                    self.activityIndicator.stopAnimating()
+                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                    self.viewAlpha.removeFromSuperview()
+                    self.viewLoad.isHidden = false
+                    self.viewLoadTwo.isHidden = false
+                    let alert = UIAlertController(title: "\(valueNo)", message: "\(nothingIfNo)", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                        switch action.style{
+                        case .default:
+                            print("default")
+                        case .cancel:
+                            print("cancel")
+                            
+                        case .destructive:
+                            print("destructive")
+                        }}))
+                    self.present(alert, animated: true, completion: nil)
+                    
+                }
+            }
+        }
+        btn3.addTapGesture {
+            reload = 2
+            self.activityIndicator.startAnimating()
+            self.viewAlpha.addSubview(self.activityIndicator)
+            self.view.addSubview(self.viewAlpha)
+            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+            self.view.isUserInteractionEnabled = false
+            self.viewLoad.isHidden = true
+            self.viewLoadTwo.isHidden = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 8.0) {
+                if errorWRN == false {
+                    self.view.isUserInteractionEnabled = true
+                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                    self.viewAlpha.removeFromSuperview()
+                    self.viewLoad.isHidden = false
+                    self.viewLoadTwo.isHidden = false
+                    let alert = UIAlertController(title: "\(valueYes)", message: "\(fullIfYes)", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                        switch action.style{
+                        case .default:
+                            print("default")
+                        case .cancel:
+                            print("cancel")
+                        case .destructive:
+                            print("destructive")
+                        }}))
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    errorWRN = false
+                    self.view.isUserInteractionEnabled = true
+                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                    self.viewAlpha.removeFromSuperview()
+                    self.viewLoad.isHidden = false
+                    self.viewLoadTwo.isHidden = false
                     let alert = UIAlertController(title: "\(valueNo)", message: "\(fullIfNo)", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                          switch action.style{
-                          case .default:
-                                print("default")
-                                self.viewShow()
-                          case .cancel:
-                                print("cancel")
-
-                          case .destructive:
-                                print("destructive")
-                    }}))
+                        switch action.style{
+                        case .default:
+                            print("default")
+                        case .cancel:
+                            print("cancel")
+                        case .destructive:
+                            print("destructive")
+                        }}))
                     self.present(alert, animated: true, completion: nil)
                 }
             }
@@ -478,22 +502,35 @@ class DeviceBleSettingsController: UIViewController {
         
         view.addSubview(lbl4)
         timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
-//        viewShowParametrs(lbl1: lbl1, lbl2: lbl2, lbl3: lbl3, y: y)
-        
+        activityIndicator.startAnimating()
+        viewAlpha.addSubview(activityIndicator)
+        view.addSubview(viewAlpha)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+            self.viewAlpha.removeFromSuperview()
+            self.viewLoad.isHidden = false
+            self.viewLoadTwo.isHidden = false
+            police = true
+        }
     }
     
     @objc func timerAction(){
         viewShowParametrs(lbl1: lbl1, lbl2: lbl2, lbl3: lbl3, y: Int(headerHeight + 415))
     }
+    
+
 
     func viewShowParametrs(lbl1: UILabel,lbl2: UILabel,lbl3: UILabel, y: Int) {
-        let viewLoad = UIView(frame:CGRect(x: 30, y: y-90, width: 200, height: 40))
-        let viewLoadTwo = UIView(frame:CGRect(x: 30, y: y, width: 200, height: 40))
         lbl3.text = "CNT          \(cnt)"
         lbl1.text = "\(nothing)"
         lbl2.text = "\(full)"
         viewLoad.removeFromSuperview()
         viewLoadTwo.removeFromSuperview()
+        if police == false {
+            viewLoad.isHidden = true
+            viewLoadTwo.isHidden = true
+        }
         view.addSubview(viewLoad)
         view.addSubview(viewLoadTwo)
         viewLoad.addSubview(lbl1)

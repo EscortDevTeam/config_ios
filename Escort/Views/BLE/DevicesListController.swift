@@ -1273,9 +1273,11 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         scanBLEDevices()
         activityIndicator.startAnimating()
         self.view.addSubview(viewAlpha)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-            self.viewAlpha.removeFromSuperview()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                self.viewAlpha.removeFromSuperview()
                 self.activityIndicator.stopAnimating()
             }
             self.mainPartShow()
@@ -1373,7 +1375,9 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         view.addSubview(bgImage)
         viewAlpha.addSubview(activityIndicator)
         activityIndicator.startAnimating()
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
             self.viewAlpha.removeFromSuperview()
             self.view.backgroundColor = UIColor(rgb: 0x1F2222).withAlphaComponent(1)
             self.activityIndicator.stopAnimating()
@@ -1388,6 +1392,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
     var aaa = [String]()
 
     private func mainPartShow() {
+        
         aaa.removeAll()
         let hamburger = UIImageView(image: UIImage(named: "Hamburger.png")!)
         let hamburgerPlace = UIView()
@@ -1517,7 +1522,9 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                 countNot = 0
                 self.manager?.connect(peripheral, options: nil)
                 self.view.isUserInteractionEnabled = false
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5), execute: {
+                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
                     if let navController = self.navigationController {
                         navController.pushViewController(self.DeviceBLEC, animated: true)
                     }

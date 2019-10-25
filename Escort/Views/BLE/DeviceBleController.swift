@@ -65,7 +65,7 @@ class DeviceBleController: UIViewController {
         refreshControl.tintColor = .white
         refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControl.Event.valueChanged)
         item = 0
-        
+        police = false
         viewShow()
         if timerTrue == 0 {
             timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
@@ -175,7 +175,9 @@ class DeviceBleController: UIViewController {
         self.view.isUserInteractionEnabled = false
 
         activityIndicator.startAnimating()
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
             self.view.isUserInteractionEnabled = true
             self.refreshControl.endRefreshing()
             self.activityIndicator.stopAnimating()
