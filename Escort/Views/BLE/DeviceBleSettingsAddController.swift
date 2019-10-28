@@ -135,7 +135,7 @@ class DeviceBleSettingsAddController: UIViewController {
         
         let input = UITextField(frame: CGRect(x: 120, y: 0, width: Int(screenWidth/2-30), height: 40))
         input.text = ""
-        input.placeholder = "\(enterValue)"
+        input.attributedPlaceholder = NSAttributedString(string: "\(enterValue)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         input.textColor = UIColor(rgb: 0xE9E9E9)
         input.font = UIFont(name:"FuturaPT-Light", size: 18.0)
         input.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
@@ -195,8 +195,9 @@ class DeviceBleSettingsAddController: UIViewController {
         
         let separator = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth/2 + 40), height: 1))
         separator.backgroundColor = UIColor(rgb: 0xCF2121)
-        
         scrollView.addSubview(separator)
+
+        
         
         y = y + deltaYLite
         
@@ -219,7 +220,7 @@ class DeviceBleSettingsAddController: UIViewController {
         
         let input1 = UITextField(frame: CGRect(x: 120, y: 0, width: Int(screenWidth/2-30), height: 40))
         input1.text = "\(full)"
-        input1.placeholder = "\(enterValue)"
+        input1.attributedPlaceholder = NSAttributedString(string: "\(enterValue)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         input1.textColor = UIColor(rgb: 0xE9E9E9)
         input1.font = UIFont(name:"FuturaPT-Light", size: 18.0)
         input1.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
@@ -252,7 +253,7 @@ class DeviceBleSettingsAddController: UIViewController {
         
         let input2 = UITextField(frame: CGRect(x: 120, y: 0, width: Int(screenWidth/2-30), height: 40))
         input2.text = "\(nothing)"
-        input2.placeholder = "\(enterValue)"
+        input2.attributedPlaceholder = NSAttributedString(string: "\(enterValue)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         input2.textColor = UIColor(rgb: 0xE9E9E9)
         input2.font = UIFont(name:"FuturaPT-Light", size: 18.0)
         input2.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))

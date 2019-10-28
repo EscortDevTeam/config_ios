@@ -54,6 +54,7 @@ var ifFull = "Полный должен быть больше Пустой"
 var bufer = "Скопировано в буфер"
 var wmPar = "1"
 var wmMax = "0"
+var wmMaxInt = 0
 var countNot = 0
 var passNotif = 0
 var passNotifStringNo = "На датчике пароль не установлен"

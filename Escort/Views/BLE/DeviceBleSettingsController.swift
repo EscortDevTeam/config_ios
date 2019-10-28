@@ -20,6 +20,7 @@ class DeviceBleSettingsController: UIViewController {
     let viewLoad = UIView(frame:CGRect(x: 30, y: headerHeight + 325, width: 200, height: 40))
     let viewLoadTwo = UIView(frame:CGRect(x: 30, y: headerHeight + 415, width: 200, height: 40))
     let viewAlpha = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
+    let termoSwitch = UISwitch()
     let uPicker = UIPickerView()
     let uPicker2 = UIPickerView()
     let dataSource = ["1023", "4095"]
@@ -189,70 +190,306 @@ class DeviceBleSettingsController: UIViewController {
                 check4.frame = CGRect(x: x+120, y: y+4, width: 22, height: 26)
                 let imputTap2 = UIView(frame: CGRect(x: x+160, y: y, width: Int(screenWidth/2)-30, height: 40))
                 input4.frame = CGRect(x: 160, y: 0, width: Int(screenWidth/2-30), height: 40)
-        if wmMax == "32768" || wmMax == "0"{
-            input4.text = "0"
-            prov2 = input4.text!
+        let number = UInt(exactly: wmMaxInt)!
+        var str = String(number, radix: 16, uppercase: false)
+        if str.count == 1 {
+            if str == "0" {
+                input4.text = "0"
+                prov2 = input4.text!
+            }
+            if str == "1" {
+                input4.text = "1"
+                prov2 = input4.text!
+            }
+            if str == "2" {
+                input4.text = "2"
+                prov2 = input4.text!
+            }
+            if str == "3" {
+                input4.text = "3"
+                prov2 = input4.text!
+            }
+            if str == "4" {
+                input4.text = "4"
+                prov2 = input4.text!
+            }
+            if str == "5" {
+                input4.text = "5"
+                prov2 = input4.text!
+            }
+            if str == "6" {
+                input4.text = "6"
+                prov2 = input4.text!
+            }
+            if str == "7" {
+                input4.text = "7"
+                prov2 = input4.text!
+            }
+            if str == "8" {
+                input4.text = "8"
+                prov2 = input4.text!
+            }
+            if str == "9" {
+                input4.text = "9"
+                prov2 = input4.text!
+            }
+            if str == "a" {
+                input4.text = "10"
+                prov2 = input4.text!
+            }
+            if str == "b" {
+                input4.text = "11"
+                prov2 = input4.text!
+            }
+            if str == "c" {
+                input4.text = "12"
+                prov2 = input4.text!
+            }
+            if str == "d" {
+                input4.text = "13"
+                prov2 = input4.text!
+            }
+            if str == "e" {
+                input4.text = "14"
+                prov2 = input4.text!
+            }
+            if str == "f" {
+                input4.text = "15"
+                prov2 = input4.text!
+            }
         }
-        if wmMax == "32769" || wmMax == "1" {
-            input4.text = "1"
-            prov2 = input4.text!
+        if str.count == 2 {
+            str.insert(" ", at: str.index(str.startIndex, offsetBy: 1))
+            let str1 = str.split(separator: " ")
+            let strFirst = str1.first!
+            let strMoreLast = str1.last!
+            print("\(strFirst) - first; \(strMoreLast) = last")
+            if strFirst == "0" {
+                print("strMoreFirst0: \(strFirst)")
+                termoSwitch.isOn = false
+            } else {
+                print("strMoreFirst8: \(strFirst)")
+                termoSwitch.isOn = true
+            }
+            if strMoreLast == "0" {
+                input4.text = "0"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "1" {
+                input4.text = "1"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "2" {
+                input4.text = "2"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "3" {
+                input4.text = "3"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "4" {
+                input4.text = "4"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "5" {
+                input4.text = "5"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "6" {
+                input4.text = "6"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "7" {
+                input4.text = "7"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "8" {
+                input4.text = "8"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "9" {
+                input4.text = "9"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "a" {
+                input4.text = "10"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "b" {
+                input4.text = "11"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "c" {
+                input4.text = "12"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "d" {
+                input4.text = "13"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "e" {
+                input4.text = "14"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "f" {
+                input4.text = "15"
+                prov2 = input4.text!
+            }
+
         }
-        if wmMax == "32770" || wmMax == "2"{
-            input4.text = "2"
-            prov2 = input4.text!
+        if str.count > 2 {
+            str.insert(" ", at: str.index(str.startIndex, offsetBy: 2))
+            let str1 = str.split(separator: " ")
+            let strFirst = str1.first!
+            var strLast = str1.last!
+            print("\(strFirst) - first; \(strLast) = last")
+            if strFirst == "80" {
+                input3.text = "4095"
+            } else {
+                input3.text = "1023"
+            }
+            strLast.insert(" ", at: strLast.index(strLast.startIndex, offsetBy: 1))
+            let strMore = strLast.split(separator: " ")
+            let strMoreFirst = strMore.first!
+            let strMoreLast = strMore.last!
+            if strMoreFirst == "0" {
+                print("strMoreFirst0: \(strMoreFirst)")
+                termoSwitch.isOn = false
+            } else {
+                print("strMoreFirst8: \(strMoreFirst)")
+                termoSwitch.isOn = true
+            }
+            if strMoreLast == "0" {
+                input4.text = "0"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "1" {
+                input4.text = "1"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "2" {
+                input4.text = "2"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "3" {
+                input4.text = "3"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "4" {
+                input4.text = "4"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "5" {
+                input4.text = "5"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "6" {
+                input4.text = "6"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "7" {
+                input4.text = "7"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "8" {
+                input4.text = "8"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "9" {
+                input4.text = "9"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "a" {
+                input4.text = "10"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "b" {
+                input4.text = "11"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "c" {
+                input4.text = "12"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "d" {
+                input4.text = "13"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "e" {
+                input4.text = "14"
+                prov2 = input4.text!
+            }
+            if strMoreLast == "f" {
+                input4.text = "15"
+                prov2 = input4.text!
+            }
+            
         }
-        if wmMax == "32771" || wmMax == "3" {
-            input4.text = "3"
-            prov2 = input4.text!
-        }
-        if wmMax == "32772" || wmMax == "4" {
-            input4.text = "4"
-            prov2 = input4.text!
-        }
-        if wmMax == "32773" || wmMax == "5" {
-            input4.text = "5"
-            prov2 = input4.text!
-        }
-        if wmMax == "32774" || wmMax == "6" {
-            input4.text = "6"
-            prov2 = input4.text!
-        }
-        if wmMax == "32775" || wmMax == "7" {
-            input4.text = "7"
-            prov2 = input4.text!
-        }
-        if wmMax == "32776" || wmMax == "8" {
-            input4.text = "8"
-            prov2 = input4.text!
-        }
-        if wmMax == "32777" || wmMax == "9" {
-            input4.text = "9"
-            prov2 = input4.text!
-        }
-        if wmMax == "32778" || wmMax == "10" {
-            input4.text = "10"
-            prov2 = input4.text!
-        }
-        if wmMax == "32779" || wmMax == "11" {
-            input4.text = "11"
-            prov2 = input4.text!
-        }
-        if wmMax == "32780"  || wmMax == "12"{
-            input4.text = "12"
-            prov2 = input4.text!
-        }
-        if wmMax == "32781" || wmMax == "13" {
-            input4.text = "13"
-            prov2 = input4.text!
-        }
-        if wmMax == "32782"  || wmMax == "14"{
-            input4.text = "14"
-            prov2 = input4.text!
-        }
-        if wmMax == "32783" || wmMax == "15" {
-            input4.text = "15"
-            prov2 = input4.text!
-        }
+        print(str)
+//        if wmMax == "32768" || wmMax == "0"{
+//            input4.text = "0"
+//            prov2 = input4.text!
+//        }
+//        if wmMax == "32769" || wmMax == "1" {
+//            input4.text = "1"
+//            prov2 = input4.text!
+//        }
+//        if wmMax == "32770" || wmMax == "2"{
+//            input4.text = "2"
+//            prov2 = input4.text!
+//        }
+//        if wmMax == "32771" || wmMax == "3" {
+//            input4.text = "3"
+//            prov2 = input4.text!
+//        }
+//        if wmMax == "32772" || wmMax == "4" {
+//            input4.text = "4"
+//            prov2 = input4.text!
+//        }
+//        if wmMax == "32773" || wmMax == "5" {
+//            input4.text = "5"
+//            prov2 = input4.text!
+//        }
+//        if wmMax == "32774" || wmMax == "6" {
+//            input4.text = "6"
+//            prov2 = input4.text!
+//        }
+//        if wmMax == "32775" || wmMax == "7" {
+//            input4.text = "7"
+//            prov2 = input4.text!
+//        }
+//        if wmMax == "32776" || wmMax == "8" {
+//            input4.text = "8"
+//            prov2 = input4.text!
+//        }
+//        if wmMax == "32777" || wmMax == "9" {
+//            input4.text = "9"
+//            prov2 = input4.text!
+//        }
+//        if wmMax == "32778" || wmMax == "10" {
+//            input4.text = "10"
+//            prov2 = input4.text!
+//        }
+//        if wmMax == "32779" || wmMax == "11" {
+//            input4.text = "11"
+//            prov2 = input4.text!
+//        }
+//        if wmMax == "32780"  || wmMax == "12"{
+//            input4.text = "12"
+//            prov2 = input4.text!
+//        }
+//        if wmMax == "32781" || wmMax == "13" {
+//            input4.text = "13"
+//            prov2 = input4.text!
+//        }
+//        if wmMax == "32782"  || wmMax == "14"{
+//            input4.text = "14"
+//            prov2 = input4.text!
+//        }
+//        if wmMax == "32783" || wmMax == "15" {
+//            input4.text = "15"
+//            prov2 = input4.text!
+//        }
                 input4.placeholder = "\(enterValue)"
                 input4.textColor = UIColor(rgb: 0xE9E9E9)
                 input4.font = UIFont(name:"FuturaPT-Light", size: 18.0)
@@ -309,11 +546,21 @@ class DeviceBleSettingsController: UIViewController {
             let b = (self.input4.text! as NSString).integerValue
             reload = 6
             if self.input3.text == "1023" {
-                wmPar = "\(b)"
+                if self.termoSwitch.isOn == false{
+                    wmPar = "\(b)"
+                } else {
+                    let a = 128 + b
+                    wmPar = "\(a)"
+                }
             }
             if self.input3.text == "4095" {
-                let a = 32768 + b
-                wmPar = "\(a)"
+                if self.termoSwitch.isOn == false{
+                    let a = 32768 + b
+                    wmPar = "\(a)"
+                } else {
+                    let a = 32896 + b
+                    wmPar = "\(a)"
+                }
             }
             self.viewLoad.isHidden = true
             self.viewLoadTwo.isHidden = true
@@ -501,6 +748,22 @@ class DeviceBleSettingsController: UIViewController {
         lbl4.textAlignment = .right
         
         view.addSubview(lbl4)
+        y = y + deltaY
+        let separatorTwo = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth/2 + 40), height: 1))
+        separatorTwo.backgroundColor = UIColor(rgb: 0xCF2121)
+        view.addSubview(separatorTwo)
+        
+        let termoLabel = UILabel(frame: CGRect(x: x, y: y+35, width: Int(screenWidth/2 + 70), height: 20))
+        termoLabel.text = "Отключить термокомпенсацию"
+        termoLabel.textColor = UIColor(rgb: 0xE9E9E9)
+        view.addSubview(termoLabel)
+        
+        termoSwitch.frame = CGRect(x: Int(screenWidth/2+110), y: y+32, width: 30, height: 20)
+        termoSwitch.thumbTintColor = UIColor(rgb: 0xFFFFFF)
+        termoSwitch.onTintColor = UIColor(rgb: 0xCF2121)
+
+        view.addSubview(termoSwitch)
+        
         timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         activityIndicator.startAnimating()
         viewAlpha.addSubview(activityIndicator)

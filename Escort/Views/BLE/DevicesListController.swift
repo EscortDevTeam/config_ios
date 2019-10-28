@@ -1229,7 +1229,11 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                 }
                 if result.contains("WM") {
                     let indexOfPerson = result.firstIndex{$0 == "WM"}
-                    wmMax = "\(result[indexOfPerson! + 2])"                }
+                    wmMax = "\(result[indexOfPerson! + 2])"
+                    if let wmMaxUINt = Int(wmMax) {
+                        wmMaxInt = wmMaxUINt
+                    }
+                }
             }
         }
     }
@@ -1368,9 +1372,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                 while let subview = self.scrollView.subviews.last {
                     subview.removeFromSuperview()
                 }
-
             }
-            
         }
         view.addSubview(bgImage)
         viewAlpha.addSubview(activityIndicator)
