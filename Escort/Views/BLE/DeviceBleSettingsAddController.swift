@@ -153,11 +153,8 @@ class DeviceBleSettingsAddController: UIViewController {
         v.addSubview(lblPrefix)
         
         
-        v.addSubview(lblTitle)
-        v.addSubview(input)
-        scrollView.addSubview(v)
+
         y = y + deltaY
-        
         let btn1 = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth-60), height: 44))
         btn1.backgroundColor = UIColor(rgb: 0xCF2121)
         btn1.layer.cornerRadius = 22
@@ -167,13 +164,16 @@ class DeviceBleSettingsAddController: UIViewController {
         btn1Text.textColor = .white
         btn1Text.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
         btn1Text.textAlignment = .center
-        
-        scrollView.addSubview(btn1)
-        scrollView.addSubview(btn1Text)
-        
+        if passwordHave == false {
+            v.addSubview(lblTitle)
+            v.addSubview(input)
+            scrollView.addSubview(v)
+            scrollView.addSubview(btn1)
+            scrollView.addSubview(btn1Text)
+        }
         btn1.addTapGesture {
             if input.text == "" {
-                mainPassword = "1"
+                mainPassword = "0"
             } else {
                 mainPassword = input.text!
             }
@@ -293,7 +293,7 @@ class DeviceBleSettingsAddController: UIViewController {
         btn3.addTapGesture {
             let textfieldInt: Int? = Int(input1.text!)
             let textfieldIntNothing: Int? = Int(input2.text!)
-            if textfieldInt! >= textfieldIntNothing! {
+            if textfieldInt! > textfieldIntNothing! {
                 reload = 5
                 self.view.addSubview(self.activityIndicator)
                 self.activityIndicator.startAnimating()

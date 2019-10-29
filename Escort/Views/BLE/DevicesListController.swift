@@ -1038,54 +1038,53 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
             }
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         
-                let value = "GD\r"
-                let valueAll = "GA\r"
-                let valueReload = "PR,PW:1:\(mainPassword)\r"
-                let FullReload = "SH,PW:1:\(mainPassword)\r"
-                let NothingReload = "SL,PW:1:\(mainPassword)\r"
-                let sdVal = "SD,HK:1:1024\r"
-                let sdValTwo = "SD,HK:1:\(full)\r"
-                let sdValThree = "SD,LK:1:\(nothing)\r"
-                let sdParam = "SW,WM:1:\(wmPar)\r"
-                let passZero = "SP,PN:1:0\r"
-
-                print("sdValTwo: \(sdValTwo)")
-                print("sdValThree: \(sdValThree)")
-
-                let data = withUnsafeBytes(of: value) { Data($0) }
-                let dataAll = withUnsafeBytes(of: valueAll) { Data($0) }
-                let dataReload = withUnsafeBytes(of: valueReload) { Data($0) }
-                let dataFullReload = withUnsafeBytes(of: FullReload) { Data($0) }
-                let dataNothingReload = withUnsafeBytes(of: NothingReload) { Data($0) }
-                let dataSdVal = withUnsafeBytes(of: sdVal) { Data($0) }
-                let dataSdValTwo = withUnsafeBytes(of: sdValTwo) { Data($0) }
-                let dataSdValThree = withUnsafeBytes(of: sdValThree) { Data($0) }
-                let dataSdParam = withUnsafeBytes(of: sdParam) { Data($0) }
-                let dataPassZero = withUnsafeBytes(of: passZero) { Data($0) }
-
-
-                print("dataSdValThree: \(dataSdValThree)")
-                print("dataSdVal: \(dataSdVal)")
-
-
-                for characteristic in service.characteristics! {
-                        if characteristic.properties.contains(.notify) {
-                            print("Свойство \(characteristic.uuid): .notify")
-                            peripheral.setNotifyValue(true, for: characteristic)
-                        }
-                    }
-                    for characteristic in service.characteristics! {
-                        if characteristic.properties.contains(.write) {
-                            print("Свойство \(characteristic.uuid): .write")
-                            peripheral.writeValue(data, for: characteristic, type: .withResponse)
-                        }
-                    }
-                    for characteristic in service.characteristics! {
-                        if characteristic.properties.contains(.write) {
-                            print("Свойство \(characteristic.uuid): .write")
-                            peripheral.writeValue(dataAll, for: characteristic, type: .withResponse)
-                        }
-                    }
+        let value = "GD\r"
+        let valueAll = "GA\r"
+        let valueReload = "PR,PW:1:\(mainPassword)\r"
+        let FullReload = "SH,PW:1:\(mainPassword)\r"
+        let NothingReload = "SL,PW:1:\(mainPassword)\r"
+        let sdVal = "SD,HK:1:1024\r"
+        let sdValTwo = "SD,HK:1:\(full)\r"
+        let sdValThree = "SD,LK:1:\(nothing),PW:1:\(mainPassword)\r"
+        let sdParam = "SW,WM:1:\(wmPar)"
+        let sdParamYet = ",PW:1:\(mainPassword)\r"
+        let passZero = "SP,PN:1:0\r"
+        
+        print("sdParam: \(sdParam)")
+        print("sdValTwo: \(sdValTwo)")
+        print("sdValThree: \(sdValThree)")
+        
+        let data = withUnsafeBytes(of: value) { Data($0) }
+        let dataAll = withUnsafeBytes(of: valueAll) { Data($0) }
+        let dataReload = withUnsafeBytes(of: valueReload) { Data($0) }
+        let dataFullReload = withUnsafeBytes(of: FullReload) { Data($0) }
+        let dataNothingReload = withUnsafeBytes(of: NothingReload) { Data($0) }
+        let dataSdVal = withUnsafeBytes(of: sdVal) { Data($0) }
+        let dataSdValTwo = withUnsafeBytes(of: sdValTwo) { Data($0) }
+        let dataSdValThree = withUnsafeBytes(of: sdValThree) { Data($0) }
+        let dataSdParam = Data(sdParam.utf8)
+        let dataSdParamYet = withUnsafeBytes(of: sdParamYet) { Data($0) }
+        let dataPassZero = withUnsafeBytes(of: passZero) { Data($0) }
+        
+        
+        for characteristic in service.characteristics! {
+            if characteristic.properties.contains(.notify) {
+                print("Свойство \(characteristic.uuid): .notify")
+                peripheral.setNotifyValue(true, for: characteristic)
+            }
+        }
+        for characteristic in service.characteristics! {
+            if characteristic.properties.contains(.write) {
+                print("Свойство \(characteristic.uuid): .write")
+                peripheral.writeValue(data, for: characteristic, type: .withResponse)
+            }
+        }
+        for characteristic in service.characteristics! {
+            if characteristic.properties.contains(.write) {
+                print("Свойство \(characteristic.uuid): .write")
+                peripheral.writeValue(dataAll, for: characteristic, type: .withResponse)
+            }
+        }
         if zero == 0 {
             for characteristic in service.characteristics! {
                 if characteristic.properties.contains(.write) {
@@ -1097,69 +1096,72 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
             }
         }
         if reload == 1{
-                    for characteristic in service.characteristics! {
-                        if characteristic.properties.contains(.write) {
-                            print("Свойство \(characteristic.uuid): .write")
-                            peripheral.writeValue(dataReload, for: characteristic, type: .withResponse)
-                            reload = 0
-                        }
-                    }
-        }
-        if reload == 2{
-                    for characteristic in service.characteristics! {
-                        if characteristic.properties.contains(.write) {
-                            print("Свойство \(characteristic.uuid): .write")
-                            peripheral.writeValue(dataFullReload, for: characteristic, type: .withResponse)
-                            reload = 0
-                        }
-                    }
-        }
-        if reload == 3{
-                    for characteristic in service.characteristics! {
-                        if characteristic.properties.contains(.write) {
-                            print("Свойство \(characteristic.uuid): .write")
-                            peripheral.writeValue(dataNothingReload, for: characteristic, type: .withResponse)
-                            reload = 0
-                        }
-                    }
-        }
-        if reload == 4{
-                    for characteristic in service.characteristics! {
-                        if characteristic.properties.contains(.write) {
-                            print("Свойство \(characteristic.uuid): .write")
-                            peripheral.writeValue(dataSdVal, for: characteristic, type: .withResponse)
-                            reload = 0
-                        }
-                    }
-        }
-        if reload == 5{
-                    for characteristic in service.characteristics! {
-                        if characteristic.properties.contains(.write) {
-                            print("Свойство \(characteristic.uuid): .write")
-                            peripheral.writeValue(dataSdValTwo, for: characteristic, type: .withResponse)
-                        }
-                    }
             for characteristic in service.characteristics! {
                 if characteristic.properties.contains(.write) {
                     print("Свойство \(characteristic.uuid): .write")
-                    peripheral.writeValue(dataSdValThree, for: characteristic, type: .withResponse)
+                    peripheral.writeValue(dataReload, for: characteristic, type: .withResponse)
                     reload = 0
                 }
             }
+        }
+        if reload == 2{
+            for characteristic in service.characteristics! {
+                if characteristic.properties.contains(.write) {
+                    print("Свойство \(characteristic.uuid): .write")
+                    peripheral.writeValue(dataFullReload, for: characteristic, type: .withResponse)
+                    reload = 0
+                }
+            }
+        }
+        if reload == 3{
+            for characteristic in service.characteristics! {
+                if characteristic.properties.contains(.write) {
+                    print("Свойство \(characteristic.uuid): .write")
+                    peripheral.writeValue(dataNothingReload, for: characteristic, type: .withResponse)
+                    reload = 0
+                }
+            }
+        }
+        if reload == 4{
+            for characteristic in service.characteristics! {
+                if characteristic.properties.contains(.write) {
+                    print("Свойство \(characteristic.uuid): .write")
+                    peripheral.writeValue(dataSdVal, for: characteristic, type: .withResponse)
+                    reload = 0
+                }
+            }
+        }
+        if reload == 5{
+            for characteristic in service.characteristics! {
+                if characteristic.properties.contains(.write) {
+                    print("Свойство \(characteristic.uuid): .write")
+                    peripheral.writeValue(dataSdValTwo, for: characteristic, type: .withResponse)
+                }
+            }
+//            for characteristic in service.characteristics! {
+//                if characteristic.properties.contains(.write) {
+//                    print("Свойство \(characteristic.uuid): .write")
+//                    peripheral.writeValue(dataSdValThree, for: characteristic, type: .withResponse)
+//                    reload = 0
+//                }
+//            }
         }
         if reload == 6{
             for characteristic in service.characteristics! {
                 if characteristic.properties.contains(.write) {
                     print("Свойство \(characteristic.uuid): .write")
-                    peripheral.writeValue(dataSdParam, for: characteristic, type: .withResponse)
+                    peripheral.writeValue(dataSdParam, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataSdParamYet, for: characteristic, type: .withResponse)
+                    print("\(sdParam)")
                     reload = 0
+                    print("dataSdParam: \(dataSdParam)")
+                    print("dataSdParamYet: \(dataSdParamYet)")
                 }
             }
         }
-
     }
     
-
+    
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
     }
     
@@ -1175,7 +1177,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
             let string = String(data: Data(rxByteArray), encoding: .utf8)
             stringAll = stringAll + string!
             let result = stringAll.components(separatedBy: [":",",","\r"])
-            if result.count >= 40 {
+            if result.count >= 35 {
                 print(result)
                 if result.contains("UT") {
                     let indexOfPerson = result.firstIndex{$0 == "UT"}
@@ -1209,15 +1211,15 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                     print(indexOfPerson!)
                     cnt = "\(result[indexOfPerson! + 2])"
                 }
-                    if result.contains("APO") {
-                        passNotif = 0
-                        print("APO 0")
-                    }
-                    if result.contains("WRN") {
-                        passNotif = 1
-                        print("WRN 1")
-
-                    }
+                if result.contains("APO") {
+                    passNotif = 0
+                    print("APO 0")
+                }
+                if result.contains("WRN") {
+                    passNotif = 1
+                    print("WRN 1")
+                    
+                }
                 if result.contains("VV") {
                     let indexOfPerson = result.firstIndex{$0 == "VV"}
                     DeviceBLEC.VV = "\(result[indexOfPerson! + 2])"
@@ -1237,29 +1239,29 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
             }
         }
     }
-        func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
-            if let error = error {
-                print("error: \(error)")
-                return
-            }
-            print("didWriteValueFor \(characteristic.uuid.uuidString)")
-            print(DeviceBLEC.sendData)
-            print("Succeeded!")
-            print(characteristic.properties)
-            print(characteristic.value ?? "не найдено")
+    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
+        if let error = error {
+            print("error: \(error)")
+            return
         }
-        func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-               print(error!)
-            
-        }
+        print("didWriteValueFor \(characteristic.uuid.uuidString)")
+        print(DeviceBLEC.sendData)
+        print("Succeeded!")
+        print(characteristic.properties)
+        print(characteristic.value ?? "не найдено")
+    }
+    func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+        print(error!)
+        
+    }
     private func centralManager(
-      central: CBCentralManager,
-      didDisconnectPeripheral peripheral: CBPeripheral,
-      error: NSError?) {
+        central: CBCentralManager,
+        didDisconnectPeripheral peripheral: CBPeripheral,
+        error: NSError?) {
         scanBLEDevices()
         
     }
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -1269,11 +1271,11 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         viewShow()
         updateLangues(code: code)
     }
-
+    
     var tr = 0
     var container2 = UIView(frame: CGRect(x: 20, y: 50, width: Int(screenWidth-40), height: 70))
     @objc func refresh(sender:AnyObject) {
-
+        
         scanBLEDevices()
         activityIndicator.startAnimating()
         self.view.addSubview(viewAlpha)
@@ -1287,12 +1289,12 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
             self.mainPartShow()
             
         }
-       DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
-           self.refreshControl.endRefreshing()
-        while let subview = self.scrollView.subviews.last {
-            subview.removeFromSuperview()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+            self.refreshControl.endRefreshing()
+            while let subview = self.scrollView.subviews.last {
+                subview.removeFromSuperview()
+            }
         }
-       }
     }
     override func viewDidAppear(_ animated: Bool) {
         searchBar.text = ""

@@ -47,7 +47,7 @@ var valueYes = "Значение успешно откалибровано"
 var fullIfNo = "Значение Полный изменить не удалось"
 var nothingIfNo = "Значение Пустой изменить не удалось"
 var valueNo = "Не удалось откалибровать значение"
-var mainPassword = "1"
+var mainPassword = "0"
 var errorWRN = false
 var failReloud = "Не удалось перезагрузить"
 var ifFull = "Полный должен быть больше Пустой"
@@ -61,6 +61,7 @@ var passNotifStringNo = "На датчике пароль не установл�
 var passNotifStringYes = "На датчике установлен пароль"
 var attention = "Внимание"
 var temp : String?
+var passwordHave = false
 
 let screenWidth = UIScreen.main.bounds.width, screenHeight = UIScreen.main.bounds.height
 let headerHeight = screenWidth * screenHeight / 3500

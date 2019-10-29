@@ -77,13 +77,15 @@ class DeviceBleController: UIViewController {
             timerTrue = 0
             reloadBack = 0
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.5) {
             if countNot == 0 {
                 if passNotif == 1 {
-
+                    passwordHave = true
                     INNotifications.show(type: .danger, data: INNotificationData(title: "\(attention)", description: "\(passNotifStringYes)", image: UIImage(named: "danger"), delay: 5.0, completionHandler: {
                         }
                     ),customStyle: INNotificationStyle(cornerRadius: 10, backgroundColor: .white, titleColor: .black, descriptionColor: .black, imageSize: CGSize(width: 50, height: 50)))
+                } else {
+                    passwordHave = false
                 }
                 countNot = 1
             }
