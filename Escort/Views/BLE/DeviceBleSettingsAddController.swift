@@ -11,9 +11,11 @@ import UIKit
 
 
 class DeviceBleSettingsAddController: UIViewController {
+    let viewAlpha = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.75)
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
@@ -53,7 +55,6 @@ class DeviceBleSettingsAddController: UIViewController {
         input.backgroundColor = .clear
         input.leftViewMode = .always
         input.keyboardType = UIKeyboardType.decimalPad
-        
         if !prefix.isEmpty {
             let lblPrefix = UILabel(frame: CGRect(x: screenWidth-80, y: 10, width: 100, height: 20))
             lblPrefix.text = prefix
@@ -84,12 +85,13 @@ class DeviceBleSettingsAddController: UIViewController {
     //Убираем клавиатуру
 
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
-            let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white)
-            activity.center = view.center
-            activity.hidesWhenStopped = true
-            activity.startAnimating()
-            return activity
-        }()
+        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white)
+        activity.center = view.center
+        activity.transform = CGAffineTransform(scaleX: 2, y: 2)
+        activity.hidesWhenStopped = true
+        activity.startAnimating()
+        return activity
+    }()
     private func viewShow() {
         view.subviews.forEach({ $0.removeFromSuperview() })
         view.backgroundColor = UIColor(rgb: 0x1F2222)
@@ -134,7 +136,8 @@ class DeviceBleSettingsAddController: UIViewController {
         lblTitle.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
         
         let input = UITextField(frame: CGRect(x: 120, y: 0, width: Int(screenWidth/2-30), height: 40))
-        input.text = ""
+        input.text = "\(mainPassword)"
+        input.isSecureTextEntry = true
         input.attributedPlaceholder = NSAttributedString(string: "\(enterValue)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         input.textColor = UIColor(rgb: 0xE9E9E9)
         input.font = UIFont(name:"FuturaPT-Light", size: 18.0)
@@ -145,6 +148,13 @@ class DeviceBleSettingsAddController: UIViewController {
         input.backgroundColor = .clear
         input.leftViewMode = .always
         input.keyboardType = UIKeyboardType.decimalPad
+        v.addSubview(lblTitle)
+        v.addSubview(input)
+        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            guard let text = input.text else { return true }
+            let newLength = text.count + string.count - range.length
+            return newLength <= 10
+        }
         
         let lblPrefix = UILabel(frame: CGRect(x: screenWidth-80, y: 10, width: 100, height: 20))
         lblPrefix.text = ""
@@ -164,31 +174,210 @@ class DeviceBleSettingsAddController: UIViewController {
         btn1Text.textColor = .white
         btn1Text.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
         btn1Text.textAlignment = .center
+        
+        let btn1TruePass = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth/2-60), height: 44))
+        btn1TruePass.backgroundColor = UIColor(rgb: 0xCF2121)
+        btn1TruePass.layer.cornerRadius = 22
+        
+        let btn1TextTruePass = UILabel(frame: CGRect(x: x, y: y, width: Int(screenWidth/2-60), height: 44))
+        btn1TextTruePass.text = "Ввести"
+        btn1TextTruePass.textColor = .white
+        btn1TextTruePass.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
+        btn1TextTruePass.textAlignment = .center
+        
+        let btnTruePassDelete = UIView(frame: CGRect(x: Int(screenWidth/2) + x, y: y, width: Int(screenWidth/2-60), height: 44))
+        btnTruePassDelete.backgroundColor = UIColor(rgb: 0xCF2121)
+        btnTruePassDelete.layer.cornerRadius = 22
+        
+        let btnTextTruePassDelete = UILabel(frame: CGRect(x: Int(screenWidth/2) + x, y: y, width: Int(screenWidth/2-60), height: 44))
+        btnTextTruePassDelete.text = "Удалить"
+        btnTextTruePassDelete.textColor = .white
+        btnTextTruePassDelete.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
+        btnTextTruePassDelete.textAlignment = .center
         if passwordHave == false {
-            v.addSubview(lblTitle)
-            v.addSubview(input)
             scrollView.addSubview(v)
             scrollView.addSubview(btn1)
             scrollView.addSubview(btn1Text)
+        } else {
+            scrollView.addSubview(v)
+            scrollView.addSubview(btn1TruePass)
+            scrollView.addSubview(btn1TextTruePass)
+            scrollView.addSubview(btnTruePassDelete)
+            scrollView.addSubview(btnTextTruePassDelete)
+        }
+        btn1TruePass.addTapGesture {
+            if let it: Int = Int(input.text!) {
+                mainPassword = "\(it)"
+                reload = 9
+                self.activityIndicator.startAnimating()
+                self.viewAlpha.addSubview(self.activityIndicator)
+                self.view.addSubview(self.viewAlpha)
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                self.view.isUserInteractionEnabled = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
+                    self.view.isUserInteractionEnabled = true
+                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                    self.viewAlpha.removeFromSuperview()
+                    if passwordSuccess == true {
+                        let alert = UIAlertController(title: "Успешно", message: "Пароль введен правильно", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                            switch action.style{
+                            case .default:
+                                print("default")
+                                self.scrollView.removeFromSuperview()
+                                v.removeFromSuperview()
+                                btn1TruePass.removeFromSuperview()
+                                btn1TextTruePass.removeFromSuperview()
+                                btnTruePassDelete.removeFromSuperview()
+                                btnTextTruePassDelete.removeFromSuperview()
+                                self.view.subviews.forEach({ $0.removeFromSuperview() })
+                                self.viewShow()
+                            case .cancel:
+                                print("cancel")
+                                
+                            case .destructive:
+                                print("destructive")
+                            }}))
+                        self.present(alert, animated: true, completion: nil)
+                    } else {
+                        let alert = UIAlertController(title: "Ошибка", message: "Неверный пароль", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                            switch action.style{
+                            case .default:
+                                print("default")
+                            case .cancel:
+                                print("cancel")
+                                
+                            case .destructive:
+                                print("destructive")
+                            }}))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                }
+            } else {
+                let alert = UIAlertController(title: "Пароль некоректен", message: "Пароль может содержать только цифры", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    switch action.style{
+                    case .default:
+                        print("default")
+                    case .cancel:
+                        print("cancel")
+                    case .destructive:
+                        print("destructive")
+                    }}))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+        btnTruePassDelete.addTapGesture {
+            if let it: Int = Int(input.text!) {
+                mainPassword = "\(it)"
+                reload = 7
+                self.activityIndicator.startAnimating()
+                self.viewAlpha.addSubview(self.activityIndicator)
+                self.view.addSubview(self.viewAlpha)
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                self.view.isUserInteractionEnabled = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
+                    self.view.isUserInteractionEnabled = true
+                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                    self.viewAlpha.removeFromSuperview()
+                    if passwordSuccess == true {
+                        passwordHave = false
+                        mainPassword = ""
+                        let alert = UIAlertController(title: "Успешно", message: "Пароль с устройства удален", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                            switch action.style{
+                            case .default:
+                                print("default")
+                                self.scrollView.removeFromSuperview()
+                                v.removeFromSuperview()
+                                btn1TruePass.removeFromSuperview()
+                                btn1TextTruePass.removeFromSuperview()
+                                btnTruePassDelete.removeFromSuperview()
+                                btnTextTruePassDelete.removeFromSuperview()
+                                self.view.subviews.forEach({ $0.removeFromSuperview() })
+                                self.viewShow()
+                            case .cancel:
+                                print("cancel")
+                                
+                            case .destructive:
+                                print("destructive")
+                            }}))
+                        self.present(alert, animated: true, completion: nil)
+                    } else {
+                        let alert = UIAlertController(title: "Ошибка", message: "Неверный пароль", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                            switch action.style{
+                            case .default:
+                                print("default")
+                            case .cancel:
+                                print("cancel")
+                            case .destructive:
+                                print("destructive")
+                            }}))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                }
+            } else {
+                let alert = UIAlertController(title: "Пароль некоректен", message: "Пароль может содержать только цифры", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    switch action.style{
+                    case .default:
+                        print("default")
+                    case .cancel:
+                        print("cancel")
+                    case .destructive:
+                        print("destructive")
+                    }}))
+                self.present(alert, animated: true, completion: nil)
+            }
         }
         btn1.addTapGesture {
-            if input.text == "" {
-                mainPassword = "0"
+            if let it: Int = Int(input.text!) {
+                reload = 8
+                mainPassword = "\(it)"
+                self.activityIndicator.startAnimating()
+                self.viewAlpha.addSubview(self.activityIndicator)
+                self.view.addSubview(self.viewAlpha)
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                self.view.isUserInteractionEnabled = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
+                    self.view.isUserInteractionEnabled = true
+                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                    self.viewAlpha.removeFromSuperview()
+                    passwordHave = true
+                    let alert = UIAlertController(title: "Пароль записан", message: "Пароль записан на текущее BLE устройство", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                        switch action.style{
+                        case .default:
+                            print("default")
+                            self.scrollView.removeFromSuperview()
+                            v.removeFromSuperview()
+                            btn1.removeFromSuperview()
+                            btn1Text.removeFromSuperview()
+                            self.view.subviews.forEach({ $0.removeFromSuperview() })
+                            self.viewShow()
+                        case .cancel:
+                            print("cancel")
+                            
+                        case .destructive:
+                            print("destructive")
+                        }}))
+                    self.present(alert, animated: true, completion: nil)
+                }
             } else {
-                mainPassword = input.text!
+                let alert = UIAlertController(title: "Пароль некоректен", message: "Пароль может содержать только цифры", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    switch action.style{
+                    case .default:
+                        print("default")
+                    case .cancel:
+                        print("cancel")
+                    case .destructive:
+                        print("destructive")
+                    }}))
+                self.present(alert, animated: true, completion: nil)
             }
-            let alert = UIAlertController(title: "Пароль записан", message: "Пароль записан на текущую сессию", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                switch action.style{
-                case .default:
-                    print("default")
-                case .cancel:
-                    print("cancel")
-                    
-                case .destructive:
-                    print("destructive")
-                }}))
-            self.present(alert, animated: true, completion: nil)
         }
         
         y = y + deltaY + deltaYLite
@@ -294,33 +483,96 @@ class DeviceBleSettingsAddController: UIViewController {
             let textfieldInt: Int? = Int(input1.text!)
             let textfieldIntNothing: Int? = Int(input2.text!)
             if textfieldInt! > textfieldIntNothing! {
-                reload = 5
-                self.view.addSubview(self.activityIndicator)
-                self.activityIndicator.startAnimating()
-                self.view.isUserInteractionEnabled = false
-                full = input1.text!
-                nothing = input2.text!
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                    self.view.isUserInteractionEnabled = true
-                    self.activityIndicator.stopAnimating()
-                    if errorWRN == false {
-                        let alert = UIAlertController(title: "Данные успешно изменены", message: "", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                            switch action.style{
-                            case .default:
-                                print("default")
-                                self.navigationController?.popViewController(animated: true)
-                            case .cancel:
-                                print("cancel")
-                                
-                            case .destructive:
-                                print("destructive")
-                                
-                                
-                            }}))
-                        self.present(alert, animated: true, completion: nil)
+                if passwordHave == false {
+                    reload = 5
+                    self.view.addSubview(self.activityIndicator)
+                    self.activityIndicator.startAnimating()
+                    self.view.isUserInteractionEnabled = false
+                    full = input1.text!
+                    nothing = input2.text!
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                        self.view.isUserInteractionEnabled = true
+                        self.activityIndicator.stopAnimating()
+                        if errorWRN == false {
+                            let alert = UIAlertController(title: "Успешно", message: "Данные успешно изменены", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                                switch action.style{
+                                case .default:
+                                    print("default")
+                                    self.navigationController?.popViewController(animated: true)
+                                case .cancel:
+                                    print("cancel")
+                                    
+                                case .destructive:
+                                    print("destructive")
+                                    
+                                    
+                                }}))
+                            self.present(alert, animated: true, completion: nil)
+                        } else {
+                            let alert = UIAlertController(title: "Ошибка", message: "Не удалось изменить данные", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                                switch action.style{
+                                case .default:
+                                    print("default")
+                                    self.navigationController?.popViewController(animated: true)
+                                case .cancel:
+                                    print("cancel")
+                                    
+                                case .destructive:
+                                    print("destructive")
+                                    
+                                    
+                                }}))
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                        
                     }
-                    
+                } else {
+                    reload = 10
+                    self.view.addSubview(self.activityIndicator)
+                    self.activityIndicator.startAnimating()
+                    self.view.isUserInteractionEnabled = false
+                    full = input1.text!
+                    nothing = input2.text!
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                        self.view.isUserInteractionEnabled = true
+                        self.activityIndicator.stopAnimating()
+                        if errorWRN == false {
+                            let alert = UIAlertController(title: "Успешно", message: "Данные успешно изменены", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                                switch action.style{
+                                case .default:
+                                    print("default")
+                                    self.navigationController?.popViewController(animated: true)
+                                case .cancel:
+                                    print("cancel")
+                                    
+                                case .destructive:
+                                    print("destructive")
+                                    
+                                    
+                                }}))
+                            self.present(alert, animated: true, completion: nil)
+                        } else {
+                            let alert = UIAlertController(title: "Ошибка", message: "Не удалось изменить данные", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                                switch action.style{
+                                case .default:
+                                    print("default")
+                                    self.navigationController?.popViewController(animated: true)
+                                case .cancel:
+                                    print("cancel")
+                                    
+                                case .destructive:
+                                    print("destructive")
+                                    
+                                    
+                                }}))
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                        
+                    }
                 }
             } else {
                 let alert = UIAlertController(title: "\(ifFull)", message: "", preferredStyle: .alert)

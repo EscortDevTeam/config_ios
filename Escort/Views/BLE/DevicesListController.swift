@@ -1044,15 +1044,19 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         let FullReload = "SH,PW:1:\(mainPassword)\r"
         let NothingReload = "SL,PW:1:\(mainPassword)\r"
         let sdVal = "SD,HK:1:1024\r"
-        let sdValTwo = "SD,HK:1:\(full)\r"
-        let sdValThree = "SD,LK:1:\(nothing),PW:1:\(mainPassword)\r"
+        let sdValTwo = "SD,HK:1:\(full)"
+        let sdValThree = "SD,LK:1:\(nothing)"
         let sdParam = "SW,WM:1:\(wmPar)"
         let sdParamYet = ",PW:1:\(mainPassword)\r"
         let passZero = "SP,PN:1:0\r"
+        let passDelete = "SP,PN:1:0"
+        let passInstall = "SP,PN:1:\(mainPassword)\r"
+        let enterPass = "SP,PN:1:\(mainPassword)"
+        let r = "\r"
         
         print("sdParam: \(sdParam)")
         print("sdValTwo: \(sdValTwo)")
-        print("sdValThree: \(sdValThree)")
+        print("passInstall: \(passInstall)")
         
         let data = withUnsafeBytes(of: value) { Data($0) }
         let dataAll = withUnsafeBytes(of: valueAll) { Data($0) }
@@ -1060,23 +1064,21 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         let dataFullReload = withUnsafeBytes(of: FullReload) { Data($0) }
         let dataNothingReload = withUnsafeBytes(of: NothingReload) { Data($0) }
         let dataSdVal = withUnsafeBytes(of: sdVal) { Data($0) }
-        let dataSdValTwo = withUnsafeBytes(of: sdValTwo) { Data($0) }
-        let dataSdValThree = withUnsafeBytes(of: sdValThree) { Data($0) }
+        let dataSdValTwo = Data(sdValTwo.utf8)
+        let dataSdValThree = Data(sdValThree.utf8)
         let dataSdParam = Data(sdParam.utf8)
         let dataSdParamYet = withUnsafeBytes(of: sdParamYet) { Data($0) }
         let dataPassZero = withUnsafeBytes(of: passZero) { Data($0) }
-        
+        let dataPassDelete = Data(passDelete.utf8)
+        let dataPassInstall = Data(passInstall.utf8)
+        let dataPassEnter = Data(enterPass.utf8)
+        let dataR = Data(r.utf8)
+
         
         for characteristic in service.characteristics! {
             if characteristic.properties.contains(.notify) {
                 print("Свойство \(characteristic.uuid): .notify")
                 peripheral.setNotifyValue(true, for: characteristic)
-            }
-        }
-        for characteristic in service.characteristics! {
-            if characteristic.properties.contains(.write) {
-                print("Свойство \(characteristic.uuid): .write")
-                peripheral.writeValue(data, for: characteristic, type: .withResponse)
             }
         }
         for characteristic in service.characteristics! {
@@ -1135,16 +1137,27 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
             for characteristic in service.characteristics! {
                 if characteristic.properties.contains(.write) {
                     print("Свойство \(characteristic.uuid): .write")
-                    peripheral.writeValue(dataSdValTwo, for: characteristic, type: .withResponse)
+                    peripheral.writeValue(dataSdValTwo, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataR, for: characteristic, type: .withResponse)
+                    peripheral.writeValue(dataSdValThree, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataR, for: characteristic, type: .withResponse)
+
+                    reload = 0
                 }
             }
-//            for characteristic in service.characteristics! {
-//                if characteristic.properties.contains(.write) {
-//                    print("Свойство \(characteristic.uuid): .write")
-//                    peripheral.writeValue(dataSdValThree, for: characteristic, type: .withResponse)
-//                    reload = 0
-//                }
-//            }
+        }
+        if reload == 10{
+            for characteristic in service.characteristics! {
+                if characteristic.properties.contains(.write) {
+                    print("Свойство \(characteristic.uuid): .write")
+                    peripheral.writeValue(dataSdValTwo, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataSdParamYet, for: characteristic, type: .withResponse)
+                    peripheral.writeValue(dataSdValThree, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataSdParamYet, for: characteristic, type: .withResponse)
+
+                    reload = 0
+                }
+            }
         }
         if reload == 6{
             for characteristic in service.characteristics! {
@@ -1156,6 +1169,35 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                     reload = 0
                     print("dataSdParam: \(dataSdParam)")
                     print("dataSdParamYet: \(dataSdParamYet)")
+                }
+            }
+        }
+        if reload == 7{
+            for characteristic in service.characteristics! {
+                if characteristic.properties.contains(.write) {
+                    print("Свойство \(characteristic.uuid): .write")
+                    peripheral.writeValue(dataPassDelete, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataSdParamYet, for: characteristic, type: .withResponse)
+                    reload = 0
+                }
+            }
+        }
+        if reload == 8{
+            for characteristic in service.characteristics! {
+                if characteristic.properties.contains(.write) {
+                    print("Свойство \(characteristic.uuid): .write")
+                    peripheral.writeValue(dataPassInstall, for: characteristic, type: .withResponse)
+                    reload = 0
+                }
+            }
+        }
+        if reload == 9{
+            for characteristic in service.characteristics! {
+                if characteristic.properties.contains(.write) {
+                    print("Свойство \(characteristic.uuid): .write")
+                    peripheral.writeValue(dataPassEnter, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataSdParamYet, for: characteristic, type: .withResponse)
+                    reload = 0
                 }
             }
         }
@@ -1213,10 +1255,18 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                 }
                 if result.contains("APO") {
                     passNotif = 0
+                    passwordSuccess = true
                     print("APO 0")
+                }
+                if result.contains("ADO") {
+                    passNotif = 0
+                    passwordSuccess = true
+                    errorWRN = false
+                    print("ADO 0")
                 }
                 if result.contains("WRN") {
                     passNotif = 1
+                    passwordSuccess = false
                     print("WRN 1")
                     
                 }
@@ -1231,9 +1281,11 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                 }
                 if result.contains("WM") {
                     let indexOfPerson = result.firstIndex{$0 == "WM"}
-                    wmMax = "\(result[indexOfPerson! + 2])"
-                    if let wmMaxUINt = Int(wmMax) {
-                        wmMaxInt = wmMaxUINt
+                    if result.count >= indexOfPerson!+2{
+                        wmMax = "\(result[indexOfPerson! + 2])"
+                        if let wmMaxUINt = Int(wmMax) {
+                            wmMaxInt = wmMaxUINt
+                        }
                     }
                 }
             }
@@ -1298,6 +1350,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
     }
     override func viewDidAppear(_ animated: Bool) {
         searchBar.text = ""
+        mainPassword = ""
         searchBarCancelButtonClicked(searchBar)
         self.searchBar.endEditing(true)
         self.view.isUserInteractionEnabled = true
