@@ -44,7 +44,6 @@ class DeviceBleSettingsAddController: UIViewController {
         
         let input = UITextField(frame: CGRect(x: 120, y: 0, width: Int(screenWidth/2-30), height: 40))
         input.text = text
-
         input.placeholder = "\(enterValue)"
         input.textColor = UIColor(rgb: 0xE9E9E9)
         input.font = UIFont(name:"FuturaPT-Light", size: 18.0)
@@ -92,6 +91,17 @@ class DeviceBleSettingsAddController: UIViewController {
         activity.startAnimating()
         return activity
     }()
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        print(textField.text!)
+        checkMaxLength(textField: textField, maxLength: 10)
+
+    }
+    let limitLength = 10
+    func checkMaxLength(textField: UITextField!, maxLength: Int) {
+        if textField.text!.count > maxLength {
+            textField.deleteBackward()
+        }
+    }
     private func viewShow() {
         view.subviews.forEach({ $0.removeFromSuperview() })
         view.backgroundColor = UIColor(rgb: 0x1F2222)
@@ -138,6 +148,8 @@ class DeviceBleSettingsAddController: UIViewController {
         let input = UITextField(frame: CGRect(x: 120, y: 0, width: Int(screenWidth/2-30), height: 40))
         input.text = "\(mainPassword)"
         input.isSecureTextEntry = true
+        checkMaxLength(textField: input, maxLength: 10)
+        input.addTarget(self, action: #selector(DeviceBleSettingsAddController.textFieldDidChange(_:)),for: UIControl.Event.editingChanged)
         input.attributedPlaceholder = NSAttributedString(string: "\(enterValue)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         input.textColor = UIColor(rgb: 0xE9E9E9)
         input.font = UIFont(name:"FuturaPT-Light", size: 18.0)
@@ -150,11 +162,6 @@ class DeviceBleSettingsAddController: UIViewController {
         input.keyboardType = UIKeyboardType.decimalPad
         v.addSubview(lblTitle)
         v.addSubview(input)
-        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-            guard let text = input.text else { return true }
-            let newLength = text.count + string.count - range.length
-            return newLength <= 10
-        }
         
         let lblPrefix = UILabel(frame: CGRect(x: screenWidth-80, y: 10, width: 100, height: 20))
         lblPrefix.text = ""

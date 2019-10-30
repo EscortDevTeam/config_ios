@@ -347,7 +347,12 @@ class DeviceBleController: UIViewController {
             item = 0
         }
         let lbl4 = UILabel(frame: CGRect(x: x, y: y + Int(screenHeight/6)+20, width: Int(screenWidth), height: 60))
-        if item == 0 {
+        let cntMain1: Int = Int(cnt1)!
+        cnt1 = cnt2
+        let cntMain2: Int = Int(cnt2)!
+        let abc:Double = Double(abs(cntMain1-cntMain2))/Double(cntMain1/100)
+        print("abc: \(abc)")
+        if abc > 1 {
             itemColor = 0
             lbl4.text = "\(statusDeviceNO)"
             statusDeviceY = statusDeviceNO

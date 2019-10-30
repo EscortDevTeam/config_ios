@@ -15,6 +15,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         updateLangues(code: code)
         viewShow()
     }
+    
     let viewAlpha = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
     let searchBar = UISearchBar(frame: CGRect(x: 0, y: headerHeight, width: screenWidth, height: 35))
     var refreshControl = UIRefreshControl()
@@ -31,7 +32,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
     let DeviceBLEC = DeviceBleController()
     var timer = Timer()
     var stringAll: String = ""
-    
+    var iter = false
     var parsedData:[String : AnyObject] = [:]
 
     
@@ -1046,13 +1047,16 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         let sdVal = "SD,HK:1:1024\r"
         let sdValTwo = "SD,HK:1:\(full)"
         let sdValThree = "SD,LK:1:\(nothing)"
-        let sdParam = "SW,WM:1:\(wmPar)"
-        let sdParamYet = ",PW:1:\(mainPassword)\r"
+        let sdValTwo1 = "SD,HK:1:\(full),"
+        let sdValThree1 = "SD,LK:1:\(nothing),"
+        let sdParam = "SW,WM:1:\(wmPar),"
+        let sdParamYet = "PW:1:\(mainPassword)"
         let passZero = "SP,PN:1:0\r"
-        let passDelete = "SP,PN:1:0"
+        let passDelete = "SP,PN:1:0,"
         let passInstall = "SP,PN:1:\(mainPassword)\r"
-        let enterPass = "SP,PN:1:\(mainPassword)"
+        let enterPass = "SP,PN:1:\(mainPassword),"
         let r = "\r"
+        let passw  = "\(mainPassword)"
         
         print("sdParam: \(sdParam)")
         print("sdValTwo: \(sdValTwo)")
@@ -1066,6 +1070,8 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         let dataSdVal = withUnsafeBytes(of: sdVal) { Data($0) }
         let dataSdValTwo = Data(sdValTwo.utf8)
         let dataSdValThree = Data(sdValThree.utf8)
+        let dataSdValTwo1 = Data(sdValTwo1.utf8)
+        let dataSdValThree1 = Data(sdValThree1.utf8)
         let dataSdParam = Data(sdParam.utf8)
         let dataSdParamYet = withUnsafeBytes(of: sdParamYet) { Data($0) }
         let dataPassZero = withUnsafeBytes(of: passZero) { Data($0) }
@@ -1073,6 +1079,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         let dataPassInstall = Data(passInstall.utf8)
         let dataPassEnter = Data(enterPass.utf8)
         let dataR = Data(r.utf8)
+        let dataPassw = Data(passw.utf8)
 
         
         for characteristic in service.characteristics! {
@@ -1150,10 +1157,12 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
             for characteristic in service.characteristics! {
                 if characteristic.properties.contains(.write) {
                     print("Свойство \(characteristic.uuid): .write")
-                    peripheral.writeValue(dataSdValTwo, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataSdValTwo1, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataSdParamYet, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataR, for: characteristic, type: .withResponse)
+                    peripheral.writeValue(dataSdValThree1, for: characteristic, type: .withoutResponse)
                     peripheral.writeValue(dataSdParamYet, for: characteristic, type: .withResponse)
-                    peripheral.writeValue(dataSdValThree, for: characteristic, type: .withoutResponse)
-                    peripheral.writeValue(dataSdParamYet, for: characteristic, type: .withResponse)
+                    peripheral.writeValue(dataR, for: characteristic, type: .withResponse)
 
                     reload = 0
                 }
@@ -1164,7 +1173,8 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                 if characteristic.properties.contains(.write) {
                     print("Свойство \(characteristic.uuid): .write")
                     peripheral.writeValue(dataSdParam, for: characteristic, type: .withoutResponse)
-                    peripheral.writeValue(dataSdParamYet, for: characteristic, type: .withResponse)
+                    peripheral.writeValue(dataSdParamYet, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataR, for: characteristic, type: .withResponse)
                     print("\(sdParam)")
                     reload = 0
                     print("dataSdParam: \(dataSdParam)")
@@ -1177,7 +1187,9 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                 if characteristic.properties.contains(.write) {
                     print("Свойство \(characteristic.uuid): .write")
                     peripheral.writeValue(dataPassDelete, for: characteristic, type: .withoutResponse)
-                    peripheral.writeValue(dataSdParamYet, for: characteristic, type: .withResponse)
+                    peripheral.writeValue(dataSdParamYet, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataR, for: characteristic, type: .withResponse)
+
                     reload = 0
                 }
             }
@@ -1196,7 +1208,9 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                 if characteristic.properties.contains(.write) {
                     print("Свойство \(characteristic.uuid): .write")
                     peripheral.writeValue(dataPassEnter, for: characteristic, type: .withoutResponse)
-                    peripheral.writeValue(dataSdParamYet, for: characteristic, type: .withResponse)
+                    peripheral.writeValue(dataSdParamYet, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataR, for: characteristic, type: .withResponse)
+
                     reload = 0
                 }
             }
@@ -1252,6 +1266,12 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                     let indexOfPerson = result.firstIndex{$0 == "US"}
                     print(indexOfPerson!)
                     cnt = "\(result[indexOfPerson! + 2])"
+                    if iter == false {
+                        cnt1 = result[indexOfPerson! + 2]
+                        iter = true
+                    } else {
+                        cnt2 = result[indexOfPerson! + 2]
+                    }
                 }
                 if result.contains("APO") {
                     passNotif = 0

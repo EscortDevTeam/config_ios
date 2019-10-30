@@ -11,6 +11,8 @@ import UIKit
 var full = "-----"
 var nothing = "-----"
 var cnt = "-----"
+var cnt1 = "0"
+var cnt2 = "2000"
 var prov = ""
 var prov2 = ""
 var police = false
@@ -18,7 +20,7 @@ var police = false
 class DeviceBleSettingsController: UIViewController {
     
     let viewLoad = UIView(frame:CGRect(x: 30, y: headerHeight + 325, width: 200, height: 40))
-    let viewLoadTwo = UIView(frame:CGRect(x: 30, y: headerHeight + 415, width: 200, height: 40))
+    let viewLoadTwo = UIView(frame:CGRect(x: 30, y: headerHeight + 415, width: 300, height: 40))
     let viewAlpha = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
     let termoSwitch = UISwitch()
     let uPicker = UIPickerView()
@@ -32,6 +34,7 @@ class DeviceBleSettingsController: UIViewController {
     var check4 = UIImageView(image: UIImage(named: "check-red.png")!)
     var check3 = UIImageView(image: UIImage(named: "check-red.png")!)
     var lbl3 = UILabel()
+    var lbl4 = UILabel()
     var lbl1 = UILabel()
     var lbl2 = UILabel()
     var timer = Timer()
@@ -736,18 +739,9 @@ class DeviceBleSettingsController: UIViewController {
         lbl3.textColor = UIColor(rgb: 0xE9E9E9)
         lbl3.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
         
-        let lbl4 = UILabel(frame: CGRect(x: x, y: y, width: Int(screenWidth)-70, height: 20))
-        lbl4.text = "\(statusDeviceY)"
-        if itemColor == 0 {
-            lbl4.textColor = UIColor(rgb: 0xCF2121)
-        } else {
-            lbl4.textColor = UIColor(rgb: 0x00A778)
-
-        }
+        lbl4 = UILabel(frame: CGRect(x: Int(screenWidth/2+20), y: 0, width: Int(screenWidth/3), height: 20))
         lbl4.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
-        lbl4.textAlignment = .right
-        
-        view.addSubview(lbl4)
+//        lbl4.textAlignment = .right
         y = y + deltaY
         let separatorTwo = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth/2 + 40), height: 1))
         separatorTwo.backgroundColor = UIColor(rgb: 0xCF2121)
@@ -779,15 +773,21 @@ class DeviceBleSettingsController: UIViewController {
     }
     
     @objc func timerAction(){
-        viewShowParametrs(lbl1: lbl1, lbl2: lbl2, lbl3: lbl3, y: Int(headerHeight + 415))
+        viewShowParametrs(lbl1: lbl1, lbl2: lbl2, lbl3: lbl3, lbl4: lbl4, y: Int(headerHeight + 415))
     }
     
 
 
-    func viewShowParametrs(lbl1: UILabel,lbl2: UILabel,lbl3: UILabel, y: Int) {
+    func viewShowParametrs(lbl1: UILabel,lbl2: UILabel,lbl3: UILabel, lbl4: UILabel, y: Int) {
         lbl3.text = "CNT          \(cnt)"
         lbl1.text = "\(nothing)"
         lbl2.text = "\(full)"
+        lbl4.text = "\(statusDeviceY)"
+        if itemColor == 0 {
+            lbl4.textColor = UIColor(rgb: 0xCF2121)
+        } else {
+            lbl4.textColor = UIColor(rgb: 0x00A778)
+        }
         viewLoad.removeFromSuperview()
         viewLoadTwo.removeFromSuperview()
         if police == false {
@@ -799,6 +799,8 @@ class DeviceBleSettingsController: UIViewController {
         viewLoad.addSubview(lbl1)
         viewLoad.addSubview(lbl2)
         viewLoadTwo.addSubview(lbl3)
+        viewLoadTwo.addSubview(lbl4)
+
     }
 }
 
