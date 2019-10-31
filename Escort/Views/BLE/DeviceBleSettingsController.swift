@@ -266,7 +266,7 @@ class DeviceBleSettingsController: UIViewController {
             let str1 = str.split(separator: " ")
             let strFirst = str1.first!
             let strMoreLast = str1.last!
-            print("\(strFirst) - first; \(strMoreLast) = last")
+            input3.text = "1023"
             if strFirst == "0" {
                 print("strMoreFirst0: \(strFirst)")
                 termoSwitch.isOn = false
@@ -340,7 +340,7 @@ class DeviceBleSettingsController: UIViewController {
             }
 
         }
-        if str.count > 2 {
+        if str.count > 3 {
             str.insert(" ", at: str.index(str.startIndex, offsetBy: 2))
             let str1 = str.split(separator: " ")
             let strFirst = str1.first!

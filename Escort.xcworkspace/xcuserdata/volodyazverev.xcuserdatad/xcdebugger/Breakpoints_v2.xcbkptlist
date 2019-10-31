@@ -12,6 +12,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Escort/Views/DeviceSelectController.swift"
+            timestampString = "0"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "27"
@@ -28,6 +29,7 @@
                   moduleName = "Escort"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/volodyazverev/Documents/%D0%AD%D1%81%D0%BA%D0%BE%D1%80%D1%82/Escort/Escort/Views/DeviceSelectController.swift"
+                  timestampString = "0"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "27"
@@ -43,6 +45,7 @@
                   moduleName = "Escort"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/volodyazverev/Documents/%D0%AD%D1%81%D0%BA%D0%BE%D1%80%D1%82/Escort/Escort/Views/DeviceSelectController.swift"
+                  timestampString = "0"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "27"
@@ -58,6 +61,7 @@
                   moduleName = "Escort"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/volodyazverev/Documents/%D0%AD%D1%81%D0%BA%D0%BE%D1%80%D1%82/Escort/Escort/Views/DeviceSelectController.swift"
+                  timestampString = "0"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "27"
@@ -73,6 +77,7 @@
                   moduleName = "Escort"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/volodyazverev/Documents/%D0%AD%D1%81%D0%BA%D0%BE%D1%80%D1%82/Escort/Escort/Views/DeviceSelectController.swift"
+                  timestampString = "0"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "27"
@@ -90,6 +95,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Escort/Views/DeviceBleSettingsController.swift"
+            timestampString = "0"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "461"
@@ -106,6 +112,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Escort/Views/DeviceBleController.swift"
+            timestampString = "0"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "63"
@@ -122,11 +129,63 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Escort/Views/BLE/DevicesListController.swift"
+            timestampString = "0"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1233"
             endingLineNumber = "1233"
             landmarkName = "peripheral(_:didUpdateValueFor:error:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1C47B9B8-1E3B-4F6A-9D5B-662EC73C437D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Escort/Views/BLE/DeviceBleSettingsController.swift"
+            timestampString = "0"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "343"
+            endingLineNumber = "343"
+            landmarkName = "viewShow()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C74BBA63-3EFC-4112-B6BF-FCBB1CA2657A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Escort/Views/BLE/DeviceBleSettingsController.swift"
+            timestampString = "0"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "264"
+            endingLineNumber = "264"
+            landmarkName = "viewShow()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "328E1793-94B2-4570-9E19-D536264A1999"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Escort/Views/BLE/DeviceBleSettingsController.swift"
+            timestampString = "0"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "198"
+            endingLineNumber = "198"
+            landmarkName = "viewShow()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
