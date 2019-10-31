@@ -12,7 +12,8 @@ import UIKit
 
 class DeviceBleSettingsAddController: UIViewController {
     let viewAlpha = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
-
+    var input1 = UITextField()
+    var input2 = UITextField()
     override func viewDidLoad() {
         super.viewDidLoad()
         viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.75)
@@ -96,7 +97,6 @@ class DeviceBleSettingsAddController: UIViewController {
         checkMaxLength(textField: textField, maxLength: 10)
 
     }
-    let limitLength = 10
     func checkMaxLength(textField: UITextField!, maxLength: Int) {
         if textField.text!.count > maxLength {
             textField.deleteBackward()
@@ -226,6 +226,8 @@ class DeviceBleSettingsAddController: UIViewController {
                     self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
                     self.viewAlpha.removeFromSuperview()
                     if passwordSuccess == true {
+                        self.input1.removeFromSuperview()
+                        self.input2.removeFromSuperview()
                         let alert = UIAlertController(title: "Успешно", message: "Пароль введен правильно", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                             switch action.style{
@@ -289,6 +291,8 @@ class DeviceBleSettingsAddController: UIViewController {
                     self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
                     self.viewAlpha.removeFromSuperview()
                     if passwordSuccess == true {
+                        self.input1.removeFromSuperview()
+                        self.input2.removeFromSuperview()
                         passwordHave = false
                         mainPassword = ""
                         let alert = UIAlertController(title: "Успешно", message: "Пароль с устройства удален", preferredStyle: .alert)
@@ -353,6 +357,8 @@ class DeviceBleSettingsAddController: UIViewController {
                     self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
                     self.viewAlpha.removeFromSuperview()
                     passwordHave = true
+                    self.input1.removeFromSuperview()
+                    self.input2.removeFromSuperview()
                     let alert = UIAlertController(title: "Пароль записан", message: "Пароль записан на текущее BLE устройство", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                         switch action.style{
@@ -414,8 +420,9 @@ class DeviceBleSettingsAddController: UIViewController {
         lblTitle1.textColor = UIColor(rgb: 0xE9E9E9)
         lblTitle1.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
         
-        let input1 = UITextField(frame: CGRect(x: 120, y: 0, width: Int(screenWidth/2-30), height: 40))
+        input1 = UITextField(frame: CGRect(x: 70, y: 0, width: Int(screenWidth/2-30), height: 40))
         input1.text = "\(full)"
+        input1.addTarget(self, action: #selector(DeviceBleSettingsAddController.textFieldDidChange(_:)),for: UIControl.Event.editingChanged)
         input1.attributedPlaceholder = NSAttributedString(string: "\(enterValue)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         input1.textColor = UIColor(rgb: 0xE9E9E9)
         input1.font = UIFont(name:"FuturaPT-Light", size: 18.0)
@@ -427,9 +434,10 @@ class DeviceBleSettingsAddController: UIViewController {
         input1.leftViewMode = .always
         input1.keyboardType = UIKeyboardType.decimalPad
         
-        let lblPrefix1 = UILabel(frame: CGRect(x: screenWidth-80, y: 10, width: 100, height: 20))
+        let lblPrefix1 = UILabel(frame: CGRect(x: Int(screenWidth/2-30), y: 10, width: Int(screenWidth/2-30), height: 20))
         lblPrefix1.text = "\(full)"
         lblPrefix1.textColor = UIColor(rgb: 0xE9E9E9)
+        lblPrefix1.textAlignment = .right
         lblPrefix1.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
         v1.addSubview(lblPrefix1)
         
@@ -447,8 +455,9 @@ class DeviceBleSettingsAddController: UIViewController {
         lblTitle2.textColor = UIColor(rgb: 0xE9E9E9)
         lblTitle2.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
         
-        let input2 = UITextField(frame: CGRect(x: 120, y: 0, width: Int(screenWidth/2-30), height: 40))
+        input2 = UITextField(frame: CGRect(x: 70, y: 0, width: Int(screenWidth/2-30), height: 40))
         input2.text = "\(nothing)"
+        input2.addTarget(self, action: #selector(DeviceBleSettingsAddController.textFieldDidChange(_:)),for: UIControl.Event.editingChanged)
         input2.attributedPlaceholder = NSAttributedString(string: "\(enterValue)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         input2.textColor = UIColor(rgb: 0xE9E9E9)
         input2.font = UIFont(name:"FuturaPT-Light", size: 18.0)
@@ -460,8 +469,9 @@ class DeviceBleSettingsAddController: UIViewController {
         input2.leftViewMode = .always
         input2.keyboardType = UIKeyboardType.decimalPad
         
-        let lblPrefix2 = UILabel(frame: CGRect(x: screenWidth-80, y: 10, width: 100, height: 20))
+        let lblPrefix2 = UILabel(frame: CGRect(x: Int(screenWidth/2-30), y: 10, width: Int(screenWidth/2-30), height: 20))
         lblPrefix2.text = "\(nothing)"
+        lblPrefix2.textAlignment = .right
         lblPrefix2.textColor = UIColor(rgb: 0xE9E9E9)
         lblPrefix2.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
         v2.addSubview(lblPrefix2)
@@ -487,16 +497,16 @@ class DeviceBleSettingsAddController: UIViewController {
         scrollView.addSubview(btn3Text)
         
         btn3.addTapGesture {
-            let textfieldInt: Int? = Int(input1.text!)
-            let textfieldIntNothing: Int? = Int(input2.text!)
+            let textfieldInt: Int? = Int(self.input1.text!)
+            let textfieldIntNothing: Int? = Int(self.input2.text!)
             if textfieldInt! > textfieldIntNothing! {
                 if passwordHave == false {
                     reload = 5
                     self.view.addSubview(self.activityIndicator)
                     self.activityIndicator.startAnimating()
                     self.view.isUserInteractionEnabled = false
-                    full = input1.text!
-                    nothing = input2.text!
+                    full = self.input1.text!
+                    nothing = self.input2.text!
                     DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                         self.view.isUserInteractionEnabled = true
                         self.activityIndicator.stopAnimating()
@@ -540,8 +550,8 @@ class DeviceBleSettingsAddController: UIViewController {
                     self.view.addSubview(self.activityIndicator)
                     self.activityIndicator.startAnimating()
                     self.view.isUserInteractionEnabled = false
-                    full = input1.text!
-                    nothing = input2.text!
+                    full = self.input1.text!
+                    nothing = self.input2.text!
                     DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                         self.view.isUserInteractionEnabled = true
                         self.activityIndicator.stopAnimating()
@@ -618,44 +628,109 @@ class DeviceBleSettingsAddController: UIViewController {
         
         btn4Text.addTapGesture {
             reload = 1
-            self.view.addSubview(self.activityIndicator)
-            self.activityIndicator.startAnimating()
-            self.view.isUserInteractionEnabled = false
-            DispatchQueue.main.asyncAfter(deadline: .now() + 20.0) {
-                self.view.isUserInteractionEnabled = true
-                self.activityIndicator.stopAnimating()
-                if errorWRN == false {
-                    let alert = UIAlertController(title: "Успешная перезагрузка", message: "Устройство успешно перезагрузилось, повторите попытку входа", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                        switch action.style{
-                        case .default:
-                            print("default")
-                            reloadBack = 1
-                            self.navigationController?.popViewController(animated: true)
-                            
-                        case .cancel:
-                            print("cancel")
-                            
-                        case .destructive:
-                            print("destructive")
-                            
-                            
-                        }}))
-                    self.present(alert, animated: true, completion: nil)
+            if passwordHave == true {
+                if passwordSuccess == true {
+                    self.activityIndicator.startAnimating()
+                    self.viewAlpha.addSubview(self.activityIndicator)
+                    self.view.addSubview(self.viewAlpha)
+                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                    self.view.isUserInteractionEnabled = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 20.0) {
+                        self.view.isUserInteractionEnabled = true
+                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                        self.viewAlpha.removeFromSuperview()
+                        self.activityIndicator.stopAnimating()
+                        if errorWRN == false {
+                            let alert = UIAlertController(title: "Успешная перезагрузка", message: "Устройство успешно перезагрузилось, повторите попытку входа", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                                switch action.style{
+                                case .default:
+                                    print("default")
+                                    reloadBack = 1
+                                    self.navigationController?.popViewController(animated: true)
+                                    
+                                case .cancel:
+                                    print("cancel")
+                                    
+                                case .destructive:
+                                    print("destructive")
+                                    
+                                    
+                                }}))
+                            self.present(alert, animated: true, completion: nil)
+                        } else {
+                            let alert = UIAlertController(title: "\(failReloud)", message: "", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                                switch action.style{
+                                case .default:
+                                    print("default")
+                                    errorWRN = false
+                                case .cancel:
+                                    print("cancel")
+                                    
+                                case .destructive:
+                                    print("destructive")
+                                }}))
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    }
                 } else {
-                    let alert = UIAlertController(title: "\(failReloud)", message: "", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Ошибка", message: "Устройство запароленно", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                         switch action.style{
                         case .default:
                             print("default")
-                            errorWRN = false
                         case .cancel:
                             print("cancel")
-                            
                         case .destructive:
                             print("destructive")
                         }}))
                     self.present(alert, animated: true, completion: nil)
+                }
+            } else {
+                self.activityIndicator.startAnimating()
+                self.viewAlpha.addSubview(self.activityIndicator)
+                self.view.addSubview(self.viewAlpha)
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                self.view.isUserInteractionEnabled = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 20.0) {
+                    self.view.isUserInteractionEnabled = true
+                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                    self.viewAlpha.removeFromSuperview()
+                    self.activityIndicator.stopAnimating()
+                    if errorWRN == false {
+                        let alert = UIAlertController(title: "Успешная перезагрузка", message: "Устройство успешно перезагрузилось, повторите попытку входа", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                            switch action.style{
+                            case .default:
+                                print("default")
+                                reloadBack = 1
+                                self.navigationController?.popViewController(animated: true)
+                                
+                            case .cancel:
+                                print("cancel")
+                                
+                            case .destructive:
+                                print("destructive")
+                                
+                                
+                            }}))
+                        self.present(alert, animated: true, completion: nil)
+                    } else {
+                        let alert = UIAlertController(title: "\(failReloud)", message: "", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                            switch action.style{
+                            case .default:
+                                print("default")
+                                errorWRN = false
+                            case .cancel:
+                                print("cancel")
+                                
+                            case .destructive:
+                                print("destructive")
+                            }}))
+                        self.present(alert, animated: true, completion: nil)
+                    }
                 }
             }
         }

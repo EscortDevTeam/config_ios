@@ -336,19 +336,20 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
         btTitle2.text = con.name
         btTitle2.textColor = UIColor(rgb: 0x1F1F1F)
         btTitle2.font = UIFont(name:"FuturaPT-Light", size: 32.0)
-        
+        btImage2.alpha = 0.5
+        btTitle2.alpha = 0.5
         v2.addSubview(btImage2)
         v2.addSubview(btTitle2)
         
         h = (cellHeight - Int(btImage2.frame.height)) / 2
 
         v2.frame = CGRect(x:0, y: Int(headerHeight) + cellHeight + h, width: Int(screenWidth), height: cellHeight-h)
-        v2.addTapGesture{
-            print("Провод")
-            boolBLE = false
-            IsBLE = false
-            self.navigationController?.pushViewController(self.DeviceSelectCUSB, animated: true)
-        }
+//        v2.addTapGesture{
+//            print("Провод")
+//            boolBLE = false
+//            IsBLE = false
+//            self.navigationController?.pushViewController(self.DeviceSelectCUSB, animated: true)
+//        }
 
         view.addSubview(v1)
         view.addSubview(v2)

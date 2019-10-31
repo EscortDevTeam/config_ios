@@ -1041,9 +1041,10 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         
         let value = "GD\r"
         let valueAll = "GA\r"
-        let valueReload = "PR,PW:1:\(mainPassword)\r"
-        let FullReload = "SH,PW:1:\(mainPassword)\r"
-        let NothingReload = "SL,PW:1:\(mainPassword)\r"
+        let valueReload = "PR,PW:1:\(mainPassword)"
+        let FullReload = "SH,PW:1:"
+        let NothingReload = "SL,PW:1:"
+        let ReloadFN = "\(mainPassword)\r"
         let sdVal = "SD,HK:1:1024\r"
         let sdValTwo = "SD,HK:1:\(full)"
         let sdValThree = "SD,LK:1:\(nothing)"
@@ -1064,23 +1065,23 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         
         let data = withUnsafeBytes(of: value) { Data($0) }
         let dataAll = withUnsafeBytes(of: valueAll) { Data($0) }
-        let dataReload = withUnsafeBytes(of: valueReload) { Data($0) }
-        let dataFullReload = withUnsafeBytes(of: FullReload) { Data($0) }
-        let dataNothingReload = withUnsafeBytes(of: NothingReload) { Data($0) }
+        let dataReload = Data(valueReload.utf8)
+        let dataFullReload = Data(FullReload.utf8)
+        let dataNothingReload = Data(NothingReload.utf8)
         let dataSdVal = withUnsafeBytes(of: sdVal) { Data($0) }
         let dataSdValTwo = Data(sdValTwo.utf8)
         let dataSdValThree = Data(sdValThree.utf8)
         let dataSdValTwo1 = Data(sdValTwo1.utf8)
         let dataSdValThree1 = Data(sdValThree1.utf8)
         let dataSdParam = Data(sdParam.utf8)
-        let dataSdParamYet = withUnsafeBytes(of: sdParamYet) { Data($0) }
-        let dataPassZero = withUnsafeBytes(of: passZero) { Data($0) }
+        let dataSdParamYet = Data(sdParamYet.utf8)
+        let dataPassZero = Data(passZero.utf8)
         let dataPassDelete = Data(passDelete.utf8)
         let dataPassInstall = Data(passInstall.utf8)
         let dataPassEnter = Data(enterPass.utf8)
         let dataR = Data(r.utf8)
         let dataPassw = Data(passw.utf8)
-
+        let dataReloadFN = Data(ReloadFN.utf8)
         
         for characteristic in service.characteristics! {
             if characteristic.properties.contains(.notify) {
@@ -1109,6 +1110,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                 if characteristic.properties.contains(.write) {
                     print("Свойство \(characteristic.uuid): .write")
                     peripheral.writeValue(dataReload, for: characteristic, type: .withResponse)
+                    peripheral.writeValue(dataR, for: characteristic, type: .withResponse)
                     reload = 0
                 }
             }
@@ -1117,7 +1119,8 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
             for characteristic in service.characteristics! {
                 if characteristic.properties.contains(.write) {
                     print("Свойство \(characteristic.uuid): .write")
-                    peripheral.writeValue(dataFullReload, for: characteristic, type: .withResponse)
+                    peripheral.writeValue(dataFullReload, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataReloadFN, for: characteristic, type: .withResponse)
                     reload = 0
                 }
             }
@@ -1126,7 +1129,9 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
             for characteristic in service.characteristics! {
                 if characteristic.properties.contains(.write) {
                     print("Свойство \(characteristic.uuid): .write")
-                    peripheral.writeValue(dataNothingReload, for: characteristic, type: .withResponse)
+                    peripheral.writeValue(dataNothingReload, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataReloadFN, for: characteristic, type: .withResponse)
+
                     reload = 0
                 }
             }

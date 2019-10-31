@@ -496,24 +496,24 @@ class DeviceBleSettingsController: UIViewController {
                 input4.placeholder = "\(enterValue)"
                 input4.textColor = UIColor(rgb: 0xE9E9E9)
                 input4.font = UIFont(name:"FuturaPT-Light", size: 18.0)
-                input4.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
-                input4.layer.borderWidth = 1.0
-                input4.layer.cornerRadius = 4.0
-                input4.layer.borderColor = UIColor(rgb: 0x959595).cgColor
-                input4.backgroundColor = .clear
-                input4.leftViewMode = .always
-                input4.isEnabled = false
-            
-                v4.addSubview(lblTitle4)
-                v4.addSubview(input4)
-                view.addSubview(v4)
-                view.addSubview(imputTap2)
-                uPicker2.frame = CGRect(x: x+200, y: y-30, width: 100, height: 100)
-                imputTap2.addTapGesture {
-                    self.iF = 2
-                    self.uPicker.removeFromSuperview()
-                    self.view.addSubview(self.uPicker2)
-                }
+        input4.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
+        input4.layer.borderWidth = 1.0
+        input4.layer.cornerRadius = 4.0
+        input4.layer.borderColor = UIColor(rgb: 0x959595).cgColor
+        input4.backgroundColor = .clear
+        input4.leftViewMode = .always
+        input4.isEnabled = false
+        
+        v4.addSubview(lblTitle4)
+        v4.addSubview(input4)
+        view.addSubview(v4)
+        view.addSubview(imputTap2)
+        uPicker2.frame = CGRect(x: x+200, y: y-30, width: 100, height: 100)
+        imputTap2.addTapGesture {
+            self.iF = 2
+            self.uPicker.removeFromSuperview()
+            self.view.addSubview(self.uPicker2)
+        }
         view.addTapGesture {
             self.uPicker.removeFromSuperview()
             self.uPicker2.removeFromSuperview()
@@ -539,66 +539,155 @@ class DeviceBleSettingsController: UIViewController {
         view.addSubview(btn1Text)
         view.addSubview(separator)
         
-
+        
         btn1.addTapGesture {
-            self.activityIndicator.startAnimating()
-            self.viewAlpha.addSubview(self.activityIndicator)
-            self.view.addSubview(self.viewAlpha)
-            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-            self.view.isUserInteractionEnabled = false
-            let b = (self.input4.text! as NSString).integerValue
-            reload = 6
-            if self.input3.text == "1023" {
-                if self.termoSwitch.isOn == false{
-                    wmPar = "\(b)"
+            if passwordHave == true {
+                if passwordSuccess == true {
+                    self.activityIndicator.startAnimating()
+                    self.viewAlpha.addSubview(self.activityIndicator)
+                    self.view.addSubview(self.viewAlpha)
+                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                    self.view.isUserInteractionEnabled = false
+                    self.viewLoad.removeFromSuperview()
+                    self.viewLoadTwo.removeFromSuperview()
+                    self.lbl1.removeFromSuperview()
+                    self.lbl2.removeFromSuperview()
+                    self.lbl3.removeFromSuperview()
+                    self.lbl4.removeFromSuperview()
+                    let b = (self.input4.text! as NSString).integerValue
+                    reload = 6
+                    if self.input3.text == "1023" {
+                        if self.termoSwitch.isOn == false{
+                            wmPar = "\(b)"
+                        } else {
+                            let a = 128 + b
+                            wmPar = "\(a)"
+                        }
+                    }
+                    if self.input3.text == "4095" {
+                        if self.termoSwitch.isOn == false{
+                            let a = 32768 + b
+                            wmPar = "\(a)"
+                        } else {
+                            let a = 32896 + b
+                            wmPar = "\(a)"
+                        }
+                    }
+                    self.viewLoad.isHidden = true
+                    self.viewLoadTwo.isHidden = true
+                    
+                    //            self.view.addSubview(check)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+                        self.check4.image = UIImage(named: "check-green.png")
+                        self.check3.image = UIImage(named: "check-green.png")
+                        //                check.image = UIImage(named: "check-green.png")
+                        //                self.view.addSubview(check)
+                        
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 7.0) {
+                        self.check4.removeFromSuperview()
+                        self.check3.removeFromSuperview()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            police = false
+                            self.viewLoad.removeFromSuperview()
+                            self.viewLoadTwo.removeFromSuperview()
+                            self.lbl1.removeFromSuperview()
+                            self.lbl2.removeFromSuperview()
+                            self.lbl3.removeFromSuperview()
+                            self.lbl4.removeFromSuperview()
+                            self.viewShow()
+                            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                            //                    self.viewAlpha.removeFromSuperview()
+                            //                    self.view.isUserInteractionEnabled = true
+                        }
+                        //                check.removeFromSuperview()
+                        
+                    }
                 } else {
-                    let a = 128 + b
-                    wmPar = "\(a)"
+                    let alert = UIAlertController(title: "Ошибка", message: "Устройство запароленно", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                        switch action.style{
+                        case .default:
+                            print("default")
+                        case .cancel:
+                            print("cancel")
+                        case .destructive:
+                            print("destructive")
+                        }}))
+                    self.present(alert, animated: true, completion: nil)
                 }
-            }
-            if self.input3.text == "4095" {
-                if self.termoSwitch.isOn == false{
-                    let a = 32768 + b
-                    wmPar = "\(a)"
-                } else {
-                    let a = 32896 + b
-                    wmPar = "\(a)"
+            } else  {
+                self.activityIndicator.startAnimating()
+                self.viewAlpha.addSubview(self.activityIndicator)
+                self.view.addSubview(self.viewAlpha)
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                self.view.isUserInteractionEnabled = false
+                self.viewLoad.removeFromSuperview()
+                self.viewLoadTwo.removeFromSuperview()
+                self.lbl1.removeFromSuperview()
+                self.lbl2.removeFromSuperview()
+                self.lbl3.removeFromSuperview()
+                self.lbl4.removeFromSuperview()
+                let b = (self.input4.text! as NSString).integerValue
+                reload = 6
+                if self.input3.text == "1023" {
+                    if self.termoSwitch.isOn == false{
+                        wmPar = "\(b)"
+                    } else {
+                        let a = 128 + b
+                        wmPar = "\(a)"
+                    }
                 }
-            }
-            self.viewLoad.isHidden = true
-            self.viewLoadTwo.isHidden = true
-            
-            //            self.view.addSubview(check)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
-                self.check4.image = UIImage(named: "check-green.png")
-                self.check3.image = UIImage(named: "check-green.png")
-                //                check.image = UIImage(named: "check-green.png")
-                //                self.view.addSubview(check)
+                if self.input3.text == "4095" {
+                    if self.termoSwitch.isOn == false{
+                        let a = 32768 + b
+                        wmPar = "\(a)"
+                    } else {
+                        let a = 32896 + b
+                        wmPar = "\(a)"
+                    }
+                }
+                self.viewLoad.isHidden = true
+                self.viewLoadTwo.isHidden = true
                 
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 7.0) {
-                self.check4.removeFromSuperview()
-                self.check3.removeFromSuperview()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    police = false
-                    self.viewShow()
-                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-//                    self.viewAlpha.removeFromSuperview()
-//                    self.view.isUserInteractionEnabled = true
+                //            self.view.addSubview(check)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+                    self.check4.image = UIImage(named: "check-green.png")
+                    self.check3.image = UIImage(named: "check-green.png")
+                    //                check.image = UIImage(named: "check-green.png")
+                    //                self.view.addSubview(check)
+                    
                 }
-                //                check.removeFromSuperview()
-                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 7.0) {
+                    self.check4.removeFromSuperview()
+                    self.check3.removeFromSuperview()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        police = false
+                        self.viewLoad.removeFromSuperview()
+                        self.viewLoadTwo.removeFromSuperview()
+                        self.lbl1.removeFromSuperview()
+                        self.lbl2.removeFromSuperview()
+                        self.lbl3.removeFromSuperview()
+                        self.lbl4.removeFromSuperview()
+                        self.viewShow()
+                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                        //                    self.viewAlpha.removeFromSuperview()
+                        //                    self.view.isUserInteractionEnabled = true
+                    }
+                    //                check.removeFromSuperview()
+                    
+                }
             }
         }
 
         y = y + deltaYLite
         
-        lbl1 = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 20))
+        lbl1 = UILabel(frame: CGRect(x: 0, y: 0, width: 120, height: 20))
         lbl1.text = "\(nothing)"
         lbl1.textColor = UIColor(rgb: 0xE9E9E9)
         lbl1.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
         
-        lbl2 = UILabel(frame: CGRect(x: Int(screenWidth-170), y: 0, width: 100, height: 20))
+        lbl2 = UILabel(frame: CGRect(x: Int(screenWidth-170), y: 0, width: 120, height: 20))
         lbl2.text = "\(full)"
         lbl2.textColor = UIColor(rgb: 0xE9E9E9)
         lbl2.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
@@ -635,89 +724,178 @@ class DeviceBleSettingsController: UIViewController {
         
         btn2.addTapGesture {
             reload = 3
-            self.activityIndicator.startAnimating()
-            self.viewAlpha.addSubview(self.activityIndicator)
-            self.view.addSubview(self.viewAlpha)
-            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-            self.view.isUserInteractionEnabled = false
-            self.viewLoad.isHidden = true
-            self.viewLoadTwo.isHidden = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 8.0) {
-                if errorWRN == false {
-                    self.view.isUserInteractionEnabled = true
-                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                    self.viewAlpha.removeFromSuperview()
-                    self.viewLoad.isHidden = false
-                    self.viewLoadTwo.isHidden = false
-                    let alert = UIAlertController(title: "\(valueYes)", message: "\(nothingIfYes)", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                        switch action.style{
-                        case .default:
-                            print("default")
-                        case .cancel:
-                            print("cancel")
-                        case .destructive:
-                            print("destructive")
-                        }}))
-                    self.present(alert, animated: true, completion: nil)
-                } else {
+            if passwordHave == true {
+                if passwordSuccess == true {
                     errorWRN = false
-                    self.view.isUserInteractionEnabled = true
-                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                    self.viewAlpha.removeFromSuperview()
-                    self.viewLoad.isHidden = false
-                    self.viewLoadTwo.isHidden = false
-                    let alert = UIAlertController(title: "\(valueNo)", message: "\(nothingIfNo)", preferredStyle: .alert)
+                    self.activityIndicator.startAnimating()
+                    self.viewAlpha.addSubview(self.activityIndicator)
+                    self.view.addSubview(self.viewAlpha)
+                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                    self.view.isUserInteractionEnabled = false
+                    self.viewLoad.isHidden = true
+                    self.viewLoadTwo.isHidden = true
+                    self.viewLoad.removeFromSuperview()
+                    self.lbl1.removeFromSuperview()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 8.0) {
+                        if errorWRN == false {
+                            self.view.isUserInteractionEnabled = true
+                            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                            self.viewAlpha.removeFromSuperview()
+                            self.viewLoad.isHidden = false
+                            self.viewLoadTwo.isHidden = false
+                            let alert = UIAlertController(title: "\(valueYes)", message: "\(nothingIfYes)", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                                switch action.style{
+                                case .default:
+                                    print("default")
+                                case .cancel:
+                                    print("cancel")
+                                case .destructive:
+                                    print("destructive")
+                                }}))
+                            self.present(alert, animated: true, completion: nil)
+                        } else {
+                            errorWRN = false
+                            self.view.isUserInteractionEnabled = true
+                            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                            self.viewAlpha.removeFromSuperview()
+                            self.viewLoad.isHidden = false
+                            self.viewLoadTwo.isHidden = false
+                            let alert = UIAlertController(title: "\(valueNo)", message: "\(nothingIfNo)", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                                switch action.style{
+                                case .default:
+                                    print("default")
+                                case .cancel:
+                                    print("cancel")
+                                    
+                                case .destructive:
+                                    print("destructive")
+                                }}))
+                            self.present(alert, animated: true, completion: nil)
+                            
+                        }
+                    }
+                } else {
+                    let alert = UIAlertController(title: "Ошибка", message: "Устройство запароленно", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                         switch action.style{
                         case .default:
                             print("default")
                         case .cancel:
                             print("cancel")
-                            
                         case .destructive:
                             print("destructive")
                         }}))
                     self.present(alert, animated: true, completion: nil)
-                    
+                }
+            } else {
+                errorWRN = false
+                self.activityIndicator.startAnimating()
+                self.viewAlpha.addSubview(self.activityIndicator)
+                self.view.addSubview(self.viewAlpha)
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                self.view.isUserInteractionEnabled = false
+                self.viewLoad.isHidden = true
+                self.viewLoadTwo.isHidden = true
+                self.viewLoad.removeFromSuperview()
+                self.lbl1.removeFromSuperview()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 8.0) {
+                    if errorWRN == false {
+                        self.view.isUserInteractionEnabled = true
+                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                        self.viewAlpha.removeFromSuperview()
+                        self.viewLoad.isHidden = false
+                        self.viewLoadTwo.isHidden = false
+                        let alert = UIAlertController(title: "\(valueYes)", message: "\(nothingIfYes)", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                            switch action.style{
+                            case .default:
+                                print("default")
+                            case .cancel:
+                                print("cancel")
+                            case .destructive:
+                                print("destructive")
+                            }}))
+                        self.present(alert, animated: true, completion: nil)
+                    } else {
+                        errorWRN = false
+                        self.view.isUserInteractionEnabled = true
+                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                        self.viewAlpha.removeFromSuperview()
+                        self.viewLoad.isHidden = false
+                        self.viewLoadTwo.isHidden = false
+                        let alert = UIAlertController(title: "\(valueNo)", message: "\(nothingIfNo)", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                            switch action.style{
+                            case .default:
+                                print("default")
+                            case .cancel:
+                                print("cancel")
+                                
+                            case .destructive:
+                                print("destructive")
+                            }}))
+                        self.present(alert, animated: true, completion: nil)
+                        
+                    }
                 }
             }
         }
         btn3.addTapGesture {
             reload = 2
-            self.activityIndicator.startAnimating()
-            self.viewAlpha.addSubview(self.activityIndicator)
-            self.view.addSubview(self.viewAlpha)
-            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-            self.view.isUserInteractionEnabled = false
-            self.viewLoad.isHidden = true
-            self.viewLoadTwo.isHidden = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 8.0) {
-                if errorWRN == false {
-                    self.view.isUserInteractionEnabled = true
-                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                    self.viewAlpha.removeFromSuperview()
-                    self.viewLoad.isHidden = false
-                    self.viewLoadTwo.isHidden = false
-                    let alert = UIAlertController(title: "\(valueYes)", message: "\(fullIfYes)", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                        switch action.style{
-                        case .default:
-                            print("default")
-                        case .cancel:
-                            print("cancel")
-                        case .destructive:
-                            print("destructive")
-                        }}))
-                    self.present(alert, animated: true, completion: nil)
-                } else {
+            if passwordHave == true {
+                if passwordSuccess == true {
                     errorWRN = false
-                    self.view.isUserInteractionEnabled = true
-                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                    self.viewAlpha.removeFromSuperview()
-                    self.viewLoad.isHidden = false
-                    self.viewLoadTwo.isHidden = false
-                    let alert = UIAlertController(title: "\(valueNo)", message: "\(fullIfNo)", preferredStyle: .alert)
+                    self.activityIndicator.startAnimating()
+                    self.viewAlpha.addSubview(self.activityIndicator)
+                    self.view.addSubview(self.viewAlpha)
+                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                    self.view.isUserInteractionEnabled = false
+                    self.viewLoad.isHidden = true
+                    self.viewLoadTwo.isHidden = true
+                    self.viewLoad.removeFromSuperview()
+                    self.lbl2.removeFromSuperview()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 8.0) {
+                        if errorWRN == false {
+                            self.view.isUserInteractionEnabled = true
+                            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                            self.viewAlpha.removeFromSuperview()
+                            self.viewLoad.isHidden = false
+                            self.viewLoadTwo.isHidden = false
+                            let alert = UIAlertController(title: "\(valueYes)", message: "\(fullIfYes)", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                                switch action.style{
+                                case .default:
+                                    print("default")
+                                case .cancel:
+                                    print("cancel")
+                                case .destructive:
+                                    print("destructive")
+                                }}))
+                            self.present(alert, animated: true, completion: nil)
+                        } else {
+                            errorWRN = false
+                            self.view.isUserInteractionEnabled = true
+                            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                            self.viewAlpha.removeFromSuperview()
+                            self.viewLoad.isHidden = false
+                            self.viewLoadTwo.isHidden = false
+                            let alert = UIAlertController(title: "\(valueNo)", message: "\(fullIfNo)", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                                switch action.style{
+                                case .default:
+                                    print("default")
+                                case .cancel:
+                                    print("cancel")
+                                case .destructive:
+                                    print("destructive")
+                                }}))
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    }
+                } else {
+                    let alert = UIAlertController(title: "Ошибка", message: "Устройство запароленно", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                         switch action.style{
                         case .default:
@@ -728,6 +906,55 @@ class DeviceBleSettingsController: UIViewController {
                             print("destructive")
                         }}))
                     self.present(alert, animated: true, completion: nil)
+                }
+            } else {
+                errorWRN = false
+                self.activityIndicator.startAnimating()
+                self.viewAlpha.addSubview(self.activityIndicator)
+                self.view.addSubview(self.viewAlpha)
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                self.view.isUserInteractionEnabled = false
+                self.viewLoad.isHidden = true
+                self.viewLoadTwo.isHidden = true
+                self.viewLoad.removeFromSuperview()
+                self.lbl2.removeFromSuperview()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 8.0) {
+                    if errorWRN == false {
+                        self.view.isUserInteractionEnabled = true
+                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                        self.viewAlpha.removeFromSuperview()
+                        self.viewLoad.isHidden = false
+                        self.viewLoadTwo.isHidden = false
+                        let alert = UIAlertController(title: "\(valueYes)", message: "\(fullIfYes)", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                            switch action.style{
+                            case .default:
+                                print("default")
+                            case .cancel:
+                                print("cancel")
+                            case .destructive:
+                                print("destructive")
+                            }}))
+                        self.present(alert, animated: true, completion: nil)
+                    } else {
+                        errorWRN = false
+                        self.view.isUserInteractionEnabled = true
+                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                        self.viewAlpha.removeFromSuperview()
+                        self.viewLoad.isHidden = false
+                        self.viewLoadTwo.isHidden = false
+                        let alert = UIAlertController(title: "\(valueNo)", message: "\(fullIfNo)", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                            switch action.style{
+                            case .default:
+                                print("default")
+                            case .cancel:
+                                print("cancel")
+                            case .destructive:
+                                print("destructive")
+                            }}))
+                        self.present(alert, animated: true, completion: nil)
+                    }
                 }
             }
         }
@@ -757,6 +984,160 @@ class DeviceBleSettingsController: UIViewController {
         termoSwitch.onTintColor = UIColor(rgb: 0xCF2121)
 
         view.addSubview(termoSwitch)
+        
+        let viewTermoSwitch = UIView(frame: CGRect(x: Int(screenWidth/2+110), y: y+32, width: 60, height: 40))
+        viewTermoSwitch.backgroundColor = .clear
+        view.addSubview(viewTermoSwitch)
+
+        viewTermoSwitch.addTapGesture {
+            if passwordHave == true {
+                if passwordSuccess == true {
+                    self.activityIndicator.startAnimating()
+                    self.viewAlpha.addSubview(self.activityIndicator)
+                    self.view.addSubview(self.viewAlpha)
+                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                    self.view.isUserInteractionEnabled = false
+                    self.viewLoad.removeFromSuperview()
+                    self.viewLoadTwo.removeFromSuperview()
+                    self.lbl1.removeFromSuperview()
+                    self.lbl2.removeFromSuperview()
+                    self.lbl3.removeFromSuperview()
+                    self.lbl4.removeFromSuperview()
+                    let b = (self.input4.text! as NSString).integerValue
+                    reload = 6
+                    if self.input3.text == "1023" {
+                        if self.termoSwitch.isOn == true{
+                            wmPar = "\(b)"
+                        } else {
+                            let a = 128 + b
+                            wmPar = "\(a)"
+                        }
+                    }
+                    if self.input3.text == "4095" {
+                        if self.termoSwitch.isOn == true{
+                            let a = 32768 + b
+                            wmPar = "\(a)"
+                        } else {
+                            let a = 32896 + b
+                            wmPar = "\(a)"
+                        }
+                    }
+                    self.viewLoad.isHidden = true
+                    self.viewLoadTwo.isHidden = true
+                    
+                    //            self.view.addSubview(check)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+                        self.check4.image = UIImage(named: "check-green.png")
+                        self.check3.image = UIImage(named: "check-green.png")
+                        //                check.image = UIImage(named: "check-green.png")
+                        //                self.view.addSubview(check)
+                        
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 7.0) {
+                        self.check4.removeFromSuperview()
+                        self.check3.removeFromSuperview()
+                        if self.termoSwitch.isOn == true {
+                            self.termoSwitch.isOn = false
+                        } else {
+                            self.termoSwitch.isOn = true
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            police = false
+                            self.viewLoad.removeFromSuperview()
+                            self.viewLoadTwo.removeFromSuperview()
+                            self.lbl1.removeFromSuperview()
+                            self.lbl2.removeFromSuperview()
+                            self.lbl3.removeFromSuperview()
+                            self.lbl4.removeFromSuperview()
+                            self.viewShow()
+                            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                            //                    self.viewAlpha.removeFromSuperview()
+                            //                    self.view.isUserInteractionEnabled = true
+                        }
+                        //                check.removeFromSuperview()
+                        
+                    }
+                } else {
+                    let alert = UIAlertController(title: "Ошибка", message: "Устройство запароленно", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                        switch action.style{
+                        case .default:
+                            print("default")
+                        case .cancel:
+                            print("cancel")
+                        case .destructive:
+                            print("destructive")
+                        }}))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            } else  {
+                self.activityIndicator.startAnimating()
+                self.viewAlpha.addSubview(self.activityIndicator)
+                self.view.addSubview(self.viewAlpha)
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                self.view.isUserInteractionEnabled = false
+                self.viewLoad.removeFromSuperview()
+                self.viewLoadTwo.removeFromSuperview()
+                self.lbl1.removeFromSuperview()
+                self.lbl2.removeFromSuperview()
+                self.lbl3.removeFromSuperview()
+                self.lbl4.removeFromSuperview()
+                let b = (self.input4.text! as NSString).integerValue
+                reload = 6
+                if self.input3.text == "1023" {
+                    if self.termoSwitch.isOn == true{
+                        wmPar = "\(b)"
+                    } else {
+                        let a = 128 + b
+                        wmPar = "\(a)"
+                    }
+                }
+                if self.input3.text == "4095" {
+                    if self.termoSwitch.isOn == true {
+                        let a = 32768 + b
+                        wmPar = "\(a)"
+                    } else {
+                        let a = 32896 + b
+                        wmPar = "\(a)"
+                    }
+                }
+                self.viewLoad.isHidden = true
+                self.viewLoadTwo.isHidden = true
+                
+                //            self.view.addSubview(check)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+                    self.check4.image = UIImage(named: "check-green.png")
+                    self.check3.image = UIImage(named: "check-green.png")
+                    //                check.image = UIImage(named: "check-green.png")
+                    //                self.view.addSubview(check)
+                    
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 7.0) {
+                    self.check4.removeFromSuperview()
+                    self.check3.removeFromSuperview()
+                    if self.termoSwitch.isOn == true {
+                        self.termoSwitch.isOn = false
+                    } else {
+                        self.termoSwitch.isOn = true
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        police = false
+                        self.viewLoad.removeFromSuperview()
+                        self.viewLoadTwo.removeFromSuperview()
+                        self.lbl1.removeFromSuperview()
+                        self.lbl2.removeFromSuperview()
+                        self.lbl3.removeFromSuperview()
+                        self.lbl4.removeFromSuperview()
+                        self.viewShow()
+                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                        //                    self.viewAlpha.removeFromSuperview()
+                        //                    self.view.isUserInteractionEnabled = true
+                    }
+                    //                check.removeFromSuperview()
+                    
+                }
+            }
+        }
         
         timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         activityIndicator.startAnimating()
