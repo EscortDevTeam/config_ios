@@ -63,6 +63,7 @@ var passNotifStringYes = "На датчике установлен пароль"
 var attention = "Внимание"
 var temp : String?
 var passwordHave = false
+var warning = false
 
 let screenWidth = UIScreen.main.bounds.width, screenHeight = UIScreen.main.bounds.height
 let headerHeight = screenWidth * screenHeight / 3500

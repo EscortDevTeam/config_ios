@@ -27,6 +27,8 @@
 		B5856F8D22FD918100C51803 /* signal1.png in Resources */ = {isa = PBXBuildFile; fileRef = B5856F8C22FD918100C51803 /* signal1.png */; };
 		B5856F8F22FD918A00C51803 /* signal2.png in Resources */ = {isa = PBXBuildFile; fileRef = B5856F8E22FD918A00C51803 /* signal2.png */; };
 		B5856F9122FD919000C51803 /* signal3.png in Resources */ = {isa = PBXBuildFile; fileRef = B5856F9022FD919000C51803 /* signal3.png */; };
+		B5B8F55F236C152C0072EEFB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B5B8F55E236C152C0072EEFB /* Localizable.strings */; };
+		B5B8F561236C15D70072EEFB /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B8F560236C15D70072EEFB /* LocalizedString.swift */; };
 		B5FDBC4F23029B5A00442541 /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FDBC4E23029B5A00442541 /* Codable.swift */; };
 		B5FDBC532302B68000442541 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FDBC522302B68000442541 /* User.swift */; };
 		C41730A722C8B04700177C54 /* main.png in Resources */ = {isa = PBXBuildFile; fileRef = C41730A622C8B04600177C54 /* main.png */; };
@@ -117,6 +119,8 @@
 		B5856F8C22FD918100C51803 /* signal1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signal1.png; sourceTree = "<group>"; };
 		B5856F8E22FD918A00C51803 /* signal2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signal2.png; sourceTree = "<group>"; };
 		B5856F9022FD919000C51803 /* signal3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signal3.png; sourceTree = "<group>"; };
+		B5B8F55E236C152C0072EEFB /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		B5B8F560236C15D70072EEFB /* LocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedString.swift; sourceTree = "<group>"; };
 		B5C5F2AB23605FDE0043F46A /* JSONLanguage.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = JSONLanguage.json; sourceTree = "<group>"; };
 		B5FDBC4E23029B5A00442541 /* Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codable.swift; sourceTree = "<group>"; };
 		B5FDBC522302B68000442541 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -266,6 +270,14 @@
 				F29C1232DA3D8330C04D85A4 /* Pods_Escort.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B5B8F562236C16300072EEFB /* ru.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				B5B8F55E236C152C0072EEFB /* Localizable.strings */,
+			);
+			path = ru.lproj;
 			sourceTree = "<group>";
 		};
 		B5FDBC4D23029B1700442541 /* JSON */ = {
@@ -471,6 +483,8 @@
 				C491782F22C8A94D0006106E /* AppDelegate.swift */,
 				C491783622C8A94E0006106E /* Assets.xcassets */,
 				C491783B22C8A94E0006106E /* Info.plist */,
+				B5B8F562236C16300072EEFB /* ru.lproj */,
+				B5B8F560236C15D70072EEFB /* LocalizedString.swift */,
 			);
 			path = Escort;
 			sourceTree = "<group>";
@@ -558,6 +572,7 @@
 				C424A8FE22D61C05008E154F /* graph.png in Resources */,
 				C41730ED22CB904E00177C54 /* bluetooth.png in Resources */,
 				C417310122CBA18900177C54 /* du-180.png in Resources */,
+				B5B8F55F236C152C0072EEFB /* Localizable.strings in Resources */,
 				C424A93E22D778A6008E154F /* charge-full.png in Resources */,
 				C424A93722D76B3A008E154F /* check-green.png in Resources */,
 				B503C8752304000C004F248F /* Hamburger.png in Resources */,
@@ -642,6 +657,7 @@
 			files = (
 				C491784422C8A9F30006106E /* StartScreenModel.swift in Sources */,
 				C41730E122CB899500177C54 /* ConnectionSelectModel.swift in Sources */,
+				B5B8F561236C15D70072EEFB /* LocalizedString.swift in Sources */,
 				C424A93122D75784008E154F /* DeviceUsbHelpController.swift in Sources */,
 				C424A92622D73683008E154F /* DeviceUsbController.swift in Sources */,
 				C424A94022D779C2008E154F /* DeviceBleSettingsController.swift in Sources */,

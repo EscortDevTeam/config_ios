@@ -34,6 +34,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
     var stringAll: String = ""
     var iter = false
     var parsedData:[String : AnyObject] = [:]
+    var bluetoothPeripheralManager: CBPeripheralManager?
 
     
     func updateLangues(code: String){
@@ -966,9 +967,6 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                     print("")
             }
         }
-
-
-
     }
     
     func centralManagerDidUpdateState (_ central : CBCentralManager) {
@@ -1025,10 +1023,45 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
 //            print(nameD)
             let nameDOps = nameD.components(separatedBy: ["_"])
 //            print(nameDOps[1])
-            DeviceBLEC.nameDevice = nameDOps[1]
+            nameDevice = nameDOps[1]
 //         timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
             timer =  Timer.scheduledTimer(withTimeInterval: 4.0, repeats: true) { (timer) in
                 peripheral.discoverServices(nil)
+                if peripheral.state == CBPeripheralState.connected {
+                    print("connectedP")
+                }
+                if peripheral.state == CBPeripheralState.disconnected {
+                    print("disconnectedP")
+                    if warning == true{
+                        timer.invalidate()
+                    } else {
+                        let alert = UIAlertController(title: "Предупреждение", message: "Потеряно соединение с устройством", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                            switch action.style{
+                            case .default:
+                                print("default")
+                                self.navigationController?.popViewController(animated: true)
+                                self.view.subviews.forEach({ $0.removeFromSuperview() })
+                                timer.invalidate()
+                            case .cancel:
+                                print("cancel")
+                            case .destructive:
+                                print("destructive")
+                                
+                                
+                            }}))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                    warning = false
+                }
+                if peripheral.state == CBPeripheralState.connecting {
+                    print("connectingP")
+                }
+                if peripheral.state == CBPeripheralState.disconnecting {
+                    print("disconnectingP")
+                }
+//                self.bluetoothPeripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: nil)
+
             }
         }
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
@@ -1240,6 +1273,11 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
             let result = stringAll.components(separatedBy: [":",",","\r"])
             if result.count >= 35 {
                 print(result)
+                if result.contains("SE") {
+                    let indexOfPerson = result.firstIndex{$0 == "SE"}
+                    print(indexOfPerson!)
+                    nameDevice = "\(result[indexOfPerson! + 2])"
+                }
                 if result.contains("UT") {
                     let indexOfPerson = result.firstIndex{$0 == "UT"}
                     temp = "\(result[indexOfPerson! + 2])"
@@ -1338,7 +1376,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         scanBLEDevices()
         
     }
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -1347,6 +1385,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         manager = CBCentralManager ( delegate : self , queue : nil , options : nil )
         viewShow()
         updateLangues(code: code)
+
     }
     
     var tr = 0
@@ -1437,7 +1476,12 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         activity.startAnimating()
         return activity
     }()
-
+    override func viewDidDisappear(_ animated: Bool) {
+        self.view.subviews.forEach({ $0.removeFromSuperview() })
+        while let subview = self.scrollView.subviews.last {
+            subview.removeFromSuperview()
+        }
+    }
     private func viewShow() {
         view.subviews.forEach({ $0.removeFromSuperview() })
         view.backgroundColor = UIColor(rgb: 0x1F2222)
@@ -1448,10 +1492,6 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
             self.view.addSubview(self.viewAlpha)
             backView!.addTapGesture{
                 self.navigationController?.popViewController(animated: true)
-                self.view.subviews.forEach({ $0.removeFromSuperview() })
-                while let subview = self.scrollView.subviews.last {
-                    subview.removeFromSuperview()
-                }
             }
         }
         view.addSubview(bgImage)
@@ -1670,3 +1710,19 @@ extension DevicesListController: UISearchBarDelegate {
     
 }
 
+extension CBPeripheralState {
+
+    // MARK: - CustomStringConvertible
+    public var description: String {
+        switch self {
+        case .connected:
+            return LocalizedString("Connected", comment: "The connected state")
+        case .connecting:
+            return LocalizedString("Connecting", comment: "The in-progress connecting state")
+        case .disconnected:
+            return LocalizedString("Disconnected", comment: "The disconnected state")
+        case .disconnecting:
+            return LocalizedString("Disconnecting", comment: "The in-progress disconnecting state")
+        }
+    }
+}

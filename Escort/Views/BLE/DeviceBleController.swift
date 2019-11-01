@@ -5,6 +5,8 @@
 //  Created by Pavel Vladimiroff on 11.07.2019.
 //  Copyright © 2019 pavit.design. All rights reserved.
 //
+var nameDevice = ""
+
 
 import UIKit
 import CoreBluetooth
@@ -20,7 +22,6 @@ class DeviceBleController: UIViewController {
     var id = ""
     var VV: String = ""
     var vatt: String = ""
-    var nameDevice = ""
     var RSSIMain = "0"
     var full = ""
     var nothing = ""
@@ -44,9 +45,8 @@ class DeviceBleController: UIViewController {
     var timer = Timer()
     var count = 0
     var timerTrue = 0
-    
-    var refreshControl = UIRefreshControl()
 
+    var refreshControl = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
         viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.75)
@@ -168,7 +168,6 @@ class DeviceBleController: UIViewController {
     }
     private func viewShow() {
         view.backgroundColor = UIColor(rgb: 0x1F2222)
-        
         let (headerView, backView) = headerSet(title: "TD BLE", showBack: true)
         view.addSubview(headerView)
         view.addSubview(backView!)
@@ -188,8 +187,16 @@ class DeviceBleController: UIViewController {
             
         }
     }
+    override func viewDidDisappear(_ animated: Bool) {
+        self.timerTrue = 0
+        self.view.subviews.forEach({ $0.removeFromSuperview() })
+        self.timer.invalidate()
+        nameDevice = ""
+        temp = nil
+        warning = true
+    }
     private func viewShowMain() {
-        
+
         view.subviews.forEach({ $0.removeFromSuperview() })
         view.backgroundColor = UIColor(rgb: 0x1F2222)
         
@@ -205,10 +212,9 @@ class DeviceBleController: UIViewController {
                     self.timerTrue = 0
                     self.view.subviews.forEach({ $0.removeFromSuperview() })
                     self.timer.invalidate()
-                    self.nameDevice = ""
+                    nameDevice = ""
                     temp = nil
                     self.navigationController?.popViewController(animated: true)
-
                 }
         let battaryView = UIView(frame: CGRect(x:screenWidth-58, y: screenHeight/6-29, width: 8, height: 10))
         battaryView.backgroundColor = .white
