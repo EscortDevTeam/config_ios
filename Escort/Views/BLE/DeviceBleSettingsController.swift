@@ -49,7 +49,9 @@ class DeviceBleSettingsController: UIViewController {
         uPicker2.dataSource = self
         uPicker2.delegate = self
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        warning = false
+    }
     
     fileprivate lazy var bgImage: UIImageView = {
         let img = UIImageView(image: UIImage(named: "bg-figures.png")!)
@@ -152,6 +154,7 @@ class DeviceBleSettingsController: UIViewController {
                 check3.frame = CGRect(x: x+120, y: y+4, width: 22, height: 26)
                 let imputTap = UIView(frame: CGRect(x: x+160, y: y, width: Int(screenWidth/2)-30, height: 40))
                 input3.frame = CGRect(x: 160, y: 0, width: Int(screenWidth/2-30), height: 40)
+        print("wmMax: \(wmMax)")
         if dataSource2.contains(wmMax) {
             input3.text = "1023"
             prov = input3.text!

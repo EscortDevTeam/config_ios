@@ -6,6 +6,7 @@
 //  Copyright © 2019 pavit.design. All rights reserved.
 //
 var nameDevice = ""
+var RSSIMain = "0"
 
 
 import UIKit
@@ -22,7 +23,6 @@ class DeviceBleController: UIViewController {
     var id = ""
     var VV: String = ""
     var vatt: String = ""
-    var RSSIMain = "0"
     var full = ""
     var nothing = ""
     var manager:CBCentralManager? = nil
@@ -187,13 +187,19 @@ class DeviceBleController: UIViewController {
             
         }
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        warning = true
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        warning = false
+
+    }
     override func viewDidDisappear(_ animated: Bool) {
         self.timerTrue = 0
         self.view.subviews.forEach({ $0.removeFromSuperview() })
         self.timer.invalidate()
         nameDevice = ""
         temp = nil
-        warning = true
     }
     private func viewShowMain() {
 

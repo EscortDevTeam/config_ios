@@ -14,7 +14,9 @@ class DeviceBleHelpController: UIViewController {
         super.viewDidLoad()
         viewShow()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        warning = false
+    }
     fileprivate lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
         v.translatesAutoresizingMaskIntoConstraints = false
@@ -28,6 +30,8 @@ class DeviceBleHelpController: UIViewController {
     }()
     
     private func viewShow() {
+        warning = false
+
         view.backgroundColor = UIColor(rgb: 0x1F2222)
         
         let (headerView, backView) = headerSet(title: "\(reference)", showBack: true)

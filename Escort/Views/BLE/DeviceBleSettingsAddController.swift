@@ -23,7 +23,9 @@ class DeviceBleSettingsAddController: UIViewController {
         viewShow()
         
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        warning = false
+    }
     fileprivate lazy var bgImage: UIImageView = {
         let img = UIImageView(image: UIImage(named: "bg-figures.png")!)
         img.frame = CGRect(x: 0, y: screenHeight-260, width: 201, height: 207)
@@ -103,6 +105,7 @@ class DeviceBleSettingsAddController: UIViewController {
         }
     }
     private func viewShow() {
+        warning = false
         view.subviews.forEach({ $0.removeFromSuperview() })
         view.backgroundColor = UIColor(rgb: 0x1F2222)
         

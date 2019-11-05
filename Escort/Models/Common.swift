@@ -64,10 +64,10 @@ var attention = "Внимание"
 var temp : String?
 var passwordHave = false
 var warning = false
-
+var RSSIMainArray: [String] = []
 let screenWidth = UIScreen.main.bounds.width, screenHeight = UIScreen.main.bounds.height
 let headerHeight = screenWidth * screenHeight / 3500
-
+var peripheralName: [String] = []
 func headerSet(title: String) -> UIView {
     return headerSet(title: title, showBack: false).0
 }
@@ -132,6 +132,31 @@ extension Array {
         for i in 0..<(count - 1) {
             let j = Int(arc4random_uniform(UInt32(count - i))) + i
             self.swapAt(i, j)
+        }
+    }
+}
+extension String {
+
+    enum RegularExpressions: String {
+        case phone = "^\\s*(?:\\+?(\\d{1,3}))?([-. (]*(\\d{3})[-. )]*)?((\\d{3})[-. ]*(\\d{2,4})(?:[-.x ]*(\\d+))?)\\s*$"
+    }
+
+    func isValid(regex: RegularExpressions) -> Bool { return isValid(regex: regex.rawValue) }
+    func isValid(regex: String) -> Bool { return range(of: regex, options: .regularExpression) != nil }
+
+    func onlyDigits() -> String {
+        let filtredUnicodeScalars = unicodeScalars.filter { CharacterSet.decimalDigits.contains($0) }
+        return String(String.UnicodeScalarView(filtredUnicodeScalars))
+    }
+
+    func makeAColl() {
+        guard   isValid(regex: .phone),
+                let url = URL(string: "tel://\(self.onlyDigits())"),
+                UIApplication.shared.canOpenURL(url) else { return }
+        if #available(iOS 10, *) {
+            UIApplication.shared.open(url)
+        } else {
+            UIApplication.shared.openURL(url)
         }
     }
 }

@@ -23,6 +23,7 @@
 		B510837F230196D60086C462 /* strela2.png in Resources */ = {isa = PBXBuildFile; fileRef = B510837E230196D50086C462 /* strela2.png */; };
 		B5291BBB22FD586300CB8890 /* DeviceListUsbController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5291BBA22FD586300CB8890 /* DeviceListUsbController.swift */; };
 		B52989332306AE1F007D2DE3 /* Battary.png in Resources */ = {isa = PBXBuildFile; fileRef = B52989322306AE1F007D2DE3 /* Battary.png */; };
+		B546385D23714AF60073C447 /* SettingAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B546385C23714AF60073C447 /* SettingAppController.swift */; };
 		B574930D22EED58900DE9371 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B574930C22EED58900DE9371 /* CoreBluetooth.framework */; };
 		B5856F8D22FD918100C51803 /* signal1.png in Resources */ = {isa = PBXBuildFile; fileRef = B5856F8C22FD918100C51803 /* signal1.png */; };
 		B5856F8F22FD918A00C51803 /* signal2.png in Resources */ = {isa = PBXBuildFile; fileRef = B5856F8E22FD918A00C51803 /* signal2.png */; };
@@ -115,6 +116,7 @@
 		B510837E230196D50086C462 /* strela2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = strela2.png; sourceTree = "<group>"; };
 		B5291BBA22FD586300CB8890 /* DeviceListUsbController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListUsbController.swift; sourceTree = "<group>"; };
 		B52989322306AE1F007D2DE3 /* Battary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Battary.png; sourceTree = "<group>"; };
+		B546385C23714AF60073C447 /* SettingAppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAppController.swift; sourceTree = "<group>"; };
 		B574930C22EED58900DE9371 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		B5856F8C22FD918100C51803 /* signal1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signal1.png; sourceTree = "<group>"; };
 		B5856F8E22FD918A00C51803 /* signal2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signal2.png; sourceTree = "<group>"; };
@@ -359,6 +361,7 @@
 				C491783122C8A94D0006106E /* StartScreenController.swift */,
 				C41730C922CA55DD00177C54 /* LanguageSelectController.swift */,
 				C41730DE22CB880A00177C54 /* ConnectionSelectController.swift */,
+				B546385C23714AF60073C447 /* SettingAppController.swift */,
 				B54795E223631CC2005F408C /* Menu */,
 				B54795E023631C5C005F408C /* BLE */,
 				B54795E123631C9D005F408C /* USB */,
@@ -667,6 +670,7 @@
 				B510836B23007E1B0086C462 /* ContainerViewController.swift in Sources */,
 				B5FDBC532302B68000442541 /* User.swift in Sources */,
 				B510836523007CDB0086C462 /* MenuViewController.swift in Sources */,
+				B546385D23714AF60073C447 /* SettingAppController.swift in Sources */,
 				B510836723007D010086C462 /* MenuTableCell.swift in Sources */,
 				C424A92422D73648008E154F /* DeviceBleController.swift in Sources */,
 				B5291BBB22FD586300CB8890 /* DeviceListUsbController.swift in Sources */,
@@ -817,7 +821,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = U76V7UPPR2;
 				INFOPLIST_FILE = Escort/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -825,7 +829,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.4.1;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.fmeter.config;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -840,7 +844,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = U76V7UPPR2;
 				INFOPLIST_FILE = Escort/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -848,7 +852,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.4.1;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.fmeter.config;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;

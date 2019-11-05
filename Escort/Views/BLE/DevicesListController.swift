@@ -997,7 +997,9 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+//        RSSIMain = "\(RSSI)"
         let key = "kCBAdvDataServiceUUIDs"
         print("advertisementData: \(advertisementData)")
         if peripheral.name != nil {
@@ -1007,17 +1009,23 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                 guard let uniqueID = abc?.first?.uuidString else { return }
                 _ = uniqueID.components(separatedBy: ["-"])
                 if(!peripherals.contains(peripheral)) {
-                    peripherals.append(peripheral)
+                    if RSSI != 127{
+                        peripherals.append(peripheral)
+                        RSSIMainArray.append("\(RSSI)")
+                        peripheralName.append(peripheral.name!)
+                        print("RSSIName: \(peripheral.name!) and  RSSI: \(RSSI)")
+                    }
                 }
             }
         }
     }
     func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?) {
-        DeviceBLEC.RSSIMain = "\(RSSI)"
+        RSSIMain = "\(RSSI)"
     }
     func centralManager(
         _ central: CBCentralManager,
         didConnect peripheral: CBPeripheral) {
+        
             peripheral.delegate = self
             let nameD = peripheral.name!
 //            print(nameD)
@@ -1035,6 +1043,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                     if warning == true{
                         timer.invalidate()
                     } else {
+                        timer.invalidate()
                         let alert = UIAlertController(title: "Предупреждение", message: "Потеряно соединение с устройством", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                             switch action.style{
@@ -1042,7 +1051,6 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                                 print("default")
                                 self.navigationController?.popViewController(animated: true)
                                 self.view.subviews.forEach({ $0.removeFromSuperview() })
-                                timer.invalidate()
                             case .cancel:
                                 print("cancel")
                             case .destructive:
@@ -1303,6 +1311,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                 if result.contains("HK") {
                     let indexOfPerson = result.firstIndex{$0 == "HK"}
                     print(indexOfPerson!)
+                    print(warning)
                     full = "\(result[indexOfPerson! + 2])"
                 }
                 if result.contains("US") {
@@ -1391,7 +1400,8 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
     var tr = 0
     var container2 = UIView(frame: CGRect(x: 20, y: 50, width: Int(screenWidth-40), height: 70))
     @objc func refresh(sender:AnyObject) {
-        
+        RSSIMainArray = []
+        peripheralName = []
         scanBLEDevices()
         activityIndicator.startAnimating()
         self.view.addSubview(viewAlpha)
@@ -1498,7 +1508,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         viewAlpha.addSubview(activityIndicator)
         activityIndicator.startAnimating()
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
             self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
             self.viewAlpha.removeFromSuperview()
             self.view.backgroundColor = UIColor(rgb: 0x1F2222).withAlphaComponent(1)
@@ -1555,7 +1565,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         scrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
 
-        let cellHeight = 60
+        let cellHeight = 70
         var y = headerHeight - 70
         var yS = headerHeight - 70
         
@@ -1585,7 +1595,16 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
             title.textColor = .white
             title.font = UIFont(name:"FuturaPT-Light", size: 24.0)
             
-            let btn = UIView(frame: CGRect(x: Int(screenWidth-140-40), y: 8, width: 140, height: 44))
+            let titleRSSI = UILabel(frame: CGRect(x: 30, y: 50, width: Int(screenWidth/2), height: 10))
+            peripheral.readRSSI()
+            titleRSSI.text = "\(RSSIMainArray[i]) dBm"
+            titleRSSI.textColor = .white
+            titleRSSI.font = UIFont(name:"FuturaPT-Light", size: 14.0)
+
+            let titleRSSIImage = UIImageView(frame: CGRect(x: 10, y: 50, width: 12, height: 11))
+            titleRSSIImage.image = #imageLiteral(resourceName: "dBm")
+
+            let btn = UIView(frame: CGRect(x: Int(screenWidth-140-40), y: 12, width: 140, height: 44))
             btn.backgroundColor = UIColor(rgb: 0xCF2121)
             btn.layer.cornerRadius = 22
             
@@ -1615,6 +1634,8 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                     view.addSubview(scrollViewS)
                     container2.addSubview(btn)
                     container2.addSubview(title)
+                    container2.addSubview(titleRSSI)
+                    container2.addSubview(titleRSSIImage)
                     container2.addSubview(connect)
                     container2.addSubview(separator)
                     scrollViewS.addSubview(container2)
@@ -1629,6 +1650,8 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                 container2.addSubview(btn)
                 container2.addSubview(connect)
                 container2.addSubview(title)
+                container2.addSubview(titleRSSI)
+                container2.addSubview(titleRSSIImage)
                 container2.addSubview(separator)
                 scrollView.addSubview(container2)
                 

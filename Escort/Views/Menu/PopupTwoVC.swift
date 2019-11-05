@@ -157,6 +157,24 @@ class PopupTwoVC: UIViewController {
 //        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(sender:)))
 //        leftSwipe.direction = .left
 //        view.addGestureRecognizer(leftSwipe)
+        let containerApp = UIView(frame: CGRect(x: Int(screenWidth-250), y: Int(screenWidth-190), width: 300, height: 280))
+        let aboutApp = UILabel(frame: CGRect(x: 0, y: 5, width: 300, height: 30))
+        let aboutAppView = UIView(frame: CGRect(x: 0, y: 5, width: 200, height: 40))
+        aboutAppView.backgroundColor = .clear
+        aboutApp.text = "О программе"
+        aboutApp.font = UIFont(name:"FuturaPT-Light", size: 36.0)
+        aboutApp.textColor = .black
+        let redLineApp = UIView(frame: CGRect(x: 0, y: 45, width: 200, height: 2))
+        redLineApp.backgroundColor = UIColor(rgb: 0xCF2121)
+        containerApp.addSubview(aboutApp)
+        containerApp.addSubview(aboutAppView)
+        containerApp.addSubview(redLineApp)
+        view.addSubview(containerApp)
+        aboutAppView.addTapGesture {
+            if let navController = self.navigationController {
+                navController.pushViewController(SettingAppController(), animated: true)
+            }
+        }
         let cellHeight = 70
         var y = 10
         VCMenu.removeFromSuperview()
@@ -213,8 +231,8 @@ class PopupTwoVC: UIViewController {
                         title.font = UIFont(name:"FuturaPT-Medium", size: 36.0)
                         self.strel.image = UIImage(named: "strela2.png")
                         for (_,j2) in languages.enumerated() {
-                            self.labelLanguage = UILabel(frame: CGRect(x: 143, y: y + Int(screenWidth-140), width: Int(screenWidth/2), height: 60))
-                            self.labelLanguageView = UILabel(frame: CGRect(x: 143, y: y + Int(screenWidth-140), width: Int(screenWidth/2), height: 60))
+                            self.labelLanguage = UILabel(frame: CGRect(x: Int(screenWidth/2)-30, y: y + Int(screenWidth-140), width: Int(screenWidth/2), height: 60))
+                            self.labelLanguageView = UILabel(frame: CGRect(x: Int(screenWidth/2)-30, y: y + Int(screenWidth-140), width: Int(screenWidth/2), height: 60))
                             self.labelLanguage.text = j2.name
                             self.labelLanguage.textColor = .black
                             self.labelLanguage.font = UIFont(name:"FuturaPT-Light", size: 24.0)
