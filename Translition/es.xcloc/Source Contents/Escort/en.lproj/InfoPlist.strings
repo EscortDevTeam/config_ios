@@ -1,0 +1,8 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "Эскорт";
+/* Bundle name */
+"CFBundleName" = "Escort";
+/* Privacy - Bluetooth Always Usage Description */
+"NSBluetoothAlwaysUsageDescription" = "Это позволит приложению \"$(PRODUCT_NAME)\" находить аксессуары и подключаться к ним по Bluetooth. Это приложение также сможет использовать Bluetooth, чтобы знать Вы поблизости";
+/* Privacy - Bluetooth Peripheral Usage Description */
+"NSBluetoothPeripheralUsageDescription" = "$(PRODUCT_NAME) bluetooth use.";

@@ -17,6 +17,6 @@ struct Language: Decodable {
 let languages: [Language] = [
     Language(name: "РУССКИЙ", code:"ru", image: "russia.png"),
     Language(name: "ENGLISH", code:"en", image: "english.png"),
-    Language(name: "PORTUGUÊS", code:"pr", image: "portugal.png"),
+    Language(name: "PORTUGUÊS", code:"pt-PT", image: "portugal.png"),
     Language(name: "ESPAÑOl", code:"es", image: "spain.png")
 ]

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+  <file original="Escort/en.lproj/InfoPlist.strings" datatype="plaintext" source-language="en" target-language="es">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.1" build-num="11A1027"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleDisplayName" xml:space="preserve">
+        <source>Эскорт</source>
+        <note>Bundle display name</note>
+      </trans-unit>
+      <trans-unit id="CFBundleName" xml:space="preserve">
+        <source>Escort</source>
+        <note>Bundle name</note>
+      </trans-unit>
+      <trans-unit id="NSBluetoothAlwaysUsageDescription" xml:space="preserve">
+        <source>Это позволит приложению "$(PRODUCT_NAME)" находить аксессуары и подключаться к ним по Bluetooth. Это приложение также сможет использовать Bluetooth, чтобы знать Вы поблизости</source>
+        <note>Privacy - Bluetooth Always Usage Description</note>
+      </trans-unit>
+      <trans-unit id="NSBluetoothPeripheralUsageDescription" xml:space="preserve">
+        <source>$(PRODUCT_NAME) bluetooth use.</source>
+        <note>Privacy - Bluetooth Peripheral Usage Description</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="Escort/ru.lproj/en.lproj/Localizable.strings" datatype="plaintext" source-language="en" target-language="es">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.1" build-num="11A1027"/>
+    </header>
+    <body>
+      <trans-unit id="%@ dB" xml:space="preserve">
+        <source>%@ dB</source>
+        <note>Unit format string for an RSSI value in decibles</note>
+      </trans-unit>
+      <trans-unit id="Awake Until" xml:space="preserve">
+        <source>Рабочее состояние до</source>
+        <note>The title of the cell describing an awake radio</note>
+      </trans-unit>
+      <trans-unit id="Commands" xml:space="preserve">
+        <source>Команды</source>
+        <note>The title of the section describing commands</note>
+      </trans-unit>
+      <trans-unit id="Connected" xml:space="preserve">
+        <source>Соединение установлено</source>
+        <note>The connected state</note>
+      </trans-unit>
+      <trans-unit id="Connecting" xml:space="preserve">
+        <source>Соединяется</source>
+        <note>The in-progress connecting state</note>
+      </trans-unit>
+      <trans-unit id="Connection State" xml:space="preserve">
+        <source>Состояние соединения</source>
+        <note>The title of the cell showing BLE connection state</note>
+      </trans-unit>
+      <trans-unit id="Device" xml:space="preserve">
+        <source>устройство</source>
+        <note>The title of the section describing the device</note>
+      </trans-unit>
+      <trans-unit id="Devices" xml:space="preserve">
+        <source>устройства</source>
+        <note>The title of the devices table section in RileyLink settings</note>
+      </trans-unit>
+      <trans-unit id="Disconnected" xml:space="preserve">
+        <source>Разъединено</source>
+        <note>The disconnected state</note>
+      </trans-unit>
+      <trans-unit id="Disconnecting" xml:space="preserve">
+        <source>Разъединяется</source>
+        <note>The in-progress disconnecting state</note>
+      </trans-unit>
+      <trans-unit id="Firmware" xml:space="preserve">
+        <source>Прошивка</source>
+        <note>The title of the cell showing firmware version</note>
+      </trans-unit>
+      <trans-unit id="Last Awake" xml:space="preserve">
+        <source>Недавнее состояние активности</source>
+        <note>The title of the cell describing an awake radio</note>
+      </trans-unit>
+      <trans-unit id="Listening Off" xml:space="preserve">
+        <source>Получаю данные от</source>
+        <note>The title of the cell describing no radio awake data</note>
+      </trans-unit>
+      <trans-unit id="Name" xml:space="preserve">
+        <source>Название</source>
+        <note>The title of the cell showing device name</note>
+      </trans-unit>
+      <trans-unit id="On Idle" xml:space="preserve">
+        <source>Бездействие</source>
+        <note>The title of the cell showing the last idle</note>
+      </trans-unit>
+      <trans-unit id="RileyLink allows for communication with the pump over Bluetooth Low Energy." xml:space="preserve">
+        <source>RileyLink позволяет вести коммуникацию с помпой через Bluetooth Low Energy.</source>
+        <note>RileyLink setup description</note>
+      </trans-unit>
+      <trans-unit id="Signal Strength" xml:space="preserve">
+        <source>Уровень сигнала</source>
+        <note>The title of the cell showing BLE signal strength (RSSI)</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

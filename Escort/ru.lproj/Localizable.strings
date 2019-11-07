@@ -9,12 +9,11 @@
 /* Unit format string for an RSSI value in decibles */
 "%@ dB" = "%@ dB";
 
-/* The title of the cell describing an awake radio */
-"Awake Until" = "Рабочее состояние до";
-
-/* The title of the section describing commands */
-"Commands" = "Команды";
-
+"Select connection type" = "Выберите тип подлючения";
+"Language" = "Язык";
+"About the program" = "О программе";
+"BLUETOOTH" = "BLUETOOTH";
+"CodeLangu" = "ru";
 /* The connected state */
 "Connected" = "Соединение установлено";
 

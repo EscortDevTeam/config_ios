@@ -61,37 +61,6 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
                             print("")
                         }
                     }
-            if let name0 = parsedData["132"] {
-                let dict = name0 as? [String: Any]
-                switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        print(name1 as! NSString)
-                        langu = name1 as! String
-                    }
-                    print(code)
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        print(name1 as! NSString)
-                        langu = name1 as! String
-                    }
-                    print(code)
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        print(name1 as! NSString)
-                        langu = name1 as! String
-                    }
-                    print(code)
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        print(name1 as! NSString)
-                        langu = name1 as! String
-                    }
-                    print(code)
-                default:
-                    print("")
-                }
-            }
             if let name0 = parsedData["2"] {
                 let dict = name0 as? [String: Any]
                 switch code {
@@ -238,7 +207,7 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         dataGetTwo()
-        updateLangues(code: code)
+//        updateLangues(code: code)
         viewShow()
         //        timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
     }
@@ -252,7 +221,7 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
 
         popUpVC.delegate = self
         rightCount = 0
-        updateLangues(code: code)
+//        updateLangues(code: code)
         viewShow()
         boolBLE = false
         print("12")
@@ -268,7 +237,15 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
         view.subviews.forEach({ $0.removeFromSuperview() })
         view.backgroundColor = .white
         var h = 0
-        view.addSubview(headerSet(title: "\(typeConnect)"))
+
+        let defaults = UserDefaults.standard
+        defaults.set("\(code)", forKey: "name")
+        let name = defaults.string(forKey: "name")
+        if code = name as! String {
+            
+        }
+        print("UserDefaults: \(name)")
+        view.addSubview(headerSet(title: "Select connection type".localized(code)))
         let hamburger = UIImageView(image: UIImage(named: "Hamburger.png")!)
         let hamburgerPlace = UIView()
                 var yHamb = screenHeight/22
@@ -336,8 +313,8 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
         btTitle2.text = con.name
         btTitle2.textColor = UIColor(rgb: 0x1F1F1F)
         btTitle2.font = UIFont(name:"FuturaPT-Light", size: 32.0)
-        btImage2.alpha = 0.5
-        btTitle2.alpha = 0.5
+        btImage2.alpha = 0.0
+        btTitle2.alpha = 0.0
         v2.addSubview(btImage2)
         v2.addSubview(btTitle2)
         

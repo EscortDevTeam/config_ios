@@ -31,11 +31,11 @@ class PopupTwoVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         moveIn()
-        menuLoad()
-        updateLangues()
+//        updateLangues()
     }
     override func viewDidAppear(_ animated: Bool) {
         moveIn()
+        menuLoad()
     }
     func updateLangues(){
 //                DeviceSelectC.code = code
@@ -157,11 +157,12 @@ class PopupTwoVC: UIViewController {
 //        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(sender:)))
 //        leftSwipe.direction = .left
 //        view.addGestureRecognizer(leftSwipe)
+        
         let containerApp = UIView(frame: CGRect(x: Int(screenWidth-250), y: Int(screenWidth-190), width: 300, height: 280))
         let aboutApp = UILabel(frame: CGRect(x: 0, y: 5, width: 300, height: 30))
         let aboutAppView = UIView(frame: CGRect(x: 0, y: 5, width: 200, height: 40))
         aboutAppView.backgroundColor = .clear
-        aboutApp.text = "О программе"
+        aboutApp.text = "About the program".localized(code)
         aboutApp.font = UIFont(name:"FuturaPT-Light", size: 36.0)
         aboutApp.textColor = .black
         let redLineApp = UIView(frame: CGRect(x: 0, y: 45, width: 200, height: 2))
@@ -182,6 +183,7 @@ class PopupTwoVC: UIViewController {
         container = UIView(frame: CGRect(x: Int(screenWidth-250), y: Int(screenWidth-100), width: Int(screenWidth - 40), height: 280))
         var withLine = 123
         for (i, i2) in menuSide.enumerated() {
+
             if i2.name == "Язык"{
                 withLine = 180
                 strel.frame = CGRect(x: Int(screenWidth-60), y: y + Int(screenWidth-115), width: 39, height: 12)
@@ -192,10 +194,6 @@ class PopupTwoVC: UIViewController {
                 }
                 closeMenu.frame = CGRect(x: screenWidth-50, y: yHamb, width: 30, height: 30)
                 self.view.addSubview(closeMenu)
-                closeMenu.addTapGesture {
-                    self.moveOut()
-                    
-                }
             }
             if i2.name == "USB"{
                 withLine = withLine / 2
@@ -204,12 +202,20 @@ class PopupTwoVC: UIViewController {
             let title = UILabel(frame: CGRect(x: 0, y: y - 40, width: Int(screenWidth/2+20), height: 60))
             let titleTap = UILabel(frame: CGRect(x: Int(screenWidth-250), y: y + Int(screenWidth-140), width: Int(screenWidth/2+20), height: 60))
             let redLine = UIView(frame: CGRect(x: 0, y: y + 15, width: withLine, height: 2))
+            closeMenu.addTapGesture {
+                self.moveOut()
+                title.removeFromSuperview()
+                aboutAppView.removeFromSuperview()
+                aboutApp.removeFromSuperview()
+                redLineApp.removeFromSuperview()
+                self.container.removeFromSuperview()
+            }
             redLine.backgroundColor = UIColor(rgb: 0xCF2121)
             title.text = i2.name
             title.textColor = .black
             title.font = UIFont(name:"FuturaPT-Light", size: 36.0)
-            if i == 2{
-                title.text = "\(langu)"
+            if i == 2 {
+                title.text = "Language".localized(code)
             }
             container.addSubview(title)
             container.addSubview(redLine)
@@ -248,9 +254,13 @@ class PopupTwoVC: UIViewController {
                                     
                                     self.strel.image = UIImage(named: "strel.png")
                                     code = j2.code
-                                    self.updateLangues()
-                                    self.menuLoad()
-                                    
+//                                    self.updateLangues()
+                                    self.container.removeFromSuperview()
+                                    title.removeFromSuperview()
+                                    aboutAppView.removeFromSuperview()
+                                    aboutApp.removeFromSuperview()
+                                    redLineApp.removeFromSuperview()
+                                    self.moveOut()
                                 }
                             }
 //                            self.view.addSubview(self.labelLanguage)

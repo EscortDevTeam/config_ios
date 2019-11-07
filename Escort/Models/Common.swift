@@ -37,8 +37,9 @@ var info = "Здесь скоро появится справочная инфо
 var typeBLE: String = "Тип bluetooth датчика"
 var typeUSB: String = "Тип проводного датчика"
 var boolBLE: Bool = true
-var code = "ru"
-var langu = "Язык"
+var code = "CodeLangu".localized
+var langu = "Language".localized(code)
+var languMain = "Language".localized(code)
 var openDevices = "Доступные устройства"
 var wait = "Обновление..."
 var fullIfYes = "Значение Полный успешно изменено"
@@ -61,7 +62,10 @@ var passwordSuccess = false
 var passNotifStringNo = "На датчике пароль не установлен"
 var passNotifStringYes = "На датчике установлен пароль"
 var attention = "Внимание"
+var termocompetition = "Отключить термокомпенсацию"
 var temp : String?
+var enterP = "Ввести"
+var deleteP = "Удалить"
 var passwordHave = false
 var warning = false
 var RSSIMainArray: [String] = []
@@ -160,3 +164,17 @@ extension String {
         }
     }
 }
+extension String {
+    var localized: String {
+        return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: "")
+    }
+}
+
+extension String {
+func localized(_ lang:String) ->String {
+
+    let path = Bundle.main.path(forResource: lang, ofType: "lproj")
+    let bundle = Bundle(path: path!)
+
+    return NSLocalizedString(self, tableName: nil, bundle: bundle!, value: "", comment: "")
+}}

@@ -978,7 +978,7 @@ class DeviceBleSettingsController: UIViewController {
         view.addSubview(separatorTwo)
         
         let termoLabel = UILabel(frame: CGRect(x: x, y: y+35, width: Int(screenWidth/2 + 70), height: 20))
-        termoLabel.text = "Отключить термокомпенсацию"
+        termoLabel.text = "\(termocompetition)"
         termoLabel.textColor = UIColor(rgb: 0xE9E9E9)
         view.addSubview(termoLabel)
         

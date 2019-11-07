@@ -18,7 +18,7 @@ struct Menu {
 let menuSide: [Menu] = [
     Menu(name: "Bluetooth"),
     Menu(name: "USB"),
-    Menu(name: "Язык")
+    Menu(name: "Language".localized(code))
 ]
 
 let devices: [Device] = [

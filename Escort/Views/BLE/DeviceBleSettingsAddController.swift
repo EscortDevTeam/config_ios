@@ -190,7 +190,7 @@ class DeviceBleSettingsAddController: UIViewController {
         btn1TruePass.layer.cornerRadius = 22
         
         let btn1TextTruePass = UILabel(frame: CGRect(x: x, y: y, width: Int(screenWidth/2-60), height: 44))
-        btn1TextTruePass.text = "Ввести"
+        btn1TextTruePass.text = "\(enterP)"
         btn1TextTruePass.textColor = .white
         btn1TextTruePass.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
         btn1TextTruePass.textAlignment = .center
@@ -200,7 +200,7 @@ class DeviceBleSettingsAddController: UIViewController {
         btnTruePassDelete.layer.cornerRadius = 22
         
         let btnTextTruePassDelete = UILabel(frame: CGRect(x: Int(screenWidth/2) + x, y: y, width: Int(screenWidth/2-60), height: 44))
-        btnTextTruePassDelete.text = "Удалить"
+        btnTextTruePassDelete.text = "\(deleteP)"
         btnTextTruePassDelete.textColor = .white
         btnTextTruePassDelete.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
         btnTextTruePassDelete.textAlignment = .center

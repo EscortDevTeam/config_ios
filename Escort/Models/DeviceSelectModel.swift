@@ -24,7 +24,7 @@ let usbDevices: [DeviceType] = [
 ]
 
 let bleDevices: [DeviceType] = [
-    DeviceType(name: "TD BLE", code:"tb-ble", image: "ble.png", isHide: false),
-    DeviceType(name: "TL BLE", code:"tl-ble-hide", image: "tl-ble-hide.png", isHide: true),
-    DeviceType(name: "DU 180", code:"du-180", image: "du-180-hide.png", isHide: true)
+    DeviceType(name: "TD BLE", code:"tb-ble", image: "ble.png", isHide: false)
+//    DeviceType(name: "TL BLE", code:"tl-ble-hide", image: "tl-ble-hide.png", isHide: true),
+//    DeviceType(name: "DU 180", code:"du-180", image: "du-180-hide.png", isHide: true)
 ]

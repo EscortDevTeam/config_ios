@@ -148,7 +148,7 @@ class SettingAppController: UIViewController {
     private func viewShowTwo() {
         view.subviews.forEach({ $0.removeFromSuperview() })
         view.addSubview(bgImage)
-        let (headerView, backView) = headerSet(title:"О программе", showBack: true)
+        let (headerView, backView) = headerSet(title:"About the program".localized(code), showBack: true)
         view.addSubview(headerView)
         view.addSubview(backView!)
         
@@ -278,7 +278,7 @@ class SettingAppController: UIViewController {
             siteView.addSubview(siteViewLabel)
             siteView.addSubview(siteImage)
             siteView.addTapGesture {
-                let url = URL(string: "https://www.fmeter.ru/")!
+                let url = URL(string: "https://www.fmeter.ru")!
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
             self.view.addSubview(siteView)

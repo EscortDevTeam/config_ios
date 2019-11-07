@@ -15,6 +15,6 @@ struct Connection {
 }
 
 let connections: [Connection] = [
-    Connection(name: "BLUETOOTH", code:"bt", image: "bluetooth.png"),
+    Connection(name: "BLUETOOTH".localized, code:"bt", image: "bluetooth.png"),
     Connection(name: "USB", code:"usb", image: "usb.png")
 ]

@@ -967,6 +967,75 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                     print("")
             }
         }
+        if let name0 = parsedData["141"] {
+            let dict = name0 as? [String: Any]
+            switch code {
+                case "ru":
+                    if let name1 = dict!["title_ru"]{
+                        termocompetition = name1 as! String
+                    }
+                case "en":
+                    if let name1 = dict!["title_en"]{
+                        termocompetition = name1 as! String
+                    }
+                case "pr":
+                    if let name1 = dict!["title_pr"]{
+                        termocompetition = name1 as! String
+                    }
+                case "es":
+                    if let name1 = dict!["title_es"]{
+                        termocompetition = name1 as! String
+                    }
+                default:
+                    print("")
+            }
+        }
+        if let name0 = parsedData["99"] {
+            let dict = name0 as? [String: Any]
+            switch code {
+                case "ru":
+                    if let name1 = dict!["title_ru"]{
+                        enterP = name1 as! String
+                    }
+                case "en":
+                    if let name1 = dict!["title_en"]{
+                        enterP = name1 as! String
+                    }
+                case "pr":
+                    if let name1 = dict!["title_pr"]{
+                        enterP = name1 as! String
+                    }
+                case "es":
+                    if let name1 = dict!["title_es"]{
+                        enterP = name1 as! String
+                    }
+                default:
+                    print("")
+            }
+        }
+        if let name0 = parsedData["100"] {
+            let dict = name0 as? [String: Any]
+            switch code {
+                case "ru":
+                    if let name1 = dict!["title_ru"]{
+                        deleteP = name1 as! String
+                    }
+                case "en":
+                    if let name1 = dict!["title_en"]{
+                        deleteP = name1 as! String
+                    }
+                case "pr":
+                    if let name1 = dict!["title_pr"]{
+                        deleteP = name1 as! String
+                    }
+                case "es":
+                    if let name1 = dict!["title_es"]{
+                        deleteP = name1 as! String
+                    }
+                default:
+                    print("")
+            }
+        }
     }
     
     func centralManagerDidUpdateState (_ central : CBCentralManager) {
