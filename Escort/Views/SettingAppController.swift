@@ -17,96 +17,10 @@
 import UIKit
 
 class SettingAppController: UIViewController {
-        
-    func updateLangues(code: String){
-        if let name0 = parsedData["47"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-            case "ru":
-                if let name1 = dict!["title_ru"]{
-                    print(name1 as! NSString)
-                    wait = name1 as! String
-                }
-            case "en":
-                if let name1 = dict!["title_en"]{
-                    print(name1 as! NSString)
-                    wait = name1 as! String
-                }
-            case "pr":
-                if let name1 = dict!["title_pr"]{
-                    print(name1 as! NSString)
-                    wait = name1 as! String
-                }
-            case "es":
-                if let name1 = dict!["title_es"]{
-                    print(name1 as! NSString)
-                    wait = name1 as! String
-                }
-            default:
-                print("")
-            }
-        }
-        
-        if let name0 = parsedData["132"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-            case "ru":
-                if let name1 = dict!["title_ru"]{
-                    langu = name1 as! String
-                }
-            case "en":
-                if let name1 = dict!["title_en"]{
-                    langu = name1 as! String
-                }
-            case "pr":
-                if let name1 = dict!["title_pr"]{
-                    langu = name1 as! String
-                }
-            case "es":
-                if let name1 = dict!["title_es"]{
-                    langu = name1 as! String
-                }
-            default:
-                print("")
-            }
-        }
-        if let name0 = parsedData["9"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-            case "ru":
-                if let name1 = dict!["title_ru"]{
-                    print(name1 as! NSString)
-                    openDevices = name1 as! String
-                }
-                print(code)
-            case "en":
-                if let name1 = dict!["title_en"]{
-                    print(name1 as! NSString)
-                    openDevices = name1 as! String
-                }
-                print(code)
-            case "pr":
-                if let name1 = dict!["title_pr"]{
-                    print(name1 as! NSString)
-                    openDevices = name1 as! String
-                }
-                print(code)
-            case "es":
-                if let name1 = dict!["title_es"]{
-                    print(name1 as! NSString)
-                    openDevices = name1 as! String
-                }
-                print(code)
-            default:
-                print("")
-            }
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         viewShow()
-        updateLangues(code: code)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -160,7 +74,7 @@ class SettingAppController: UIViewController {
             }
             var y = 35
             let version = UILabel(frame: CGRect(x: 10, y: headerHeight, width: screenWidth/2, height: 30))
-            version.text = "ВЕРСИЯ"
+            version.text = "VERSION".localized(code)
             version.textColor = .white
             version.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
             self.view.addSubview(version)
@@ -179,7 +93,7 @@ class SettingAppController: UIViewController {
             y = y + 100
             var headerCell = 100
             let address = UILabel(frame: CGRect(x: 10, y: Int(headerHeight) + headerCell, width: Int(screenWidth/2), height: 30))
-            address.text = "АДРЕС"
+            address.text = "ADDRESS".localized(code)
             address.textColor = .white
             address.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
             self.view.addSubview(address)
@@ -188,7 +102,7 @@ class SettingAppController: UIViewController {
             addressView.backgroundColor = .black
             
             let addressViewLabel = UILabel(frame: CGRect(x: 10, y: 5, width: screenWidth-20, height: 60))
-            addressViewLabel.text = "420127, Россия, Казань, Респ. Татарстан, yлица Дементьева, 2Б корпус 4"
+            addressViewLabel.text = "addressMain".localized(code)
             addressViewLabel.font = UIFont(name:"FuturaPT-Light", size: 18.0)
             addressViewLabel.numberOfLines = 0
             addressViewLabel.textColor = .white
@@ -200,7 +114,7 @@ class SettingAppController: UIViewController {
             headerCell = headerCell + 120
             
             let phone = UILabel(frame: CGRect(x: 10, y: Int(headerHeight) + headerCell, width: Int(screenWidth/2), height: 30))
-            phone.text = "Телефоны"
+            phone.text = "TELEPHONES".localized(code)
             phone.textColor = .white
             phone.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
             self.view.addSubview(phone)
@@ -210,7 +124,7 @@ class SettingAppController: UIViewController {
             let phonelImage = UIImageView(frame: CGRect(x: 10, y: 13, width: 15, height: 15))
             phonelImage.image = #imageLiteral(resourceName: "icons8-телефон-50")
             let phoneViewLabel = UILabel(frame: CGRect(x: 30, y: 5, width: screenWidth-20, height: 30))
-            phoneViewLabel.text = "+7(495)108-68-33 - по России - бесплатно"
+            phoneViewLabel.text = "+7(495)108-68-33 - \("phoneRus".localized(code))"
             phoneViewLabel.addTapGesture {
                 self.makeAPhoneCall()
             }
@@ -223,7 +137,7 @@ class SettingAppController: UIViewController {
             let phonelImage2 = UIImageView(frame: CGRect(x: 10, y: 43, width: 15, height: 15))
             phonelImage2.image = #imageLiteral(resourceName: "icons8-телефон-50")
             let phoneViewLabelTwo = UILabel(frame: CGRect(x: 30, y: 35, width: screenWidth-20, height: 30))
-            phoneViewLabelTwo.text = "+7(800)777-16-03 - по России - бесплатно"
+            phoneViewLabelTwo.text = "+7(800)777-16-03 - \("phoneRus".localized(code))"
             phoneViewLabelTwo.addTapGesture {
                 self.makeAPhoneCallTwo()
             }
@@ -238,7 +152,7 @@ class SettingAppController: UIViewController {
             y = y + 120
             headerCell = headerCell + 120
             let email = UILabel(frame: CGRect(x: 10, y: Int(headerHeight) + headerCell, width: Int(screenWidth/2), height: 30))
-            email.text = "ЭЛЕКТРОННАЯ ПОЧТА"
+            email.text = "EMAIL".localized(code)
             email.textColor = .white
             email.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
             self.view.addSubview(email)
@@ -261,7 +175,7 @@ class SettingAppController: UIViewController {
             headerCell = headerCell + 100
             
             let site = UILabel(frame: CGRect(x: 10, y: Int(headerHeight) + headerCell, width: Int(screenWidth/2), height: 30))
-            site.text = "САЙТ"
+            site.text = "WEBSITE".localized(code)
             site.textColor = .white
             site.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
             self.view.addSubview(site)
@@ -271,7 +185,7 @@ class SettingAppController: UIViewController {
             let siteImage = UIImageView(frame: CGRect(x: 10, y: 13, width: 15, height: 15))
             siteImage.image = #imageLiteral(resourceName: "icons8-приключения-24")
             let siteViewLabel = UILabel(frame: CGRect(x: 30, y: 5, width: screenWidth/2+20, height: 30))
-            siteViewLabel.text = "https://www.fmeter.ru/"
+            siteViewLabel.text = "https://www.fmeter.ru"
             siteViewLabel.font = UIFont(name:"FuturaPT-Light", size: 18.0)
             siteViewLabel.numberOfLines = 0
             siteViewLabel.textColor = .white

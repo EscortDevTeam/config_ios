@@ -11,120 +11,15 @@ import UIKit
 class LanguageSelectController: UIViewController {
     
     let ConnectionSelectC = ConnectionSelectController()
-    var selectLanguage = "Выберите язык"
-    
-    func dataGetTwo() {
-        let urlString = "https://api.fmeter.ru/site/api/1234563213131231231123341112"
-        let url = URL(string: urlString)
-        URLSession.shared.dataTask(with:url!) { (data, response, error) in
-            if error != nil {
-                print(error as Any)
-            } else {
-                do {
-                    parsedData = try JSONSerialization.jsonObject(with: data as! Data, options: .allowFragments) as! Dictionary<String, AnyObject>
-                    print("parsedData: \(parsedData)")
-                    let currentConditions = parsedData["version"]! as! NSString
-                    print(currentConditions)
-                    if let name0 = parsedData["0"] {
-                        let dict = name0 as? [String: Any]
-                        print(dict!)
-                        if let name0screen = dict!["screen"]{
-                            print(name0screen as! Int)
-                        }
-                        if let name0en = dict!["title_en"]{
-                            print(name0en as! NSString)
-                        }
-                        if let name0es = dict!["title_es"]{
-                            print(name0es as! NSString)
-                        }
-                        if let name0pr = dict!["title_pr"]{
-                            print(name0pr as! NSString)
-                        }
-                        if let name0ru = dict!["title_ru"]{
-                            print(name0ru as! NSString)
-                        }
-                    }
-                    if let name0 = parsedData["2"] {
-                        let dict = name0 as? [String: Any]
-                        print(dict!)
-                        if let name0screen = dict!["screen"]{
-                            print(name0screen as! Int)
-                        }
-                        if let name0en = dict!["title_en"]{
-                            print(name0en as! NSString)
-                        }
-                        if let name0es = dict!["title_es"]{
-                            print(name0es as! NSString)
-                        }
-                        if let name0pr = dict!["title_pr"]{
-                            print(name0pr as! NSString)
-                        }
-                        if let name0ru = dict!["title_ru"]{
-                            print(name0ru as! NSString)
-                        }
-                    }
-                    if let name0 = parsedData["1"] {
-                        let dict = name0 as? [String: Any]
-                        print(dict!)
-                        if let name0screen = dict!["screen"]{
-                            print(name0screen as! Int)
-                        }
-                        if let name0en = dict!["title_en"]{
-                            print(name0en as! NSString)
-                        }
-                        if let name0es = dict!["title_es"]{
-                            print(name0es as! NSString)
-                        }
-                        if let name0pr = dict!["title_pr"]{
-                            print(name0pr as! NSString)
-                        }
-                        if let name0ru = dict!["title_ru"]{
-                            print(name0ru as! NSString)
-                            let nameORU = (name0ru as! NSString) as String
-                            print(nameORU)
-                        }
-                    }
-                } catch let error as NSError {
-                    print(error)
-                }
-            }
-        }.resume()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataGetTwo()
         viewShow()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         viewShow()
     }
-    
-    func updateLangues(){
-        let currentConditions = parsedData["version"]! as! NSString
-        print(currentConditions)
-        if let name0 = parsedData["0"] {
-            let dict = name0 as? [String: Any]
-            print(dict!)
-            if let name0screen = dict!["screen"]{
-                print(name0screen as! Int)
-            }
-            if let name0en = dict!["title_en"]{
-                print(name0en as! NSString)
-                self.ConnectionSelectC.typeConnect = name0en as! String
-            }
-            if let name0es = dict!["title_es"]{
-                print(name0es as! NSString)
-            }
-            if let name0pr = dict!["title_pr"]{
-                print(name0pr as! NSString)
-            }
-            if let name0ru = dict!["title_ru"]{
-                print(name0ru as! NSString)
-            }
-        }
-    }
+
     
     fileprivate lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
@@ -135,7 +30,7 @@ class LanguageSelectController: UIViewController {
     func viewShow() {
         view.subviews.forEach({ $0.removeFromSuperview() })
         view.backgroundColor = .white
-        view.addSubview(headerSet(title: "\(selectLanguage)"))
+        view.addSubview(headerSet(title: "..."))
         view.addSubview(scrollView)
         scrollView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
         scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: headerHeight).isActive = true
@@ -162,50 +57,9 @@ class LanguageSelectController: UIViewController {
         }
         scrollView.addSubview(v)
         scrollView.contentSize = CGSize(width: Int(screenWidth), height: languages.count * 120)
-        SharedClass.sharedInstance.addTapGesture(view: scrollView, target: self, action: #selector(handleGesture))
+//        SharedClass.sharedInstance.addTapGesture(view: scrollView, target: self, action: #selector(handleGesture))
     }
-    
-    @objc func handleGesture(gesture: UITapGestureRecognizer) -> Void {
-        let i: Int = Int(gesture.location(in: gesture.view).y) / 120
-        if i > languages.count-1 { return }
-        // set language
-        let selectedLanguage = languages[i]
-        code = selectedLanguage.code
-        if let name0 = parsedData["1"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-            case "ru":
-                if let name1 = dict!["title_ru"]{
-                    print(name1 as! NSString)
-                    self.ConnectionSelectC.typeConnect = name1 as! String
-                }
-                print("code: \(code)")
-            case "en":
-                if let name1 = dict!["title_en"]{
-                    print(name1 as! NSString)
-                    self.ConnectionSelectC.typeConnect = name1 as! String
-                    print("code: \(code)")
-                }
-                print(code)
-            case "pr":
-                if let name1 = dict!["title_pr"]{
-                    print(name1 as! NSString)
-                    self.ConnectionSelectC.typeConnect = name1 as! String
-                }
-                print(code)
-            case "es":
-                if let name1 = dict!["title_es"]{
-                    print(name1 as! NSString)
-                    ConnectionSelectC.typeConnect = name1 as! String
-                }
-                print(code)
-            default:
-                print("")
-            }
-        }
-        move()
-    }
-    
+
     private func move() {
         print("move")
         navigationController?.pushViewController(ConnectionSelectC, animated: true)

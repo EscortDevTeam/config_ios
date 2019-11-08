@@ -10,15 +10,145 @@
 "%@ dB" = "%@ dB";
 
 "Select connection type" = "Выберите тип подлючения";
-"Language" = "Язык";
-"About the program" = "О программе";
-"BLUETOOTH" = "BLUETOOTH";
-"CodeLangu" = "ru";
-/* The connected state */
-"Connected" = "Соединение установлено";
 
-/* The in-progress connecting state */
-"Connecting" = "Соединяется";
+"Configurator" = "Конфигуратор ";
+
+"Language" = "Язык";
+
+"About the program" = "О программе";
+
+"BLUETOOTH" = "BLUETOOTH";
+
+"CodeLangu" = "ru";
+
+"Type of bluetooth sensor" = "Тип bluetooth датчика";
+
+"For further work, you must enable Bluetooth" = "Для дальнейшей работы необходимо включить Bluetooth";
+
+"List of available devices" = "Список устройств";
+
+"Warning" = "Предупреждение";
+
+"Attention" = "Внимание";
+
+"Connection is lost." = "Связь потеряна.";
+
+"Сopied to clipboard" = "Скопировано в буфер";
+
+"Level" = "Уровень";
+
+"Disconnected" = "Отключен";
+
+"Connected" = "Включен";
+
+"Stable" = "Стабилен";
+
+"Not stable" = "Не стабилен";
+
+"Settings" = "Настройки";
+
+"Additional Features" = "Доп. возможности";
+
+"Reference" = "Справка";
+
+"Wait" = "Подождать";
+
+"Sensor is not password-protected" = "На датчике установлен пароль";
+
+"Connect" = "Подключиться";
+
+"Maximum level" = "Макс. уровень";
+
+"Minimum level" = "Мин. уровень";
+
+"Filtration" = "Фильтрация";
+
+"Write parameters to the device" = "Записать параметры в устройство";
+
+"Empty" = "Пустой";
+
+"Full" = "Полный";
+
+"Disable Thermal Compensation" = "Отключить термокомпенсацию";
+
+"Value changing failure" = "Не удалось изменить значение";
+
+"Value changed – calibration is done successfully" = "Значение успешно откалибровано";
+
+"Value not changed – calibration failure" = "Не удалось откалибровать значение";
+
+"“Full” value shall be higher than “Empty” value" = "Полный должен быть больше Пустой";
+
+"Enter password to continue" = "Необходимо сначала ввести пароль";
+
+"Enter value..." = "Введите значение...";
+
+"“Empty” value changing failure" = "Значение Пустой изменить не удалось";
+
+"“Full” value changed successfully" = "Значение Полный успешно изменено";
+
+"“Full” value changing failure" = "Значение Полный изменить не удалось";
+
+"“Empty” value changed successfully" = "Значение Пустой успешно изменено";
+
+"TD BLE Settings" = "Настройки TD BLE";
+
+"Info" = "Здесь скоро появится справочная информация, мы над этим работаем.";
+
+"Password" = "Пароль";
+
+"Password for changing settings" = "Пароль на изменение настроек";
+
+"Set" = "Установить";
+
+"Reloading TD-BLE" = "Перезагрузка TD-BLE";
+
+"VERSION" = "ВЕРСИЯ";
+
+"ADDRESS" = "АДРЕС";
+
+"TELEPHONES" = "ТЕЛЕФОНЫ";
+
+"EMAIL" = "ЭЛЕКТРОННАЯ ПОЧТА";
+
+"WEBSITE" = "ВЕБСАЙТ";
+
+"phoneRus" = "по России - бесплатно";
+
+"addressMain" = "420127, Россия, Казань, Респ. Татарстан, yлица Дементьева, 2Б корпус 4";
+
+"Password set successfully" = "Пароль успешно установлен";
+
+"Password setting failure" = "Не удалось установить пароль";
+
+"Password deleted successfully" = "Пароль успешно удален";
+
+"Password is entered" = "Пароль введен";
+
+"Data update failure" = "Не удалось изменить данные";
+
+"Data updated successfully" = "Данные успешно изменены";
+
+"Password deletion failure" = "Не удалось удалить пароль";
+
+"Failed to reload" = "Не удалось перезагрузить";
+
+"“Password” accepts values from 1 to 2000000000" = "Пароль принимает значения от 0 до 2000000000";
+
+"Success" = "Успешно";
+
+"Wrong password" = "Введен неверный пароль";
+
+"Enter" = "Ввести";
+
+"Remove" = "Удалить";
+
+"Reloading..." = "Перезагружается...";
+
+
+"Manual configuration input" = "Ручной ввод конфигурации";
+
+
 
 /* The title of the cell showing BLE connection state */
 "Connection State" = "Состояние соединения";
@@ -30,7 +160,6 @@
 "Devices" = "устройства";
 
 /* The disconnected state */
-"Disconnected" = "Разъединено";
 
 /* The in-progress disconnecting state */
 "Disconnecting" = "Разъединяется";

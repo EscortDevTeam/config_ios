@@ -10,21 +10,17 @@ import UIKit
 import CoreBluetooth
 
 class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, SecondVCDelegate {
+    
     func secondVC_BackClicked(data: String) {
-        print("data22: \(data)")
-        updateLangues(code: code)
         viewShow()
     }
-    
     let viewAlpha = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
     let searchBar = UISearchBar(frame: CGRect(x: 0, y: headerHeight, width: screenWidth, height: 35))
     var refreshControl = UIRefreshControl()
     var attributedTitle = NSAttributedString()
     let attributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     var serviceUUIDMain = "6E400001-B5A3-F393-E0A9-"
-    let popUpVC = UIStoryboard(name: "MenuSelf", bundle: nil).instantiateViewController(withIdentifier: "popUpVCid") as! PopupTwoVC // 1
-
-//    let serviceUUID = CBUUID(string:"6E400001-B5A3-F393-E0A9-FFEEDDC18C3B")
+    let popUpVCNext = UIStoryboard(name: "MainSelf", bundle: nil).instantiateViewController(withIdentifier: "popUpVCid") as! PopupViewController // 1
     var peripherals = [CBPeripheral]()
     var manager:CBCentralManager? = nil
     var parentView: DeviceBleController!
@@ -35,1040 +31,36 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
     var iter = false
     var parsedData:[String : AnyObject] = [:]
     var bluetoothPeripheralManager: CBPeripheralManager?
-
-    
-    func updateLangues(code: String){
-        popUpVC.parsedData = parsedData
-        DeviceBLEC.parsedData = parsedData
-        if let name0 = parsedData["9"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-            case "ru":
-                if let name1 = dict!["title_ru"]{
-                    openDevices = name1 as! String
-                }
-                print(code)
-            case "en":
-                if let name1 = dict!["title_en"]{
-                    print(name1 as! NSString)
-                    openDevices = name1 as! String
-                }
-                print(code)
-            case "pr":
-                if let name1 = dict!["title_pr"]{
-                    print(name1 as! NSString)
-                    openDevices = name1 as! String
-                }
-                print(code)
-            case "es":
-                if let name1 = dict!["title_es"]{
-                    print(name1 as! NSString)
-                    openDevices = name1 as! String
-                }
-                print(code)
-            default:
-                print("")
-            }
-        }
-        if let name0 = parsedData["41"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        self.DeviceBLEC.setting = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        self.DeviceBLEC.setting = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        self.DeviceBLEC.setting = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        self.DeviceBLEC.setting = name1 as! String
-                    }
-                default:
-                    print("")
-                }
-        }
-        if let name0 = parsedData["42"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-            case "ru":
-                if let name1 = dict!["title_ru"]{
-                    print(name1 as! NSString)
-                    self.DeviceBLEC.features = name1 as! String
-                    settingDop = name1 as! String
-                }
-            case "en":
-                if let name1 = dict!["title_en"]{
-                    print(name1 as! NSString)
-                    self.DeviceBLEC.features = name1 as! String
-                    settingDop = name1 as! String
-                }
-            case "pr":
-                if let name1 = dict!["title_pr"]{
-                    print(name1 as! NSString)
-                    self.DeviceBLEC.features = name1 as! String
-                    settingDop = name1 as! String
-                }
-            case "es":
-                if let name1 = dict!["title_es"]{
-                    print(name1 as! NSString)
-                    self.DeviceBLEC.features = name1 as! String
-                    settingDop = name1 as! String
-                }
-            default:
-                print("")
-            }
-        }
-        if let name0 = parsedData["43"] {
-                            let dict = name0 as? [String: Any]
-                            switch code {
-                            case "ru":
-                                if let name1 = dict!["title_ru"]{
-                                    print(name1 as! NSString)
-                                    reference = name1 as! String
-                                }
-                                print(code)
-                            case "en":
-                                if let name1 = dict!["title_en"]{
-                                    print(name1 as! NSString)
-                                    reference = name1 as! String
-                                }
-                                print(code)
-                            case "pr":
-                                if let name1 = dict!["title_pr"]{
-                                    print(name1 as! NSString)
-                                    reference = name1 as! String
-                                }
-                                print(code)
-                            case "es":
-                                if let name1 = dict!["title_es"]{
-                                    print(name1 as! NSString)
-                                    reference = name1 as! String
-                                }
-                                print(code)
-                            default:
-                                print("")
-                            }
-                        }
-        if let name0 = parsedData["65"] {
-                            let dict = name0 as? [String: Any]
-                            switch code {
-                            case "ru":
-                                if let name1 = dict!["title_ru"]{
-                                    print(name1 as! NSString)
-                                    self.DeviceBLEC.levelLabel = name1 as! String
-                                }
-                                print(code)
-                            case "en":
-                                if let name1 = dict!["title_en"]{
-                                    print(name1 as! NSString)
-                                    self.DeviceBLEC.levelLabel = name1 as! String
-                                }
-                                print(code)
-                            case "pr":
-                                if let name1 = dict!["title_pr"]{
-                                    print(name1 as! NSString)
-                                    self.DeviceBLEC.levelLabel = name1 as! String
-                                }
-                                print(code)
-                            case "es":
-                                if let name1 = dict!["title_es"]{
-                                    print(name1 as! NSString)
-                                    self.DeviceBLEC.levelLabel = name1 as! String
-                                }
-                                print(code)
-                            default:
-                                print("")
-                            }
-        }
-        if let name0 = parsedData["40"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-            case "ru":
-                if let name1 = dict!["title_ru"]{
-                    print(name1 as! NSString)
-                    self.DeviceBLEC.connected = name1 as! String
-                }
-                print(code)
-            case "en":
-                if let name1 = dict!["title_en"]{
-                    print(name1 as! NSString)
-                    self.DeviceBLEC.connected = name1 as! String
-                }
-                print(code)
-            case "pr":
-                if let name1 = dict!["title_pr"]{
-                    print(name1 as! NSString)
-                    self.DeviceBLEC.connected = name1 as! String
-                }
-                print(code)
-            case "es":
-                if let name1 = dict!["title_es"]{
-                    print(name1 as! NSString)
-                    self.DeviceBLEC.connected = name1 as! String
-                }
-                print(code)
-            default:
-                print("")
-            }
-        }
-        if let name0 = parsedData["39"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-            case "ru":
-                if let name1 = dict!["title_ru"]{
-                    print(name1 as! NSString)
-                    self.DeviceBLEC.DontConnected = name1 as! String
-                }
-                print(code)
-            case "en":
-                if let name1 = dict!["title_en"]{
-                    print(name1 as! NSString)
-                    self.DeviceBLEC.DontConnected = name1 as! String
-                }
-                print(code)
-            case "pr":
-                if let name1 = dict!["title_pr"]{
-                    print(name1 as! NSString)
-                    self.DeviceBLEC.DontConnected = name1 as! String
-                }
-                print(code)
-            case "es":
-                if let name1 = dict!["title_es"]{
-                    print(name1 as! NSString)
-                    self.DeviceBLEC.DontConnected = name1 as! String
-                }
-                print(code)
-            default:
-                print("")
-            }
-        }
-        if let name0 = parsedData["56"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        print(name1 as! NSString)
-                        self.DeviceBLEC.statusDeviceYES = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        print(name1 as! NSString)
-                        self.DeviceBLEC.statusDeviceYES = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        print(name1 as! NSString)
-                        self.DeviceBLEC.statusDeviceYES = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        print(name1 as! NSString)
-                        self.DeviceBLEC.statusDeviceYES = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["85"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        print(name1 as! NSString)
-                        self.DeviceBLEC.statusDeviceNO = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        print(name1 as! NSString)
-                        self.DeviceBLEC.statusDeviceNO = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        print(name1 as! NSString)
-                        self.DeviceBLEC.statusDeviceNO = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        print(name1 as! NSString)
-                        self.DeviceBLEC.statusDeviceNO = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["47"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        print(name1 as! NSString)
-                        wait = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        print(name1 as! NSString)
-                        wait = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        print(name1 as! NSString)
-                        wait = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        print(name1 as! NSString)
-                        wait = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["79"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        print(name1 as! NSString)
-                        maxLevel = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        print(name1 as! NSString)
-                        maxLevel = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        print(name1 as! NSString)
-                       maxLevel = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        print(name1 as! NSString)
-                        maxLevel = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["78"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        print(name1 as! NSString)
-                        minLevel = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        print(name1 as! NSString)
-                        minLevel = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        print(name1 as! NSString)
-                       minLevel = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        print(name1 as! NSString)
-                        minLevel = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["80"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        print(name1 as! NSString)
-                        fitr = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        print(name1 as! NSString)
-                        fitr = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        print(name1 as! NSString)
-                       fitr = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        print(name1 as! NSString)
-                        fitr = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["82"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        print(name1 as! NSString)
-                        paramDevice = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        print(name1 as! NSString)
-                        paramDevice = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        print(name1 as! NSString)
-                       paramDevice = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        print(name1 as! NSString)
-                        paramDevice = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["84"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        print(name1 as! NSString)
-                        setFull = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        print(name1 as! NSString)
-                        setFull = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        print(name1 as! NSString)
-                       setFull = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        print(name1 as! NSString)
-                        setFull = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["83"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        print(name1 as! NSString)
-                        setNothing = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        print(name1 as! NSString)
-                        setNothing = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        print(name1 as! NSString)
-                       setNothing = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        print(name1 as! NSString)
-                        setNothing = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["11"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        print(name1 as! NSString)
-                        settingMain = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        print(name1 as! NSString)
-                        settingMain = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        print(name1 as! NSString)
-                       settingMain = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        print(name1 as! NSString)
-                        settingMain = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["101"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        print(name1 as! NSString)
-                        manualInput = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        print(name1 as! NSString)
-                        manualInput = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        print(name1 as! NSString)
-                       manualInput = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        print(name1 as! NSString)
-                        manualInput = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["106"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        print(name1 as! NSString)
-                        reloadName = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        print(name1 as! NSString)
-                        reloadName = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        print(name1 as! NSString)
-                       reloadName = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        print(name1 as! NSString)
-                        reloadName = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["105"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        print(name1 as! NSString)
-                        set = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        print(name1 as! NSString)
-                        set = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        print(name1 as! NSString)
-                        set = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        print(name1 as! NSString)
-                        set = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["125"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        password = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        password = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        password = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        password = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["96"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        passwordForChange = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        passwordForChange = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        passwordForChange = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        passwordForChange = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["98"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        enterValue = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        enterValue = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        enterValue = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        enterValue = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["128"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        info = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        info = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        info = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        info = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["121"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        fullIfYes = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        fullIfYes = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        fullIfYes = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        fullIfYes = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["126"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        nothingIfYes = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        nothingIfYes = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        nothingIfYes = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        nothingIfYes = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["122"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        fullIfNo = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        fullIfNo = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        fullIfNo = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        fullIfNo = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["123"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        nothingIfNo = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        nothingIfNo = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        nothingIfNo = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        nothingIfNo = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["58"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        valueYes = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        valueYes = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        valueYes = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        valueYes = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["59"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        valueNo = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        valueNo = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        valueNo = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        valueNo = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["114"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        failReloud = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        failReloud = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        failReloud = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        failReloud = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["60"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        ifFull = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        ifFull = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        ifFull = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        ifFull = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["49"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        bufer = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        bufer = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        bufer = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        bufer = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["44"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        passNotifStringYes = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        passNotifStringYes = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        passNotifStringYes = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        passNotifStringYes = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["45"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        passNotifStringNo = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        passNotifStringNo = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        passNotifStringNo = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        passNotifStringNo = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["131"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        attention = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        attention = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        attention = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        attention = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["141"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        termocompetition = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        termocompetition = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        termocompetition = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        termocompetition = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["99"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        enterP = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        enterP = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        enterP = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        enterP = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-        if let name0 = parsedData["100"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        deleteP = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        deleteP = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        deleteP = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        deleteP = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
-    }
     
     func centralManagerDidUpdateState (_ central : CBCentralManager) {
         if central.state == CBManagerState.poweredOn {
-//            manager?.scanForPeripherals(withServices: nil)
             let peripheralsArray = Array(peripherals)
             print(peripheralsArray)
-            print("Bluetooth Работает.")
+            print("ON Работает.")
         }
         else {
-            print("Bluetooth Недоступен.")
-            let alert = UIAlertController(title: "Включите Bluetooth", message: "Необходимо включить Bluetooth для обнаружения устройств поблизости", preferredStyle: .alert)
+            print("Bluetooth OFF.")
+            let alert = UIAlertController(title: "Включите Bluetooth", message: "For further work, you must enable Bluetooth".localized(code), preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                  switch action.style{
-                  case .default:
-                        print("default")
+                switch action.style{
+                case .default:
+                    print("default")
                     self.navigationController?.popViewController(animated: true)
                     self.view.subviews.forEach({ $0.removeFromSuperview() })
-
-                  case .cancel:
-                        print("cancel")
-
-                  case .destructive:
-                        print("destructive")
-
-
-            }}))
+                    
+                case .cancel:
+                    print("cancel")
+                    
+                case .destructive:
+                    print("destructive")
+                    
+                    
+                }}))
             self.present(alert, animated: true, completion: nil)
         }
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-//        RSSIMain = "\(RSSI)"
         let key = "kCBAdvDataServiceUUIDs"
         print("advertisementData: \(advertisementData)")
         if peripheral.name != nil {
@@ -1095,61 +87,55 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         _ central: CBCentralManager,
         didConnect peripheral: CBPeripheral) {
         
-            peripheral.delegate = self
-            let nameD = peripheral.name!
-//            print(nameD)
-            let nameDOps = nameD.components(separatedBy: ["_"])
-//            print(nameDOps[1])
-            nameDevice = nameDOps[1]
-//         timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
-            timer =  Timer.scheduledTimer(withTimeInterval: 4.0, repeats: true) { (timer) in
-                peripheral.discoverServices(nil)
-                if peripheral.state == CBPeripheralState.connected {
-                    print("connectedP")
+        peripheral.delegate = self
+        let nameD = peripheral.name!
+        let nameDOps = nameD.components(separatedBy: ["_"])
+        nameDevice = nameDOps[1]
+        timer =  Timer.scheduledTimer(withTimeInterval: 4.0, repeats: true) { (timer) in
+            peripheral.discoverServices(nil)
+            if peripheral.state == CBPeripheralState.connected {
+                print("connectedP")
+            }
+            if peripheral.state == CBPeripheralState.disconnected {
+                print("disconnectedP")
+                if warning == true{
+                    timer.invalidate()
+                } else {
+                    timer.invalidate()
+                    let alert = UIAlertController(title: "Warning".localized(code), message: "Connection is lost.".localized(code), preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                        switch action.style{
+                        case .default:
+                            print("default")
+                            self.navigationController?.popViewController(animated: true)
+                            self.view.subviews.forEach({ $0.removeFromSuperview() })
+                        case .cancel:
+                            print("cancel")
+                        case .destructive:
+                            print("destructive")
+                            
+                            
+                        }}))
+                    self.present(alert, animated: true, completion: nil)
                 }
-                if peripheral.state == CBPeripheralState.disconnected {
-                    print("disconnectedP")
-                    if warning == true{
-                        timer.invalidate()
-                    } else {
-                        timer.invalidate()
-                        let alert = UIAlertController(title: "Предупреждение", message: "Потеряно соединение с устройством", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                            switch action.style{
-                            case .default:
-                                print("default")
-                                self.navigationController?.popViewController(animated: true)
-                                self.view.subviews.forEach({ $0.removeFromSuperview() })
-                            case .cancel:
-                                print("cancel")
-                            case .destructive:
-                                print("destructive")
-                                
-                                
-                            }}))
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                    warning = false
-                }
-                if peripheral.state == CBPeripheralState.connecting {
-                    print("connectingP")
-                }
-                if peripheral.state == CBPeripheralState.disconnecting {
-                    print("disconnectingP")
-                }
-//                self.bluetoothPeripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: nil)
-
+                warning = false
+            }
+            if peripheral.state == CBPeripheralState.connecting {
+                print("connectingP")
+            }
+            if peripheral.state == CBPeripheralState.disconnecting {
+                print("disconnectingP")
             }
         }
+    }
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-                for service in peripheral.services! {
-                    stringAll = ""
-                    peripheral.discoverCharacteristics(nil, for: service)
-                }
-            }
+        for service in peripheral.services! {
+            stringAll = ""
+            peripheral.discoverCharacteristics(nil, for: service)
+        }
+    }
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         
-        let value = "GD\r"
         let valueAll = "GA\r"
         let valueReload = "PR,PW:1:\(mainPassword)"
         let FullReload = "SH,PW:1:"
@@ -1167,13 +153,11 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         let passInstall = "SP,PN:1:\(mainPassword)\r"
         let enterPass = "SP,PN:1:\(mainPassword),"
         let r = "\r"
-        let passw  = "\(mainPassword)"
         
         print("sdParam: \(sdParam)")
         print("sdValTwo: \(sdValTwo)")
         print("passInstall: \(passInstall)")
         
-        let data = withUnsafeBytes(of: value) { Data($0) }
         let dataAll = withUnsafeBytes(of: valueAll) { Data($0) }
         let dataReload = Data(valueReload.utf8)
         let dataFullReload = Data(FullReload.utf8)
@@ -1190,7 +174,6 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         let dataPassInstall = Data(passInstall.utf8)
         let dataPassEnter = Data(enterPass.utf8)
         let dataR = Data(r.utf8)
-        let dataPassw = Data(passw.utf8)
         let dataReloadFN = Data(ReloadFN.utf8)
         
         for characteristic in service.characteristics! {
@@ -1241,7 +224,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                     print("Свойство \(characteristic.uuid): .write")
                     peripheral.writeValue(dataNothingReload, for: characteristic, type: .withoutResponse)
                     peripheral.writeValue(dataReloadFN, for: characteristic, type: .withResponse)
-
+                    
                     reload = 0
                 }
             }
@@ -1263,7 +246,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                     peripheral.writeValue(dataR, for: characteristic, type: .withResponse)
                     peripheral.writeValue(dataSdValThree, for: characteristic, type: .withoutResponse)
                     peripheral.writeValue(dataR, for: characteristic, type: .withResponse)
-
+                    
                     reload = 0
                 }
             }
@@ -1278,7 +261,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                     peripheral.writeValue(dataSdValThree1, for: characteristic, type: .withoutResponse)
                     peripheral.writeValue(dataSdParamYet, for: characteristic, type: .withResponse)
                     peripheral.writeValue(dataR, for: characteristic, type: .withResponse)
-
+                    
                     reload = 0
                 }
             }
@@ -1304,7 +287,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                     peripheral.writeValue(dataPassDelete, for: characteristic, type: .withoutResponse)
                     peripheral.writeValue(dataSdParamYet, for: characteristic, type: .withoutResponse)
                     peripheral.writeValue(dataR, for: characteristic, type: .withResponse)
-
+                    
                     reload = 0
                 }
             }
@@ -1325,14 +308,12 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                     peripheral.writeValue(dataPassEnter, for: characteristic, type: .withoutResponse)
                     peripheral.writeValue(dataSdParamYet, for: characteristic, type: .withoutResponse)
                     peripheral.writeValue(dataR, for: characteristic, type: .withResponse)
-
+                    
                     reload = 0
                 }
             }
         }
     }
-    
-    
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
     }
     
@@ -1437,11 +418,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
             print("error: \(error)")
             return
         }
-        print("didWriteValueFor \(characteristic.uuid.uuidString)")
-        print(DeviceBLEC.sendData)
-        print("Succeeded!")
-        print(characteristic.properties)
-        print(characteristic.value ?? "не найдено")
+
     }
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         print(error!)
@@ -1454,7 +431,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         scanBLEDevices()
         
     }
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -1462,8 +439,6 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         searchBar.delegate = self
         manager = CBCentralManager ( delegate : self , queue : nil , options : nil )
         viewShow()
-        updateLangues(code: code)
-
     }
     
     var tr = 0
@@ -1497,38 +472,37 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         searchBarCancelButtonClicked(searchBar)
         self.searchBar.endEditing(true)
         self.view.isUserInteractionEnabled = true
-        attributedTitle = NSAttributedString(string: wait, attributes: attributes)
+        attributedTitle = NSAttributedString(string: "Wait".localized(code), attributes: attributes)
         refreshControl.attributedTitle = attributedTitle
         refreshControl.tintColor = .white
         refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControl.Event.valueChanged)
-        popUpVC.delegate = self
+        popUpVCNext.delegate = self
         if tr != 0{
             viewShow()
             tr += 1
         }
-        updateLangues(code: code)
         scanBLEDevices()
         rightCount = 0
         searchBarCancelButtonClicked(searchBar)
     }
-
+    
     func scanBLEDevices() {
         let uuid = NSUUID().uuidString.lowercased()
         print("uuid: \(uuid)")
         peripherals.removeAll()
         manager?.scanForPeripherals(withServices: nil)
         self.view.isUserInteractionEnabled = false
-            //stop scanning after 5 seconds
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                self.stopScanForBLEDevices()
-                print("Stop")
-                self.view.isUserInteractionEnabled = true
-
-            }
+        //stop scanning after 5 seconds
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+            self.stopScanForBLEDevices()
+            print("Stop")
+            self.view.isUserInteractionEnabled = true
+            
         }
+    }
     func stopScanForBLEDevices() {
-            manager?.stopScan()
-        }
+        manager?.stopScan()
+    }
     
     fileprivate lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
@@ -1546,7 +520,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         img.frame = CGRect(x: 0, y: screenHeight-260, width: 201, height: 207)
         return img
     }()
-
+    
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white)
         activity.transform = CGAffineTransform(scaleX: 2, y: 2)
@@ -1565,7 +539,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         view.subviews.forEach({ $0.removeFromSuperview() })
         view.backgroundColor = UIColor(rgb: 0x1F2222)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            let (headerView, backView) = headerSet(title: "\(openDevices)", showBack: true)
+            let (headerView, backView) = headerSet(title: "List of available devices".localized(code), showBack: true)
             self.view.addSubview(headerView)
             self.view.addSubview(backView!)
             self.view.addSubview(self.viewAlpha)
@@ -1587,37 +561,37 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         }
         
     }
-
+    
     var searching = false
     var searchedCountry = [String]()
     var aaa = [String]()
-
+    
     private func mainPartShow() {
         
         aaa.removeAll()
         let hamburger = UIImageView(image: UIImage(named: "Hamburger.png")!)
         let hamburgerPlace = UIView()
-            var yHamb = screenHeight/22
-            if screenHeight >= 750{
-                yHamb = screenHeight/18
-            }
-            hamburgerPlace.frame = CGRect(x: screenWidth-50, y: yHamb, width: 35, height: 35)
-            hamburger.frame = CGRect(x: screenWidth-45, y: yHamb, width: 25, height: 25)
-
-            view.addSubview(hamburger)
-            view.addSubview(hamburgerPlace)
+        var yHamb = screenHeight/22
+        if screenHeight >= 750{
+            yHamb = screenHeight/18
+        }
+        hamburgerPlace.frame = CGRect(x: screenWidth-50, y: yHamb, width: 35, height: 35)
+        hamburger.frame = CGRect(x: screenWidth-45, y: yHamb, width: 25, height: 25)
         
-
-            hamburgerPlace.addTapGesture {
+        view.addSubview(hamburger)
+        view.addSubview(hamburgerPlace)
+        
+        
+        hamburgerPlace.addTapGesture {
             self.searchBar.endEditing(true)
-            self.addChild(self.popUpVC) // 2
-            self.popUpVC.view.frame = self.view.frame  // 3
-            self.view.addSubview(self.popUpVC.view) // 4
-            self.popUpVC.didMove(toParent: self) // 5
+            self.addChild(self.popUpVCNext) // 2
+            self.popUpVCNext.view.frame = self.view.frame  // 3
+            self.view.addSubview(self.popUpVCNext.view) // 4
+            self.popUpVCNext.didMove(toParent: self) // 5
             print("Успешно")
         }
         searchBar.searchBarStyle = .minimal
-        searchBar.showsCancelButton = true
+        searchBar.showsCancelButton = false
         searchBar.tintColor = .white
         searchBar.textColor = .white
         searchBar.keyboardType = UIKeyboardType.decimalPad
@@ -1628,26 +602,23 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         
         scrollView.addSubview(refreshControl)
         view.addSubview(scrollView)
-
+        
         scrollView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
         scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: headerHeight + 40).isActive = true
         scrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
-
+        
         let cellHeight = 70
         var y = headerHeight - 70
         var yS = headerHeight - 70
         
-
+        
         for (i, peripheral) in data.enumerated() {
-//             while let subview = container2.subviews.first {
-//                 subview.removeFromSuperview()
-//             }
             manager?.cancelPeripheralConnection(peripheral)
             container2 = UIView(frame: CGRect(x: 20, y: Int(y), width: Int(screenWidth-40), height: 70))
-//            container2.separatorColor = .clear
+            //            container2.separatorColor = .clear
             container2.backgroundColor = .clear
-
+            
             
             let title = UILabel(frame: CGRect(x: 0, y: 20, width: Int(screenWidth/2), height: 20))
             title.text = peripheral.name
@@ -1656,11 +627,11 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                 
             } else {
                 aaa.append(abc)
-//                aaa.shuffle()
+                //                aaa.shuffle()
                 print("searchedCountry: \(aaa)")
             }
             
-
+            
             title.textColor = .white
             title.font = UIFont(name:"FuturaPT-Light", size: 24.0)
             
@@ -1669,16 +640,16 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
             titleRSSI.text = "\(RSSIMainArray[i]) dBm"
             titleRSSI.textColor = .white
             titleRSSI.font = UIFont(name:"FuturaPT-Light", size: 14.0)
-
+            
             let titleRSSIImage = UIImageView(frame: CGRect(x: 10, y: 50, width: 12, height: 11))
             titleRSSIImage.image = #imageLiteral(resourceName: "dBm")
-
+            
             let btn = UIView(frame: CGRect(x: Int(screenWidth-140-40), y: 12, width: 140, height: 44))
             btn.backgroundColor = UIColor(rgb: 0xCF2121)
             btn.layer.cornerRadius = 22
             
             let connect = UILabel(frame: CGRect(x: Int(btn.frame.origin.x), y: Int(btn.frame.origin.y), width: Int(btn.frame.width), height: Int(btn.frame.height)))
-            connect.text = "Connect"
+            connect.text = "Connect".localized(code)
             connect.textColor = .white
             connect.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
             connect.textAlignment = .center
@@ -1686,13 +657,13 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
             let separator = UIView(frame: CGRect(x: 0, y: cellHeight, width: Int(screenWidth-40), height: 1))
             separator.backgroundColor = UIColor(rgb: 0x959595)
             
-
+            
             
             
             if searching{
                 if searchedCountry.contains(title.text!) {
                     view.addSubview(scrollViewS)
-
+                    
                     scrollViewS.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
                     scrollViewS.topAnchor.constraint(equalTo: view.topAnchor, constant: headerHeight + 40).isActive = true
                     scrollViewS.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
@@ -1712,8 +683,8 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                     yS = yS + CGFloat(cellHeight)
                     
                 }
-
-
+                
+                
             } else {
                 
                 container2.addSubview(btn)
@@ -1724,7 +695,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                 container2.addSubview(separator)
                 scrollView.addSubview(container2)
                 
-
+                
             }
             connect.addTapGesture {
                 temp = nil
@@ -1775,7 +746,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
             self.searchBar.endEditing(true)
             print("scrollViewS")
         }
-
+        
     }
 }
 extension DevicesListController: UISearchBarDelegate {
@@ -1803,7 +774,7 @@ extension DevicesListController: UISearchBarDelegate {
 }
 
 extension CBPeripheralState {
-
+    
     // MARK: - CustomStringConvertible
     public var description: String {
         switch self {

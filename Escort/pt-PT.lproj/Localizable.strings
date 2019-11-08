@@ -8,24 +8,156 @@
 
 /* Unit format string for an RSSI value in decibles */
 "%@ dB" = "%@ dB";
+"CFBundleDisplayName" = "Escort";
 
 /* The title of the cell describing an awake radio */
 "Awake Until" = "Рабочее состояние до";
+
+"Configurator" = "Configurador ";
+
+"Wait" = "Wait";
 
 /* The title of the section describing commands */
 "Commands" = "Команды";
 
 "Select connection type" = "Selecione o tipo de conexão";
+
 "Language" = "Recursos Adicionais";
+
 "About the program" = "Sobre o programa";
+
 "BLUETOOTH" = "BLUETOOTH";
+
 "CodeLangu" = "pt-PT";
 
-/* The connected state */
-"Connected" = "Соединение установлено";
+"Type of bluetooth sensor" = "Digite o sensor bluetooth";
 
-/* The in-progress connecting state */
-"Connecting" = "Соединяется";
+"For further work, you must enable Bluetooth" = "For further work, you must enable Bluetooth";
+
+"List of available devices" = "Lista de dispositivos disponíveis";
+
+"Warning" = "Advertência";
+
+"Attention" = "Attention";
+
+"Connection is lost." = "Recursos Adicionais";
+
+"Сopied to clipboard" = "Recursos Adicionais";
+
+"Level" = "Level";
+
+"Disconnected" = "Desconectado";
+
+"Connected" = "Conectado";
+
+"Stable" = "Estável";
+
+"Not stable" = "Não estável";
+
+"Settings" = "Settings";
+
+"Additional Features" = "Additional Features";
+
+"Reference" = "Ajuda";
+
+"Sensor is not password-protected" = "Sensor is password-protected";
+
+"Connect" = "Conectar";
+
+"Maximum level" = "Nível máximo";
+
+"Minimum level" = "O nível mínimo";
+
+"Filtration" = "Filtração";
+
+"Write parameters to the device" = "Escreva parâmetros para o dispositivo";
+
+"Empty" = "Vazio";
+
+"Full" = "Completo";
+
+"Disable Thermal Compensation" = "Disable Thermal Compensation";
+
+
+"Value changing failure" = "Value changing failure";
+
+"Value changed – calibration is done successfully" = "Value changed – calibration is done successfully";
+
+"Value not changed – calibration failure" = "Value not changed – calibration failure";
+
+"“Full” value shall be higher than “Empty” value" = "“Full” value shall be higher than “Empty” value";
+
+"Enter password to continue" = "Enter password to continue";
+
+"Enter value..." = "Digite um valor...";
+
+"“Empty” value changing failure" = "“Empty” value changing failure";
+
+"“Full” value changed successfully" = "“Full” value changed successfully";
+
+"“Full” value changing failure" = "“Full” value changing failure";
+
+"“Empty” value changed successfully" = "“Empty” value changed successfully";
+
+"TD BLE Settings" = "Configurações do TD BLE";
+
+"Info" = "Era uma vez vivia um velho com uma velha. Então o velho disse à velha: \"Vá e raspe a caixa, anote o sushi e raspe a farinha em um coque.\" A velha pegou as asas, raspou a caixa, beliscou e coçou dois punhados de farinha no saco.";
+
+"Password" = "Senha";
+
+"Password for changing settings" = "Senha para alterar configurações";
+
+"Set" = "Instalar";
+
+"Reloading TD-BLE" = "Recarregando TD-BLE";
+
+"VERSION" = "VERSÃO";
+
+"ADDRESS" = " ENDEREÇO";
+
+"TELEPHONES" = "TELEFONES";
+
+"EMAIL" = "E-MAIL";
+
+"WEBSITE" = "SITE";
+
+"phoneRus" = "en Rusia - gratis";
+
+"addressMain" = "420127, Rússia, Kazan, Rep. Tartaristão, rua Dementieva, edifício 2B 4";
+
+"Password set successfully" = "Password set successfully";
+
+"Password setting failure" = "Password setting failure";
+
+"Password deleted successfully" = "Password deleted successfully";
+
+"Password deletion failure" = "Password deletion failure";
+
+"Password is entered" = "Password is entered";
+
+"Data update failure" = "Data update failure";
+
+"Data updated successfully" = "Data updated successfully";
+
+"Failed to reload" = "Failed to reload";
+
+"“Password” accepts values from 1 to 2000000000" = "“Password” accepts values from 1 to 2000000000";
+
+"Success" = "Sucesso";
+
+"Wrong password" = "Wrong password";
+
+"Enter" = "Introduzir";
+
+"Remove" = "Remover";
+
+"Manual configuration input" = "Entrada de configuração manual";
+
+"Reloading..." = "Reloading...";
+
+
+
+
 
 /* The title of the cell showing BLE connection state */
 "Connection State" = "Состояние соединения";
@@ -35,9 +167,6 @@
 
 /* The title of the devices table section in RileyLink settings */
 "Devices" = "устройства";
-
-/* The disconnected state */
-"Disconnected" = "Разъединено";
 
 /* The in-progress disconnecting state */
 "Disconnecting" = "Разъединяется";

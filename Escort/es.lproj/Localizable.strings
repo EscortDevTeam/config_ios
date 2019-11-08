@@ -8,23 +8,153 @@
 
 /* Unit format string for an RSSI value in decibles */
 "%@ dB" = "%@ dB";
+"CFBundleDisplayName" = "Escort";
 
 /* The title of the cell describing an awake radio */
 "Awake Until" = "Рабочее состояние до";
 
+"Configurator" = "Configurador ";
+
+"Wait" = "Esperar";
+
 /* The title of the section describing commands */
 "Commands" = "Команды";
+
 "Select connection type" = "Seleccione el tipo de conexión";
+
 "Language" = "Idioma";
+
 "About the program" = "Sobre el programa";
+
 "BLUETOOTH" = "BLUETOOTH";
+
 "CodeLangu" = "es";
 
-/* The connected state */
-"Connected" = "Соединение установлено";
+"Type of bluetooth sensor" = "Tipo del sensor Bluetooth";
 
-/* The in-progress connecting state */
-"Connecting" = "Соединяется";
+"For further work, you must enable Bluetooth" = "Para continuar el funcionamiento es necesario activar Bluetooth";
+
+"List of available devices" = "La lista de dispositivos disponibles";
+
+"Warning" = "Advertencia";
+
+"Attention" = "Atención";
+
+"Connection is lost." = "La comunicación fue perdida.";
+
+"Сopied to clipboard" = "Copiado al Portapapeles";
+
+"Level" = "Nivel";
+
+"Disconnected" = "Desconectado";
+
+"Connected" = "Conectado";
+
+"Stable" = "Estable";
+
+"Not stable" = "No estable";
+
+"Settings" = "Configuraciones";
+
+"Additional Features" = "Opciones adicionales";
+
+"Reference" = "Ayuda";
+
+"Sensor is not password-protected" = "Sensor está protegido por la contraseña";
+
+"Connect" = "Conectar";
+
+"Maximum level" = "Nivel máximo";
+
+"Minimum level" = "Nivel mínimo";
+
+"Filtration" = "Filtración";
+
+"Write parameters to the device" = "Grabar los parámetros al dispositivo";
+
+"Empty" = "Vacío";
+
+"Full" = "Completo";
+
+"Disable Thermal Compensation" = "Desactivar compensación térmica";
+
+"Value changing failure" = "No se ha logrado modificar el valor";
+
+"Value changed – calibration is done successfully" = "El valor fue exitosamente calibrado";
+
+"Value not changed – calibration failure" = "No se ha logrado calibrar el valor";
+
+"“Full” value shall be higher than “Empty” value" = "Lleno debe ser mayor que Vacío";
+
+"Enter password to continue" = "Primero debe introducir la contraseña";
+
+"Enter value..." = "Introduzca el valor...";
+
+"“Empty” value changing failure" = "No se ha logrado modificar el valor \"Vacío\"";
+
+"“Full” value changed successfully" = "Valor \"Lleno\" fue exitosamente modificado";
+
+"“Full” value changing failure" = "No se ha logrado modificar el valor \"Lleno\"";
+
+"“Empty” value changed successfully" = "El valor “Vacío” fue exitósamente modificado";
+
+"TD BLE Settings" = "Configuraciones de TD BLE";
+
+"Info" = "Había una vez un anciano con una anciana. Entonces el anciano le dijo a la anciana: \"Ve y hurga en la caja, toma nota del sushi y corta la harina en un moño\". La anciana tomó las alas, la frotó alrededor de la caja, pellizcó y rascó dos puñados de harina ";
+
+"Password" = "Contraseña";
+
+"Password for changing settings" = "Contraseña para modificar las configuraciones";
+
+"Set" = "Establecer";
+
+"Reloading TD-BLE" = "Reinicio de TD-BLE";
+
+"VERSION" = "VERSION";
+
+"ADDRESS" = "LA DIRECCION";
+
+"TELEPHONES" = "TELEFONOS";
+
+"EMAIL" = "CORREO ELECTRONICO";
+
+"WEBSITE" = "SITIO";
+
+"phoneRus" = "en Rusia - gratis";
+
+"addressMain" = "420127, Rusia, Kazan, Rep. Tatarstán, calle Dementieva, edificio 2B 4";
+
+"Password set successfully" = "La contraseña fue exitosamente establecida";
+
+"Password setting failure" = "No se ha logrado establecer la contraseña";
+
+"Password deleted successfully" = "La contraseña fue exitosamente eliminada";
+
+"Password deletion failure" = "No se ha logrado eliminar la contraseña";
+
+"Password is entered" = "La contraseña fue introducida";
+
+"Data update failure" = "No se ha logrado modificar los datos";
+
+"Data updated successfully" = "Los datos fueron exitosamente modificados";
+
+"Failed to reload" = "No se ha logrado reiniciar";
+
+"“Password” accepts values from 1 to 2000000000" = "\"Contraseña\" toma el valor de 0 hasta 2000000000";
+
+"Success" = "Exito";
+
+"Wrong password" = "Ha introducido la contraseña incorrecta";
+
+"Enter" = "Introducir";
+
+"Remove" = "Eliminar";
+
+"Manual configuration input" = "Introducción manual de la configuración";
+
+"Reloading..." = "Reiniciando...";
+
+
 
 /* The title of the cell showing BLE connection state */
 "Connection State" = "Состояние соединения";
@@ -36,7 +166,6 @@
 "Devices" = "устройства";
 
 /* The disconnected state */
-"Disconnected" = "Разъединено";
 
 /* The in-progress disconnecting state */
 "Disconnecting" = "Разъединяется";

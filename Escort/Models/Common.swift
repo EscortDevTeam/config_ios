@@ -18,60 +18,31 @@ var IsBLE: Bool = false
 var DeviceTypeIndex = 0
 var DeviceIndex = 0
 var statusDeviceY = "Не стабилен"
-var maxLevel = "Макс. уровень"
-var minLevel = "Мин. уровень"
-var fitr = "Фильтрация"
-var paramDevice = "Записать параметры в устройство"
-var setFull = "Полный"
-var setNothing = "Пустой"
-var settingMain = "Настройки TD BLE"
-var settingDop = "Доп. возможности"
-var manualInput = "Ручной ввод конфигурации"
-var reloadName = "Перезагрузка TD-BLE"
-var set = "Установить"
-var password = "Пароль"
-var passwordForChange = "Пароль на изменение настроек"
-var enterValue = "Введите значение..."
-var reference = "Справка"
-var info = "Здесь скоро появится справочная информация, мы над этим работаем."
 var typeBLE: String = "Тип bluetooth датчика"
 var typeUSB: String = "Тип проводного датчика"
 var boolBLE: Bool = true
 var code = "CodeLangu".localized
 var langu = "Language".localized(code)
 var languMain = "Language".localized(code)
-var openDevices = "Доступные устройства"
-var wait = "Обновление..."
-var fullIfYes = "Значение Полный успешно изменено"
-var nothingIfYes = "Значение Пустой успешно изменено"
-var valueYes = "Значение успешно откалибровано"
-var fullIfNo = "Значение Полный изменить не удалось"
-var nothingIfNo = "Значение Пустой изменить не удалось"
-var valueNo = "Не удалось откалибровать значение"
 var mainPassword = ""
 var errorWRN = false
-var failReloud = "Не удалось перезагрузить"
-var ifFull = "Полный должен быть больше Пустой"
-var bufer = "Скопировано в буфер"
 var wmPar = "1"
 var wmMax = "0"
 var wmMaxInt = 0
 var countNot = 0
 var passNotif = 0
 var passwordSuccess = false
-var passNotifStringNo = "На датчике пароль не установлен"
-var passNotifStringYes = "На датчике установлен пароль"
-var attention = "Внимание"
-var termocompetition = "Отключить термокомпенсацию"
 var temp : String?
-var enterP = "Ввести"
-var deleteP = "Удалить"
 var passwordHave = false
 var warning = false
 var RSSIMainArray: [String] = []
 let screenWidth = UIScreen.main.bounds.width, screenHeight = UIScreen.main.bounds.height
 let headerHeight = screenWidth * screenHeight / 3500
 var peripheralName: [String] = []
+var rightCount = 0
+var nameDevice = ""
+var RSSIMain = "0"
+
 func headerSet(title: String) -> UIView {
     return headerSet(title: title, showBack: false).0
 }

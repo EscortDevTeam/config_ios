@@ -72,7 +72,7 @@ class DeviceBleSettingsController: UIViewController {
         
         let input = UITextField(frame: CGRect(x: 160, y: 0, width: Int(screenWidth/2-30), height: 40))
         input.text = text
-        input.placeholder = "\(enterValue)"
+        input.placeholder = "Enter value...".localized(code)
         input.textColor = UIColor(rgb: 0xE9E9E9)
         input.font = UIFont(name:"FuturaPT-Light", size: 18.0)
         input.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
@@ -101,7 +101,7 @@ class DeviceBleSettingsController: UIViewController {
         view.subviews.forEach({ $0.removeFromSuperview() })
         view.backgroundColor = UIColor(rgb: 0x1F2222)
         
-        let (headerView, backView) = headerSet(title: "\(settingMain)", showBack: true)
+        let (headerView, backView) = headerSet(title: "TD BLE Settings".localized(code), showBack: true)
         view.addSubview(headerView)
         view.addSubview(backView!)
 
@@ -116,7 +116,7 @@ class DeviceBleSettingsController: UIViewController {
         let x = 30, deltaY = 65, deltaYLite = 20
         let v2 = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth-160), height: 20))
         let lblTitle = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
-        lblTitle.text = "\(minLevel)"
+        lblTitle.text = "Minimum level".localized(code)
         lblTitle.textColor = UIColor(rgb: 0xE9E9E9)
         lblTitle.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
         
@@ -125,7 +125,7 @@ class DeviceBleSettingsController: UIViewController {
         
         input.frame = CGRect(x: 160, y: 0, width: Int(screenWidth/2-30), height: 40)
         input.text = "1"
-        input.placeholder = "\(enterValue)"
+        input.placeholder = "Enter value...".localized(code)
         input.textColor = UIColor(rgb: 0xE9E9E9)
         input.font = UIFont(name:"FuturaPT-Light", size: 18.0)
         input.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
@@ -135,7 +135,6 @@ class DeviceBleSettingsController: UIViewController {
         input.backgroundColor = .clear
         input.leftViewMode = .always
         input.isEnabled = false
-        
         
         v2.addSubview(lblTitle)
         v2.addSubview(input)
@@ -147,7 +146,7 @@ class DeviceBleSettingsController: UIViewController {
         y = y + deltaY
         let v3 = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth-160), height: 20))
                 let lblTitle3 = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
-                lblTitle3.text = "\(maxLevel)"
+        lblTitle3.text = "Maximum level".localized(code)
                 lblTitle3.textColor = UIColor(rgb: 0xE9E9E9)
                 lblTitle3.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
                 
@@ -162,7 +161,7 @@ class DeviceBleSettingsController: UIViewController {
             input3.text = "4095"
             prov = input3.text!
         }
-                input3.placeholder = "\(enterValue)"
+                input3.placeholder = "Enter value...".localized(code)
                 input3.textColor = UIColor(rgb: 0xE9E9E9)
                 input3.font = UIFont(name:"FuturaPT-Light", size: 18.0)
                 input3.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
@@ -189,7 +188,7 @@ class DeviceBleSettingsController: UIViewController {
         y = y + deltaY
         let v4 = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth-160), height: 20))
                 let lblTitle4 = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
-                lblTitle4.text = "\(fitr)"
+        lblTitle4.text = "Filtration".localized(code)
                 lblTitle4.textColor = UIColor(rgb: 0xE9E9E9)
                 lblTitle4.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
                 
@@ -496,7 +495,7 @@ class DeviceBleSettingsController: UIViewController {
 //            input4.text = "15"
 //            prov2 = input4.text!
 //        }
-                input4.placeholder = "\(enterValue)"
+                input4.placeholder = "Enter value...".localized(code)
                 input4.textColor = UIColor(rgb: 0xE9E9E9)
                 input4.font = UIFont(name:"FuturaPT-Light", size: 18.0)
         input4.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
@@ -528,7 +527,7 @@ class DeviceBleSettingsController: UIViewController {
         btn1.layer.cornerRadius = 22
         
         let btn1Text = UILabel(frame: CGRect(x: x, y: y, width: Int(screenWidth-60), height: 44))
-        btn1Text.text = "\(paramDevice)"
+        btn1Text.text = "Write parameters to the device".localized(code)
         btn1Text.textColor = .white
         btn1Text.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
         btn1Text.textAlignment = .center
@@ -607,7 +606,7 @@ class DeviceBleSettingsController: UIViewController {
                         
                     }
                 } else {
-                    let alert = UIAlertController(title: "Ошибка", message: "Устройство запароленно", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Warning".localized(code), message: "Enter password to continue".localized(code), preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                         switch action.style{
                         case .default:
@@ -704,7 +703,7 @@ class DeviceBleSettingsController: UIViewController {
         btn2.layer.cornerRadius = 22
         
         let btn2Text = UILabel(frame: CGRect(x: x, y: y, width: 120, height: 44))
-        btn2Text.text = "\(setNothing)"
+        btn2Text.text = "Empty".localized(code)
         btn2Text.textColor = .white
         btn2Text.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
         btn2Text.textAlignment = .center
@@ -717,7 +716,7 @@ class DeviceBleSettingsController: UIViewController {
         btn3.layer.cornerRadius = 22
         
         let btn3Text = UILabel(frame: CGRect(x: Int(screenWidth-150), y: y, width: 120, height: 44))
-        btn3Text.text = "\(setFull)"
+        btn3Text.text = "Full".localized(code)
         btn3Text.textColor = .white
         btn3Text.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
         btn3Text.textAlignment = .center
@@ -746,7 +745,7 @@ class DeviceBleSettingsController: UIViewController {
                             self.viewAlpha.removeFromSuperview()
                             self.viewLoad.isHidden = false
                             self.viewLoadTwo.isHidden = false
-                            let alert = UIAlertController(title: "\(valueYes)", message: "\(nothingIfYes)", preferredStyle: .alert)
+                            let alert = UIAlertController(title: "Value changed – calibration is done successfully".localized(code), message: "“Empty” value changed successfully".localized(code), preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                                 switch action.style{
                                 case .default:
@@ -764,7 +763,7 @@ class DeviceBleSettingsController: UIViewController {
                             self.viewAlpha.removeFromSuperview()
                             self.viewLoad.isHidden = false
                             self.viewLoadTwo.isHidden = false
-                            let alert = UIAlertController(title: "\(valueNo)", message: "\(nothingIfNo)", preferredStyle: .alert)
+                            let alert = UIAlertController(title: "Value not changed – calibration failure".localized(code), message: "“Empty” value changing failure".localized(code), preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                                 switch action.style{
                                 case .default:
@@ -780,7 +779,7 @@ class DeviceBleSettingsController: UIViewController {
                         }
                     }
                 } else {
-                    let alert = UIAlertController(title: "Ошибка", message: "Устройство запароленно", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Warning".localized(code), message: "Enter password to continue".localized(code), preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                         switch action.style{
                         case .default:
@@ -810,7 +809,7 @@ class DeviceBleSettingsController: UIViewController {
                         self.viewAlpha.removeFromSuperview()
                         self.viewLoad.isHidden = false
                         self.viewLoadTwo.isHidden = false
-                        let alert = UIAlertController(title: "\(valueYes)", message: "\(nothingIfYes)", preferredStyle: .alert)
+                        let alert = UIAlertController(title: "Value changed – calibration is done successfully".localized(code), message: "“Empty” value changing failure".localized(code), preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                             switch action.style{
                             case .default:
@@ -828,7 +827,7 @@ class DeviceBleSettingsController: UIViewController {
                         self.viewAlpha.removeFromSuperview()
                         self.viewLoad.isHidden = false
                         self.viewLoadTwo.isHidden = false
-                        let alert = UIAlertController(title: "\(valueNo)", message: "\(nothingIfNo)", preferredStyle: .alert)
+                        let alert = UIAlertController(title: "Value not changed – calibration failure".localized(code), message: "“Empty” value changing failure".localized(code), preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                             switch action.style{
                             case .default:
@@ -866,7 +865,7 @@ class DeviceBleSettingsController: UIViewController {
                             self.viewAlpha.removeFromSuperview()
                             self.viewLoad.isHidden = false
                             self.viewLoadTwo.isHidden = false
-                            let alert = UIAlertController(title: "\(valueYes)", message: "\(fullIfYes)", preferredStyle: .alert)
+                            let alert = UIAlertController(title: "Value changed – calibration is done successfully".localized(code), message: "“Full” value changed successfully".localized(code), preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                                 switch action.style{
                                 case .default:
@@ -884,7 +883,7 @@ class DeviceBleSettingsController: UIViewController {
                             self.viewAlpha.removeFromSuperview()
                             self.viewLoad.isHidden = false
                             self.viewLoadTwo.isHidden = false
-                            let alert = UIAlertController(title: "\(valueNo)", message: "\(fullIfNo)", preferredStyle: .alert)
+                            let alert = UIAlertController(title: "Value not changed – calibration failure".localized(code), message: "“Full” value changing failure".localized(code), preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                                 switch action.style{
                                 case .default:
@@ -898,7 +897,7 @@ class DeviceBleSettingsController: UIViewController {
                         }
                     }
                 } else {
-                    let alert = UIAlertController(title: "Ошибка", message: "Устройство запароленно", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Warning".localized(code), message: "Enter password to continue".localized(code), preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                         switch action.style{
                         case .default:
@@ -928,7 +927,7 @@ class DeviceBleSettingsController: UIViewController {
                         self.viewAlpha.removeFromSuperview()
                         self.viewLoad.isHidden = false
                         self.viewLoadTwo.isHidden = false
-                        let alert = UIAlertController(title: "\(valueYes)", message: "\(fullIfYes)", preferredStyle: .alert)
+                        let alert = UIAlertController(title: "Value changed – calibration is done successfully".localized(code), message: "“Full” value changed successfully".localized(code), preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                             switch action.style{
                             case .default:
@@ -946,7 +945,7 @@ class DeviceBleSettingsController: UIViewController {
                         self.viewAlpha.removeFromSuperview()
                         self.viewLoad.isHidden = false
                         self.viewLoadTwo.isHidden = false
-                        let alert = UIAlertController(title: "\(valueNo)", message: "\(fullIfNo)", preferredStyle: .alert)
+                        let alert = UIAlertController(title: "Value not changed – calibration failure".localized(code), message: "“Full” value changing failure".localized(code), preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                             switch action.style{
                             case .default:
@@ -978,7 +977,7 @@ class DeviceBleSettingsController: UIViewController {
         view.addSubview(separatorTwo)
         
         let termoLabel = UILabel(frame: CGRect(x: x, y: y+35, width: Int(screenWidth/2 + 70), height: 20))
-        termoLabel.text = "\(termocompetition)"
+        termoLabel.text = "Disable Thermal Compensation".localized(code)
         termoLabel.textColor = UIColor(rgb: 0xE9E9E9)
         view.addSubview(termoLabel)
         
@@ -1061,7 +1060,7 @@ class DeviceBleSettingsController: UIViewController {
                         
                     }
                 } else {
-                    let alert = UIAlertController(title: "Ошибка", message: "Устройство запароленно", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Warning".localized(code), message: "Enter password to continue".localized(code), preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                         switch action.style{
                         case .default:

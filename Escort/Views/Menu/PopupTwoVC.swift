@@ -37,130 +37,15 @@ class PopupTwoVC: UIViewController {
         moveIn()
         menuLoad()
     }
-    func updateLangues(){
-//                DeviceSelectC.code = code
-//                DeviceSelectC.parsedData = parsedData
-        print("parsedData\(parsedData)")
-        if let name0 = parsedData["132"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-            case "ru":
-                if let name1 = dict!["title_ru"]{
-                    print(name1 as! NSString)
-                    langu = name1 as! String
-                }
-                print(code)
-            case "en":
-                if let name1 = dict!["title_en"]{
-                    print(name1 as! NSString)
-                    langu = name1 as! String
-                }
-                print(code)
-            case "pr":
-                if let name1 = dict!["title_pr"]{
-                    print(name1 as! NSString)
-                    langu = name1 as! String
-                }
-                print(code)
-            case "es":
-                if let name1 = dict!["title_es"]{
-                    print(name1 as! NSString)
-                    langu = name1 as! String
-                }
-                print(code)
-            default:
-                print("")
-            }
-        }
-                if let name0 = parsedData["2"] {
-                    let dict = name0 as? [String: Any]
-                    switch code {
-                    case "ru":
-                        if let name1 = dict!["title_ru"]{
-                            print(name1 as! NSString)
-                            typeBLE = name1 as! String
-                        }
-                        print(code)
-                    case "en":
-                        if let name1 = dict!["title_en"]{
-                            print(name1 as! NSString)
-                            typeBLE = name1 as! String
-                        }
-                        print(code)
-                    case "pr":
-                        if let name1 = dict!["title_pr"]{
-                            print(name1 as! NSString)
-                            typeBLE = name1 as! String
-                        }
-                        print(code)
-                    case "es":
-                        if let name1 = dict!["title_es"]{
-                            print(name1 as! NSString)
-                            typeBLE = name1 as! String
-                        }
-                        print(code)
-                    default:
-                        print("")
-                    }
-                }
-                if let name0 = parsedData["8"] {
-//                    DeviceSelectCUSB.code = code
-//                    DeviceSelectCUSB.parsedData = parsedData
-                    let dict = name0 as? [String: Any]
-                    switch code {
-                    case "ru":
-                        if let name1 = dict!["title_ru"]{
-                            typeUSB = name1 as! String
-                        }
-                    case "en":
-                        if let name1 = dict!["title_en"]{
-                            typeUSB = name1 as! String
-                        }
-                    case "pr":
-                        if let name1 = dict!["title_pr"]{
-                            typeUSB = name1 as! String
-                        }
-                    case "es":
-                        if let name1 = dict!["title_es"]{
-                            typeUSB = name1 as! String
-                        }
-                    default:
-                        print("")
-                    }
-                }
-        if let name0 = parsedData["47"] {
-            let dict = name0 as? [String: Any]
-            switch code {
-                case "ru":
-                    if let name1 = dict!["title_ru"]{
-                        wait = name1 as! String
-                    }
-                case "en":
-                    if let name1 = dict!["title_en"]{
-                        wait = name1 as! String
-                    }
-                case "pr":
-                    if let name1 = dict!["title_pr"]{
-                        wait = name1 as! String
-                    }
-                case "es":
-                    if let name1 = dict!["title_es"]{
-                        wait = name1 as! String
-                    }
-                default:
-                    print("")
-            }
-        }
 
-            }
     func menuLoad() {
 //        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(sender:)))
 //        leftSwipe.direction = .left
 //        view.addGestureRecognizer(leftSwipe)
         
-        let containerApp = UIView(frame: CGRect(x: Int(screenWidth-250), y: Int(screenWidth-190), width: 300, height: 280))
+        let containerApp = UIView(frame: CGRect(x: Int(screenWidth-270), y: Int(screenHeight/2-190), width: 300, height: 280))
         let aboutApp = UILabel(frame: CGRect(x: 0, y: 5, width: 300, height: 30))
-        let aboutAppView = UIView(frame: CGRect(x: 0, y: 5, width: 200, height: 40))
+        let aboutAppView = UIView(frame: CGRect(x: 0, y: 5, width: 250, height: 40))
         aboutAppView.backgroundColor = .clear
         aboutApp.text = "About the program".localized(code)
         aboutApp.font = UIFont(name:"FuturaPT-Light", size: 36.0)
@@ -171,44 +56,68 @@ class PopupTwoVC: UIViewController {
         containerApp.addSubview(aboutAppView)
         containerApp.addSubview(redLineApp)
         view.addSubview(containerApp)
-        aboutAppView.addTapGesture {
-            if let navController = self.navigationController {
-                navController.pushViewController(SettingAppController(), animated: true)
-            }
-        }
+
         let cellHeight = 70
         var y = 10
         VCMenu.removeFromSuperview()
         VCMenu.frame = CGRect(x: 0, y: 0, width: 0, height: screenHeight)
-        container = UIView(frame: CGRect(x: Int(screenWidth-250), y: Int(screenWidth-100), width: Int(screenWidth - 40), height: 280))
+        container = UIView(frame: CGRect(x: Int(screenWidth-270), y: Int(screenHeight/2-100), width: Int(screenWidth - 40), height: 280))
         var withLine = 123
         for (i, i2) in menuSide.enumerated() {
-
-            if i2.name == "Язык"{
+            if i2.name == "Language"{
                 withLine = 180
-                strel.frame = CGRect(x: Int(screenWidth-60), y: y + Int(screenWidth-115), width: 39, height: 12)
-                self.view.addSubview(strel)
-                var yHamb = screenHeight/22
-                if screenHeight >= 750{
-                    yHamb = screenHeight/18
-                }
-                closeMenu.frame = CGRect(x: screenWidth-50, y: yHamb, width: 30, height: 30)
-                self.view.addSubview(closeMenu)
             }
+            if i2.name == "Язык"{
+                withLine = 123
+            }
+            strel.frame = CGRect(x: Int(screenWidth-60), y: y + Int(screenHeight/2-115), width: 39, height: 12)
+            self.view.addSubview(strel)
+            var yHamb = screenHeight/22
+            
+            if screenHeight >= 750{
+                yHamb = screenHeight/18
+            }
+            closeMenu.frame = CGRect(x: screenWidth-50, y: yHamb, width: 30, height: 30)
+            self.view.addSubview(closeMenu)
+            
             if i2.name == "USB"{
                 withLine = withLine / 2
             }
 
-            let title = UILabel(frame: CGRect(x: 0, y: y - 40, width: Int(screenWidth/2+20), height: 60))
-            let titleTap = UILabel(frame: CGRect(x: Int(screenWidth-250), y: y + Int(screenWidth-140), width: Int(screenWidth/2+20), height: 60))
+            let title = UILabel(frame: CGRect(x: 0, y: y - 40, width: Int(screenWidth/2+40), height: 60))
+            let titleTap = UILabel(frame: CGRect(x: Int(screenWidth/2-80), y: y + Int(screenHeight/2-140), width: Int(screenWidth/2+80), height: 60))
+//            titleTap.backgroundColor = .black
             let redLine = UIView(frame: CGRect(x: 0, y: y + 15, width: withLine, height: 2))
             closeMenu.addTapGesture {
                 self.moveOut()
-                title.removeFromSuperview()
+                for (_,j2) in menuSide.enumerated() {
+                    print(j2)
+                    title.removeFromSuperview()
+                }
+                self.strel.removeFromSuperview()
                 aboutAppView.removeFromSuperview()
                 aboutApp.removeFromSuperview()
                 redLineApp.removeFromSuperview()
+                self.labelLanguageMain.removeFromSuperview()
                 self.container.removeFromSuperview()
+                self.strel.image = UIImage(named: "strel.png")
+            }
+            
+            aboutAppView.addTapGesture {
+                if let navController = self.navigationController {
+                    for (_,j2) in menuSide.enumerated() {
+                        print(j2)
+                        title.removeFromSuperview()
+                    }
+                    aboutAppView.removeFromSuperview()
+                    aboutApp.removeFromSuperview()
+                    redLineApp.removeFromSuperview()
+                    self.strel.removeFromSuperview()
+                    self.strel.image = UIImage(named: "strel.png")
+                    self.labelLanguageMain.removeFromSuperview()
+                    self.container.removeFromSuperview()
+                    navController.pushViewController(SettingAppController(), animated: true)
+                }
             }
             redLine.backgroundColor = UIColor(rgb: 0xCF2121)
             title.text = i2.name
@@ -237,8 +146,8 @@ class PopupTwoVC: UIViewController {
                         title.font = UIFont(name:"FuturaPT-Medium", size: 36.0)
                         self.strel.image = UIImage(named: "strela2.png")
                         for (_,j2) in languages.enumerated() {
-                            self.labelLanguage = UILabel(frame: CGRect(x: Int(screenWidth/2)-30, y: y + Int(screenWidth-140), width: Int(screenWidth/2), height: 60))
-                            self.labelLanguageView = UILabel(frame: CGRect(x: Int(screenWidth/2)-30, y: y + Int(screenWidth-140), width: Int(screenWidth/2), height: 60))
+                            self.labelLanguage = UILabel(frame: CGRect(x: Int(screenWidth/2)-50, y: y + Int(screenHeight/2-140), width: Int(screenWidth/2), height: 60))
+                            self.labelLanguageView = UILabel(frame: CGRect(x: Int(screenWidth/2)-70, y: y + Int(screenHeight/2-140), width: Int(screenWidth/2+50), height: 60))
                             self.labelLanguage.text = j2.name
                             self.labelLanguage.textColor = .black
                             self.labelLanguage.font = UIFont(name:"FuturaPT-Light", size: 24.0)
@@ -254,16 +163,22 @@ class PopupTwoVC: UIViewController {
                                     
                                     self.strel.image = UIImage(named: "strel.png")
                                     code = j2.code
-//                                    self.updateLangues()
+                                    //                                    self.updateLangues()
                                     self.container.removeFromSuperview()
-                                    title.removeFromSuperview()
+                                    for (_,j2) in menuSide.enumerated() {
+                                        print(j2)
+                                        title.removeFromSuperview()
+                                    }
+                                    self.labelLanguageMain.removeFromSuperview()
+                                    self.strel.removeFromSuperview()
                                     aboutAppView.removeFromSuperview()
                                     aboutApp.removeFromSuperview()
                                     redLineApp.removeFromSuperview()
+                                    self.strel.image = UIImage(named: "strel.png")
                                     self.moveOut()
                                 }
                             }
-//                            self.view.addSubview(self.labelLanguage)
+                            //                            self.view.addSubview(self.labelLanguage)
                             y = y + cellHeight - 20
                         }
                     } else {
@@ -273,7 +188,6 @@ class PopupTwoVC: UIViewController {
                         for (_,j2) in languages.enumerated() {
                             print(j2)
                             self.labelLanguageView.removeFromSuperview()
-
                         }
                     }
                 }

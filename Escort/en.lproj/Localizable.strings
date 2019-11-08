@@ -8,15 +8,147 @@
 
 /* Unit format string for an RSSI value in decibles */
 "%@ dB" = "%@ dB";
+"CFBundleDisplayName" = "Escort";
 
 "Select connection type" = "Select connection type";
+
+"Configurator" = "Configurator ";
+
+"Wait" = "Wait";
+
 "Language" = "Language";
+
 "About the program" = "About the program";
+
 "BLUETOOTH" = "BLUETOOTH";
+
 "CodeLangu" = "en";
 
+"Type of bluetooth sensor" = "Type of bluetooth sensor";
+
+"For further work, you must enable Bluetooth" = "For further work, you must enable Bluetooth";
+
+"List of available devices" = "List of available devices";
+
+"Warning" = "Warning";
+
+"Attention" = "Attention";
+
+"Connection is lost." = "Connection is lost.";
+
+"Сopied to clipboard" = "Сopied to clipboard";
+
+"Level" = "Level";
+
+"Disconnected" = "Disconnected";
+
+"Connected" = "Connected";
+
+"Stable" = "Stable";
+
+"Not stable" = "Not stable";
+
+"Settings" = "Settings";
+
+"Additional Features" = "Additional Features";
+
+"Reference" = "Reference";
+
+"Sensor is not password-protected" = "Sensor is password-protected";
+
 /* The connected state */
-"Connected" = "Соединение установлено";
+"Connect" = "Connect";
+
+"Maximum level" = "Maximum level";
+
+"Minimum level" = "Minimum level";
+
+"Filtration" = "Filtration";
+
+"Write parameters to the device" = "Write parameters to the device";
+
+"Empty" = "Empty";
+
+"Full" = "Full";
+
+"Disable Thermal Compensation" = "Disable Thermal Compensation";
+
+"Value changing failure" = "Value changing failure";
+
+"Value changed – calibration is done successfully" = "Value changed – calibration is done successfully";
+
+"Value not changed – calibration failure" = "Value not changed – calibration failure";
+
+"“Full” value shall be higher than “Empty” value" = "“Full” value shall be higher than “Empty” value";
+
+"Enter password to continue" = "Enter password to continue";
+
+"Enter value..." = "Enter value...";
+
+"“Empty” value changing failure" = "“Empty” value changing failure";
+
+"“Full” value changed successfully" = "“Full” value changed successfully";
+
+"“Full” value changing failure" = "“Full” value changing failure";
+
+"“Empty” value changed successfully" = "“Empty” value changed successfully";
+
+"TD BLE Settings" = "TD BLE Settings";
+
+"Info" = "Help information will be here soon, we are working on it.\r\n";
+
+"Password" = "Password";
+
+"Password for changing settings" = "Password for changing settings";
+
+"Set" = "Set";
+
+"Reloading TD-BLE" = "Reloading TD-BLE";
+
+"VERSION" = "VERSION";
+
+"ADDRESS" = "ADDRESS";
+
+"TELEPHONES" = "TELEPHONES";
+
+"EMAIL" = "EMAIL";
+
+"WEBSITE" = "WEBSITE";
+
+"phoneRus" = "in Russia - for free";
+
+"addressMain" = "420127, Russia, Kazan, Rep. Tatarstan, street Dementieva, 2B building 4";
+
+"Password set successfully" = "Password set successfully";
+
+"Password setting failure" = "Password setting failure";
+
+"Password deleted successfully" = "Password deleted successfully";
+
+"Password deletion failure" = "Password deletion failure";
+
+"Password is entered" = "Password is entered";
+
+"Data update failure" = "Data update failure";
+
+"Data updated successfully" = "Data updated successfully";
+
+"Failed to reload" = "Failed to reload";
+
+"“Password” accepts values from 1 to 2000000000" = "“Password” accepts values from 1 to 2000000000";
+
+"Success" = "Success";
+
+"Wrong password" = "Wrong password";
+
+"Enter" = "Enter";
+
+"Remove" = "Remove";
+
+"Manual configuration input" = "Manual configuration input";
+
+"Reloading..." = "Перезагружается...";
+
 
 /* The in-progress connecting state */
 "Connecting" = "Соединяется";
@@ -31,7 +163,6 @@
 "Devices" = "устройства";
 
 /* The disconnected state */
-"Disconnected" = "Разъединено";
 
 /* The in-progress disconnecting state */
 "Disconnecting" = "Разъединяется";

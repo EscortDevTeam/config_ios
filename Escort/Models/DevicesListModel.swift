@@ -20,6 +20,10 @@ let menuSide: [Menu] = [
     Menu(name: "USB"),
     Menu(name: "Language".localized(code))
 ]
+let menuSideNext: [Menu] = [
+    Menu(name: "Bluetooth"),
+    Menu(name: "USB"),
+]
 
 let devices: [Device] = [
     Device(name: "Device 1"),

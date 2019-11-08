@@ -1,44 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14845" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14799.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Popup View Controller-->
-        <scene sceneID="W6r-Qx-QEc">
+        <scene sceneID="2bK-6c-ayb">
             <objects>
-                <viewController storyboardIdentifier="popUpVCid" id="YPe-FM-1Kb" customClass="PopupViewController" customModule="Escort" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="c71-eG-s1r">
+                <viewController storyboardIdentifier="popUpVCid" id="NHf-R1-VTC" customClass="PopupViewController" customModule="Escort" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SwP-AD-KlL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zux-5K-bcQ">
-                                <rect key="frame" x="0.0" y="0.0" width="300" height="896"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mOc-bm-gMY">
+                                <rect key="frame" x="114" y="0.0" width="300" height="896"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="8Vl-WI-bhl"/>
+                                    <constraint firstAttribute="width" constant="300" id="Vev-cS-KRm"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="Zux-5K-bcQ" secondAttribute="bottom" id="2Tw-Rc-pw5"/>
-                            <constraint firstItem="Zux-5K-bcQ" firstAttribute="top" secondItem="c71-eG-s1r" secondAttribute="top" id="K7n-Le-yBU"/>
-                            <constraint firstItem="Zux-5K-bcQ" firstAttribute="leading" secondItem="huf-dP-n7G" secondAttribute="leading" id="x68-5X-stl"/>
+                            <constraint firstAttribute="bottom" secondItem="mOc-bm-gMY" secondAttribute="bottom" id="F3e-0A-8JK"/>
+                            <constraint firstItem="mOc-bm-gMY" firstAttribute="top" secondItem="SwP-AD-KlL" secondAttribute="top" id="SCZ-ma-0Yc"/>
+                            <constraint firstItem="mOc-bm-gMY" firstAttribute="trailing" secondItem="eL5-q6-4jt" secondAttribute="trailing" id="XWL-El-ICX"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="huf-dP-n7G"/>
+                        <viewLayoutGuide key="safeArea" id="eL5-q6-4jt"/>
                     </view>
-                    <connections>
-                        <outlet property="POP" destination="Zux-5K-bcQ" id="gsp-eH-sG0"/>
-                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0FZ-JG-FQZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gcL-WN-1ts" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="198.55072463768118" y="89.732142857142847"/>
+            <point key="canvasLocation" x="-158" y="27"/>
         </scene>
     </scenes>
 </document>

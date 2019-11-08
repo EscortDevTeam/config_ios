@@ -26,6 +26,7 @@
 		B546385D23714AF60073C447 /* SettingAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B546385C23714AF60073C447 /* SettingAppController.swift */; };
 		B546385E23718C940073C447 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B546386023718C940073C447 /* Localizable.strings */; };
 		B574930D22EED58900DE9371 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B574930C22EED58900DE9371 /* CoreBluetooth.framework */; };
+		B582CCFB23758A150012E232 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B582CCFD23758A150012E232 /* InfoPlist.strings */; };
 		B5856F8D22FD918100C51803 /* signal1.png in Resources */ = {isa = PBXBuildFile; fileRef = B5856F8C22FD918100C51803 /* signal1.png */; };
 		B5856F8F22FD918A00C51803 /* signal2.png in Resources */ = {isa = PBXBuildFile; fileRef = B5856F8E22FD918A00C51803 /* signal2.png */; };
 		B5856F9122FD919000C51803 /* signal3.png in Resources */ = {isa = PBXBuildFile; fileRef = B5856F9022FD919000C51803 /* signal3.png */; };
@@ -122,6 +123,10 @@
 		B546386223718EC80073C447 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B546386323718EE40073C447 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		B574930C22EED58900DE9371 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		B582CCFC23758A150012E232 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B582CCFE23758A270012E232 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		B582CCFF23758A270012E232 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B582CD0023758A280012E232 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B5856F8C22FD918100C51803 /* signal1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signal1.png; sourceTree = "<group>"; };
 		B5856F8E22FD918A00C51803 /* signal2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signal2.png; sourceTree = "<group>"; };
 		B5856F9022FD919000C51803 /* signal3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signal3.png; sourceTree = "<group>"; };
@@ -481,6 +486,7 @@
 				C491782F22C8A94D0006106E /* AppDelegate.swift */,
 				C491783622C8A94E0006106E /* Assets.xcassets */,
 				C491783B22C8A94E0006106E /* Info.plist */,
+				B582CCFD23758A150012E232 /* InfoPlist.strings */,
 				B546386023718C940073C447 /* Localizable.strings */,
 				B5B8F560236C15D70072EEFB /* LocalizedString.swift */,
 			);
@@ -594,6 +600,7 @@
 				C41730FF22CBA18900177C54 /* td-500.png in Resources */,
 				C424A92F22D73D6C008E154F /* sensor-usb.png in Resources */,
 				C424A90122D61C05008E154F /* help.png in Resources */,
+				B582CCFB23758A150012E232 /* InfoPlist.strings in Resources */,
 				C41730B622C8C6DA00177C54 /* logo.png in Resources */,
 				C424A90722D61C29008E154F /* question.png in Resources */,
 				C41730A722C8B04700177C54 /* main.png in Resources */,
@@ -705,6 +712,17 @@
 				B546386323718EE40073C447 /* pt-PT */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		B582CCFD23758A150012E232 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B582CCFC23758A150012E232 /* en */,
+				B582CCFE23758A270012E232 /* pt-PT */,
+				B582CCFF23758A270012E232 /* ru */,
+				B582CD0023758A280012E232 /* es */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -836,7 +854,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = HVVJT6BNYW;
 				INFOPLIST_FILE = Escort/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -844,7 +862,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.8;
+				MARKETING_VERSION = 1.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.fmeter.escortconnect2121;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -861,7 +879,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = HVVJT6BNYW;
 				INFOPLIST_FILE = Escort/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -869,7 +887,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.8;
+				MARKETING_VERSION = 1.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.fmeter.escortconnect2121;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

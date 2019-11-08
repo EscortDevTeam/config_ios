@@ -47,7 +47,7 @@ class DeviceBleSettingsAddController: UIViewController {
         
         let input = UITextField(frame: CGRect(x: 120, y: 0, width: Int(screenWidth/2-30), height: 40))
         input.text = text
-        input.placeholder = "\(enterValue)"
+        input.placeholder = "Enter value...".localized(code)
         input.textColor = UIColor(rgb: 0xE9E9E9)
         input.font = UIFont(name:"FuturaPT-Light", size: 18.0)
         input.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
@@ -109,7 +109,7 @@ class DeviceBleSettingsAddController: UIViewController {
         view.subviews.forEach({ $0.removeFromSuperview() })
         view.backgroundColor = UIColor(rgb: 0x1F2222)
         
-        let (headerView, backView) = headerSet(title: "\(settingDop)", showBack: true)
+        let (headerView, backView) = headerSet(title: "Additional Features".localized(code), showBack: true)
         view.addSubview(headerView)
         view.addSubview(backView!)
         
@@ -130,7 +130,7 @@ class DeviceBleSettingsAddController: UIViewController {
         let x = 30, deltaY = 65, deltaYLite = 20
         
         let lblPassword = UILabel(frame: CGRect(x: x, y: y, width: Int(screenWidth)-30, height: 22))
-        lblPassword.text = "\(passwordForChange)"
+        lblPassword.text = "Password for changing settings".localized(code)
         lblPassword.textColor = UIColor(rgb: 0xE9E9E9)
         lblPassword.font = UIFont(name:"FuturaPT-Medium", size: 20.0)
         
@@ -144,7 +144,7 @@ class DeviceBleSettingsAddController: UIViewController {
         let v = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth), height: 40))
         
         let lblTitle = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
-        lblTitle.text = password
+        lblTitle.text = "Password".localized(code)
         lblTitle.textColor = UIColor(rgb: 0xE9E9E9)
         lblTitle.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
         
@@ -153,7 +153,7 @@ class DeviceBleSettingsAddController: UIViewController {
         input.isSecureTextEntry = true
         checkMaxLength(textField: input, maxLength: 10)
         input.addTarget(self, action: #selector(DeviceBleSettingsAddController.textFieldDidChange(_:)),for: UIControl.Event.editingChanged)
-        input.attributedPlaceholder = NSAttributedString(string: "\(enterValue)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        input.attributedPlaceholder = NSAttributedString(string: "Enter value...".localized(code), attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         input.textColor = UIColor(rgb: 0xE9E9E9)
         input.font = UIFont(name:"FuturaPT-Light", size: 18.0)
         input.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
@@ -180,7 +180,7 @@ class DeviceBleSettingsAddController: UIViewController {
         btn1.layer.cornerRadius = 22
         
         let btn1Text = UILabel(frame: CGRect(x: x, y: y, width: Int(screenWidth-60), height: 44))
-        btn1Text.text = "\(set)"
+        btn1Text.text =  "Set".localized(code)
         btn1Text.textColor = .white
         btn1Text.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
         btn1Text.textAlignment = .center
@@ -190,7 +190,7 @@ class DeviceBleSettingsAddController: UIViewController {
         btn1TruePass.layer.cornerRadius = 22
         
         let btn1TextTruePass = UILabel(frame: CGRect(x: x, y: y, width: Int(screenWidth/2-60), height: 44))
-        btn1TextTruePass.text = "\(enterP)"
+        btn1TextTruePass.text = "Enter".localized(code)
         btn1TextTruePass.textColor = .white
         btn1TextTruePass.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
         btn1TextTruePass.textAlignment = .center
@@ -200,7 +200,7 @@ class DeviceBleSettingsAddController: UIViewController {
         btnTruePassDelete.layer.cornerRadius = 22
         
         let btnTextTruePassDelete = UILabel(frame: CGRect(x: Int(screenWidth/2) + x, y: y, width: Int(screenWidth/2-60), height: 44))
-        btnTextTruePassDelete.text = "\(deleteP)"
+        btnTextTruePassDelete.text = "Remove".localized(code)
         btnTextTruePassDelete.textColor = .white
         btnTextTruePassDelete.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
         btnTextTruePassDelete.textAlignment = .center
@@ -231,7 +231,7 @@ class DeviceBleSettingsAddController: UIViewController {
                     if passwordSuccess == true {
                         self.input1.removeFromSuperview()
                         self.input2.removeFromSuperview()
-                        let alert = UIAlertController(title: "Успешно", message: "Пароль введен правильно", preferredStyle: .alert)
+                        let alert = UIAlertController(title: "Success".localized(code), message: "Password is entered".localized(code), preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                             switch action.style{
                             case .default:
@@ -252,7 +252,7 @@ class DeviceBleSettingsAddController: UIViewController {
                             }}))
                         self.present(alert, animated: true, completion: nil)
                     } else {
-                        let alert = UIAlertController(title: "Ошибка", message: "Неверный пароль", preferredStyle: .alert)
+                        let alert = UIAlertController(title: "Warning".localized(code), message: "Wrong password".localized(code), preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                             switch action.style{
                             case .default:
@@ -267,7 +267,7 @@ class DeviceBleSettingsAddController: UIViewController {
                     }
                 }
             } else {
-                let alert = UIAlertController(title: "Пароль некоректен", message: "Пароль может содержать только цифры", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Warning".localized(code), message: "“Password” accepts values from 1 to 2000000000".localized(code), preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                     switch action.style{
                     case .default:
@@ -298,7 +298,7 @@ class DeviceBleSettingsAddController: UIViewController {
                         self.input2.removeFromSuperview()
                         passwordHave = false
                         mainPassword = ""
-                        let alert = UIAlertController(title: "Успешно", message: "Пароль с устройства удален", preferredStyle: .alert)
+                        let alert = UIAlertController(title: "Success".localized(code), message: "Password deleted successfully".localized(code), preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                             switch action.style{
                             case .default:
@@ -319,7 +319,7 @@ class DeviceBleSettingsAddController: UIViewController {
                             }}))
                         self.present(alert, animated: true, completion: nil)
                     } else {
-                        let alert = UIAlertController(title: "Ошибка", message: "Неверный пароль", preferredStyle: .alert)
+                        let alert = UIAlertController(title: "Warning".localized(code), message: "Wrong password".localized(code), preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                             switch action.style{
                             case .default:
@@ -333,7 +333,7 @@ class DeviceBleSettingsAddController: UIViewController {
                     }
                 }
             } else {
-                let alert = UIAlertController(title: "Пароль некоректен", message: "Пароль может содержать только цифры", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Warning".localized(code), message: "“Password” accepts values from 1 to 2000000000".localized(code), preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                     switch action.style{
                     case .default:
@@ -362,7 +362,7 @@ class DeviceBleSettingsAddController: UIViewController {
                     passwordHave = true
                     self.input1.removeFromSuperview()
                     self.input2.removeFromSuperview()
-                    let alert = UIAlertController(title: "Пароль записан", message: "Пароль записан на текущее BLE устройство", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Success".localized(code), message: "Password set successfully".localized(code), preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                         switch action.style{
                         case .default:
@@ -382,7 +382,7 @@ class DeviceBleSettingsAddController: UIViewController {
                     self.present(alert, animated: true, completion: nil)
                 }
             } else {
-                let alert = UIAlertController(title: "Пароль некоректен", message: "Пароль может содержать только цифры", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Warning".localized(code), message: "“Password” accepts values from 1 to 2000000000".localized(code), preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                     switch action.style{
                     case .default:
@@ -407,7 +407,7 @@ class DeviceBleSettingsAddController: UIViewController {
         y = y + deltaYLite
         
         let lblSettings = UILabel(frame: CGRect(x: x, y: y, width: Int(screenWidth), height: 22))
-        lblSettings.text = "\(manualInput)"
+        lblSettings.text = "Manual configuration input".localized(code)
         lblSettings.textColor = UIColor(rgb: 0xE9E9E9)
         lblSettings.font = UIFont(name:"FuturaPT-Medium", size: 20.0)
         
@@ -419,14 +419,14 @@ class DeviceBleSettingsAddController: UIViewController {
         let v1 = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth), height: 40))
         
         let lblTitle1 = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
-        lblTitle1.text = setFull
+        lblTitle1.text = "Full".localized(code)
         lblTitle1.textColor = UIColor(rgb: 0xE9E9E9)
         lblTitle1.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
         
         input1 = UITextField(frame: CGRect(x: 70, y: 0, width: Int(screenWidth/2-30), height: 40))
         input1.text = "\(full)"
         input1.addTarget(self, action: #selector(DeviceBleSettingsAddController.textFieldDidChange(_:)),for: UIControl.Event.editingChanged)
-        input1.attributedPlaceholder = NSAttributedString(string: "\(enterValue)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        input1.attributedPlaceholder = NSAttributedString(string: "Enter value...".localized(code), attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         input1.textColor = UIColor(rgb: 0xE9E9E9)
         input1.font = UIFont(name:"FuturaPT-Light", size: 18.0)
         input1.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
@@ -454,14 +454,14 @@ class DeviceBleSettingsAddController: UIViewController {
         let v2 = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth), height: 40))
         
         let lblTitle2 = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
-        lblTitle2.text = setNothing
+        lblTitle2.text = "Empty".localized(code)
         lblTitle2.textColor = UIColor(rgb: 0xE9E9E9)
         lblTitle2.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
         
         input2 = UITextField(frame: CGRect(x: 70, y: 0, width: Int(screenWidth/2-30), height: 40))
         input2.text = "\(nothing)"
         input2.addTarget(self, action: #selector(DeviceBleSettingsAddController.textFieldDidChange(_:)),for: UIControl.Event.editingChanged)
-        input2.attributedPlaceholder = NSAttributedString(string: "\(enterValue)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        input2.attributedPlaceholder = NSAttributedString(string: "Enter value...".localized(code), attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         input2.textColor = UIColor(rgb: 0xE9E9E9)
         input2.font = UIFont(name:"FuturaPT-Light", size: 18.0)
         input2.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
@@ -491,7 +491,7 @@ class DeviceBleSettingsAddController: UIViewController {
         btn3.layer.cornerRadius = 22
         
         let btn3Text = UILabel(frame: CGRect(x: x, y: y, width: Int(screenWidth-60), height: 44))
-        btn3Text.text = "\(set)"
+        btn3Text.text = "Set".localized(code)
         btn3Text.textColor = .white
         btn3Text.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
         btn3Text.textAlignment = .center
@@ -500,8 +500,8 @@ class DeviceBleSettingsAddController: UIViewController {
         scrollView.addSubview(btn3Text)
         
         btn3.addTapGesture {
-            let textfieldInt: Int? = Int(self.input1.text!)
-            let textfieldIntNothing: Int? = Int(self.input2.text!)
+            let textfieldInt: Int? = Int(self.input1.text!) ?? 1
+            let textfieldIntNothing: Int? = Int(self.input2.text!) ?? 1
             if textfieldInt! > textfieldIntNothing! {
                 if passwordHave == false {
                     reload = 5
@@ -514,7 +514,7 @@ class DeviceBleSettingsAddController: UIViewController {
                         self.view.isUserInteractionEnabled = true
                         self.activityIndicator.stopAnimating()
                         if errorWRN == false {
-                            let alert = UIAlertController(title: "Успешно", message: "Данные успешно изменены", preferredStyle: .alert)
+                            let alert = UIAlertController(title: "Success", message: "Data updated successfully".localized(code), preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                                 switch action.style{
                                 case .default:
@@ -530,7 +530,7 @@ class DeviceBleSettingsAddController: UIViewController {
                                 }}))
                             self.present(alert, animated: true, completion: nil)
                         } else {
-                            let alert = UIAlertController(title: "Ошибка", message: "Не удалось изменить данные", preferredStyle: .alert)
+                            let alert = UIAlertController(title: "Warning".localized(code), message: "Data update failure".localized(code), preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                                 switch action.style{
                                 case .default:
@@ -559,7 +559,7 @@ class DeviceBleSettingsAddController: UIViewController {
                         self.view.isUserInteractionEnabled = true
                         self.activityIndicator.stopAnimating()
                         if errorWRN == false {
-                            let alert = UIAlertController(title: "Успешно", message: "Данные успешно изменены", preferredStyle: .alert)
+                            let alert = UIAlertController(title: "Success".localized(code), message: "Data updated successfully".localized(code), preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                                 switch action.style{
                                 case .default:
@@ -575,7 +575,7 @@ class DeviceBleSettingsAddController: UIViewController {
                                 }}))
                             self.present(alert, animated: true, completion: nil)
                         } else {
-                            let alert = UIAlertController(title: "Ошибка", message: "Не удалось изменить данные", preferredStyle: .alert)
+                            let alert = UIAlertController(title: "Warning".localized(code), message: "Data update failure".localized(code), preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                                 switch action.style{
                                 case .default:
@@ -595,7 +595,7 @@ class DeviceBleSettingsAddController: UIViewController {
                     }
                 }
             } else {
-                let alert = UIAlertController(title: "\(ifFull)", message: "", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Attention".localized(code), message: "“Full” value shall be higher than “Empty” value".localized(code), preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                     switch action.style{
                     case .default:
@@ -620,7 +620,7 @@ class DeviceBleSettingsAddController: UIViewController {
         btn4.layer.cornerRadius = 22
         
         let btn4Text = UILabel(frame: CGRect(x: x, y: y, width: Int(screenWidth-60), height: 44))
-        btn4Text.text = "\(reloadName)"
+        btn4Text.text = "Reloading TD-BLE".localized(code)
         btn4Text.textColor = .white
         btn4Text.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
         btn4Text.textAlignment = .center
@@ -644,7 +644,7 @@ class DeviceBleSettingsAddController: UIViewController {
                         self.viewAlpha.removeFromSuperview()
                         self.activityIndicator.stopAnimating()
                         if errorWRN == false {
-                            let alert = UIAlertController(title: "Успешная перезагрузка", message: "Устройство успешно перезагрузилось, повторите попытку входа", preferredStyle: .alert)
+                            let alert = UIAlertController(title: "Success".localized(code), message: "Reloading...".localized(code), preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                                 switch action.style{
                                 case .default:
@@ -662,7 +662,7 @@ class DeviceBleSettingsAddController: UIViewController {
                                 }}))
                             self.present(alert, animated: true, completion: nil)
                         } else {
-                            let alert = UIAlertController(title: "\(failReloud)", message: "", preferredStyle: .alert)
+                            let alert = UIAlertController(title: "Warning".localized(code), message: "Failed to reload".localized(code), preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                                 switch action.style{
                                 case .default:
@@ -678,7 +678,7 @@ class DeviceBleSettingsAddController: UIViewController {
                         }
                     }
                 } else {
-                    let alert = UIAlertController(title: "Ошибка", message: "Устройство запароленно", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Warning".localized(code), message: "Enter password to continue".localized(code), preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                         switch action.style{
                         case .default:
@@ -702,7 +702,7 @@ class DeviceBleSettingsAddController: UIViewController {
                     self.viewAlpha.removeFromSuperview()
                     self.activityIndicator.stopAnimating()
                     if errorWRN == false {
-                        let alert = UIAlertController(title: "Успешная перезагрузка", message: "Устройство успешно перезагрузилось, повторите попытку входа", preferredStyle: .alert)
+                        let alert = UIAlertController(title: "Success".localized(code), message: "Reloading...".localized(code), preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                             switch action.style{
                             case .default:
@@ -720,7 +720,7 @@ class DeviceBleSettingsAddController: UIViewController {
                             }}))
                         self.present(alert, animated: true, completion: nil)
                     } else {
-                        let alert = UIAlertController(title: "\(failReloud)", message: "", preferredStyle: .alert)
+                        let alert = UIAlertController(title: "Warning".localized(code), message: "Failed to reload".localized(code), preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                             switch action.style{
                             case .default:

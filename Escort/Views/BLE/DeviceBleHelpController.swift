@@ -34,7 +34,7 @@ class DeviceBleHelpController: UIViewController {
 
         view.backgroundColor = UIColor(rgb: 0x1F2222)
         
-        let (headerView, backView) = headerSet(title: "\(reference)", showBack: true)
+        let (headerView, backView) = headerSet(title: "Reference".localized(code), showBack: true)
         view.addSubview(headerView)
         view.addSubview(backView!)
         
@@ -51,7 +51,7 @@ class DeviceBleHelpController: UIViewController {
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
         
         let textMain = UILabel(frame: CGRect(x: 20, y: headerHeight+10, width: screenWidth-40, height: 20))
-        textMain.text = "\(reference)"
+        textMain.text = "Reference".localized(code)
         textMain.font = UIFont(name:"FuturaPT-Medium", size: 20)
         textMain.textColor = UIColor(rgb: 0xE9E9E9)
         textMain.frame.origin.x = 20
@@ -61,7 +61,7 @@ class DeviceBleHelpController: UIViewController {
         lineMain.backgroundColor = UIColor(rgb: 0xCF2121)
         view.addSubview(lineMain)
         let text = UILabel()
-        text.text = "\(info)"
+        text.text = "Info".localized(code)
 //        text.text = "Посадил дед репку и говорит:\n\n— Расти, расти, репка, сладка! Расти, расти, репка, крепка!\n\nВыросла репка сладка, крепка, большая-пребольшая.\n\nПошел дед репку рвать: тянет-потянет, вытянуть не может.\n\nПозвал дед бабку.\n\nБабка за дедку,\nДедка за репку —\nТянут-потянут, вытянуть не могут.\n\nПозвала бабка внучку.\n\nВнучка за бабку,\nБабка за дедку,\nДедка за репку —\nТянут-потянут, вытянуть не могут.\n\nПозвала внучка Жучку.\n\nЖучка за внучку,\nВнучка за бабку,\nБабка за дедку,\nДедка за репку —\nТянут-потянут, вытянуть не могут.\n\nПозвала Жучка кошку.\n\nКошка за Жучку,\nЖучка за внучку,\nВнучка за бабку,\nБабка за дедку,\nДедка за репку —\nТянут-потянут, вытянуть не могут.\n\nПозвала кошка мышку.\n\nМышка за кошку,\nКошка за Жучку,\nЖучка за внучку,\nВнучка за бабку,\nБабка за дедку,\nДедка за репку —\nТянут-потянут — и вытянули репку\n"
         text.textColor = UIColor(rgb: 0xE9E9E9)
         text.lineBreakMode = .byWordWrapping
