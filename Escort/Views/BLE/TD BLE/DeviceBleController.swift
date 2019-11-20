@@ -248,7 +248,7 @@ class DeviceBleController: UIViewController {
         view.addSubview(deviceName)
         
         let degree = UIView(frame: CGRect(x: 130, y: Int(screenHeight/6) + 12, width: 100, height: 31))
-        let degreeIcon = UIImageView(image: UIImage(named: "degree.png")!)
+        let degreeIcon = UIImageView(image: UIImage(named: "temp")!)
         degreeIcon.frame = CGRect(x: 0, y: 0, width: 18, height: 31)
         degree.addSubview(degreeIcon)
         let degreeName = UILabel(frame: CGRect(x: 24, y: 3, width: 40, height: 31))

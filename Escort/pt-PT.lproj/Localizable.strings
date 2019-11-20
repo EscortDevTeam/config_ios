@@ -30,6 +30,10 @@
 
 "CodeLangu" = "pt-PT";
 
+"Bluetooth off" = "Bluetooth off";
+
+"Bluetooth on" = "Bluetooth on";
+
 "Type of bluetooth sensor" = "Digite o sensor bluetooth";
 
 "For further work, you must enable Bluetooth" = "For further work, you must enable Bluetooth";
@@ -101,6 +105,8 @@
 
 "TD BLE Settings" = "Configurações do TD BLE";
 
+"TL BLE Settings" = "Configurações do TL BLE";
+
 "Info" = "Era uma vez vivia um velho com uma velha. Então o velho disse à velha: \"Vá e raspe a caixa, anote o sushi e raspe a farinha em um coque.\" A velha pegou as asas, raspou a caixa, beliscou e coçou dois punhados de farinha no saco.";
 
 "Password" = "Senha";
@@ -110,6 +116,9 @@
 "Set" = "Instalar";
 
 "Reloading TD-BLE" = "Recarregando TD-BLE";
+
+"Reloading TL-BLE" = "Recarregando TL-BLE";
+
 
 "VERSION" = "VERSÃO";
 

@@ -31,6 +31,10 @@
 
 "Attention" = "Внимание";
 
+"Bluetooth off" = "Bluetooth выключен";
+
+"Bluetooth on" = "Bluetooth включен";
+
 "Connection is lost." = "Связь потеряна.";
 
 "Сopied to clipboard" = "Скопировано в буфер";
@@ -93,6 +97,8 @@
 
 "TD BLE Settings" = "Настройки TD BLE";
 
+"TL BLE Settings" = "Настройки TL BLE";
+
 "Info" = "Здесь скоро появится справочная информация, мы над этим работаем.";
 
 "Password" = "Пароль";
@@ -102,6 +108,9 @@
 "Set" = "Установить";
 
 "Reloading TD-BLE" = "Перезагрузка TD-BLE";
+
+"Reloading TL-BLE" = "Перезагрузка TL-BLE";
+
 
 "VERSION" = "ВЕРСИЯ";
 

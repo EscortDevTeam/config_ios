@@ -24,6 +24,10 @@
 
 "CodeLangu" = "en";
 
+"Bluetooth off" = "Bluetooth off";
+
+"Bluetooth on" = "Bluetooth on";
+
 "Type of bluetooth sensor" = "Type of bluetooth sensor";
 
 "For further work, you must enable Bluetooth" = "For further work, you must enable Bluetooth";
@@ -95,6 +99,8 @@
 
 "TD BLE Settings" = "TD BLE Settings";
 
+"TL BLE Settings" = "TL BLE Settings";
+
 "Info" = "Help information will be here soon, we are working on it.\r\n";
 
 "Password" = "Password";
@@ -104,6 +110,9 @@
 "Set" = "Set";
 
 "Reloading TD-BLE" = "Reloading TD-BLE";
+
+"Reloading TL-BLE" = "Reloading TL-BLE";
+
 
 "VERSION" = "VERSION";
 

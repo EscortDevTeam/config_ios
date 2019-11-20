@@ -19,7 +19,8 @@
     let popUpVC = UIStoryboard(name: "MenuSelf", bundle: nil).instantiateViewController(withIdentifier: "popUpVCid") as! PopupTwoVC
     let popUpVCNext = UIStoryboard(name: "MainSelf", bundle: nil).instantiateViewController(withIdentifier: "popUpVCid") as! PopupViewController
     let DevicesListC = DevicesListController()
-    
+    let DevicesListTLC = DevicesTLListController()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         viewShow()
@@ -47,6 +48,7 @@
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
         activity.center = view.center
+        activity.transform = CGAffineTransform(scaleX: 2, y: 2)
         activity.hidesWhenStopped = true
         activity.startAnimating()
         return activity
@@ -64,7 +66,7 @@
     }
     private func viewShowTwo() {
         view.subviews.forEach({ $0.removeFromSuperview() })
-        let (headerView, backView) = headerSet(title:"\(typeBLE)", showBack: true)
+        let (headerView, backView) = headerSet(title:"Type of bluetooth sensor".localized(code), showBack: true)
         view.addSubview(headerView)
         view.addSubview(backView!)
         
@@ -98,12 +100,14 @@
                 self.view.subviews.forEach({ $0.removeFromSuperview() })
                 
             }
-            
+            var z = 10
             let data = bleDevices
             let cellWidth = Int(screenWidth / 2), cellHeight = 180
-            
+            let cellWidthXName = Int(screenWidth / 2)+10
+
             for (i, d) in data.enumerated() {
                 let x = i % 2 == 0 ? 0 : cellWidth
+                let xName = i % 2 == 0 ? 0 : cellWidthXName
                 var y = 0
                 if i > 1 {
                     y = (i % 2 == 0 ? i : i - 1) * (cellHeight / 2)
@@ -112,26 +116,27 @@
                 let container = UIView(frame: CGRect(x: x, y: y, width: cellWidth, height: cellHeight))
                 
                 let img = UIImageView(image: UIImage(named: d.image)!)
-                img.frame = CGRect(x: x+40, y: y+110, width: 125, height: 93)
+                img.frame = CGRect(x: x+10, y: y+Int(headerHeight), width: 200, height: 130)
                 
-                let title = UILabel(frame: CGRect(x: 5, y: 130, width: cellWidth, height: 20))
+                let title = UILabel(frame: CGRect(x: xName, y: cellHeight+Int(headerHeight)-50, width: cellWidth, height: 20))
                 title.text = d.name
                 title.textColor = UIColor(rgb: 0x272727)
                 title.font = UIFont(name:"FuturaPT-Light", size: 20.0)
                 title.textAlignment = .center
-                
-                let separator = UIView(frame: CGRect(x: 10, y: cellHeight, width: Int(screenWidth-20), height: 1))
+
+                let separator = UIView(frame: CGRect(x: z, y: cellHeight, width: Int(screenWidth/2)-10, height: 2))
                 separator.backgroundColor = .red
-                
+                z = 0
                 img.removeFromSuperview()
                 self.view.addSubview(img)
-                container.addSubview(title)
+                self.view.addSubview(title)
                 
-                
-                if i % 2 == 0 && i != data.count-2 {
-                    separator.removeFromSuperview()
-                    container.addSubview(separator)
-                }
+                container.addSubview(separator)
+
+//                if i % 2 == 0 && i != data.count-2 {
+//                    separator.removeFromSuperview()
+//                    self.view.addSubview(separator)
+//                }
                 container.removeFromSuperview()
                 self.scrollView.addSubview(container)
                 self.scrollView.bringSubviewToFront(container)
@@ -146,10 +151,16 @@
                 
                 if !d.isHide {
                     container.addTapGesture {
-                        DeviceTypeIndex = i
-                        self.navigationController?.pushViewController(self.DevicesListC, animated: true)
-                        self.view.subviews.forEach({ $0.removeFromSuperview() })
-                        
+                        if d.name == "TL BLE" {
+                            self.navigationController?.pushViewController(self.DevicesListTLC, animated: true)
+                            self.view.subviews.forEach({ $0.removeFromSuperview() })
+                            
+                        }
+                        if d.name == "TD BLE" {
+                            DeviceTypeIndex = i
+                            self.navigationController?.pushViewController(self.DevicesListC, animated: true)
+                            self.view.subviews.forEach({ $0.removeFromSuperview() })
+                        }
                     }
                 }
             }
@@ -162,7 +173,7 @@
     }
     private func viewShowMenu() {
         view.subviews.forEach({ $0.removeFromSuperview() })
-        let (headerView, backView) = headerSet(title:"Type of bluetooth sensor".localized(code), showBack: true)
+        let (headerView, backView) = headerSet(title: "Type of bluetooth sensor".localized(code), showBack: true)
         view.addSubview(headerView)
         view.addSubview(backView!)
         let hamburger = UIImageView(image: UIImage(named: "Hamburger.png")!)
@@ -190,13 +201,14 @@
             self.view.subviews.forEach({ $0.removeFromSuperview() })
             
         }
-        
+        var z = 10
         let data = bleDevices
-        
         let cellWidth = Int(screenWidth / 2), cellHeight = 180
+        let cellWidthXName = Int(screenWidth / 2)+10
         
         for (i, d) in data.enumerated() {
             let x = i % 2 == 0 ? 0 : cellWidth
+            let xName = i % 2 == 0 ? 0 : cellWidthXName
             var y = 0
             if i > 1 {
                 y = (i % 2 == 0 ? i : i - 1) * (cellHeight / 2)
@@ -205,26 +217,27 @@
             let container = UIView(frame: CGRect(x: x, y: y, width: cellWidth, height: cellHeight))
             
             let img = UIImageView(image: UIImage(named: d.image)!)
-            img.frame = CGRect(x: x+40, y: y+110, width: 125, height: 93)
+            img.frame = CGRect(x: x+10, y: y+Int(headerHeight), width: 200, height: 130)
             
-            let title = UILabel(frame: CGRect(x: 5, y: 130, width: cellWidth, height: 20))
+            let title = UILabel(frame: CGRect(x: xName, y: cellHeight+Int(headerHeight)-50, width: cellWidth, height: 20))
             title.text = d.name
             title.textColor = UIColor(rgb: 0x272727)
             title.font = UIFont(name:"FuturaPT-Light", size: 20.0)
             title.textAlignment = .center
             
-            let separator = UIView(frame: CGRect(x: 10, y: cellHeight, width: Int(screenWidth-20), height: 1))
+            let separator = UIView(frame: CGRect(x: z, y: cellHeight, width: Int(screenWidth/2)-10, height: 2))
             separator.backgroundColor = .red
-            
+            z = 0
             img.removeFromSuperview()
             self.view.addSubview(img)
-            container.addSubview(title)
+            self.view.addSubview(title)
             
+            container.addSubview(separator)
             
-            if i % 2 == 0 && i != data.count-2 {
-                separator.removeFromSuperview()
-                container.addSubview(separator)
-            }
+//                if i % 2 == 0 && i != data.count-2 {
+//                    separator.removeFromSuperview()
+//                    self.view.addSubview(separator)
+//                }
             container.removeFromSuperview()
             self.scrollView.addSubview(container)
             self.scrollView.bringSubviewToFront(container)
@@ -239,14 +252,20 @@
             
             if !d.isHide {
                 container.addTapGesture {
-                    DeviceTypeIndex = i
-                    self.navigationController?.pushViewController(self.DevicesListC, animated: true)
-                    self.view.subviews.forEach({ $0.removeFromSuperview() })
-                    
+                    if d.name == "TL BLE" {
+                        self.navigationController?.pushViewController(self.DevicesListTLC, animated: true)
+                        self.view.subviews.forEach({ $0.removeFromSuperview() })
+                        
+                    }
+                    if d.name == "TD BLE" {
+                        DeviceTypeIndex = i
+                        self.navigationController?.pushViewController(self.DevicesListC, animated: true)
+                        self.view.subviews.forEach({ $0.removeFromSuperview() })
+                    }
                 }
             }
         }
-        
+            
         self.scrollView.contentSize = CGSize(width: Int(screenWidth), height: data.count * cellHeight/2)
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
             self.t += 1

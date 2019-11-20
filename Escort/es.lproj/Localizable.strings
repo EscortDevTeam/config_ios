@@ -100,6 +100,8 @@
 
 "TD BLE Settings" = "Configuraciones de TD BLE";
 
+"TL BLE Settings" = "Configuraciones de TL BLE";
+
 "Info" = "Había una vez un anciano con una anciana. Entonces el anciano le dijo a la anciana: \"Ve y hurga en la caja, toma nota del sushi y corta la harina en un moño\". La anciana tomó las alas, la frotó alrededor de la caja, pellizcó y rascó dos puñados de harina ";
 
 "Password" = "Contraseña";
@@ -110,6 +112,9 @@
 
 "Reloading TD-BLE" = "Reinicio de TD-BLE";
 
+"Reloading TL-BLE" = "Reinicio de TL-BLE";
+
+
 "VERSION" = "VERSION";
 
 "ADDRESS" = "LA DIRECCION";
@@ -119,6 +124,10 @@
 "EMAIL" = "CORREO ELECTRONICO";
 
 "WEBSITE" = "SITIO";
+
+"Bluetooth off" = "Bluetooth off";
+
+"Bluetooth on" = "Bluetooth on";
 
 "phoneRus" = "en Rusia - gratis";
 

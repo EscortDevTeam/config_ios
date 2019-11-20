@@ -19,12 +19,9 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
     var refreshControl = UIRefreshControl()
     var attributedTitle = NSAttributedString()
     let attributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-    var serviceUUIDMain = "6E400001-B5A3-F393-E0A9-"
     let popUpVCNext = UIStoryboard(name: "MainSelf", bundle: nil).instantiateViewController(withIdentifier: "popUpVCid") as! PopupViewController // 1
     var peripherals = [CBPeripheral]()
     var manager:CBCentralManager? = nil
-    var parentView: DeviceBleController!
-    var periheral:CBPeripheral?
     let DeviceBLEC = DeviceBleController()
     var timer = Timer()
     var stringAll: String = ""
@@ -40,7 +37,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         }
         else {
             print("Bluetooth OFF.")
-            let alert = UIAlertController(title: "Включите Bluetooth", message: "For further work, you must enable Bluetooth".localized(code), preferredStyle: .alert)
+            let alert = UIAlertController(title: "Bluetooth off".localized(code), message: "For further work, you must enable Bluetooth".localized(code), preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                 switch action.style{
                 case .default:
@@ -641,7 +638,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
             titleRSSI.textColor = .white
             titleRSSI.font = UIFont(name:"FuturaPT-Light", size: 14.0)
             
-            let titleRSSIImage = UIImageView(frame: CGRect(x: 10, y: 50, width: 12, height: 11))
+            let titleRSSIImage = UIImageView(frame: CGRect(x: 5, y: 50, width: 17, height: 11))
             titleRSSIImage.image = #imageLiteral(resourceName: "dBm")
             
             let btn = UIView(frame: CGRect(x: Int(screenWidth-140-40), y: 12, width: 140, height: 44))
