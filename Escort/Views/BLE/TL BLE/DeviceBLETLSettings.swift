@@ -54,7 +54,7 @@ class DeviceBLETLSettings: UIViewController {
     //Убираем клавиатуру
 
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white)
+        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
         activity.center = view.center
         activity.transform = CGAffineTransform(scaleX: 2, y: 2)
         activity.hidesWhenStopped = true

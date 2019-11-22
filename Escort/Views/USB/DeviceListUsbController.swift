@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ExternalAccessory
 
 class DevicesListUsbController: UIViewController {
 
@@ -43,7 +44,7 @@ class DevicesListUsbController: UIViewController {
     }()
 
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white)
+        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
         activity.center = view.center
         activity.hidesWhenStopped = true
         activity.startAnimating()

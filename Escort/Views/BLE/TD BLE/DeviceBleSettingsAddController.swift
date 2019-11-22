@@ -87,7 +87,7 @@ class DeviceBleSettingsAddController: UIViewController {
     //Убираем клавиатуру
 
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white)
+        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
         activity.center = view.center
         activity.transform = CGAffineTransform(scaleX: 2, y: 2)
         activity.hidesWhenStopped = true
@@ -514,7 +514,7 @@ class DeviceBleSettingsAddController: UIViewController {
                         self.view.isUserInteractionEnabled = true
                         self.activityIndicator.stopAnimating()
                         if errorWRN == false {
-                            let alert = UIAlertController(title: "Success", message: "Data updated successfully".localized(code), preferredStyle: .alert)
+                            let alert = UIAlertController(title: "Success".localized(code), message: "Data updated successfully".localized(code), preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                                 switch action.style{
                                 case .default:

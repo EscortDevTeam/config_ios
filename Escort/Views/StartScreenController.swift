@@ -33,7 +33,7 @@ class StartScreenController: UIViewController {
     }()
     
     fileprivate lazy var configText: UILabel = {
-        let textConfig = UILabel(frame: CGRect(x: image.x, y: image.y + image.height - 10, width: image.width+30, height: 60))
+        let textConfig = UILabel(frame: CGRect(x: image.x-10, y: image.y + image.height - 10, width: image.width+30, height: 60))
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         if let version = appVersion {
             textConfig.text =  "Configurator".localized(code) + version
@@ -44,7 +44,7 @@ class StartScreenController: UIViewController {
     }()
     
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white)
+        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
         activity.center = view.center
         activity.transform = CGAffineTransform(scaleX: 2, y: 2)
         activity.hidesWhenStopped = true

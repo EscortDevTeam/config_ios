@@ -38,7 +38,7 @@ class SettingAppController: UIViewController {
     }()
     
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
+        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
         activity.center = view.center
         activity.hidesWhenStopped = true
         activity.startAnimating()

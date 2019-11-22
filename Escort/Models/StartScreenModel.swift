@@ -8,8 +8,6 @@
 
 import UIKit
 
-let configuratorText = "Configurator "
-
 struct StartScreen {
     let image: String
     let x: Int

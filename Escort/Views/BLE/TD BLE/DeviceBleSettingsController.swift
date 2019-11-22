@@ -89,7 +89,7 @@ class DeviceBleSettingsController: UIViewController {
         return v
     }
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white)
+        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
         activity.center = view.center
         activity.transform = CGAffineTransform(scaleX: 2, y: 2)
         activity.hidesWhenStopped = true
@@ -809,7 +809,7 @@ class DeviceBleSettingsController: UIViewController {
                         self.viewAlpha.removeFromSuperview()
                         self.viewLoad.isHidden = false
                         self.viewLoadTwo.isHidden = false
-                        let alert = UIAlertController(title: "Value changed – calibration is done successfully".localized(code), message: "“Empty” value changing failure".localized(code), preferredStyle: .alert)
+                        let alert = UIAlertController(title: "Value changed – calibration is done successfully".localized(code), message: "“Empty” value changed successfully".localized(code), preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                             switch action.style{
                             case .default:

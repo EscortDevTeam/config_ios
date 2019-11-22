@@ -106,6 +106,7 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
                             print("default")
                             self.navigationController?.popViewController(animated: true)
                             self.view.subviews.forEach({ $0.removeFromSuperview() })
+                            self.navigationController?.popViewController(animated: true)
                         case .cancel:
                             print("cancel")
                         case .destructive:
@@ -449,7 +450,7 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
                 self.viewAlpha.removeFromSuperview()
                 self.activityIndicator.stopAnimating()
             }
@@ -519,7 +520,7 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
     }()
     
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white)
+        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
         activity.transform = CGAffineTransform(scaleX: 2, y: 2)
         activity.center = view.center
         activity.hidesWhenStopped = true

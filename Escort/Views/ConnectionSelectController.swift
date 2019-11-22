@@ -32,7 +32,7 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
         print("12")
     }
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
+        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
         activity.center = view.center
         activity.transform = CGAffineTransform(scaleX: 2, y: 2)
         activity.hidesWhenStopped = true
@@ -71,8 +71,8 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
         var con = connections[0]
         let v1 = UIView()
         let btImage1 = UIImageView(image: UIImage(named: con.image)!)
-        btImage1.frame = CGRect(x: 30, y: screenHeight/2-160, width: 72, height: 110)
-        let btTitle1 = UILabel(frame: CGRect(x: 120, y: screenHeight/2-124, width: screenWidth, height: 36))
+        btImage1.frame = CGRect(x: 30, y: 0, width: 72, height: 110)
+        let btTitle1 = UILabel(frame: CGRect(x: 120, y: 36, width: screenWidth, height: 36))
         btTitle1.text = con.name
         btTitle1.textColor = UIColor(rgb: 0x1F1F1F)
         btTitle1.font = UIFont(name:"FuturaPT-Light", size: 32.0)
@@ -81,8 +81,8 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
         v1.addSubview(btTitle1)
         
         h = (cellHeight - Int(btImage1.frame.height)) / 2
-        v1.frame = CGRect(x:0, y: Int(headerHeight), width: Int(screenWidth), height: Int(screenHeight))
-//                v1.frame = CGRect(x:0, y: Int(headerHeight) + h, width: Int(screenWidth), height: cellHeight-h)
+//        v1.frame = CGRect(x:0, y: Int(headerHeight)+h, width: Int(screenWidth), height: Int(screenHeight))
+        v1.frame = CGRect(x:0, y: Int(headerHeight) + h, width: Int(screenWidth), height: cellHeight-h)
         v1.addTapGesture{
             boolBLE = true
             print("BLE")
@@ -98,7 +98,7 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
         
         let separator = UIView(frame: CGRect(x: 0, y: Int(headerHeight)  + cellHeight, width: Int(screenWidth), height: 1))
         separator.backgroundColor = UIColor(red:0, green:0, blue:0, alpha:0.09)
-//        view.addSubview(separator)
+        view.addSubview(separator)
         
         // usb
         
@@ -110,20 +110,19 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
         btTitle2.text = con.name
         btTitle2.textColor = UIColor(rgb: 0x1F1F1F)
         btTitle2.font = UIFont(name:"FuturaPT-Light", size: 32.0)
-        btImage2.alpha = 0.0
-        btTitle2.alpha = 0.0
+
         v2.addSubview(btImage2)
         v2.addSubview(btTitle2)
         
         h = (cellHeight - Int(btImage2.frame.height)) / 2
         
         v2.frame = CGRect(x:0, y: Int(headerHeight) + cellHeight + h, width: Int(screenWidth), height: cellHeight-h)
-        //        v2.addTapGesture{
-        //            print("Провод")
-        //            boolBLE = false
-        //            IsBLE = false
-        //            self.navigationController?.pushViewController(self.DeviceSelectCUSB, animated: true)
-        //        }
+                v2.addTapGesture{
+                    print("Провод")
+                    boolBLE = false
+                    IsBLE = false
+                    self.navigationController?.pushViewController(self.DeviceSelectCUSB, animated: true)
+                }
         
         view.addSubview(v1)
 //        view.addSubview(v2)
