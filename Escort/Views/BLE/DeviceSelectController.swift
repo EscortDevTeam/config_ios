@@ -7,9 +7,36 @@
  //
  
  import UIKit
- 
- class DeviceSelectController: UIViewController, SecondVCDelegate {
-    
+ import CoreBluetooth
+
+ class DeviceSelectController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, SecondVCDelegate {
+    var manager:CBCentralManager? = nil
+    var peripherals = [CBPeripheral]()
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        if central.state == CBManagerState.poweredOn {
+            print("ON Bluetooth.")
+        }
+        else {
+            print("Bluetooth OFF")
+            let alert = UIAlertController(title: "Bluetooth off".localized(code), message: "For further work, you must enable Bluetooth".localized(code), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                switch action.style{
+                case .default:
+                    print("default")
+                    self.navigationController?.popViewController(animated: true)
+                    self.view.subviews.forEach({ $0.removeFromSuperview() })
+                    
+                case .cancel:
+                    print("cancel")
+                    
+                case .destructive:
+                    print("destructive")
+                    
+                    
+                }}))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
     func secondVC_BackClicked(data: String) {
         print(data)
         code = data
@@ -20,9 +47,11 @@
     let popUpVCNext = UIStoryboard(name: "MainSelf", bundle: nil).instantiateViewController(withIdentifier: "popUpVCid") as! PopupViewController
     let DevicesListC = DevicesListController()
     let DevicesListTLC = DevicesTLListController()
+    let sc = QRScannerViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        manager = CBCentralManager ( delegate : self , queue : nil , options : nil )
         viewShow()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -50,6 +79,7 @@
         activity.center = view.center
         activity.transform = CGAffineTransform(scaleX: 2, y: 2)
         activity.hidesWhenStopped = true
+        activity.color = .black
         activity.startAnimating()
         return activity
     }()
@@ -110,7 +140,10 @@
                 let xName = i % 2 == 0 ? 0 : cellWidthXName
                 var y = 0
                 if i > 1 {
-                    y = (i % 2 == 0 ? i : i - 1) * (cellHeight / 2)
+                    y = (i % 2 == 0 ? i : i - 1) * (cellHeight / 2 + 5)
+                    if x == 0 {
+                        z = 10
+                    }
                 }
                 
                 let container = UIView(frame: CGRect(x: x, y: y, width: cellWidth, height: cellHeight))
@@ -118,7 +151,7 @@
                 let img = UIImageView(image: UIImage(named: d.image)!)
                 img.frame = CGRect(x: x+10, y: y+Int(headerHeight), width: 200, height: 130)
                 
-                let title = UILabel(frame: CGRect(x: xName, y: cellHeight+Int(headerHeight)-50, width: cellWidth, height: 20))
+                let title = UILabel(frame: CGRect(x: xName, y: y + cellHeight+Int(headerHeight)-50, width: cellWidth, height: 20))
                 title.text = d.name
                 title.textColor = UIColor(rgb: 0x272727)
                 title.font = UIFont(name:"FuturaPT-Light", size: 20.0)
@@ -159,6 +192,13 @@
                         if d.name == "TD BLE" {
                             DeviceTypeIndex = i
                             self.navigationController?.pushViewController(self.DevicesListC, animated: true)
+                            self.view.subviews.forEach({ $0.removeFromSuperview() })
+                        }
+                        if d.name == "QR-CODE" {
+                            DeviceTypeIndex = i
+                            let storyboard = UIStoryboard(name: "StoryboardScanner", bundle: nil)
+                            let homeViewController = storyboard.instantiateViewController(withIdentifier: "StoryboardScanner")
+                            self.navigationController?.pushViewController(homeViewController, animated: true)
                             self.view.subviews.forEach({ $0.removeFromSuperview() })
                         }
                     }
@@ -260,6 +300,13 @@
                     if d.name == "TD BLE" {
                         DeviceTypeIndex = i
                         self.navigationController?.pushViewController(self.DevicesListC, animated: true)
+                        self.view.subviews.forEach({ $0.removeFromSuperview() })
+                    }
+                    if d.name == "QR-CODE" {
+                        DeviceTypeIndex = i
+                        let storyboard = UIStoryboard(name: "StoryboardScanner", bundle: nil)
+                        let homeViewController = storyboard.instantiateViewController(withIdentifier: "StoryboardScanner")
+                        self.navigationController?.pushViewController(homeViewController, animated: true)
                         self.view.subviews.forEach({ $0.removeFromSuperview() })
                     }
                 }

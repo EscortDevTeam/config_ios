@@ -26,8 +26,10 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Это позволит приложению "$(PRODUCT_NAME)" находить аксессуары и подключаться к ним по Bluetooth. Это приложение также сможет использовать Bluetooth, чтобы знать Вы поблизости</string>
+	<string>Это позволит приложению &quot;$(PRODUCT_NAME)&quot; находить аксессуары и подключаться к ним по Bluetooth. Это приложение также сможет использовать Bluetooth, чтобы знать Вы поблизости</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>$(PRODUCT_NAME) bluetooth use.</string>
 	<key>UIAppFonts</key>
@@ -36,16 +38,14 @@
 		<string>Futura PT_Light.otf</string>
 		<string>Futura PT_Medium.otf</string>
 	</array>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
 	</array>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleDarkContent</string>
-	<key>UISupportedExternalAccessoryProtocols</key>
-	<array>
-		<string>LLS</string>
-	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -61,5 +61,7 @@
 	<false/>
 	<key>locationManager.requestWhenInUseAuthorization()</key>
 	<string>функция геолокации</string>
+	<key>NSCameraUsageDescription</key>
+	<string>To scan QR code</string>
 </dict>
 </plist>

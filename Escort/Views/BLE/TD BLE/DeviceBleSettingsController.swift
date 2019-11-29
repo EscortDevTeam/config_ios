@@ -42,7 +42,7 @@ class DeviceBleSettingsController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.75)
+        viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         viewShow()
         uPicker.dataSource = self
         uPicker.delegate = self
@@ -93,6 +93,7 @@ class DeviceBleSettingsController: UIViewController {
         activity.center = view.center
         activity.transform = CGAffineTransform(scaleX: 2, y: 2)
         activity.hidesWhenStopped = true
+        activity.color = .white
         activity.startAnimating()
         return activity
     }()

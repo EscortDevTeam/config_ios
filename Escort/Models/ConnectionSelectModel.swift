@@ -18,3 +18,8 @@ let connections: [Connection] = [
     Connection(name: "BLUETOOTH".localized, code:"bt", image: "bluetooth.png"),
     Connection(name: "USB", code:"usb", image: "usb.png")
 ]
+
+let tarirovkas: [Connection] = [
+    Connection(name: "Start".localized(code), code:"bt", image: "startT"),
+    Connection(name: "Continue".localized(code), code:"usb", image: "continT")
+]

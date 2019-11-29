@@ -12,10 +12,6 @@ import ImpressiveNotifications
 class DeviceTLBleController: UIViewController {
     
     let viewAlpha = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
-    var level = ""
-    var id = ""
-    var VV: String = ""
-    var vatt: String = ""
     var attributedTitle = NSAttributedString()
     let attributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     var timer = Timer()
@@ -25,7 +21,7 @@ class DeviceTLBleController: UIViewController {
     var refreshControl = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.75)
+        viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         viewShow()
     }
     @objc func refresh(sender:AnyObject) {
@@ -103,7 +99,7 @@ class DeviceTLBleController: UIViewController {
     
     fileprivate lazy var sensorImage: UIImageView = {
         let img = UIImageView(image: UIImage(named: "tlBleBack")!)
-        img.frame = CGRect(x: screenWidth/2, y: screenHeight/6+40, width: 152, height: 166)
+        img.frame = CGRect(x: screenWidth/2, y: screenHeight/5+40, width: 152, height: 166)
         return img
     }()
     fileprivate lazy var scrollView: UIScrollView = {
@@ -135,6 +131,7 @@ class DeviceTLBleController: UIViewController {
         activity.center = view.center
         activity.transform = CGAffineTransform(scaleX: 2, y: 2)
         activity.hidesWhenStopped = true
+        activity.color = .white
         activity.startAnimating()
         return activity
     }()
@@ -240,7 +237,7 @@ class DeviceTLBleController: UIViewController {
         var y = 100
         let x = 30, deltaY = 50
         
-        let deviceName = UILabel(frame: CGRect(x: x, y: Int(screenHeight/6), width: Int(screenWidth), height: 78))
+        let deviceName = UILabel(frame: CGRect(x: x, y: Int(screenHeight/5), width: Int(screenWidth), height: 78))
         deviceName.text = "№ \(nameDevice)\nFW: \(VV)"
         deviceName.textColor = UIColor(rgb: 0xE9E9E9)
         deviceName.font = UIFont(name:"FuturaPT-Medium", size: 20.0)
@@ -269,25 +266,25 @@ class DeviceTLBleController: UIViewController {
         scrollView.contentSize = CGSize(width: Int(screenWidth), height: Int(screenHeight))
         
         
-        y = Int(screenHeight / 4)
+        y = Int(screenHeight / 4) - 20
         
-        view.addSubview(textLineCreate(title: "Level".localized(code), text: "\(level) Lux", x: x, y: y + Int(screenHeight/6)))
-        y = y + deltaY
-        view.addSubview(textLineCreate(title: "RSSI", text: "\(RSSIMain)", x: x, y: y + Int(screenHeight/6)))
-        y = y + deltaY
-        view.addSubview(textLineCreate(title: "Vbat", text: "\(vatt)V", x: x, y: y + Int(screenHeight/6)))
-        y = y + deltaY
-        view.addSubview(textLineCreate(title: "ID", text: "\(id)", x: x, y: y + Int(screenHeight/6)))
+        view.addSubview(textLineCreate(title: "Level".localized(code), text: "\(level) Lux", x: x, y: y + Int(screenHeight/5)))
+        y = y + deltaY + (hasNotch ? 0 : 30)
+        view.addSubview(textLineCreate(title: "RSSI", text: "\(RSSIMain)", x: x, y: y + Int(screenHeight/5)))
+        y = y + deltaY + (hasNotch ? 0 : 30)
+        view.addSubview(textLineCreate(title: "Vbat", text: "\(vatt)V", x: x, y: y + Int(screenHeight/5)))
+        y = y + deltaY + (hasNotch ? 0 : 30)
+        view.addSubview(textLineCreate(title: "ID", text: "\(id)", x: x, y: y + Int(screenHeight/5)))
         let copyView = UIImageView(image: UIImage(named: "copy.png")!)
-        copyView.frame = CGRect(x: Int(screenWidth/2+53), y: y + Int(screenHeight/6), width: 13, height: 16)
+        copyView.frame = CGRect(x: Int(screenWidth/2+53), y: y + Int(screenHeight/5), width: 13, height: 16)
         view.addSubview(copyView)
-        let copyViewMain = UIView(frame: CGRect(x: Int(screenWidth/2+53)-10, y: y + Int(screenHeight/6)-10, width: 35, height: 35))
+        let copyViewMain = UIView(frame: CGRect(x: Int(screenWidth/2+53)-10, y: y + Int(screenHeight/5)-10, width: 35, height: 35))
         copyViewMain.backgroundColor = .clear
         view.addSubview(copyViewMain)
         
         copyViewMain.addTapGesture {
-            UIPasteboard.general.string = self.id
-            let alert = UIAlertController(title: "Сopied to clipboard".localized(code), message: "\(self.id)", preferredStyle: .alert)
+            UIPasteboard.general.string = id
+            let alert = UIAlertController(title: "Сopied to clipboard".localized(code), message: "\(id)", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                 switch action.style{
                 case .default:
@@ -305,12 +302,12 @@ class DeviceTLBleController: UIViewController {
         
         let copyView2 = UIImageView(image: UIImage(named: "copy.png")!)
         copyView2.frame = CGRect(x: Int(screenWidth/2+53), y: y + Int(screenHeight/6), width: 13, height: 16)
-        let copyViewMain2 = UIView(frame: CGRect(x: Int(screenWidth/2+53)-10, y: y + Int(screenHeight/6)-10, width: 35, height: 35))
+        let copyViewMain2 = UIView(frame: CGRect(x: Int(screenWidth/2+53)-10, y: y + Int(screenHeight/5)-10, width: 35, height: 35))
         copyViewMain2.backgroundColor = .clear
         
         y = y + deltaY
         
-        let statusName = UILabel(frame: CGRect(x: x, y: y + Int(screenHeight/6), width: Int(screenWidth), height: 60))
+        let statusName = UILabel(frame: CGRect(x: x, y: y + Int(screenHeight/5), width: Int(screenWidth), height: 60))
         if temp != nil {
             statusName.text = "Connected".localized(code)
             statusName.textColor = UIColor(rgb: 0x00A778)
@@ -319,7 +316,7 @@ class DeviceTLBleController: UIViewController {
             statusName.textColor = UIColor(rgb: 0xCF2121)
             item = 0
         }
-        let lbl4 = UILabel(frame: CGRect(x: x, y: y + Int(screenHeight/6)+20, width: Int(screenWidth), height: 60))
+        let lbl4 = UILabel(frame: CGRect(x: x, y: y + Int(screenHeight/5) + (hasNotch ? 30 : 40), width: Int(screenWidth), height: 60))
         let cntMain1: Int = Int(cnt1)!
         cnt1 = cnt2
         let cntMain2: Int = Int(cnt2)!
@@ -399,7 +396,7 @@ class DeviceTLBleController: UIViewController {
         
         view.addSubview(footer)
 
-        let lineView = UIView(frame: CGRect(x: 0, y: screenHeight/6+80, width: 140, height: 1))
+        let lineView = UIView(frame: CGRect(x: 0, y: screenHeight/5+80, width: 140, height: 1))
         lineView.backgroundColor = UIColor(rgb: 0xCF2121)
         view.addSubview(lineView)
         

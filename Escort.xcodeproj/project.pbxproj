@@ -32,6 +32,16 @@
 		B5856F8D22FD918100C51803 /* signal1.png in Resources */ = {isa = PBXBuildFile; fileRef = B5856F8C22FD918100C51803 /* signal1.png */; };
 		B5856F8F22FD918A00C51803 /* signal2.png in Resources */ = {isa = PBXBuildFile; fileRef = B5856F8E22FD918A00C51803 /* signal2.png */; };
 		B5856F9122FD919000C51803 /* signal3.png in Resources */ = {isa = PBXBuildFile; fileRef = B5856F9022FD919000C51803 /* signal3.png */; };
+		B58F7037238BAF9300DA99B9 /* TarirovkaStartViewControllet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58F7036238BAF9300DA99B9 /* TarirovkaStartViewControllet.swift */; };
+		B58F703A238BC16800DA99B9 /* TarirovkaSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58F7039238BC16800DA99B9 /* TarirovkaSettingsViewController.swift */; };
+		B58F703C238BD77600DA99B9 /* TirirovkaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58F703B238BD77600DA99B9 /* TirirovkaTableViewController.swift */; };
+		B58F703E238C001200DA99B9 /* TirirovkaCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58F703D238C001200DA99B9 /* TirirovkaCellViewController.swift */; };
+		B59AFFBB239103E100C0DAF0 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59AFFBA239103E100C0DAF0 /* QRScannerViewController.swift */; };
+		B59AFFBD2391075B00C0DAF0 /* QRScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59AFFBC2391075B00C0DAF0 /* QRScannerView.swift */; };
+		B59AFFBF239107BE00C0DAF0 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59AFFBE239107BE00C0DAF0 /* UIViewController+Alert.swift */; };
+		B59AFFC1239107F100C0DAF0 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59AFFC0239107F100C0DAF0 /* DetailViewController.swift */; };
+		B59AFFC32391082700C0DAF0 /* CopyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59AFFC22391082700C0DAF0 /* CopyLabel.swift */; };
+		B59AFFC5239109E500C0DAF0 /* StoryboardScanner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B59AFFC4239109E500C0DAF0 /* StoryboardScanner.storyboard */; };
 		B5AC88742383CFC300FACEAE /* DeviceBLETLSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AC88732383CFC300FACEAE /* DeviceBLETLSettings.swift */; };
 		B5AC88792383E1FE00FACEAE /* Path-3.png in Resources */ = {isa = PBXBuildFile; fileRef = B5AC88782383E1FE00FACEAE /* Path-3.png */; };
 		B5AC887B2383E20800FACEAE /* Path-2.png in Resources */ = {isa = PBXBuildFile; fileRef = B5AC887A2383E20800FACEAE /* Path-2.png */; };
@@ -138,6 +148,16 @@
 		B5856F8C22FD918100C51803 /* signal1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signal1.png; sourceTree = "<group>"; };
 		B5856F8E22FD918A00C51803 /* signal2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signal2.png; sourceTree = "<group>"; };
 		B5856F9022FD919000C51803 /* signal3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signal3.png; sourceTree = "<group>"; };
+		B58F7036238BAF9300DA99B9 /* TarirovkaStartViewControllet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TarirovkaStartViewControllet.swift; sourceTree = "<group>"; };
+		B58F7039238BC16800DA99B9 /* TarirovkaSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TarirovkaSettingsViewController.swift; sourceTree = "<group>"; };
+		B58F703B238BD77600DA99B9 /* TirirovkaTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TirirovkaTableViewController.swift; sourceTree = "<group>"; };
+		B58F703D238C001200DA99B9 /* TirirovkaCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TirirovkaCellViewController.swift; sourceTree = "<group>"; };
+		B59AFFBA239103E100C0DAF0 /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
+		B59AFFBC2391075B00C0DAF0 /* QRScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerView.swift; sourceTree = "<group>"; };
+		B59AFFBE239107BE00C0DAF0 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
+		B59AFFC0239107F100C0DAF0 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		B59AFFC22391082700C0DAF0 /* CopyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyLabel.swift; sourceTree = "<group>"; };
+		B59AFFC4239109E500C0DAF0 /* StoryboardScanner.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StoryboardScanner.storyboard; sourceTree = "<group>"; };
 		B5AC88732383CFC300FACEAE /* DeviceBLETLSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceBLETLSettings.swift; sourceTree = "<group>"; };
 		B5AC88752383D20000FACEAE /* tl-ble-hide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tl-ble-hide.png"; sourceTree = "<group>"; };
 		B5AC88782383E1FE00FACEAE /* Path-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Path-3.png"; sourceTree = "<group>"; };
@@ -246,6 +266,7 @@
 				C424A93F22D779C2008E154F /* DeviceBleSettingsController.swift */,
 				C424A94122D77A28008E154F /* DeviceBleSettingsAddController.swift */,
 				C424A94322D77AFD008E154F /* DeviceBleHelpController.swift */,
+				B58F7038238BAF9700DA99B9 /* Tatitovka */,
 			);
 			path = "TD BLE";
 			sourceTree = "<group>";
@@ -277,6 +298,7 @@
 				C41730EF22CB9AB900177C54 /* DeviceSelectController.swift */,
 				B505AA6D2375EA9500146A16 /* TL BLE */,
 				B505AA6C2375E69C00146A16 /* TD BLE */,
+				B59AFFB9239103D000C0DAF0 /* QR-code */,
 			);
 			path = BLE;
 			sourceTree = "<group>";
@@ -312,6 +334,37 @@
 				F29C1232DA3D8330C04D85A4 /* Pods_Escort.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B58F7038238BAF9700DA99B9 /* Tatitovka */ = {
+			isa = PBXGroup;
+			children = (
+				B58F7036238BAF9300DA99B9 /* TarirovkaStartViewControllet.swift */,
+				B58F7039238BC16800DA99B9 /* TarirovkaSettingsViewController.swift */,
+				B58F703B238BD77600DA99B9 /* TirirovkaTableViewController.swift */,
+				B58F703F238C01F200DA99B9 /* Cell */,
+			);
+			path = Tatitovka;
+			sourceTree = "<group>";
+		};
+		B58F703F238C01F200DA99B9 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				B58F703D238C001200DA99B9 /* TirirovkaCellViewController.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		B59AFFB9239103D000C0DAF0 /* QR-code */ = {
+			isa = PBXGroup;
+			children = (
+				B59AFFBA239103E100C0DAF0 /* QRScannerViewController.swift */,
+				B59AFFC4239109E500C0DAF0 /* StoryboardScanner.storyboard */,
+				B59AFFBC2391075B00C0DAF0 /* QRScannerView.swift */,
+				B59AFFC22391082700C0DAF0 /* CopyLabel.swift */,
+				B59AFFC0239107F100C0DAF0 /* DetailViewController.swift */,
+			);
+			path = "QR-code";
 			sourceTree = "<group>";
 		};
 		B5FDBC4D23029B1700442541 /* JSON */ = {
@@ -382,6 +435,7 @@
 			isa = PBXGroup;
 			children = (
 				C41730CD22CB3A2C00177C54 /* UIColor+hexColor.swift */,
+				B59AFFBE239107BE00C0DAF0 /* UIViewController+Alert.swift */,
 				C41730DC22CB6CA000177C54 /* UIView+tap.swift */,
 			);
 			path = Extensions;
@@ -615,6 +669,7 @@
 				C424A8FE22D61C05008E154F /* graph.png in Resources */,
 				C41730ED22CB904E00177C54 /* bluetooth.png in Resources */,
 				C417310122CBA18900177C54 /* du-180.png in Resources */,
+				B59AFFC5239109E500C0DAF0 /* StoryboardScanner.storyboard in Resources */,
 				B546385E23718C940073C447 /* Localizable.strings in Resources */,
 				C424A93E22D778A6008E154F /* charge-full.png in Resources */,
 				C424A93722D76B3A008E154F /* check-green.png in Resources */,
@@ -705,8 +760,11 @@
 				C491784422C8A9F30006106E /* StartScreenModel.swift in Sources */,
 				C41730E122CB899500177C54 /* ConnectionSelectModel.swift in Sources */,
 				B5B8F561236C15D70072EEFB /* LocalizedString.swift in Sources */,
+				B58F703C238BD77600DA99B9 /* TirirovkaTableViewController.swift in Sources */,
 				C424A93122D75784008E154F /* DeviceUsbHelpController.swift in Sources */,
 				C424A92622D73683008E154F /* DeviceUsbController.swift in Sources */,
+				B58F703A238BC16800DA99B9 /* TarirovkaSettingsViewController.swift in Sources */,
+				B59AFFBB239103E100C0DAF0 /* QRScannerViewController.swift in Sources */,
 				C424A94022D779C2008E154F /* DeviceBleSettingsController.swift in Sources */,
 				C41730D322CB3D7700177C54 /* LanguageSelectModel.swift in Sources */,
 				C424A91022D61CB9008E154F /* DevicesListController.swift in Sources */,
@@ -714,6 +772,7 @@
 				B510836B23007E1B0086C462 /* ContainerViewController.swift in Sources */,
 				B5FDBC532302B68000442541 /* User.swift in Sources */,
 				B510836523007CDB0086C462 /* MenuViewController.swift in Sources */,
+				B59AFFBF239107BE00C0DAF0 /* UIViewController+Alert.swift in Sources */,
 				B546385D23714AF60073C447 /* SettingAppController.swift in Sources */,
 				B510836723007D010086C462 /* MenuTableCell.swift in Sources */,
 				C424A92422D73648008E154F /* DeviceBleController.swift in Sources */,
@@ -721,24 +780,29 @@
 				C41730CE22CB3A2C00177C54 /* UIColor+hexColor.swift in Sources */,
 				C41730DF22CB880A00177C54 /* ConnectionSelectController.swift in Sources */,
 				C424A93322D7612E008E154F /* DeviceUsbSettingsController.swift in Sources */,
+				B59AFFC32391082700C0DAF0 /* CopyLabel.swift in Sources */,
 				C41730F022CB9AB900177C54 /* DeviceSelectController.swift in Sources */,
 				C424A94422D77AFD008E154F /* DeviceBleHelpController.swift in Sources */,
 				B505AA7123797E0900146A16 /* DeviceTLBleController.swift in Sources */,
 				C424A94222D77A28008E154F /* DeviceBleSettingsAddController.swift in Sources */,
+				B59AFFC1239107F100C0DAF0 /* DetailViewController.swift in Sources */,
 				B505AA6F2375EABC00146A16 /* DevicesTLListController.swift in Sources */,
 				C41730CA22CA55DD00177C54 /* LanguageSelectController.swift in Sources */,
 				C41730F422CB9E2C00177C54 /* DeviceSelectModel.swift in Sources */,
 				B5AC88742383CFC300FACEAE /* DeviceBLETLSettings.swift in Sources */,
+				B58F7037238BAF9300DA99B9 /* TarirovkaStartViewControllet.swift in Sources */,
 				C424A93A22D77392008E154F /* DeviceUsbSettingsAddController.swift in Sources */,
 				C41730DD22CB6CA000177C54 /* UIView+tap.swift in Sources */,
 				B503C87723042E21004F248F /* DeviceSelectControllerUSB.swift in Sources */,
 				B5FDBC4F23029B5A00442541 /* Codable.swift in Sources */,
 				C491783222C8A94D0006106E /* StartScreenController.swift in Sources */,
+				B59AFFBD2391075B00C0DAF0 /* QRScannerView.swift in Sources */,
 				B510836923007D660086C462 /* MenuModel.swift in Sources */,
 				C424A91822D631F7008E154F /* DevicesListModel.swift in Sources */,
 				C491783022C8A94D0006106E /* AppDelegate.swift in Sources */,
 				C41730D522CB40DC00177C54 /* Common.swift in Sources */,
 				B510837B230167200086C462 /* PopupViewController.swift in Sources */,
+				B58F703E238C001200DA99B9 /* TirirovkaCellViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -894,20 +958,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 10;
-				DEVELOPMENT_TEAM = 49436C2U7G;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 12;
+				DEVELOPMENT_TEAM = HVVJT6BNYW;
 				INFOPLIST_FILE = Escort/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.10;
-				PRODUCT_BUNDLE_IDENTIFIER = ru.fmeter.escortconnect;
+				MARKETING_VERSION = 1.0.12;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.fmeter.escortconnect2121;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = Vladimir;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -919,20 +983,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 10;
-				DEVELOPMENT_TEAM = 49436C2U7G;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 12;
+				DEVELOPMENT_TEAM = HVVJT6BNYW;
 				INFOPLIST_FILE = Escort/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.10;
-				PRODUCT_BUNDLE_IDENTIFIER = ru.fmeter.escortconnect;
+				MARKETING_VERSION = 1.0.12;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.fmeter.escortconnect2121;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = Vladimir;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

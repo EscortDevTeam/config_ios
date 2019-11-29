@@ -16,7 +16,7 @@ class DeviceBLETLSettings: UIViewController {
     var input2 = UITextField()
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.75)
+        viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
@@ -58,6 +58,7 @@ class DeviceBLETLSettings: UIViewController {
         activity.center = view.center
         activity.transform = CGAffineTransform(scaleX: 2, y: 2)
         activity.hidesWhenStopped = true
+        activity.color = .white
         activity.startAnimating()
         return activity
     }()

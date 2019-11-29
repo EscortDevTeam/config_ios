@@ -111,6 +111,23 @@
 
 "Reloading TL-BLE" = "Перезагрузка TL-BLE";
 
+"Tank calibration" = "Тарировка";
+
+"Continue" = "Возобновить";
+
+"Start" = "Начать";
+
+"Draining" = "Слив";
+
+"Filing" = "Залив";
+
+"Continue Next" = "Продолжить";
+
+"Initial tank volume" = "Начальный объем бака";
+
+"Step" = "Шаг";
+
+"Enter file name" = "Введите имя файла";
 
 "VERSION" = "ВЕРСИЯ";
 

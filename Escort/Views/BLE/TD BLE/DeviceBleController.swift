@@ -12,10 +12,6 @@ import ImpressiveNotifications
 class DeviceBleController: UIViewController {
     
     let viewAlpha = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
-    var level = ""
-    var id = ""
-    var VV: String = ""
-    var vatt: String = ""
     var attributedTitle = NSAttributedString()
     let attributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     var timer = Timer()
@@ -25,7 +21,7 @@ class DeviceBleController: UIViewController {
     var refreshControl = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.75)
+        viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         viewShow()
     }
     @objc func refresh(sender:AnyObject) {
@@ -36,12 +32,14 @@ class DeviceBleController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         self.view.isUserInteractionEnabled = true
+        QRCODE = ""
         attributedTitle = NSAttributedString(string: "Wait".localized(code), attributes: attributes)
         refreshControl.attributedTitle = attributedTitle
         refreshControl.tintColor = .white
         refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControl.Event.valueChanged)
         item = 0
         police = false
+        view.subviews.forEach({ $0.removeFromSuperview() })
         viewShow()
         if timerTrue == 0 {
             timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
@@ -80,22 +78,22 @@ class DeviceBleController: UIViewController {
     }()
     fileprivate lazy var bgImageBattary: UIImageView = {
         let img = UIImageView(image: UIImage(named: "Battary.png")!)
-        img.frame = CGRect(x:screenWidth-60, y: screenHeight/6-31, width: 32, height: 14)
+        img.frame = CGRect(x:screenWidth-60, y: screenHeight/5-31, width: 32, height: 14)
         return img
     }()
     fileprivate lazy var bgImageSignal: UIImageView = {
         let img = UIImageView(image: UIImage(named: "signal1.png")!)
-        img.frame = CGRect(x: 30, y: screenHeight/6-22, width: 4, height: 5)
+        img.frame = CGRect(x: 30, y: screenHeight/5-22, width: 4, height: 5)
         return img
     }()
     fileprivate lazy var bgImageSignal2: UIImageView = {
         let img = UIImageView(image: UIImage(named: "signal2.png")!)
-        img.frame = CGRect(x: 35, y: screenHeight/6-24, width: 4, height: 7)
+        img.frame = CGRect(x: 35, y: screenHeight/5-24, width: 4, height: 7)
         return img
     }()
     fileprivate lazy var bgImageSignal3: UIImageView = {
         let img = UIImageView(image: UIImage(named: "signal3.png")!)
-        img.frame = CGRect(x: 40, y: screenHeight/6-26, width: 4, height: 9)
+        img.frame = CGRect(x: 40, y: screenHeight/5-26, width: 4, height: 9)
         return img
     }()
     
@@ -103,6 +101,7 @@ class DeviceBleController: UIViewController {
     fileprivate lazy var sensorImage: UIImageView = {
         let img = UIImageView(image: UIImage(named: "sensor-ble.png")!)
         img.frame = CGRect(x: screenWidth-130, y: screenHeight/6+10, width: 123, height: 391)
+        img.center.y = self.view.center.y
         return img
     }()
     fileprivate lazy var scrollView: UIScrollView = {
@@ -134,6 +133,7 @@ class DeviceBleController: UIViewController {
         activity.center = view.center
         activity.transform = CGAffineTransform(scaleX: 2, y: 2)
         activity.hidesWhenStopped = true
+        activity.color = .white
         activity.startAnimating()
         return activity
     }()
@@ -168,14 +168,16 @@ class DeviceBleController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         warning = false
-        
+        view.subviews.forEach({ $0.removeFromSuperview() })
+    
     }
     override func viewDidDisappear(_ animated: Bool) {
-        self.timerTrue = 0
-        self.view.subviews.forEach({ $0.removeFromSuperview() })
-        self.timer.invalidate()
+        timerTrue = 0
+        view.subviews.forEach({ $0.removeFromSuperview() })
+        timer.invalidate()
         nameDevice = ""
         temp = nil
+        viewShowMain()
     }
     private func viewShowMain() {
         
@@ -198,11 +200,11 @@ class DeviceBleController: UIViewController {
             temp = nil
             self.navigationController?.popViewController(animated: true)
         }
-        let battaryView = UIView(frame: CGRect(x:screenWidth-58, y: screenHeight/6-29, width: 8, height: 10))
+        let battaryView = UIView(frame: CGRect(x:screenWidth-58, y: screenHeight/5-29, width: 8, height: 10))
         battaryView.backgroundColor = .white
-        let battaryViewTwo = UIView(frame: CGRect(x:screenWidth-50, y: screenHeight/6-29, width: 8, height: 10))
+        let battaryViewTwo = UIView(frame: CGRect(x:screenWidth-50, y: screenHeight/5-29, width: 8, height: 10))
         battaryViewTwo.backgroundColor = .white
-        let battaryViewFull = UIView(frame: CGRect(x:screenWidth-42, y: screenHeight/6-29, width: 9, height: 10))
+        let battaryViewFull = UIView(frame: CGRect(x:screenWidth-42, y: screenHeight/5-29, width: 9, height: 10))
         battaryViewFull.backgroundColor = .white
         view.addSubview(bgImage)
         view.addSubview(sensorImage)
@@ -239,7 +241,7 @@ class DeviceBleController: UIViewController {
         var y = 100
         let x = 30, deltaY = 50
         
-        let deviceName = UILabel(frame: CGRect(x: x, y: Int(screenHeight/6), width: Int(screenWidth), height: 78))
+        let deviceName = UILabel(frame: CGRect(x: x, y: Int(screenHeight/4), width: Int(screenWidth), height: 78))
         deviceName.text = "№ \(nameDevice)\nFW: \(VV)"
         deviceName.textColor = UIColor(rgb: 0xE9E9E9)
         deviceName.font = UIFont(name:"FuturaPT-Medium", size: 20.0)
@@ -247,7 +249,7 @@ class DeviceBleController: UIViewController {
         
         view.addSubview(deviceName)
         
-        let degree = UIView(frame: CGRect(x: 130, y: Int(screenHeight/6) + 12, width: 100, height: 31))
+        let degree = UIView(frame: CGRect(x: 130, y: Int(screenHeight/4) + 12, width: 100, height: 31))
         let degreeIcon = UIImageView(image: UIImage(named: "temp")!)
         degreeIcon.frame = CGRect(x: 0, y: 0, width: 18, height: 31)
         degree.addSubview(degreeIcon)
@@ -270,23 +272,23 @@ class DeviceBleController: UIViewController {
         
         y = Int(screenHeight / 5)
         
-        view.addSubview(textLineCreate(title: "Level".localized(code), text: "\(level)", x: x, y: y + Int(screenHeight/6)))
-        y = y + deltaY
-        view.addSubview(textLineCreate(title: "RSSI", text: "\(RSSIMain)", x: x, y: y + Int(screenHeight/6)))
-        y = y + deltaY
-        view.addSubview(textLineCreate(title: "Vbat", text: "\(vatt)V", x: x, y: y + Int(screenHeight/6)))
-        y = y + deltaY
-        view.addSubview(textLineCreate(title: "ID", text: "\(id)", x: x, y: y + Int(screenHeight/6)))
+        view.addSubview(textLineCreate(title: "Level".localized(code), text: "\(level)", x: x, y: y + Int(screenHeight/5)))
+        y = y + deltaY + (hasNotch ? 0 : 40)
+        view.addSubview(textLineCreate(title: "RSSI", text: "\(RSSIMain)", x: x, y: y + Int(screenHeight/5)))
+        y = y + deltaY + (hasNotch ? 0 : 40)
+        view.addSubview(textLineCreate(title: "Vbat", text: "\(vatt)V", x: x, y: y + Int(screenHeight/5)))
+        y = y + deltaY + (hasNotch ? 0 : 40)
+        view.addSubview(textLineCreate(title: "ID", text: "\(id)", x: x, y: y + Int(screenHeight/5)))
         let copyView = UIImageView(image: UIImage(named: "copy.png")!)
-        copyView.frame = CGRect(x: Int(screenWidth/2+53), y: y + Int(screenHeight/6), width: 13, height: 16)
+        copyView.frame = CGRect(x: Int(screenWidth/2+53), y: y + Int(screenHeight/5), width: 13, height: 16)
         view.addSubview(copyView)
-        let copyViewMain = UIView(frame: CGRect(x: Int(screenWidth/2+53)-10, y: y + Int(screenHeight/6)-10, width: 35, height: 35))
+        let copyViewMain = UIView(frame: CGRect(x: Int(screenWidth/2+53)-10, y: y + Int(screenHeight/5)-10, width: 35, height: 35))
         copyViewMain.backgroundColor = .clear
         view.addSubview(copyViewMain)
         
         copyViewMain.addTapGesture {
-            UIPasteboard.general.string = self.id
-            let alert = UIAlertController(title: "Сopied to clipboard".localized(code), message: "\(self.id)", preferredStyle: .alert)
+            UIPasteboard.general.string = id
+            let alert = UIAlertController(title: "Сopied to clipboard".localized(code), message: "\(id)", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                 switch action.style{
                 case .default:
@@ -302,14 +304,7 @@ class DeviceBleController: UIViewController {
         
         y = y + deltaY
         
-        let copyView2 = UIImageView(image: UIImage(named: "copy.png")!)
-        copyView2.frame = CGRect(x: Int(screenWidth/2+53), y: y + Int(screenHeight/6), width: 13, height: 16)
-        let copyViewMain2 = UIView(frame: CGRect(x: Int(screenWidth/2+53)-10, y: y + Int(screenHeight/6)-10, width: 35, height: 35))
-        copyViewMain2.backgroundColor = .clear
-        
-        y = y + deltaY
-        
-        let statusName = UILabel(frame: CGRect(x: x, y: y + Int(screenHeight/6), width: Int(screenWidth), height: 60))
+        let statusName = UILabel(frame: CGRect(x: x, y: y + Int(screenHeight/5), width: Int(screenWidth), height: 60))
         if temp != nil {
             statusName.text = "Connected".localized(code)
             statusName.textColor = UIColor(rgb: 0x00A778)
@@ -318,7 +313,7 @@ class DeviceBleController: UIViewController {
             statusName.textColor = UIColor(rgb: 0xCF2121)
             item = 0
         }
-        let lbl4 = UILabel(frame: CGRect(x: x, y: y + Int(screenHeight/6)+20, width: Int(screenWidth), height: 60))
+        let lbl4 = UILabel(frame: CGRect(x: x, y: y + Int(screenHeight/5) + (hasNotch ? 30 : 40), width: Int(screenWidth), height: 60))
         let cntMain1: Int = Int(cnt1)!
         cnt1 = cnt2
         let cntMain2: Int = Int(cnt2)!
@@ -366,7 +361,7 @@ class DeviceBleController: UIViewController {
         cellSettingName.font = UIFont(name:"FuturaPT-Light", size: 14.0)
         cellSettingName.textAlignment = .center
         cellSetting.addSubview(cellSettingName)
-        
+
         cellSetting.addTapGesture {
             self.navigationController?.pushViewController(DeviceBleSettingsController(), animated: true)
         }
@@ -384,6 +379,10 @@ class DeviceBleController: UIViewController {
         cellSettingAddName.textAlignment = .center
         cellSettingAdd.addSubview(cellSettingAddName)
         
+        let cellSettingSeparetor = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: footerCellHeight))
+        cellSettingSeparetor.backgroundColor = .black
+        cellSettingSeparetor.alpha = 0.1
+        cellSettingAdd.addSubview(cellSettingSeparetor)
         
         cellSettingAdd.addTapGesture {
             
@@ -403,6 +402,11 @@ class DeviceBleController: UIViewController {
         cellHelpName.textAlignment = .center
         cellHelp.addSubview(cellHelpName)
         
+        let cellSettingSeparetorTwo = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: footerCellHeight))
+        cellSettingSeparetorTwo.backgroundColor = .black
+        cellSettingSeparetorTwo.alpha = 0.1
+        cellHelp.addSubview(cellSettingSeparetorTwo)
+        
         cellHelp.addTapGesture {
             self.navigationController?.pushViewController(DeviceBleHelpController(), animated: true)
         }
@@ -419,10 +423,11 @@ class DeviceBleController: UIViewController {
             myInt = -4095 / 13 - 1
         }
         //        print(myInt)
-        let scaleView = UIView(frame: CGRect(x: Int(screenWidth-72), y: Int(screenHeight/6+397), width: 14, height: Int(myInt)))
+        let scaleView = UIView(frame: CGRect(x: Int(screenWidth-72), y: Int(screenHeight/2+190), width: 14, height: Int(myInt)))
+
         scaleView.backgroundColor = UIColor(rgb: 0x00A778)
         view.addSubview(scaleView)
-        let lineView = UIView(frame: CGRect(x: 0, y: screenHeight/6+80, width: 207, height: 1))
+        let lineView = UIView(frame: CGRect(x: 0, y: screenHeight/4+80, width: 207, height: 1))
         lineView.backgroundColor = UIColor(rgb: 0xCF2121)
         view.addSubview(lineView)
         

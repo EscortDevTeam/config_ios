@@ -63,15 +63,50 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         if peripheral.name != nil {
             let nameDevicesOps = peripheral.name!.components(separatedBy: ["_"])
             if nameDevicesOps[0] == "TD" && nameDevicesOps[1] != "UPDATE" {
-                let abc = advertisementData[key] as? [CBUUID]
-                guard let uniqueID = abc?.first?.uuidString else { return }
-                _ = uniqueID.components(separatedBy: ["-"])
-                if(!peripherals.contains(peripheral)) {
-                    if RSSI != 127{
-                        peripherals.append(peripheral)
-                        RSSIMainArray.append("\(RSSI)")
-                        peripheralName.append(peripheral.name!)
-                        print("RSSIName: \(peripheral.name!) and  RSSI: \(RSSI)")
+                if QRCODE == "" {
+                    let abc = advertisementData[key] as? [CBUUID]
+                    guard let uniqueID = abc?.first?.uuidString else { return }
+                    _ = uniqueID.components(separatedBy: ["-"])
+                    if(!peripherals.contains(peripheral)) {
+                        if RSSI != 127{
+                            peripherals.append(peripheral)
+                            RSSIMainArray.append("\(RSSI)")
+                            peripheralName.append(peripheral.name!)
+                            print("RSSIName: \(peripheral.name!) and  RSSI: \(RSSI)")
+                        }
+                    }
+                } else {
+                    let abc = advertisementData[key] as? [CBUUID]
+                    guard let uniqueID = abc?.first?.uuidString else { return }
+                    _ = uniqueID.components(separatedBy: ["-"])
+                    if(!peripherals.contains(peripheral)) {
+                        if peripheral.name! == "TD_\(QRCODE)" {
+
+                            print("YEEEES \(peripheral.name!)")
+                            temp = nil
+                            self.activityIndicator.startAnimating()
+                            self.view.addSubview(self.viewAlpha)
+                            zeroTwo = 0
+                            zero = 0
+                            countNot = 0
+                            self.manager?.connect(peripheral, options: nil)
+                            self.view.isUserInteractionEnabled = false
+                            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                            stopScanForBLEDevices()
+
+                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(7), execute: {
+                                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                                if let navController = self.navigationController {
+                                    navController.pushViewController(DeviceBleController(), animated: true)
+                                }
+                                print("Connected to " +  peripheral.name!)
+                                self.viewAlpha.removeFromSuperview()
+                                self.view.subviews.forEach({ $0.removeFromSuperview() })
+                                while let subview = self.scrollView.subviews.last {
+                                    subview.removeFromSuperview()
+                                }
+                            })
+                        }
                     }
                 }
             }
@@ -340,16 +375,16 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                 }
                 if result.contains("UL") {
                     let indexOfPerson = result.firstIndex{$0 == "UL"}
-                    DeviceBLEC.level = "\(result[indexOfPerson! + 2])"
+                    level = "\(result[indexOfPerson! + 2])"
                 }
                 if result.contains("VB") {
                     let indexOfPerson = result.firstIndex{$0 == "VB"}
-                    DeviceBLEC.vatt = "\(result[indexOfPerson! + 2])"
+                    vatt = "\(result[indexOfPerson! + 2])"
                 }
                 if result.contains("UD") {
                     let indexOfPerson = result.firstIndex{$0 == "UD"}
                     print(indexOfPerson!)
-                    DeviceBLEC.id = "\(result[indexOfPerson! + 2])"
+                    id = "\(result[indexOfPerson! + 2])"
                 }
                 if result.contains("LK") {
                     let indexOfPerson = result.firstIndex{$0 == "LK"}
@@ -392,9 +427,9 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                 }
                 if result.contains("VV") {
                     let indexOfPerson = result.firstIndex{$0 == "VV"}
-                    DeviceBLEC.VV = "\(result[indexOfPerson! + 2])"
-                    DeviceBLEC.VV.insert(".", at: DeviceBLEC.VV.index(DeviceBLEC.VV.startIndex, offsetBy: 1))
-                    DeviceBLEC.VV.insert(".", at: DeviceBLEC.VV.index(DeviceBLEC.VV.startIndex, offsetBy: 3))
+                    VV = "\(result[indexOfPerson! + 2])"
+                    VV.insert(".", at: VV.index(VV.startIndex, offsetBy: 1))
+                    VV.insert(".", at: VV.index(VV.startIndex, offsetBy: 3))
                 }
                 if result.contains("WRN") {
                     errorWRN = true
@@ -433,7 +468,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.75)
+        viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         searchBar.delegate = self
         manager = CBCentralManager ( delegate : self , queue : nil , options : nil )
         viewShow()
@@ -491,7 +526,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         manager?.scanForPeripherals(withServices: nil)
         self.view.isUserInteractionEnabled = false
         //stop scanning after 5 seconds
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
             self.stopScanForBLEDevices()
             print("Stop")
             self.view.isUserInteractionEnabled = true
@@ -524,6 +559,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         activity.transform = CGAffineTransform(scaleX: 2, y: 2)
         activity.center = view.center
         activity.hidesWhenStopped = true
+        activity.color = .white
         activity.startAnimating()
         return activity
     }()
@@ -550,10 +586,12 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         activityIndicator.startAnimating()
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
-            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-            self.viewAlpha.removeFromSuperview()
-            self.view.backgroundColor = UIColor(rgb: 0x1F2222).withAlphaComponent(1)
-            self.activityIndicator.stopAnimating()
+            if QRCODE == "" {
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                self.viewAlpha.removeFromSuperview()
+                self.view.backgroundColor = UIColor(rgb: 0x1F2222).withAlphaComponent(1)
+                self.activityIndicator.stopAnimating()
+            }
             self.mainPartShow()
             
         }
@@ -607,8 +645,8 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
         
         let cellHeight = 70
-        var y = headerHeight - 70
-        var yS = headerHeight - 70
+        var y = 0
+        var yS = 0
         
         
         for (i, peripheral) in data.enumerated() {
@@ -678,7 +716,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                     container2.addSubview(separator)
                     scrollViewS.addSubview(container2)
                     
-                    yS = yS + CGFloat(cellHeight)
+                    yS = yS + cellHeight
                     
                 }
                 
@@ -709,7 +747,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5), execute: {
                     self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
                     if let navController = self.navigationController {
-                        navController.pushViewController(self.DeviceBLEC, animated: true)
+                        navController.pushViewController(DeviceBleController(), animated: true)
                     }
                     print("Connected to " +  peripheral.name!)
                     self.viewAlpha.removeFromSuperview()
@@ -720,7 +758,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                 })
             }
             
-            y = y + CGFloat(cellHeight)
+            y = y + cellHeight
         }
         if data.count > 10 {
             scrollView.contentSize = CGSize(width: Int(screenWidth), height: data.count * cellHeight+40)

@@ -114,6 +114,23 @@
 
 "Reloading TL-BLE" = "Reinicio de TL-BLE";
 
+"Tank calibration" = "Calibración fina";
+
+"Continue" = "Retomar";
+
+"Start" = "Empezar";
+
+"Draining" = "Descarga";
+
+"Filing" = "Carga";
+
+"Continue Next" = "Continuar";
+
+"Initial tank volume" = "Volumen inicial del tanque";
+
+"Step" = "Paso";
+
+"Enter file name" = "Ingrese el nombre del archivo";
 
 "VERSION" = "VERSION";
 

@@ -48,6 +48,7 @@ class StartScreenController: UIViewController {
         activity.center = view.center
         activity.transform = CGAffineTransform(scaleX: 2, y: 2)
         activity.hidesWhenStopped = true
+        activity.color = .black
         activity.startAnimating()
         return activity
     }()

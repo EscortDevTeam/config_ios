@@ -5,6 +5,7 @@
 //  Created by Володя Зверев on 08.11.2019.
 //  Copyright © 2019 pavit.design. All rights reserved.
 //
+var cellHeight = 70
 
 import UIKit
 import CoreBluetooth
@@ -50,8 +51,6 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
                     
                 case .destructive:
                     print("destructive")
-                    
-                    
                 }}))
             self.present(alert, animated: true, completion: nil)
         }
@@ -340,16 +339,16 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
                 }
                 if result.contains("UL") {
                     let indexOfPerson = result.firstIndex{$0 == "UL"}
-                    DeviceBLEC.level = "\(result[indexOfPerson! + 2])"
+                    level = "\(result[indexOfPerson! + 2])"
                 }
                 if result.contains("VB") {
                     let indexOfPerson = result.firstIndex{$0 == "VB"}
-                    DeviceBLEC.vatt = "\(result[indexOfPerson! + 2])"
+                    vatt = "\(result[indexOfPerson! + 2])"
                 }
                 if result.contains("UD") {
                     let indexOfPerson = result.firstIndex{$0 == "UD"}
                     print(indexOfPerson!)
-                    DeviceBLEC.id = "\(result[indexOfPerson! + 2])"
+                    id = "\(result[indexOfPerson! + 2])"
                 }
                 if result.contains("LK") {
                     let indexOfPerson = result.firstIndex{$0 == "LK"}
@@ -392,9 +391,9 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
                 }
                 if result.contains("VV") {
                     let indexOfPerson = result.firstIndex{$0 == "VV"}
-                    DeviceBLEC.VV = "\(result[indexOfPerson! + 2])"
-                    DeviceBLEC.VV.insert(".", at: DeviceBLEC.VV.index(DeviceBLEC.VV.startIndex, offsetBy: 1))
-                    DeviceBLEC.VV.insert(".", at: DeviceBLEC.VV.index(DeviceBLEC.VV.startIndex, offsetBy: 3))
+                    VV = "\(result[indexOfPerson! + 2])"
+                    VV.insert(".", at: VV.index(VV.startIndex, offsetBy: 1))
+                    VV.insert(".", at: VV.index(VV.startIndex, offsetBy: 3))
                 }
                 if result.contains("WRN") {
                     errorWRN = true
@@ -433,7 +432,7 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.75)
+        viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         searchBar.delegate = self
         manager = CBCentralManager ( delegate : self , queue : nil , options : nil )
         viewShow()
@@ -491,7 +490,7 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
         manager?.scanForPeripherals(withServices: nil)
         self.view.isUserInteractionEnabled = false
         //stop scanning after 5 seconds
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
             self.stopScanForBLEDevices()
             print("Stop")
             self.view.isUserInteractionEnabled = true
@@ -524,6 +523,7 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
         activity.transform = CGAffineTransform(scaleX: 2, y: 2)
         activity.center = view.center
         activity.hidesWhenStopped = true
+        activity.color = .white
         activity.startAnimating()
         return activity
     }()
@@ -606,18 +606,28 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
         scrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
         
-        let cellHeight = 70
-        var y = headerHeight - 70
-        var yS = headerHeight - 70
+        var y = 0
+        var yS = 0
         
         
         for (i, peripheral) in data.enumerated() {
             manager?.cancelPeripheralConnection(peripheral)
-            container2 = UIView(frame: CGRect(x: 20, y: Int(y), width: Int(screenWidth-40), height: 70))
+            container2 = UIView(frame: CGRect(x: 20, y: Int(y), width: Int(screenWidth-40), height: cellHeight))
             //            container2.separatorColor = .clear
             container2.backgroundColor = .clear
             
-            
+//            container2.addTapGesture {
+//                print("\(peripheral.name!)")
+//                for (_,_) in data.enumerated() {
+//                    print(data.enumerated())
+//                    self.scrollView.removeFromSuperview()
+//                    self.container2.removeFromSuperview()
+//                    self.scrollViewS.removeFromSuperview()
+//                }
+////                cellHeight = 110
+////                self.mainPartShow()
+//                
+//            }
             let title = UILabel(frame: CGRect(x: 0, y: 20, width: Int(screenWidth/2), height: 20))
             title.text = peripheral.name
             let abc = peripheral.name!
@@ -678,11 +688,10 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
                     container2.addSubview(separator)
                     scrollViewS.addSubview(container2)
                     
-                    yS = yS + CGFloat(cellHeight)
+                    yS = yS + cellHeight
                     
                 }
-                
-                
+
             } else {
                 
                 container2.addSubview(btn)
@@ -692,9 +701,8 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
                 container2.addSubview(titleRSSIImage)
                 container2.addSubview(separator)
                 scrollView.addSubview(container2)
-                
-                
             }
+            
             connect.addTapGesture {
                 temp = nil
                 DeviceIndex = i
@@ -720,7 +728,7 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
                 })
             }
             
-            y = y + CGFloat(cellHeight)
+            y = y + cellHeight
         }
         if data.count > 10 {
             scrollView.contentSize = CGSize(width: Int(screenWidth), height: data.count * cellHeight+40)

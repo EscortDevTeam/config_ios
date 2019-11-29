@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Detail View Controller-->
+        <scene sceneID="C0X-sH-kq3">
+            <objects>
+                <viewController id="yWY-ee-SFQ" customClass="DetailViewController" customModule="Escort" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ws8-5b-kL8">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Found Code:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iyu-0G-GEh">
+                                <rect key="frame" x="20" y="20" width="374" height="23"/>
+                                <fontDescription key="fontDescription" name="GurmukhiMN" family="Gurmukhi MN" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XnT-qg-qqP" customClass="CopyLabel" customModule="QRScanner" customModuleProvider="target">
+                                <rect key="frame" x="20" y="53" width="374" height="27"/>
+                                <fontDescription key="fontDescription" name="GurmukhiMN" family="Gurmukhi MN" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AOM-Iz-LnO">
+                                <rect key="frame" x="158.5" y="756" width="97" height="32"/>
+                                <fontDescription key="fontDescription" name="GurmukhiMN" family="Gurmukhi MN" pointSize="17"/>
+                                <state key="normal" title="Open in web"/>
+                                <connections>
+                                    <action selector="openInWebAction:" destination="yWY-ee-SFQ" eventType="touchUpInside" id="8xW-OO-v95"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="XnT-qg-qqP" firstAttribute="leading" secondItem="pln-zB-jtD" secondAttribute="leading" constant="20" id="7bd-rd-8bU"/>
+                            <constraint firstItem="pln-zB-jtD" firstAttribute="bottom" secondItem="AOM-Iz-LnO" secondAttribute="bottom" constant="20" id="7yN-Qf-mbJ"/>
+                            <constraint firstItem="pln-zB-jtD" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="XnT-qg-qqP" secondAttribute="bottom" constant="60" id="9g7-im-cwW"/>
+                            <constraint firstItem="XnT-qg-qqP" firstAttribute="top" secondItem="iyu-0G-GEh" secondAttribute="bottom" constant="10" id="H7S-ov-KZv"/>
+                            <constraint firstItem="iyu-0G-GEh" firstAttribute="top" secondItem="pln-zB-jtD" secondAttribute="top" constant="20" id="J6a-mN-vsK"/>
+                            <constraint firstItem="AOM-Iz-LnO" firstAttribute="centerX" secondItem="Ws8-5b-kL8" secondAttribute="centerX" id="Y3H-Nt-jBv"/>
+                            <constraint firstItem="iyu-0G-GEh" firstAttribute="leading" secondItem="pln-zB-jtD" secondAttribute="leading" constant="20" id="aTH-l8-oD3"/>
+                            <constraint firstItem="pln-zB-jtD" firstAttribute="trailing" secondItem="XnT-qg-qqP" secondAttribute="trailing" constant="20" id="iIx-tr-mdh"/>
+                            <constraint firstItem="pln-zB-jtD" firstAttribute="trailing" secondItem="iyu-0G-GEh" secondAttribute="trailing" constant="20" id="pTS-F0-PP1"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="pln-zB-jtD"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="SuU-Rv-L2u"/>
+                    <connections>
+                        <outlet property="detailLabel" destination="XnT-qg-qqP" id="V7U-Ch-cAs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FoT-Yw-ZpM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1748" y="26.53673163418291"/>
+        </scene>
+        <!--QRScanner-->
+        <scene sceneID="uh0-2j-1i7">
+            <objects>
+                <viewController storyboardIdentifier="StoryboardScanner" id="pxN-pN-dNc" customClass="QRScannerViewController" customModule="Escort" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="C5x-De-xhO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c9j-Z2-GVZ" customClass="QRScannerView" customModule="QRScanner" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="c9j-Z2-GVZ" secondAttribute="bottom" id="0AG-JF-Jnb"/>
+                            <constraint firstItem="PiI-uR-xO6" firstAttribute="trailing" secondItem="c9j-Z2-GVZ" secondAttribute="trailing" id="5XS-zj-gOs"/>
+                            <constraint firstItem="c9j-Z2-GVZ" firstAttribute="leading" secondItem="PiI-uR-xO6" secondAttribute="leading" id="XW0-Aj-L2J"/>
+                            <constraint firstItem="c9j-Z2-GVZ" firstAttribute="top" secondItem="C5x-De-xhO" secondAttribute="top" id="p1d-PH-r52"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="PiI-uR-xO6"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="QRScanner" largeTitleDisplayMode="always" id="Un3-Y6-qhu"/>
+                    <connections>
+                        <outlet property="scannerView" destination="c9j-Z2-GVZ" id="sC3-18-UUa"/>
+                        <segue destination="yWY-ee-SFQ" kind="show" identifier="detailSeuge" id="ntH-y1-Poy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Ji-qR-PJu" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="992.79999999999995" y="27.436281859070466"/>
+        </scene>
+    </scenes>
+</document>

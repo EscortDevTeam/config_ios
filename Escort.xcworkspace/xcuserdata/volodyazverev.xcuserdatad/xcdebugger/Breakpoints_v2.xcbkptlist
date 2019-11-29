@@ -142,14 +142,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "7496A47E-1CCE-4460-B2DD-3FA46EF7871B"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Escort/Views/BLE/DeviceSelectController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
             landmarkName = "viewShowTwo()"
             landmarkType = "7">
          </BreakpointContent>
@@ -158,14 +158,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "9AB45A39-A6A0-4A03-824F-A19070C0451B"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Escort/Views/BLE/DeviceSelectController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
+            startingLineNumber = "192"
+            endingLineNumber = "192"
             landmarkName = "viewShowTwo()"
             landmarkType = "7">
          </BreakpointContent>
@@ -180,8 +180,8 @@
             filePath = "Escort/Views/BLE/DeviceSelectController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
+            startingLineNumber = "231"
+            endingLineNumber = "231"
             landmarkName = "viewShowMenu()"
             landmarkType = "7">
             <Locations>
@@ -196,8 +196,8 @@
                   urlString = "file:///Users/volodyazverev/Documents/mobConfigIOS/Escort/Views/BLE/DeviceSelectController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "192"
-                  endingLineNumber = "192"
+                  startingLineNumber = "232"
+                  endingLineNumber = "232"
                   offsetFromSymbolStart = "3396">
                </Location>
                <Location
@@ -211,8 +211,8 @@
                   urlString = "file:///Users/volodyazverev/Documents/mobConfigIOS/Escort/Views/BLE/DeviceSelectController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "193"
-                  endingLineNumber = "193"
+                  startingLineNumber = "233"
+                  endingLineNumber = "233"
                   offsetFromSymbolStart = "80">
                </Location>
             </Locations>
@@ -221,16 +221,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C198D0FF-A309-4B72-8E25-2DC739F6A5DE"
+            uuid = "4760858A-0E83-4AE3-8A6A-607DDB6BEAEE"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Escort/Views/BLE/DeviceSelectController.swift"
+            filePath = "Escort/Views/BLE/TD BLE/Tatitovka/TirirovkaTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "viewShowTwo()"
+            startingLineNumber = "264"
+            endingLineNumber = "264"
+            landmarkName = "tableView(_:viewForHeaderInSection:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8838A49F-EB32-45FC-829D-A4647F27B032"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Escort/Views/BLE/TD BLE/DevicesListController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "503"
+            endingLineNumber = "503"
+            landmarkName = "viewDidAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

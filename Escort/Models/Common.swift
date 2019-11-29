@@ -42,6 +42,11 @@ var peripheralName: [String] = []
 var rightCount = 0
 var nameDevice = ""
 var RSSIMain = "0"
+var QRCODE = ""
+var level = ""
+var id = ""
+var VV: String = ""
+var vatt: String = ""
 
 func headerSet(title: String) -> UIView {
     return headerSet(title: title, showBack: false).0
@@ -53,15 +58,17 @@ func headerSet(title: String, showBack: Bool) -> (UIView, UIView?) {
     let bg = UIImageView(image: UIImage(named: "header-bg.png")!)
     bg.frame = CGRect(x: 0, y: 0, width: screenWidth, height: headerHeight)
     v.addSubview(bg)
-
+    print(screenWidth)
     let dy: Int = screenWidth == 320 ? 0 : 10
+    let dIy: Int = screenWidth == 375 ? -15 : 0
+    let dIPrusy: Int = screenWidth == 414 ? -12 : 0
 
-    let backView = UIView(frame: CGRect(x: 0, y: dy + (hasNotch ? 45 : 25), width: 80, height: 40))
+    let backView = UIView(frame: CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+40 : 50), width: 80, height: 40))
     let back = UIImageView(image: UIImage(named: "back.png")!)
     back.frame = CGRect(x: 8, y: 0, width: 8, height: 19)
     backView.addSubview(back)
     
-    let text = UILabel(frame: CGRect(x: 24, y: 10 + dy, width: Int(screenWidth-60), height: 48 + (hasNotch ? 40 : 0)))
+    let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy, width: Int(screenWidth-60), height: 40))
     text.text = title
     text.textColor = UIColor(rgb: 0x272727)
     text.font = UIFont(name:"BankGothicBT-Medium", size: 19.0)
@@ -71,11 +78,12 @@ func headerSet(title: String, showBack: Bool) -> (UIView, UIView?) {
 }
 
 var hasNotch: Bool {
-    if #available(iOS 11.0, tvOS 11.0, *) {
-        return UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0 > 20
+    if screenHeight > 800 {
+        return false
     }
-    return false
+    return true
 }
+
 //Цвет UISearchBar
 extension UISearchBar {
 
