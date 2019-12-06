@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ImpressiveNotifications
+import UIDrawer
 
 class DeviceBleController: UIViewController {
     
@@ -55,9 +55,7 @@ class DeviceBleController: UIViewController {
             if countNot == 0 {
                 if passNotif == 1 {
                     passwordHave = true
-                    INNotifications.show(type: .danger, data: INNotificationData(title: "Attention".localized(code), description: "Sensor is not password-protected".localized(code), image: UIImage(named: "danger"), delay: 5.0, completionHandler: {
-                    }
-                    ),customStyle: INNotificationStyle(cornerRadius: 10, backgroundColor: .white, titleColor: .black, descriptionColor: .black, imageSize: CGSize(width: 50, height: 50)))
+                    self.showToast(message: "Sensor is not password-protected".localized(code), seconds: 3.0)
                 } else {
                     passwordHave = false
                 }
@@ -187,8 +185,28 @@ class DeviceBleController: UIViewController {
         let (headerView, backView) = headerSet(title: "TD BLE", showBack: true)
         view.addSubview(headerView)
         view.addSubview(backView!)
-        //                viewAlpha.addSubview(activityIndicator)
-        //                view.addSubview(viewAlpha)
+        let hamburger = UIImageView(image: UIImage(named: "Hamburger.png")!)
+        let hamburgerPlace = UIView()
+        var yHamb = screenHeight/22
+        if screenWidth == 414 {
+            yHamb = screenHeight/20
+        }
+        if screenHeight >= 750{
+            yHamb = screenHeight/16
+            if screenWidth == 375 {
+                yHamb = screenHeight/19
+            }
+        }
+        hamburgerPlace.frame = CGRect(x: screenWidth-50, y: yHamb, width: 35, height: 35)
+        hamburger.frame = CGRect(x: screenWidth-45, y: yHamb, width: 25, height: 25)
+        view.addSubview(hamburger)
+        view.addSubview(hamburgerPlace)
+        hamburgerPlace.addTapGesture {
+            let viewController = MenuControllerDontLanguage()
+            viewController.modalPresentationStyle = .custom
+            viewController.transitioningDelegate = self
+            self.present(viewController, animated: true)
+        }
         
         self.view.isUserInteractionEnabled = true
         
@@ -298,6 +316,8 @@ class DeviceBleController: UIViewController {
                     
                 case .destructive:
                     print("destructive")
+                @unknown default:
+                    fatalError()
                 }}))
             self.present(alert, animated: true, completion: nil)
         }
@@ -363,7 +383,11 @@ class DeviceBleController: UIViewController {
         cellSetting.addSubview(cellSettingName)
 
         cellSetting.addTapGesture {
-            self.navigationController?.pushViewController(DeviceBleSettingsController(), animated: true)
+            if temp != nil {
+                self.navigationController?.pushViewController(DeviceBleSettingsController(), animated: true)
+            } else {
+                self.showToast(message: "Не подключен к датчику", seconds: 1.0)
+            }
         }
         
         let cellSettingAdd = UIView(frame: CGRect(x: footerCellWidth, y: 0, width: footerCellWidth, height: footerCellHeight))
@@ -385,18 +409,21 @@ class DeviceBleController: UIViewController {
         cellSettingAdd.addSubview(cellSettingSeparetor)
         
         cellSettingAdd.addTapGesture {
-            
-            self.navigationController?.pushViewController(DeviceBleSettingsAddController(), animated: true)
+            if temp != nil {
+                self.navigationController?.pushViewController(DeviceBleSettingsAddController(), animated: true)
+            } else {
+                self.showToast(message: "Не подключен к датчику", seconds: 1.0)
+            }
         }
         
         let cellHelp = UIView(frame: CGRect(x: footerCellWidth*2, y: 0, width: footerCellWidth, height: footerCellHeight))
-        let cellHelpIcon = UIImageView(image: UIImage(named: "help.png")!)
-        cellHelpIcon.frame = CGRect(x: 0, y: 0, width: 47, height: 47)
+        let cellHelpIcon = UIImageView(image: UIImage(named: "tarirovka")!)
+        cellHelpIcon.frame = CGRect(x: 0, y: 0, width: 32, height: 47)
         cellHelpIcon.center = CGPoint(x: cellHelp.frame.size.width / 2, y: cellHelp.frame.size.height / 2 - 15)
         cellHelp.addSubview(cellHelpIcon)
         
         let cellHelpName = UILabel(frame: CGRect(x: 0, y: 55, width: footerCellWidth, height: 20))
-        cellHelpName.text = "Reference".localized(code)
+        cellHelpName.text = "Tank calibration".localized(code)
         cellHelpName.textColor = UIColor(rgb: 0x000000)
         cellHelpName.font = UIFont(name:"FuturaPT-Light", size: 14.0)
         cellHelpName.textAlignment = .center
@@ -408,8 +435,13 @@ class DeviceBleController: UIViewController {
         cellHelp.addSubview(cellSettingSeparetorTwo)
         
         cellHelp.addTapGesture {
-            self.navigationController?.pushViewController(DeviceBleHelpController(), animated: true)
+            if temp != nil {
+                self.navigationController?.pushViewController(TarirovkaStartViewControllet(), animated: true)
+            } else {
+                self.showToast(message: "Не подключен к датчику", seconds: 1.0)
+            }
         }
+        
         
         footer.addSubview(cellSetting)
         footer.addSubview(cellSettingAdd)
@@ -418,7 +450,12 @@ class DeviceBleController: UIViewController {
         view.addSubview(footer)
         var myInt = (level as NSString).doubleValue * (-1) / 13 - 1
         if level == "7000" {
-            lbl4.text = "Not stable".localized(code)
+            lbl4.text = "Water/dirt/metal shavings in tubes".localized(code)
+            lbl4.textColor = UIColor(rgb: 0xCF2121)
+            myInt = -4095 / 13 - 1
+        }
+        if level == "6500" {
+            lbl4.text = "Lost contact with tubes".localized(code)
             lbl4.textColor = UIColor(rgb: 0xCF2121)
             myInt = -4095 / 13 - 1
         }
@@ -431,5 +468,11 @@ class DeviceBleController: UIViewController {
         lineView.backgroundColor = UIColor(rgb: 0xCF2121)
         view.addSubview(lineView)
         
+    }
+}
+
+extension DeviceBleController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return DrawerPresentationController(presentedViewController: presented, presenting: presenting)
     }
 }

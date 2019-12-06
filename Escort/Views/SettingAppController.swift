@@ -62,9 +62,9 @@ class SettingAppController: UIViewController {
     private func viewShowTwo() {
         view.subviews.forEach({ $0.removeFromSuperview() })
         view.addSubview(bgImage)
-        let (headerView, backView) = headerSet(title:"About the program".localized(code), showBack: true)
+        let (headerView, backView) = headerSetMenu(title:"About the program".localized(code), showBack: true)
         view.addSubview(headerView)
-        view.addSubview(backView!)
+//        view.addSubview(backView!)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.activityIndicator.stopAnimating()

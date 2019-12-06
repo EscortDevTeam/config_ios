@@ -17,10 +17,24 @@
 
 "Wait" = "Esperar";
 
+"Incorrect value entered" = "Valor incorrecto ingresado";
+
+"Lost contact with tubes" = "Pérdida de contacto con los tubos";
+
+"Water/dirt/metal shavings in tubes" = "Virutas, agua o suciedad están entre tubos";
+
+"app is not installed on this device" = "La aplicación no está instalada en este dispositivo";
+
 /* The title of the section describing commands */
 "Commands" = "Команды";
 
+"Tech support" = "Soporte tecnico";
+
+"Social network" = "Red social";
+
 "Select connection type" = "Seleccione el tipo de conexión";
+
+"Menu" = "El menu";
 
 "Language" = "Idioma";
 
@@ -166,7 +180,7 @@
 
 "Failed to reload" = "No se ha logrado reiniciar";
 
-"“Password” accepts values from 1 to 2000000000" = "\"Contraseña\" toma el valor de 0 hasta 2000000000";
+"“Password” accepts values from 1 to 2000000000" = "\"Contraseña\" toma el valor de 1 hasta 9.999.999.999";
 
 "Success" = "Exito";
 

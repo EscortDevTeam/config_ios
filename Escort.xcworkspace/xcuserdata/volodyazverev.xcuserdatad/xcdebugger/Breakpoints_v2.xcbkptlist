@@ -146,10 +146,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Escort/Views/BLE/DeviceSelectController.swift"
+            timestampString = "0"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
+            startingLineNumber = "199"
+            endingLineNumber = "199"
             landmarkName = "viewShowTwo()"
             landmarkType = "7">
          </BreakpointContent>
@@ -162,10 +163,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Escort/Views/BLE/DeviceSelectController.swift"
+            timestampString = "0"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
             landmarkName = "viewShowTwo()"
             landmarkType = "7">
          </BreakpointContent>
@@ -178,58 +180,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Escort/Views/BLE/DeviceSelectController.swift"
+            timestampString = "0"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
+            startingLineNumber = "249"
+            endingLineNumber = "249"
             landmarkName = "viewShowMenu()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "FF400D37-0580-42CE-96D5-B1C606B20B45 - e5b5776e5e6f2376"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Escort.DeviceSelectController.(viewShowMenu in _56BB4AA516B5044D3F6DE7567DA9FBF7)() -&gt; ()"
-                  moduleName = "Escort"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/volodyazverev/Documents/mobConfigIOS/Escort/Views/BLE/DeviceSelectController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "232"
-                  endingLineNumber = "232"
-                  offsetFromSymbolStart = "3396">
-               </Location>
-               <Location
-                  uuid = "FF400D37-0580-42CE-96D5-B1C606B20B45 - c1a68ef83e267d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 () -&gt; () in Escort.DeviceSelectController.(viewShowMenu in _56BB4AA516B5044D3F6DE7567DA9FBF7)() -&gt; ()"
-                  moduleName = "Escort"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/volodyazverev/Documents/mobConfigIOS/Escort/Views/BLE/DeviceSelectController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "233"
-                  endingLineNumber = "233"
-                  offsetFromSymbolStart = "80">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "4760858A-0E83-4AE3-8A6A-607DDB6BEAEE"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Escort/Views/BLE/TD BLE/Tatitovka/TirirovkaTableViewController.swift"
+            timestampString = "0"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "264"
-            endingLineNumber = "264"
+            startingLineNumber = "334"
+            endingLineNumber = "334"
             landmarkName = "tableView(_:viewForHeaderInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -242,11 +214,61 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Escort/Views/BLE/TD BLE/DevicesListController.swift"
+            timestampString = "0"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "503"
-            endingLineNumber = "503"
-            landmarkName = "viewDidAppear(_:)"
+            startingLineNumber = "504"
+            endingLineNumber = "504"
+            landmarkName = "refresh(sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2999981C-5459-4FE3-BBEB-D9AA96E614AA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Escort/Views/BLE/TD BLE/Tatitovka/TirirovkaTableViewController.swift"
+            timestampString = "0"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "245"
+            endingLineNumber = "245"
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5CBA79EC-B700-48D9-92AA-529F16E82C91"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Escort/Views/BLE/TD BLE/Tatitovka/TirirovkaTableViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
+            landmarkName = "viewShow()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "294E9F36-A0B0-4C73-8379-253FF14A1DEF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Escort/Views/BLE/TD BLE/DeviceBleSettingsController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1263"
+            endingLineNumber = "1263"
+            landmarkName = "viewShow()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -47,7 +47,11 @@ var level = ""
 var id = ""
 var VV: String = ""
 var vatt: String = ""
-
+var checkQR = false
+var checkPopQR = false
+var stepTar = 0
+var startVTar = 0
+var checkMenu = false
 func headerSet(title: String) -> UIView {
     return headerSet(title: title, showBack: false).0
 }
@@ -72,6 +76,32 @@ func headerSet(title: String, showBack: Bool) -> (UIView, UIView?) {
     text.text = title
     text.textColor = UIColor(rgb: 0x272727)
     text.font = UIFont(name:"BankGothicBT-Medium", size: 19.0)
+    v.addSubview(text)
+
+    return (v, showBack ? backView : nil)
+}
+
+func headerSetMenu(title: String, showBack: Bool) -> (UIView, UIView?) {
+
+    let v = UIView()
+    let bg = UIImageView(image: UIImage(named: "header-bg.png")!)
+    bg.frame = CGRect(x: 0, y: 0, width: screenWidth, height: headerHeight)
+    v.addSubview(bg)
+    print(screenWidth)
+    let dy: Int = screenWidth == 320 ? 0 : 10
+    let dIy: Int = screenWidth == 375 ? -15 : 0
+    let dIPrusy: Int = screenWidth == 414 ? -12 : 0
+
+    let backView = UIView(frame: CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+40 : 50), width: 80, height: 40))
+    let back = UIImageView(image: UIImage(named: "back.png")!)
+    back.frame = CGRect(x: 8, y: 0, width: 8, height: 19)
+    backView.addSubview(back)
+    
+    let text = UILabel(frame: CGRect(x: 0, y: dIy + (hasNotch ? dIPrusy+20 : 20) + dy, width: Int(screenWidth), height: 40))
+    text.text = title
+    text.textAlignment = .center
+    text.textColor = UIColor(rgb: 0x272727)
+    text.font = UIFont(name:"BankGothicBT-Medium", size: 30.0)
     v.addSubview(text)
 
     return (v, showBack ? backView : nil)

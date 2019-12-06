@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ImpressiveNotifications
+import UIDrawer
 
 class DeviceTLBleController: UIViewController {
     
@@ -53,9 +53,7 @@ class DeviceTLBleController: UIViewController {
             if countNot == 0 {
                 if passNotif == 1 {
                     passwordHave = true
-                    INNotifications.show(type: .danger, data: INNotificationData(title: "Attention".localized(code), description: "Sensor is not password-protected".localized(code), image: UIImage(named: "danger"), delay: 5.0, completionHandler: {
-                    }
-                    ),customStyle: INNotificationStyle(cornerRadius: 10, backgroundColor: .white, titleColor: .black, descriptionColor: .black, imageSize: CGSize(width: 50, height: 50)))
+                    self.showToast(message: "Sensor is not password-protected".localized(code), seconds: 3.0)
                 } else {
                     passwordHave = false
                 }
@@ -145,6 +143,28 @@ class DeviceTLBleController: UIViewController {
         let (headerView, backView) = headerSet(title: "TL BLE", showBack: true)
         view.addSubview(headerView)
         view.addSubview(backView!)
+        let hamburger = UIImageView(image: UIImage(named: "Hamburger.png")!)
+        let hamburgerPlace = UIView()
+        var yHamb = screenHeight/22
+        if screenWidth == 414 {
+            yHamb = screenHeight/20
+        }
+        if screenHeight >= 750{
+            yHamb = screenHeight/16
+            if screenWidth == 375 {
+                yHamb = screenHeight/19
+            }
+        }
+        hamburgerPlace.frame = CGRect(x: screenWidth-50, y: yHamb, width: 35, height: 35)
+        hamburger.frame = CGRect(x: screenWidth-45, y: yHamb, width: 25, height: 25)
+        view.addSubview(hamburger)
+        view.addSubview(hamburgerPlace)
+        hamburgerPlace.addTapGesture {
+            let viewController = MenuControllerDontLanguage()
+            viewController.modalPresentationStyle = .custom
+            viewController.transitioningDelegate = self
+            self.present(viewController, animated: true)
+        }
         viewAlpha.addSubview(activityIndicator)
         view.addSubview(viewAlpha)
         self.view.isUserInteractionEnabled = false
@@ -185,7 +205,29 @@ class DeviceTLBleController: UIViewController {
         view.addSubview(backView!)
         //                viewAlpha.addSubview(activityIndicator)
         //                view.addSubview(viewAlpha)
-        
+        let hamburger = UIImageView(image: UIImage(named: "Hamburger.png")!)
+        let hamburgerPlace = UIView()
+        var yHamb = screenHeight/22
+        if screenWidth == 414 {
+            yHamb = screenHeight/20
+        }
+        if screenHeight >= 750{
+            yHamb = screenHeight/16
+            if screenWidth == 375 {
+                yHamb = screenHeight/19
+            }
+        }
+        hamburgerPlace.frame = CGRect(x: screenWidth-50, y: yHamb, width: 35, height: 35)
+        hamburger.frame = CGRect(x: screenWidth-45, y: yHamb, width: 25, height: 25)
+        self.view.addSubview(hamburger)
+        self.view.addSubview(hamburgerPlace)
+        hamburgerPlace.addTapGesture {
+            let viewController = MenuControllerDontLanguage()
+            viewController.modalPresentationStyle = .custom
+            viewController.transitioningDelegate = self
+            self.present(viewController, animated: true)
+        }
+
         self.view.isUserInteractionEnabled = true
         
         backView!.addTapGesture{
@@ -294,6 +336,8 @@ class DeviceTLBleController: UIViewController {
                     
                 case .destructive:
                     print("destructive")
+                @unknown default:
+                    fatalError()
                 }}))
             self.present(alert, animated: true, completion: nil)
         }
@@ -400,5 +444,10 @@ class DeviceTLBleController: UIViewController {
         lineView.backgroundColor = UIColor(rgb: 0xCF2121)
         view.addSubview(lineView)
         
+    }
+}
+extension DeviceTLBleController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return DrawerPresentationController(presentedViewController: presented, presenting: presenting)
     }
 }

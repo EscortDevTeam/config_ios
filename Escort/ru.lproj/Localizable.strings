@@ -159,7 +159,7 @@
 
 "Failed to reload" = "Не удалось перезагрузить";
 
-"“Password” accepts values from 1 to 2000000000" = "Пароль принимает значения от 0 до 2000000000";
+"“Password” accepts values from 1 to 2000000000" = "Пароль принимает значения от 1 до 9.999.999.999";
 
 "Success" = "Успешно";
 
@@ -174,17 +174,26 @@
 
 "Manual configuration input" = "Ручной ввод конфигурации";
 
+"Incorrect value entered" = "Введено некорректное значение";
 
+"Lost contact with tubes" = "Обрыв трубок";
 
+"app is not installed on this device" = "не установлен";
 /* The title of the cell showing BLE connection state */
 "Connection State" = "Состояние соединения";
 
+"Water/dirt/metal shavings in tubes" = "Короткое замыкание";
 /* The title of the section describing the device */
 "Device" = "устройство";
 
 /* The title of the devices table section in RileyLink settings */
 "Devices" = "устройства";
 
+"Menu" = "Меню";
+
+"Social network" = "Социальная сеть";
+
+"Tech support" = "Тех. поддержка";
 /* The disconnected state */
 
 /* The in-progress disconnecting state */

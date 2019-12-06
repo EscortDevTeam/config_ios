@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreBluetooth
+import UIDrawer
 
 class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, SecondVCDelegate {
     
@@ -52,6 +53,8 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                     print("destructive")
                     
                     
+                @unknown default:
+                    fatalError()
                 }}))
             self.present(alert, animated: true, completion: nil)
         }
@@ -81,7 +84,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                     _ = uniqueID.components(separatedBy: ["-"])
                     if(!peripherals.contains(peripheral)) {
                         if peripheral.name! == "TD_\(QRCODE)" {
-
+                            
                             print("YEEEES \(peripheral.name!)")
                             temp = nil
                             self.activityIndicator.startAnimating()
@@ -93,8 +96,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                             self.view.isUserInteractionEnabled = false
                             self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
                             stopScanForBLEDevices()
-
-                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(7), execute: {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(6), execute: {
                                 self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
                                 if let navController = self.navigationController {
                                     navController.pushViewController(DeviceBleController(), animated: true)
@@ -120,18 +122,21 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         didConnect peripheral: CBPeripheral) {
         
         peripheral.delegate = self
-        let nameD = peripheral.name!
-        let nameDOps = nameD.components(separatedBy: ["_"])
-        nameDevice = nameDOps[1]
+//        let nameD = peripheral.name!
+//        let nameDOps = nameD.components(separatedBy: ["_"])
+//        nameDevice = nameDOps[1]
         timer =  Timer.scheduledTimer(withTimeInterval: 4.0, repeats: true) { (timer) in
             peripheral.discoverServices(nil)
             if peripheral.state == CBPeripheralState.connected {
                 print("connectedP")
+                checkQR = true
             }
             if peripheral.state == CBPeripheralState.disconnected {
                 print("disconnectedP")
                 if warning == true{
                     timer.invalidate()
+                    self.dismiss(animated: true, completion: nil)
+                    self.dismiss(animated: true, completion: nil)
                 } else {
                     timer.invalidate()
                     let alert = UIAlertController(title: "Warning".localized(code), message: "Connection is lost.".localized(code), preferredStyle: .alert)
@@ -139,15 +144,17 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                         switch action.style{
                         case .default:
                             print("default")
+                            self.dismiss(animated: true, completion: nil)
+                            self.dismiss(animated: true, completion: nil)
                             self.navigationController?.popViewController(animated: true)
                             self.view.subviews.forEach({ $0.removeFromSuperview() })
                             self.navigationController?.popViewController(animated: true)
                         case .cancel:
                             print("cancel")
                         case .destructive:
-                            print("destructive")
-                            
-                            
+                            print("destructive")  
+                        @unknown default:
+                            fatalError()
                         }}))
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -520,17 +527,25 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
     }
     
     func scanBLEDevices() {
-        let uuid = NSUUID().uuidString.lowercased()
-        print("uuid: \(uuid)")
         peripherals.removeAll()
         manager?.scanForPeripherals(withServices: nil)
         self.view.isUserInteractionEnabled = false
+        var time = 0.0
+        if QRCODE != "" {
+            time = 7.0
+        }
         //stop scanning after 5 seconds
-        DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 6.0 + time) {
             self.stopScanForBLEDevices()
             print("Stop")
+            if QRCODE != "" {
+                if checkPopQR == false {
+                    self.timer.invalidate()
+                    self.navigationController?.popViewController(animated: true)
+                    checkPopQR = true
+                }
+            }
             self.view.isUserInteractionEnabled = true
-            
         }
     }
     func stopScanForBLEDevices() {
@@ -608,8 +623,14 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         let hamburger = UIImageView(image: UIImage(named: "Hamburger.png")!)
         let hamburgerPlace = UIView()
         var yHamb = screenHeight/22
+        if screenWidth == 414 {
+            yHamb = screenHeight/20
+        }
         if screenHeight >= 750{
-            yHamb = screenHeight/18
+            yHamb = screenHeight/16
+            if screenWidth == 375 {
+                yHamb = screenHeight/19
+            }
         }
         hamburgerPlace.frame = CGRect(x: screenWidth-50, y: yHamb, width: 35, height: 35)
         hamburger.frame = CGRect(x: screenWidth-45, y: yHamb, width: 25, height: 25)
@@ -619,12 +640,10 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         
         
         hamburgerPlace.addTapGesture {
-            self.searchBar.endEditing(true)
-            self.addChild(self.popUpVCNext) // 2
-            self.popUpVCNext.view.frame = self.view.frame  // 3
-            self.view.addSubview(self.popUpVCNext.view) // 4
-            self.popUpVCNext.didMove(toParent: self) // 5
-            print("Успешно")
+            let viewController = MenuControllerDontLanguage()
+            viewController.modalPresentationStyle = .custom
+            viewController.transitioningDelegate = self
+            self.present(viewController, animated: true)
         }
         searchBar.searchBarStyle = .minimal
         searchBar.showsCancelButton = false
@@ -735,6 +754,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
             }
             connect.addTapGesture {
                 temp = nil
+                nameDevice = ""
                 DeviceIndex = i
                 self.activityIndicator.startAnimating()
                 self.view.addSubview(self.viewAlpha)
@@ -822,6 +842,14 @@ extension CBPeripheralState {
             return LocalizedString("Disconnected", comment: "The disconnected state")
         case .disconnecting:
             return LocalizedString("Disconnecting", comment: "The in-progress disconnecting state")
+        @unknown default:
+            fatalError()
         }
+    }
+}
+
+extension DevicesListController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return DrawerPresentationController(presentedViewController: presented, presenting: presenting)
     }
 }

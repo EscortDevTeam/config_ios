@@ -7,13 +7,13 @@
 //
 
 import UIKit
+import UIDrawer
 
 class TarirovkaStartViewControllet: UIViewController, SecondVCDelegate {
     func secondVC_BackClicked(data: String) {
         viewShow()
     }
     let DeviceSelectCUSB = DeviceSelectControllerUSB()
-    let DeviceSelectC = DeviceSelectController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,10 +62,8 @@ class TarirovkaStartViewControllet: UIViewController, SecondVCDelegate {
             boolBLE = true
             
             IsBLE = true
-            self.view.addSubview(self.activityIndicator)
-            self.activityIndicator.startAnimating()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                self.navigationController?.pushViewController(self.DeviceSelectC, animated: true)
+                self.navigationController?.pushViewController(TarirovkaSettingsViewController(), animated: true)
             }
             
         }

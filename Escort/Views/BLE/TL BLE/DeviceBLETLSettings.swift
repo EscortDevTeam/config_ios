@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import UIDrawer
 
 
 class DeviceBLETLSettings: UIViewController {
@@ -84,7 +84,28 @@ class DeviceBLETLSettings: UIViewController {
         backView!.addTapGesture{
             self.navigationController?.popViewController(animated: true)
         }
-        
+        let hamburger = UIImageView(image: UIImage(named: "Hamburger.png")!)
+        let hamburgerPlace = UIView()
+        var yHamb = screenHeight/22
+        if screenWidth == 414 {
+            yHamb = screenHeight/20
+        }
+        if screenHeight >= 750{
+            yHamb = screenHeight/16
+            if screenWidth == 375 {
+                yHamb = screenHeight/19
+            }
+        }
+        hamburgerPlace.frame = CGRect(x: screenWidth-50, y: yHamb, width: 35, height: 35)
+        hamburger.frame = CGRect(x: screenWidth-45, y: yHamb, width: 25, height: 25)
+        view.addSubview(hamburger)
+        view.addSubview(hamburgerPlace)
+        hamburgerPlace.addTapGesture {
+            let viewController = MenuControllerDontLanguage()
+            viewController.modalPresentationStyle = .custom
+            viewController.transitioningDelegate = self
+            self.present(viewController, animated: true)
+        }
         view.addSubview(bgImage)
         view.addSubview(scrollView)
 
@@ -145,6 +166,8 @@ class DeviceBLETLSettings: UIViewController {
                                     print("destructive")
                                     
                                     
+                                @unknown default:
+                                    fatalError()
                                 }}))
                             self.present(alert, animated: true, completion: nil)
                         } else {
@@ -156,9 +179,10 @@ class DeviceBLETLSettings: UIViewController {
                                     errorWRN = false
                                 case .cancel:
                                     print("cancel")
-                                    
                                 case .destructive:
                                     print("destructive")
+                                @unknown default:
+                                    fatalError()
                                 }}))
                             self.present(alert, animated: true, completion: nil)
                         }
@@ -173,6 +197,8 @@ class DeviceBLETLSettings: UIViewController {
                             print("cancel")
                         case .destructive:
                             print("destructive")
+                        @unknown default:
+                            fatalError()
                         }}))
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -203,6 +229,8 @@ class DeviceBLETLSettings: UIViewController {
                                 print("destructive")
                                 
                                 
+                            @unknown default:
+                                fatalError()
                             }}))
                         self.present(alert, animated: true, completion: nil)
                     } else {
@@ -217,11 +245,18 @@ class DeviceBLETLSettings: UIViewController {
                                 
                             case .destructive:
                                 print("destructive")
+                            @unknown default:
+                                fatalError()
                             }}))
                         self.present(alert, animated: true, completion: nil)
                     }
                 }
             }
         }
+    }
+}
+extension DeviceBLETLSettings: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return DrawerPresentationController(presentedViewController: presented, presenting: presenting)
     }
 }

@@ -17,8 +17,22 @@
 
 "Wait" = "Wait";
 
+"Lost contact with tubes" = "Lost contact with tubes";
+
+"Water/dirt/metal shavings in tubes" = "Water/dirt/metal shavings in tubes";
+
+"app is not installed on this device" = "app is not installed on this device";
+
+"Tech support" = "Suporte técnico";
+
+"Social network" = "Rede social";
+
+"Menu" = "O menu";
+
 /* The title of the section describing commands */
 "Commands" = "Команды";
+
+"Incorrect value entered" = "Incorrect value entered";
 
 "Select connection type" = "Selecione o tipo de conexão";
 
@@ -167,7 +181,7 @@
 
 "Failed to reload" = "Failed to reload";
 
-"“Password” accepts values from 1 to 2000000000" = "“Password” accepts values from 1 to 2000000000";
+"“Password” accepts values from 1 to 2000000000" = "“Password” accepts values from 1 to 9.999.999.999";
 
 "Success" = "Sucesso";
 

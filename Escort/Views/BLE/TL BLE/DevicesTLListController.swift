@@ -9,6 +9,7 @@ var cellHeight = 70
 
 import UIKit
 import CoreBluetooth
+import UIDrawer
 
 class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, SecondVCDelegate {
     
@@ -51,6 +52,8 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
                     
                 case .destructive:
                     print("destructive")
+                @unknown default:
+                    fatalError()
                 }}))
             self.present(alert, animated: true, completion: nil)
         }
@@ -112,6 +115,8 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
                             print("destructive")
                             
                             
+                        @unknown default:
+                            fatalError()
                         }}))
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -544,6 +549,28 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
             backView!.addTapGesture{
                 self.navigationController?.popViewController(animated: true)
             }
+            let hamburger = UIImageView(image: UIImage(named: "Hamburger.png")!)
+            let hamburgerPlace = UIView()
+            var yHamb = screenHeight/22
+            if screenWidth == 414 {
+                yHamb = screenHeight/20
+            }
+            if screenHeight >= 750{
+                yHamb = screenHeight/16
+                if screenWidth == 375 {
+                    yHamb = screenHeight/19
+                }
+            }
+            hamburgerPlace.frame = CGRect(x: screenWidth-50, y: yHamb, width: 35, height: 35)
+            hamburger.frame = CGRect(x: screenWidth-45, y: yHamb, width: 25, height: 25)
+            self.view.addSubview(hamburger)
+            self.view.addSubview(hamburgerPlace)
+            hamburgerPlace.addTapGesture {
+                let viewController = MenuControllerDontLanguage()
+                viewController.modalPresentationStyle = .custom
+                viewController.transitioningDelegate = self
+                self.present(viewController, animated: true)
+            }
         }
         view.addSubview(bgImage)
         viewAlpha.addSubview(activityIndicator)
@@ -567,27 +594,6 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
     private func mainPartShow() {
         
         aaa.removeAll()
-        let hamburger = UIImageView(image: UIImage(named: "Hamburger.png")!)
-        let hamburgerPlace = UIView()
-        var yHamb = screenHeight/22
-        if screenHeight >= 750{
-            yHamb = screenHeight/18
-        }
-        hamburgerPlace.frame = CGRect(x: screenWidth-50, y: yHamb, width: 35, height: 35)
-        hamburger.frame = CGRect(x: screenWidth-45, y: yHamb, width: 25, height: 25)
-        
-        view.addSubview(hamburger)
-        view.addSubview(hamburgerPlace)
-        
-        
-        hamburgerPlace.addTapGesture {
-            self.searchBar.endEditing(true)
-            self.addChild(self.popUpVCNext) // 2
-            self.popUpVCNext.view.frame = self.view.frame  // 3
-            self.view.addSubview(self.popUpVCNext.view) // 4
-            self.popUpVCNext.didMove(toParent: self) // 5
-            print("Успешно")
-        }
         searchBar.searchBarStyle = .minimal
         searchBar.showsCancelButton = false
         searchBar.tintColor = .white
@@ -779,3 +785,8 @@ extension DevicesTLListController: UISearchBarDelegate {
     
 }
 
+extension DevicesTLListController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return DrawerPresentationController(presentedViewController: presented, presenting: presenting)
+    }
+}

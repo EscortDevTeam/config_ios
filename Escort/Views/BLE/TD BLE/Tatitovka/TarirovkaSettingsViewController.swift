@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UIDrawer
 
 class TarirovkaSettingsViewController: UIViewController {
     
@@ -79,14 +80,14 @@ class TarirovkaSettingsViewController: UIViewController {
         backView!.addTapGesture{
             self.navigationController?.popViewController(animated: true)
         }
-        var yHeight = 88
-        let slivButton = UIButton(frame: CGRect(x: 25, y: yHeight, width: Int(screenWidth/2-50), height: 43))
+        var yHeight = (hasNotch ? 88 : headerHeight+40)
+        let slivButton = UIButton(frame: CGRect(x: 25, y: Int(yHeight), width: Int(screenWidth/2-50), height: 43))
         slivButton.layer.cornerRadius = 20
         slivButton.backgroundColor = UIColor(rgb: 0xCF2121)
         slivButton.setTitle("Draining".localized(code), for: UIControl.State.normal)
         view.addSubview(slivButton)
         
-        let zalivButton = UIButton(frame: CGRect(x: Int(screenWidth/2+25), y:yHeight, width: Int(screenWidth/2-50), height: 43))
+        let zalivButton = UIButton(frame: CGRect(x: Int(screenWidth/2+25), y:Int(yHeight), width: Int(screenWidth/2-50), height: 43))
         zalivButton.layer.cornerRadius = 20
         zalivButton.layer.borderWidth = 1
         zalivButton.layer.borderColor = UIColor(rgb: 0x959595).cgColor
@@ -95,7 +96,7 @@ class TarirovkaSettingsViewController: UIViewController {
         
         yHeight = yHeight + 77
         
-        let nameFileField = UITextField(frame: CGRect(x: 25, y: yHeight, width: Int(screenWidth - 50), height: 36))
+        let nameFileField = UITextField(frame: CGRect(x: 25, y: Int(yHeight), width: Int(screenWidth - 50), height: 36))
         nameFileField.layer.cornerRadius = 2
         nameFileField.layer.borderWidth = 1
         nameFileField.textColor = .white
@@ -107,7 +108,7 @@ class TarirovkaSettingsViewController: UIViewController {
         
         yHeight = yHeight + 48
         
-        let stepFileField = UITextField(frame: CGRect(x: 25, y: yHeight, width: Int(screenWidth - 50), height: 36))
+        let stepFileField = UITextField(frame: CGRect(x: 25, y: Int(yHeight), width: Int(screenWidth - 50), height: 36))
         stepFileField.layer.cornerRadius = 2
         stepFileField.layer.borderWidth = 1
         stepFileField.textColor = .white
@@ -120,7 +121,7 @@ class TarirovkaSettingsViewController: UIViewController {
         
         yHeight = yHeight + 52
         
-        let startVBacFileField = UITextField(frame: CGRect(x: 25, y: yHeight, width: Int(screenWidth - 50), height: 36))
+        let startVBacFileField = UITextField(frame: CGRect(x: 25, y: Int(yHeight), width: Int(screenWidth - 50), height: 36))
         startVBacFileField.layer.cornerRadius = 2
         startVBacFileField.layer.borderWidth = 1
         startVBacFileField.textColor = .white
@@ -133,7 +134,7 @@ class TarirovkaSettingsViewController: UIViewController {
         
         yHeight = yHeight + 52
         
-        let nextButton = UIButton(frame: CGRect(x: Int(screenWidth/2+25), y:yHeight, width: Int(screenWidth/2-50), height: 43))
+        let nextButton = UIButton(frame: CGRect(x: Int(screenWidth/2+25), y:Int(yHeight), width: Int(screenWidth/2-50), height: 43))
         nextButton.layer.cornerRadius = 20
         nextButton.backgroundColor = UIColor(rgb: 0xCF2121)
         nextButton.setTitle("Continue Next".localized(code), for: UIControl.State.normal)
@@ -142,7 +143,7 @@ class TarirovkaSettingsViewController: UIViewController {
         slivButton.addTapGesture {
             self.view.addSubview(startVBacFileField)
             nextButton.removeFromSuperview()
-            nextButton.frame = CGRect(x: Int(screenWidth/2+25), y: yHeight, width: Int(screenWidth/2-50), height: 43)
+            nextButton.frame = CGRect(x: Int(screenWidth/2+25), y: Int(yHeight), width: Int(screenWidth/2-50), height: 43)
             self.view.addSubview(nextButton)
             slivButton.backgroundColor = UIColor(rgb: 0xCF2121)
             slivButton.layer.borderWidth = 0
@@ -153,7 +154,7 @@ class TarirovkaSettingsViewController: UIViewController {
         zalivButton.addTapGesture {
             startVBacFileField.removeFromSuperview()
             nextButton.removeFromSuperview()
-            nextButton.frame = CGRect(x: Int(screenWidth/2+25), y: yHeight-52, width: Int(screenWidth/2-50), height: 43)
+            nextButton.frame = CGRect(x: Int(screenWidth/2+25), y: Int(yHeight-52), width: Int(screenWidth/2-50), height: 43)
             self.view.addSubview(nextButton)
             zalivButton.backgroundColor = UIColor(rgb: 0xCF2121)
             zalivButton.layer.borderWidth = 0
@@ -161,6 +162,11 @@ class TarirovkaSettingsViewController: UIViewController {
             slivButton.layer.borderWidth = 1
             slivButton.layer.borderColor = UIColor(rgb: 0x959595).cgColor
             slivButton.backgroundColor = .clear
+        }
+        nextButton.addTapGesture {
+            stepTar = Int(stepFileField.text!) ?? 0
+            startVTar = Int(startVBacFileField.text!) ?? 0
+            self.navigationController?.pushViewController(TirirovkaTableViewController(), animated: true)
         }
     }
 }

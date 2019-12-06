@@ -23,6 +23,7 @@
 		B510837B230167200086C462 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B510837A230167200086C462 /* PopupViewController.swift */; };
 		B510837D230194700086C462 /* strel.png in Resources */ = {isa = PBXBuildFile; fileRef = B510837C230194700086C462 /* strel.png */; };
 		B510837F230196D60086C462 /* strela2.png in Resources */ = {isa = PBXBuildFile; fileRef = B510837E230196D50086C462 /* strela2.png */; };
+		B51286472396803C00148E82 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = B51286462396803C00148E82 /* loading.json */; };
 		B5291BBB22FD586300CB8890 /* DeviceListUsbController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5291BBA22FD586300CB8890 /* DeviceListUsbController.swift */; };
 		B52989332306AE1F007D2DE3 /* Battary.png in Resources */ = {isa = PBXBuildFile; fileRef = B52989322306AE1F007D2DE3 /* Battary.png */; };
 		B546385D23714AF60073C447 /* SettingAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B546385C23714AF60073C447 /* SettingAppController.swift */; };
@@ -36,17 +37,18 @@
 		B58F703A238BC16800DA99B9 /* TarirovkaSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58F7039238BC16800DA99B9 /* TarirovkaSettingsViewController.swift */; };
 		B58F703C238BD77600DA99B9 /* TirirovkaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58F703B238BD77600DA99B9 /* TirirovkaTableViewController.swift */; };
 		B58F703E238C001200DA99B9 /* TirirovkaCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58F703D238C001200DA99B9 /* TirirovkaCellViewController.swift */; };
+		B592FD532399293700EBE8C6 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B592FD522399293700EBE8C6 /* MenuController.swift */; };
 		B59AFFBB239103E100C0DAF0 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59AFFBA239103E100C0DAF0 /* QRScannerViewController.swift */; };
 		B59AFFBD2391075B00C0DAF0 /* QRScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59AFFBC2391075B00C0DAF0 /* QRScannerView.swift */; };
 		B59AFFBF239107BE00C0DAF0 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59AFFBE239107BE00C0DAF0 /* UIViewController+Alert.swift */; };
-		B59AFFC1239107F100C0DAF0 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59AFFC0239107F100C0DAF0 /* DetailViewController.swift */; };
-		B59AFFC32391082700C0DAF0 /* CopyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59AFFC22391082700C0DAF0 /* CopyLabel.swift */; };
 		B59AFFC5239109E500C0DAF0 /* StoryboardScanner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B59AFFC4239109E500C0DAF0 /* StoryboardScanner.storyboard */; };
 		B5AC88742383CFC300FACEAE /* DeviceBLETLSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AC88732383CFC300FACEAE /* DeviceBLETLSettings.swift */; };
 		B5AC88792383E1FE00FACEAE /* Path-3.png in Resources */ = {isa = PBXBuildFile; fileRef = B5AC88782383E1FE00FACEAE /* Path-3.png */; };
 		B5AC887B2383E20800FACEAE /* Path-2.png in Resources */ = {isa = PBXBuildFile; fileRef = B5AC887A2383E20800FACEAE /* Path-2.png */; };
 		B5AC887D2383E21200FACEAE /* Path.png in Resources */ = {isa = PBXBuildFile; fileRef = B5AC887C2383E21100FACEAE /* Path.png */; };
+		B5B3F285239A27C300A6FD09 /* MenuControllerDontLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B3F284239A27C300A6FD09 /* MenuControllerDontLanguage.swift */; };
 		B5B8F561236C15D70072EEFB /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B8F560236C15D70072EEFB /* LocalizedString.swift */; };
+		B5D424EE23916B3000F7EBB4 /* RateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D424ED23916B3000F7EBB4 /* RateManager.swift */; };
 		B5FDBC4F23029B5A00442541 /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FDBC4E23029B5A00442541 /* Codable.swift */; };
 		B5FDBC532302B68000442541 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FDBC522302B68000442541 /* User.swift */; };
 		C41730A722C8B04700177C54 /* main.png in Resources */ = {isa = PBXBuildFile; fileRef = C41730A622C8B04600177C54 /* main.png */; };
@@ -133,6 +135,7 @@
 		B510837A230167200086C462 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		B510837C230194700086C462 /* strel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = strel.png; sourceTree = "<group>"; };
 		B510837E230196D50086C462 /* strela2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = strela2.png; sourceTree = "<group>"; };
+		B51286462396803C00148E82 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		B5291BBA22FD586300CB8890 /* DeviceListUsbController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListUsbController.swift; sourceTree = "<group>"; };
 		B52989322306AE1F007D2DE3 /* Battary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Battary.png; sourceTree = "<group>"; };
 		B546385C23714AF60073C447 /* SettingAppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAppController.swift; sourceTree = "<group>"; };
@@ -152,19 +155,20 @@
 		B58F7039238BC16800DA99B9 /* TarirovkaSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TarirovkaSettingsViewController.swift; sourceTree = "<group>"; };
 		B58F703B238BD77600DA99B9 /* TirirovkaTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TirirovkaTableViewController.swift; sourceTree = "<group>"; };
 		B58F703D238C001200DA99B9 /* TirirovkaCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TirirovkaCellViewController.swift; sourceTree = "<group>"; };
+		B592FD522399293700EBE8C6 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		B59AFFBA239103E100C0DAF0 /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
 		B59AFFBC2391075B00C0DAF0 /* QRScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerView.swift; sourceTree = "<group>"; };
 		B59AFFBE239107BE00C0DAF0 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
-		B59AFFC0239107F100C0DAF0 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		B59AFFC22391082700C0DAF0 /* CopyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyLabel.swift; sourceTree = "<group>"; };
 		B59AFFC4239109E500C0DAF0 /* StoryboardScanner.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StoryboardScanner.storyboard; sourceTree = "<group>"; };
 		B5AC88732383CFC300FACEAE /* DeviceBLETLSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceBLETLSettings.swift; sourceTree = "<group>"; };
 		B5AC88752383D20000FACEAE /* tl-ble-hide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tl-ble-hide.png"; sourceTree = "<group>"; };
 		B5AC88782383E1FE00FACEAE /* Path-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Path-3.png"; sourceTree = "<group>"; };
 		B5AC887A2383E20800FACEAE /* Path-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Path-2.png"; sourceTree = "<group>"; };
 		B5AC887C2383E21100FACEAE /* Path.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Path.png; sourceTree = "<group>"; };
+		B5B3F284239A27C300A6FD09 /* MenuControllerDontLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuControllerDontLanguage.swift; sourceTree = "<group>"; };
 		B5B8F560236C15D70072EEFB /* LocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedString.swift; sourceTree = "<group>"; };
 		B5C5F2AB23605FDE0043F46A /* JSONLanguage.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = JSONLanguage.json; sourceTree = "<group>"; };
+		B5D424ED23916B3000F7EBB4 /* RateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateManager.swift; sourceTree = "<group>"; };
 		B5FDBC4E23029B5A00442541 /* Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codable.swift; sourceTree = "<group>"; };
 		B5FDBC522302B68000442541 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C41730A622C8B04600177C54 /* main.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main.png; sourceTree = "<group>"; };
@@ -323,6 +327,8 @@
 				B510837A230167200086C462 /* PopupViewController.swift */,
 				B503C86C2303F452004F248F /* MenuSelf.storyboard */,
 				B503C86E2303F4C3004F248F /* PopupTwoVC.swift */,
+				B592FD522399293700EBE8C6 /* MenuController.swift */,
+				B5B3F284239A27C300A6FD09 /* MenuControllerDontLanguage.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -361,8 +367,6 @@
 				B59AFFBA239103E100C0DAF0 /* QRScannerViewController.swift */,
 				B59AFFC4239109E500C0DAF0 /* StoryboardScanner.storyboard */,
 				B59AFFBC2391075B00C0DAF0 /* QRScannerView.swift */,
-				B59AFFC22391082700C0DAF0 /* CopyLabel.swift */,
-				B59AFFC0239107F100C0DAF0 /* DetailViewController.swift */,
 			);
 			path = "QR-code";
 			sourceTree = "<group>";
@@ -444,6 +448,7 @@
 		C41730D022CB3CCD00177C54 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B51286462396803C00148E82 /* loading.json */,
 				C491783122C8A94D0006106E /* StartScreenController.swift */,
 				C41730C922CA55DD00177C54 /* LanguageSelectController.swift */,
 				C41730DE22CB880A00177C54 /* ConnectionSelectController.swift */,
@@ -574,6 +579,7 @@
 				C41730CF22CB3C7F00177C54 /* Extensions */,
 				C41730A122C8B00000177C54 /* Resources */,
 				C491782F22C8A94D0006106E /* AppDelegate.swift */,
+				B5D424ED23916B3000F7EBB4 /* RateManager.swift */,
 				C491783622C8A94E0006106E /* Assets.xcassets */,
 				C491783B22C8A94E0006106E /* Info.plist */,
 				B582CCFD23758A150012E232 /* InfoPlist.strings */,
@@ -668,6 +674,7 @@
 				C41730C722CA552100177C54 /* portugal.png in Resources */,
 				C424A8FE22D61C05008E154F /* graph.png in Resources */,
 				C41730ED22CB904E00177C54 /* bluetooth.png in Resources */,
+				B51286472396803C00148E82 /* loading.json in Resources */,
 				C417310122CBA18900177C54 /* du-180.png in Resources */,
 				B59AFFC5239109E500C0DAF0 /* StoryboardScanner.storyboard in Resources */,
 				B546385E23718C940073C447 /* Localizable.strings in Resources */,
@@ -767,12 +774,15 @@
 				B59AFFBB239103E100C0DAF0 /* QRScannerViewController.swift in Sources */,
 				C424A94022D779C2008E154F /* DeviceBleSettingsController.swift in Sources */,
 				C41730D322CB3D7700177C54 /* LanguageSelectModel.swift in Sources */,
+				B592FD532399293700EBE8C6 /* MenuController.swift in Sources */,
 				C424A91022D61CB9008E154F /* DevicesListController.swift in Sources */,
 				B503C86F2303F4C3004F248F /* PopupTwoVC.swift in Sources */,
 				B510836B23007E1B0086C462 /* ContainerViewController.swift in Sources */,
 				B5FDBC532302B68000442541 /* User.swift in Sources */,
 				B510836523007CDB0086C462 /* MenuViewController.swift in Sources */,
+				B5D424EE23916B3000F7EBB4 /* RateManager.swift in Sources */,
 				B59AFFBF239107BE00C0DAF0 /* UIViewController+Alert.swift in Sources */,
+				B5B3F285239A27C300A6FD09 /* MenuControllerDontLanguage.swift in Sources */,
 				B546385D23714AF60073C447 /* SettingAppController.swift in Sources */,
 				B510836723007D010086C462 /* MenuTableCell.swift in Sources */,
 				C424A92422D73648008E154F /* DeviceBleController.swift in Sources */,
@@ -780,12 +790,10 @@
 				C41730CE22CB3A2C00177C54 /* UIColor+hexColor.swift in Sources */,
 				C41730DF22CB880A00177C54 /* ConnectionSelectController.swift in Sources */,
 				C424A93322D7612E008E154F /* DeviceUsbSettingsController.swift in Sources */,
-				B59AFFC32391082700C0DAF0 /* CopyLabel.swift in Sources */,
 				C41730F022CB9AB900177C54 /* DeviceSelectController.swift in Sources */,
 				C424A94422D77AFD008E154F /* DeviceBleHelpController.swift in Sources */,
 				B505AA7123797E0900146A16 /* DeviceTLBleController.swift in Sources */,
 				C424A94222D77A28008E154F /* DeviceBleSettingsAddController.swift in Sources */,
-				B59AFFC1239107F100C0DAF0 /* DetailViewController.swift in Sources */,
 				B505AA6F2375EABC00146A16 /* DevicesTLListController.swift in Sources */,
 				C41730CA22CA55DD00177C54 /* LanguageSelectController.swift in Sources */,
 				C41730F422CB9E2C00177C54 /* DeviceSelectModel.swift in Sources */,
@@ -893,6 +901,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -948,6 +957,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -958,9 +968,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = HVVJT6BNYW;
 				INFOPLIST_FILE = Escort/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -968,11 +978,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.12;
+				MARKETING_VERSION = 1.0.13;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.fmeter.escortconnect2121;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -983,9 +993,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = HVVJT6BNYW;
 				INFOPLIST_FILE = Escort/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -993,11 +1003,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.12;
+				MARKETING_VERSION = 1.0.13;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.fmeter.escortconnect2121;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

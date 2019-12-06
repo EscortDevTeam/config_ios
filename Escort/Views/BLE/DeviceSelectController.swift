@@ -6,9 +6,10 @@
  //  Copyright © 2019 pavit.design. All rights reserved.
  //
  
- import UIKit
- import CoreBluetooth
-
+import UIKit
+import CoreBluetooth
+import UIDrawer
+ 
  class DeviceSelectController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, SecondVCDelegate {
     var manager:CBCentralManager? = nil
     var peripherals = [CBPeripheral]()
@@ -31,8 +32,8 @@
                     
                 case .destructive:
                     print("destructive")
-                    
-                    
+                @unknown default:
+                    fatalError()
                 }}))
             self.present(alert, animated: true, completion: nil)
         }
@@ -53,6 +54,12 @@
         super.viewDidLoad()
         manager = CBCentralManager ( delegate : self , queue : nil , options : nil )
         viewShow()
+        RateManager.showRatesController()
+//        let appStoreID = "1483425085"
+//        let appStoreLink = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=" + appStoreID + "&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software"
+//        if let linkForRate = URL(string: appStoreLink) {
+//            UIApplication.shared.open(linkForRate, options: [:], completionHandler: nil)
+//        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -108,8 +115,14 @@
             let hamburger = UIImageView(image: UIImage(named: "Hamburger.png")!)
             let hamburgerPlace = UIView()
             var yHamb = screenHeight/22
+            if screenWidth == 414 {
+                yHamb = screenHeight/20
+            }
             if screenHeight >= 750{
-                yHamb = screenHeight/18
+                yHamb = screenHeight/16
+                if screenWidth == 375 {
+                    yHamb = screenHeight/19
+                }
             }
             hamburgerPlace.frame = CGRect(x: screenWidth-50, y: yHamb, width: 35, height: 35)
             hamburger.frame = CGRect(x: screenWidth-45, y: yHamb, width: 25, height: 25)
@@ -119,10 +132,10 @@
             
             
             hamburgerPlace.addTapGesture {
-                self.addChild(self.popUpVCNext) // 2
-                self.popUpVCNext.view.frame = self.view.frame  // 3
-                self.view.addSubview(self.popUpVCNext.view) // 4
-                print("Успешно")
+                let viewController = MenuControllerDontLanguage()
+                viewController.modalPresentationStyle = .custom
+                viewController.transitioningDelegate = self
+                self.present(viewController, animated: true)
             }
             
             backView!.addTapGesture{
@@ -219,8 +232,14 @@
         let hamburger = UIImageView(image: UIImage(named: "Hamburger.png")!)
         let hamburgerPlace = UIView()
         var yHamb = screenHeight/22
-        if screenHeight >= 750{
-            yHamb = screenHeight/18
+        if screenWidth == 414 {
+            yHamb = screenHeight/20
+        }
+        if screenHeight >= 750 {
+            yHamb = screenHeight/16
+            if screenWidth == 375 {
+                yHamb = screenHeight/19
+            }
         }
         hamburgerPlace.frame = CGRect(x: screenWidth-50, y: yHamb, width: 35, height: 35)
         hamburger.frame = CGRect(x: screenWidth-45, y: yHamb, width: 25, height: 25)
@@ -251,7 +270,10 @@
             let xName = i % 2 == 0 ? 0 : cellWidthXName
             var y = 0
             if i > 1 {
-                y = (i % 2 == 0 ? i : i - 1) * (cellHeight / 2)
+                y = (i % 2 == 0 ? i : i - 1) * (cellHeight / 2 + 5)
+                if x == 0 {
+                    z = 10
+                }
             }
             
             let container = UIView(frame: CGRect(x: x, y: y, width: cellWidth, height: cellHeight))
@@ -259,7 +281,7 @@
             let img = UIImageView(image: UIImage(named: d.image)!)
             img.frame = CGRect(x: x+10, y: y+Int(headerHeight), width: 200, height: 130)
             
-            let title = UILabel(frame: CGRect(x: xName, y: cellHeight+Int(headerHeight)-50, width: cellWidth, height: 20))
+            let title = UILabel(frame: CGRect(x: xName, y: y + cellHeight+Int(headerHeight)-50, width: cellWidth, height: 20))
             title.text = d.name
             title.textColor = UIColor(rgb: 0x272727)
             title.font = UIFont(name:"FuturaPT-Light", size: 20.0)
@@ -319,4 +341,9 @@
         })
         
     }
+ }
+ extension DeviceSelectController: UIViewControllerTransitioningDelegate {
+     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+         return DrawerPresentationController(presentedViewController: presented, presenting: presenting)
+     }
  }

@@ -6,6 +6,7 @@
 //  Copyright © 2019 pavit.design. All rights reserved.
 //
 import UIKit
+import UIDrawer
 
 class ConnectionSelectController: UIViewController, SecondVCDelegate {
     func secondVC_BackClicked(data: String) {
@@ -14,6 +15,7 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
     let DeviceSelectCUSB = DeviceSelectControllerUSB()
     let DeviceSelectC = DeviceSelectController()
     let popUpVC = UIStoryboard(name: "MenuSelf", bundle: nil).instantiateViewController(withIdentifier: "popUpVCid") as! PopupTwoVC
+    var timer = Timer()
     
     var menuVC: ContainerViewController!
     
@@ -27,6 +29,13 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         popUpVC.delegate = self
         rightCount = 0
+        timer =  Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (timer) in
+            print("timerConnection")
+            if checkMenu == true {
+                self.viewShow()
+                checkMenu = false
+            }
+        }
         viewShow()
         boolBLE = false
         print("12")
@@ -40,18 +49,24 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
         activity.startAnimating()
         return activity
     }()
-    private func viewShow() {
+    func viewShow() {
+        
         view.subviews.forEach({ $0.removeFromSuperview() })
         view.backgroundColor = .white
         var h = 0
-        
-        
+
         view.addSubview(headerSet(title: "Select connection type".localized(code)))
         let hamburger = UIImageView(image: UIImage(named: "Hamburger.png")!)
         let hamburgerPlace = UIView()
         var yHamb = screenHeight/22
+        if screenWidth == 414 {
+            yHamb = screenHeight/20
+        }
         if screenHeight >= 750{
-            yHamb = screenHeight/18
+            yHamb = screenHeight/16
+            if screenWidth == 375 {
+                yHamb = screenHeight/19
+            }
         }
         hamburgerPlace.frame = CGRect(x: screenWidth-50, y: yHamb, width: 35, height: 35)
         hamburger.frame = CGRect(x: screenWidth-45, y: yHamb, width: 25, height: 25)
@@ -59,12 +74,16 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
         view.addSubview(hamburgerPlace)
         hamburgerPlace.addTapGesture {
             
-            self.popUpVC.view.frame = CGRect(x: screenWidth, y: 0, width: screenWidth, height: screenHeight)
-            self.addChild(self.popUpVC) // 2
-            self.popUpVC.view.frame = self.view.frame  // 3
-            self.view.addSubview(self.popUpVC.view) // 4
-            self.popUpVC.didMove(toParent: self)
-            print("Успешно")
+            let viewController = MenuController()
+            viewController.modalPresentationStyle = .custom
+            viewController.transitioningDelegate = self
+            self.present(viewController, animated: true)
+//            self.popUpVC.view.frame = CGRect(x: screenWidth, y: 0, width: screenWidth, height: screenHeight)
+//            self.addChild(self.popUpVC) // 2
+//            self.popUpVC.view.frame = self.view.frame  // 3
+//            self.view.addSubview(self.popUpVC.view) // 4
+//            self.popUpVC.didMove(toParent: self)
+//            print("Успешно")
             
             
         }
@@ -85,6 +104,7 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
 //        v1.frame = CGRect(x:0, y: Int(headerHeight)+h, width: Int(screenWidth), height: Int(screenHeight))
         v1.frame = CGRect(x:0, y: Int(headerHeight) + h, width: Int(screenWidth), height: cellHeight-h)
         v1.addTapGesture{
+            self.timer.invalidate()
             boolBLE = true
             print("BLE")
             
@@ -122,10 +142,20 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
                     print("Провод")
                     boolBLE = false
                     IsBLE = false
-                    self.navigationController?.pushViewController(self.DeviceSelectCUSB, animated: true)
+                    let viewController = DeviceBleHelpController()
+                    viewController.modalPresentationStyle = .custom
+                    viewController.transitioningDelegate = self
+                    self.present(viewController, animated: true)
+//                    self.navigationController?.pushViewController(self.DeviceSelectCUSB, animated: true)
                 }
         
         view.addSubview(v1)
 //        view.addSubview(v2)
+
+    }
+}
+extension ConnectionSelectController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return DrawerPresentationController(presentedViewController: presented, presenting: presenting)
     }
 }

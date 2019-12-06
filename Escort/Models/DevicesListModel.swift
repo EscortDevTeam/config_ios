@@ -16,12 +16,12 @@ struct Menu {
     let name: String
 }
 let menuSide: [Menu] = [
-    Menu(name: "Bluetooth"),
+    Menu(name: "Tech support".localized(code)),
     Menu(name: "USB"),
     Menu(name: "Language".localized(code))
 ]
 let menuSideNext: [Menu] = [
-    Menu(name: "Bluetooth"),
+    Menu(name: "Tech support".localized(code)),
     Menu(name: "USB"),
 ]
 

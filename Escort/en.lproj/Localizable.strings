@@ -44,6 +44,16 @@
 
 "Level" = "Level";
 
+"Water/dirt/metal shavings in tubes" = "Water/dirt/metal shavings in tubes";
+
+"app is not installed on this device" = "app is not installed on this device";
+
+"Tech support" = "Tech support";
+
+"Social network" = "Social network";
+
+"Menu" = "Menu";
+
 "Disconnected" = "Disconnected";
 
 "Connected" = "Connected";
@@ -161,7 +171,7 @@
 
 "Failed to reload" = "Failed to reload";
 
-"“Password” accepts values from 1 to 2000000000" = "“Password” accepts values from 1 to 2000000000";
+"“Password” accepts values from 1 to 2000000000" = "“Password” accepts values from 1 to 9.999.999.999";
 
 "Success" = "Success";
 
@@ -175,6 +185,7 @@
 
 "Reloading..." = "Перезагружается...";
 
+"Incorrect value entered" = "Incorrect value entered";
 
 /* The in-progress connecting state */
 "Connecting" = "Соединяется";

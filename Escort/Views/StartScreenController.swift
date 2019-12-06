@@ -76,7 +76,9 @@ class StartScreenController: UIViewController {
             self.move()
         }
         view.addSubview(backImage)
-        view.addSubview(logoImage)
+        if image.image != "4" && image.image != "5" {
+            view.addSubview(logoImage)
+        }
         view.addSubview(configText)
         view.addSubview(activityIndicator)
     }

@@ -63,6 +63,9 @@ class PopupViewController: UIViewController {
             if i2.name == "Language"{
                 withLine = 180
             }
+            if i2.name == "Tech support".localized(code){
+                withLine = 220
+            }
             if i2.name == "Язык"{
                 withLine = 123
             }
@@ -121,6 +124,9 @@ class PopupViewController: UIViewController {
             if i == 2 {
                 title.text = "Language".localized(code)
             }
+            if i == 0 {
+                title.text = "Tech support".localized(code)
+            }
             container.addSubview(title)
             container.addSubview(redLine)
             view.addSubview(titleTap)
@@ -130,7 +136,49 @@ class PopupViewController: UIViewController {
             titleTap.addTapGesture {
                 print("I: \(i2), \(i)")
                 if i == 0 {
-                    boolBLE = true
+                    let alert = UIAlertController(title: "Tech support".localized(code), message: "Social network".localized(code), preferredStyle: .actionSheet)
+                    
+                    alert.addAction(UIAlertAction(title: "Viber", style: .default, handler: { (_) in
+                        if let url = URL(string:"viber://chat?number=+79600464665") {
+                            UIApplication.shared.open(url) { success in
+                                if success {
+                                    print("success")
+                                } else {
+                                    self.showToast(message: "Viber " + "app is not installed on this device".localized(code), seconds: 1)
+                                }
+                            }
+                        }
+                    }))
+
+                    alert.addAction(UIAlertAction(title: "Telegram", style: .default, handler: { (_) in
+                        if let url = URL(string:"https://telegram.me/EscortSupport") {
+                            UIApplication.shared.open(url) { success in
+                                if success {
+                                    print("success")
+                                } else {
+                                    self.showToast(message: "Telegram " + "app is not installed on this device".localized(code), seconds: 1)
+                                }
+                            }
+                        }
+                    }))
+
+                    alert.addAction(UIAlertAction(title: "WhatsApp", style: .default, handler: { (_) in
+                        if let url = URL(string:"https://api.whatsapp.com/send?phone=+79600464665") {
+                            UIApplication.shared.open(url) { success in
+                                if success {
+                                    print("success")
+                                } else {
+                                    self.showToast(message: "WhatsApp " + "app is not installed on this device".localized(code), seconds: 1)
+                                }
+                            }
+                        }
+                    }))
+
+                    alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: { (_) in
+                        print("Назад")
+                    }))
+
+                    self.present(alert, animated: true)
                 }
                 if i == 1 {
                     boolBLE = false
