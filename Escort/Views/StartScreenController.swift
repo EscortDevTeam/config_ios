@@ -44,12 +44,17 @@ class StartScreenController: UIViewController {
     }()
     
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+        let activity = UIActivityIndicatorView()
+        if #available(iOS 13.0, *) {
+            activity.style = .medium
+        } else {
+            activity.style = .white
+        }
         activity.center = view.center
-        activity.transform = CGAffineTransform(scaleX: 2, y: 2)
         activity.hidesWhenStopped = true
-        activity.color = .black
         activity.startAnimating()
+        activity.transform = CGAffineTransform(scaleX: 2, y: 2)
+
         return activity
     }()
     private func move() {
@@ -78,8 +83,8 @@ class StartScreenController: UIViewController {
         view.addSubview(backImage)
         if image.image != "4" && image.image != "5" {
             view.addSubview(logoImage)
+            view.addSubview(configText)
         }
-        view.addSubview(configText)
         view.addSubview(activityIndicator)
     }
     var dataOk: [String : AnyObject] = [:]

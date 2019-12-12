@@ -9,16 +9,21 @@
 import UIKit
 import UIDrawer
 
+var textName = ""
+
 class TarirovkaSettingsViewController: UIViewController {
-    
     var refreshControl = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
+        sliv = true
+        startVTar = 0
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         viewShow()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        warning = false
     }
     
     fileprivate lazy var bgImage: UIImageView = {
@@ -59,9 +64,15 @@ class TarirovkaSettingsViewController: UIViewController {
         return v
     }
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
-        activity.center = view.center
+        let activity = UIActivityIndicatorView()
+        if #available(iOS 13.0, *) {
+            activity.style = .medium
+        } else {
+            activity.style = .white
+        }
         activity.transform = CGAffineTransform(scaleX: 2, y: 2)
+        activity.center = view.center
+        activity.color = .white
         activity.hidesWhenStopped = true
         activity.startAnimating()
         return activity
@@ -140,6 +151,16 @@ class TarirovkaSettingsViewController: UIViewController {
         nextButton.setTitle("Continue Next".localized(code), for: UIControl.State.normal)
         view.addSubview(nextButton)
         
+        yHeight = yHeight + 52
+        
+        let nextTextFile = UILabel(frame: CGRect(x: 25, y:Int(yHeight), width: Int(screenWidth-50), height: 43))
+        nextTextFile.text = "The file will be saved in the application \"Files\", in the folder \"Escort\"".localized(code)
+        nextTextFile.textColor = .white
+        nextTextFile.numberOfLines = 0
+        
+        nextTextFile.font = UIFont(name:"FuturaPT-Light", size: 18.0)
+        view.addSubview(nextTextFile)
+
         slivButton.addTapGesture {
             self.view.addSubview(startVBacFileField)
             nextButton.removeFromSuperview()
@@ -150,6 +171,7 @@ class TarirovkaSettingsViewController: UIViewController {
             zalivButton.layer.borderWidth = 1
             zalivButton.layer.borderColor = UIColor(rgb: 0x959595).cgColor
             zalivButton.backgroundColor = .clear
+            sliv = true
         }
         zalivButton.addTapGesture {
             startVBacFileField.removeFromSuperview()
@@ -158,15 +180,39 @@ class TarirovkaSettingsViewController: UIViewController {
             self.view.addSubview(nextButton)
             zalivButton.backgroundColor = UIColor(rgb: 0xCF2121)
             zalivButton.layer.borderWidth = 0
-            
+            startVBacFileField.text = ""
             slivButton.layer.borderWidth = 1
             slivButton.layer.borderColor = UIColor(rgb: 0x959595).cgColor
             slivButton.backgroundColor = .clear
+            sliv = false
+        }
+        if nameFileField.text == "" {
+            nextButton.isEnabled = true
+        } else {
+            nextButton.isEnabled = true
         }
         nextButton.addTapGesture {
-            stepTar = Int(stepFileField.text!) ?? 0
-            startVTar = Int(startVBacFileField.text!) ?? 0
-            self.navigationController?.pushViewController(TirirovkaTableViewController(), animated: true)
+            if nameFileField.text != "" && stepFileField.text != "" {
+                if sliv == true {
+                    if startVBacFileField.text != "" {
+                        textName = nameFileField.text ?? "No name Escort"
+                        stepTar = Int(stepFileField.text!) ?? 0
+                        startVTar = Int(startVBacFileField.text!) ?? 0
+                        print("startVTar: \(startVTar)")
+                        tarNew = true
+                        self.navigationController?.pushViewController(TirirovkaTableViewController(), animated: true)
+                    } else {
+                        self.showToast(message: "Enter".localized(code) + " " + "Initial tank volume".localized(code), seconds: 1.0)
+                    }
+                } else {
+                    textName = nameFileField.text ?? "No name Escort"
+                    stepTar = Int(stepFileField.text!) ?? 0
+                    tarNew = true
+                    self.navigationController?.pushViewController(TirirovkaTableViewController(), animated: true)
+                }
+            } else {
+                self.showToast(message: "Enter".localized(code) + " " + "Initial tank volume".localized(code) + ", " + "Step".localized(code) + ", " + "Name".localized(code), seconds: 1.0)
+            }
         }
     }
 }

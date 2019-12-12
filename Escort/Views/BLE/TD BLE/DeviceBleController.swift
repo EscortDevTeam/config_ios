@@ -127,12 +127,18 @@ class DeviceBleController: UIViewController {
         return v
     }
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+        let activity = UIActivityIndicatorView()
+        if #available(iOS 13.0, *) {
+            activity.style = .medium
+        } else {
+            activity.style = .white
+        }
         activity.center = view.center
-        activity.transform = CGAffineTransform(scaleX: 2, y: 2)
-        activity.hidesWhenStopped = true
         activity.color = .white
+        activity.hidesWhenStopped = true
         activity.startAnimating()
+        activity.transform = CGAffineTransform(scaleX: 2, y: 2)
+
         return activity
     }()
     func delay(interval: TimeInterval, closure: @escaping () -> Void) {
@@ -386,7 +392,7 @@ class DeviceBleController: UIViewController {
             if temp != nil {
                 self.navigationController?.pushViewController(DeviceBleSettingsController(), animated: true)
             } else {
-                self.showToast(message: "Не подключен к датчику", seconds: 1.0)
+                self.showToast(message: "Not connected to the sensor".localized(code), seconds: 1.0)
             }
         }
         
@@ -412,7 +418,7 @@ class DeviceBleController: UIViewController {
             if temp != nil {
                 self.navigationController?.pushViewController(DeviceBleSettingsAddController(), animated: true)
             } else {
-                self.showToast(message: "Не подключен к датчику", seconds: 1.0)
+                self.showToast(message: "Not connected to the sensor".localized(code), seconds: 1.0)
             }
         }
         
@@ -438,7 +444,7 @@ class DeviceBleController: UIViewController {
             if temp != nil {
                 self.navigationController?.pushViewController(TarirovkaStartViewControllet(), animated: true)
             } else {
-                self.showToast(message: "Не подключен к датчику", seconds: 1.0)
+                self.showToast(message: "Not connected to the sensor".localized(code), seconds: 1.0)
             }
         }
         

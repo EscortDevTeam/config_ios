@@ -99,12 +99,18 @@ class DeviceBleSettingsAddController: UIViewController {
     //Убираем клавиатуру
 
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+        let activity = UIActivityIndicatorView()
+        if #available(iOS 13.0, *) {
+            activity.style = .medium
+        } else {
+            activity.style = .white
+        }
         activity.center = view.center
-        activity.transform = CGAffineTransform(scaleX: 2, y: 2)
-        activity.hidesWhenStopped = true
         activity.color = .white
+        activity.hidesWhenStopped = true
         activity.startAnimating()
+        activity.transform = CGAffineTransform(scaleX: 2, y: 2)
+
         return activity
     }()
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -782,9 +788,9 @@ class DeviceBleSettingsAddController: UIViewController {
             }
         }
         
-        let alertController = UIAlertController(title: "Установите пароль", message: "", preferredStyle: UIAlertController.Style.alert)
+        let alertController = UIAlertController(title: "Set password".localized(code), message: "", preferredStyle: UIAlertController.Style.alert)
         let labelLits = UILabel(frame: CGRect(x: 25, y: 40, width: 200, height: 30))
-        labelLits.text = "Придумайте пароль"
+        labelLits.text = "Create a password".localized(code)
         labelLits.alpha = 0.58
         labelLits.font = UIFont(name:"FuturaPT-Light", size: 14.0)
         
@@ -818,7 +824,7 @@ class DeviceBleSettingsAddController: UIViewController {
         }
         
         let labelLevel = UILabel(frame: CGRect(x: 25, y: 100, width: 200, height: 30))
-        labelLevel.text = "Повторите пароль"
+        labelLevel.text = "Confirm password".localized(code)
         labelLevel.alpha = 0.58
         labelLevel.font = UIFont(name:"FuturaPT-Light", size: 14.0)
         
@@ -848,7 +854,7 @@ class DeviceBleSettingsAddController: UIViewController {
                 secondTextHide.image = #imageLiteral(resourceName: "глаз")
             }
         }
-        let cancelAction = UIAlertAction(title: "Отмена", style: UIAlertAction.Style.default, handler: {
+        let cancelAction = UIAlertAction(title: "Cancel".localized(code), style: UIAlertAction.Style.default, handler: {
             (action : UIAlertAction!) -> Void in
             self.navigationController?.popViewController(animated: true)
         })
@@ -930,9 +936,9 @@ class DeviceBleSettingsAddController: UIViewController {
         
         //-----------------------------------------------------------SECOND ALERT----------------
         
-        let alertControllerSecond = UIAlertController(title: "Ввод пароля", message: "", preferredStyle: UIAlertController.Style.alert)
+        let alertControllerSecond = UIAlertController(title: "Enter password".localized(code), message: "", preferredStyle: UIAlertController.Style.alert)
         let labelLitsSecond = UILabel(frame: CGRect(x: 25, y: 40, width: 200, height: 30))
-        labelLitsSecond.text = "Введите пароль"
+        labelLitsSecond.text = "Enter password".localized(code)
         labelLitsSecond.alpha = 0.58
         labelLitsSecond.font = UIFont(name:"FuturaPT-Light", size: 14.0)
         
@@ -965,7 +971,7 @@ class DeviceBleSettingsAddController: UIViewController {
             }
         }
         
-        let cancelActionSecond = UIAlertAction(title: "Отмена", style: UIAlertAction.Style.default, handler: {
+        let cancelActionSecond = UIAlertAction(title: "Cancel".localized(code), style: UIAlertAction.Style.default, handler: {
             (action : UIAlertAction!) -> Void in
             self.navigationController?.popViewController(animated: true)
         })
@@ -1104,20 +1110,20 @@ class DeviceBleSettingsAddController: UIViewController {
             } else {
                 if textField.text == firstTextField.text {
                     if textField.text == secondTextField.text {
-                        validatePassword.text = "Пароли совпадают"
+                        validatePassword.text = "Passwords match".localized(code)
                         validatePassword.textColor = UIColor(rgb: 0x00A778)
                         self.saveAction.isEnabled = true
                         print("Пароли одинаковы")
                     } else {
                         self.saveAction.isEnabled = false
                         print("Пароли разыне")
-                        validatePassword.text = "Пароли не совпадают"
+                        validatePassword.text = "Passwords do not match".localized(code)
                         validatePassword.textColor = UIColor(rgb: 0xCF2121)
                     }
                 } else {
                     self.saveAction.isEnabled = false
                     print("Пароли разыне")
-                    validatePassword.text = "Пароли не совпадают"
+                    validatePassword.text = "Passwords do not match".localized(code)
                     validatePassword.textColor = UIColor(rgb: 0xCF2121)
                 }
             }
@@ -1127,8 +1133,8 @@ class DeviceBleSettingsAddController: UIViewController {
                 validatePassword.text = ""
             } else {
                 self.saveActionSecond.isEnabled = false
-                validatePasswordSecond.text = "Пароль может содержать только цифры"
-                validatePasswordSecond.textColor = UIColor(rgb: 0xCF2121)
+                validatePassword.text = "Пароль может содержать только цифры"
+                validatePassword.textColor = UIColor(rgb: 0xCF2121)
             }
         }
         checkMaxLength(textField: textField, maxLength: 10)

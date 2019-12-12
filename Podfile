@@ -8,4 +8,6 @@ target 'Escort' do
 
 	pod 'lottie-ios'
 	pod 'UIDrawer', :git => 'https://github.com/Que20/UIDrawer.git', :tag => '1.0'
+	pod 'Charts'
+	pod "SwiftChart"
 end

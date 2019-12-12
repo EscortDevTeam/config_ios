@@ -524,12 +524,17 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
     }()
     
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
-        activity.transform = CGAffineTransform(scaleX: 2, y: 2)
+        let activity = UIActivityIndicatorView()
+        if #available(iOS 13.0, *) {
+            activity.style = .medium
+        } else {
+            activity.style = .white
+        }
         activity.center = view.center
-        activity.hidesWhenStopped = true
         activity.color = .white
+        activity.hidesWhenStopped = true
         activity.startAnimating()
+        activity.transform = CGAffineTransform(scaleX: 2, y: 2)
         return activity
     }()
     override func viewDidDisappear(_ animated: Bool) {

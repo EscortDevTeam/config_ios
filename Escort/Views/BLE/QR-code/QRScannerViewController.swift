@@ -28,7 +28,7 @@ class QRScannerViewController: UIViewController {
                 if let pruf = qrData?.codeString {
                     print(pruf)
                     if pruf.count == 52 || pruf.count == 55 {
-                        if pruf.contains("https://www.fmeter.ru/") || pruf.contains("https://www.fmeter.ru/td/") {
+                        if pruf.contains("https://www.fmeter.ru/") || pruf.contains("https://www.fmeter.ru/TD/") {
                             let tdstring = pruf.dropFirst(tdstcount!-6)
                             print(tdstring)
                             self.navigationController?.pushViewController(DevicesListC, animated: true)

@@ -192,8 +192,46 @@
 
 "Manual configuration input" = "Introducción manual de la configuración";
 
+"Close" = "Cerca";
+
+"Yes" = "Sí";
+
+"No" = "No";
+
 "Reloading..." = "Reiniciando...";
 
+"You definitely want to complete the calibration?" = "Definitivamente quiere terminar la calibración fina?";
+
+"Tank calibration chart" = "Gráfica de calibración fina";
+
+"Complete" = "Terminar";
+
+"Share" = "Compartir";
+
+"Recording was successful" = "La grabación fue exitosa";
+
+"Error" = "Error";
+
+"The file will be saved in the application \"Files\", in the folder \"Escort\"" = "El archivo se guardará en la aplicación \"Archivos\", en la carpeta \"Escort\"";
+
+"Set password" = "Establecer contraseña";
+
+"Create a password" = "Crea una contraseña";
+
+
+"Save to file" = "Guardar en archivo";
+
+"Deleted" = "Eliminado";
+
+"Cancel" = "Cancelar";
+
+"Make changes" = "Realizar los cambios";
+
+"Save" = "Guardar";
+
+"Liters" = "Litros";
+
+"Not connected to the sensor" = "No conectado al sensor";
 
 
 /* The title of the cell showing BLE connection state */
@@ -220,10 +258,18 @@
 "Listening Off" = "Получаю данные от";
 
 /* The title of the cell showing device name */
-"Name" = "Название";
+"Name" = "Name";
+
+"Confirm password" = "Vuelva a escribir la contraseña";
+
+"Enter password" = "Introducir la contraseña";
+
+"Passwords do not match" = "Las contraseñas no coinciden";
 
 /* The title of the cell showing the last idle */
 "On Idle" = "Бездействие";
+
+"Passwords match" = "Las contraseñas coinciden";
 
 /* RileyLink setup description */
 "RileyLink allows for communication with the pump over Bluetooth Low Energy." = "RileyLink позволяет вести коммуникацию с помпой через Bluetooth Low Energy.";

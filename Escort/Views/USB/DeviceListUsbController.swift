@@ -44,10 +44,18 @@ class DevicesListUsbController: UIViewController {
     }()
 
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+        let activity = UIActivityIndicatorView()
+        if #available(iOS 13.0, *) {
+            activity.style = .medium
+        } else {
+            activity.style = .white
+        }
         activity.center = view.center
+        activity.color = .white
         activity.hidesWhenStopped = true
         activity.startAnimating()
+        activity.transform = CGAffineTransform(scaleX: 2, y: 2)
+
         return activity
     }()
 

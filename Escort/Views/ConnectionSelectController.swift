@@ -7,6 +7,7 @@
 //
 import UIKit
 import UIDrawer
+import MobileCoreServices
 
 class ConnectionSelectController: UIViewController, SecondVCDelegate {
     func secondVC_BackClicked(data: String) {
@@ -41,12 +42,18 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
         print("12")
     }
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+        let activity = UIActivityIndicatorView()
+        if #available(iOS 13.0, *) {
+            activity.style = .medium
+        } else {
+            activity.style = .gray
+        }
         activity.center = view.center
-        activity.transform = CGAffineTransform(scaleX: 2, y: 2)
-        activity.hidesWhenStopped = true
         activity.color = .black
+        activity.hidesWhenStopped = true
         activity.startAnimating()
+        activity.transform = CGAffineTransform(scaleX: 2, y: 2)
+
         return activity
     }()
     func viewShow() {
@@ -113,8 +120,7 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
             self.activityIndicator.startAnimating()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                 self.navigationController?.pushViewController(self.DeviceSelectC, animated: true)
-            }
-            
+            } 
         }
         
         let separator = UIView(frame: CGRect(x: 0, y: Int(headerHeight)  + cellHeight, width: Int(screenWidth), height: 1))
@@ -125,8 +131,8 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
         
         con = connections[1]
         let v2 = UIView()
-        let btImage2 = UIImageView(image: UIImage(named: con.image)!)
-        btImage2.frame = CGRect(x: 30, y: 0, width: 173, height: 59)
+        let btImage2 = UIImageView(image: #imageLiteral(resourceName: "123"))
+        btImage2.frame = CGRect(x: 30, y: 0, width: 173, height: 100)
         let btTitle2 = UILabel(frame: CGRect(x: 220, y: 16, width: screenWidth, height: 36))
         btTitle2.text = con.name
         btTitle2.textColor = UIColor(rgb: 0x1F1F1F)
@@ -139,23 +145,46 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
         
         v2.frame = CGRect(x:0, y: Int(headerHeight) + cellHeight + h, width: Int(screenWidth), height: cellHeight-h)
                 v2.addTapGesture{
-                    print("Провод")
-                    boolBLE = false
-                    IsBLE = false
-                    let viewController = DeviceBleHelpController()
-                    viewController.modalPresentationStyle = .custom
-                    viewController.transitioningDelegate = self
-                    self.present(viewController, animated: true)
-//                    self.navigationController?.pushViewController(self.DeviceSelectCUSB, animated: true)
+                    
                 }
-        
+        v2.alpha = 0.5
         view.addSubview(v1)
-//        view.addSubview(v2)
+        view.addSubview(v2)
 
     }
 }
 extension ConnectionSelectController: UIViewControllerTransitioningDelegate {
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         return DrawerPresentationController(presentedViewController: presented, presenting: presenting)
+    }
+}
+extension ConnectionSelectController: UIDocumentPickerDelegate {
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        
+        guard let selectedFileURL = urls.first else {
+            return
+        }
+        
+        let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let sandboxFileURL = dir.appendingPathComponent(selectedFileURL.absoluteString)
+        print(sandboxFileURL.path)
+        print(dir)
+        print(selectedFileURL.absoluteString)
+        sandboxFileURLPath = selectedFileURL.absoluteURL
+//        if FileManager.default.fileExists(atPath: sandboxFileURL.path) {
+//            print("Already exists! Do nothing")
+//        }
+//        else {
+//
+//            do {
+//                try FileManager.default.copyItem(at: selectedFileURL, to: sandboxFileURL)
+//
+//                print("Copied file!")
+//            }
+//            catch {
+//                print("Error: \(error)")
+//            }
+//        }
     }
 }

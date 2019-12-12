@@ -41,6 +41,7 @@ let headerHeight = screenWidth * screenHeight / 3500
 var peripheralName: [String] = []
 var rightCount = 0
 var nameDevice = ""
+var nameDeviceT = ""
 var RSSIMain = "0"
 var QRCODE = ""
 var level = ""
@@ -52,9 +53,18 @@ var checkPopQR = false
 var stepTar = 0
 var startVTar = 0
 var checkMenu = false
+var itemsT: [String] = []
+var levelnumberT: [String] = []
+var itemsC: [String] = []
+var levelnumberC: [String] = []
+var tarNew = true
+var sliv = true
+var sandboxFileURLPath: URL? = nil
+var chekOpen = true
 func headerSet(title: String) -> UIView {
     return headerSet(title: title, showBack: false).0
 }
+
 
 func headerSet(title: String, showBack: Bool) -> (UIView, UIView?) {
 

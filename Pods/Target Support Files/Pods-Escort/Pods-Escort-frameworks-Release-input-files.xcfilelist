@@ -1,3 +1,5 @@
 ${PODS_ROOT}/Target Support Files/Pods-Escort/Pods-Escort-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Charts/Charts.framework
+${BUILT_PRODUCTS_DIR}/SwiftChart/SwiftChart.framework
 ${BUILT_PRODUCTS_DIR}/UIDrawer/UIDrawer.framework
 ${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework

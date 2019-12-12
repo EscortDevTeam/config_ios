@@ -8,12 +8,18 @@
 
 import UIKit
 import UIDrawer
+import MobileCoreServices
 
+func getDocumentsDirectory() -> NSString {
+    let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+    let documentsDirectory = paths[0]
+    return documentsDirectory as NSString
+}
 class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
     let settings = ["Настройки","Техническая поддежрка","Оценить приложение"]
     weak var tableView: UITableView!
-    var items: [String] = ["\(startVTar)"]
-    var levelnumber: [String]  = ["\(level)"]
+    var items: [String] = []
+    var levelnumber: [String]  = []
     var viewMenu = UIView()
     let dy: Int = screenWidth == 320 ? 0 : 10
     let dIy: Int = screenWidth == 375 ? -15 : 0
@@ -36,18 +42,34 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
         self.tableView = tableView
         tableView.backgroundColor = .clear
     }
-    
+    override func viewDidDisappear(_ animated: Bool) {
+        items = []
+        levelnumber = []
+        itemsT = []
+        levelnumberT = []
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        if tarNew == false {
+            items = itemsT
+            levelnumber = levelnumberT
+        } else {
+            items = ["\(startVTar)"]
+            print("items: \(items)")
+            levelnumber = ["\(level)"]
+        }
         self.tableView.register(TirirovkaCellViewController.self, forCellReuseIdentifier: "TirirovkaCellViewController")
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PersonTableViewCellTwo")
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        self.tableView.separatorStyle = .none
         viewShow()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
 
+    override func viewWillAppear(_ animated: Bool) {
+        warning = false
     }
     
     fileprivate lazy var bgImage: UIImageView = {
@@ -88,11 +110,18 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
         return v
     }
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+        let activity = UIActivityIndicatorView()
+        if #available(iOS 13.0, *) {
+            activity.style = .medium
+        } else {
+            activity.style = .white
+        }
         activity.center = view.center
-        activity.transform = CGAffineTransform(scaleX: 2, y: 2)
+        activity.color = .white
         activity.hidesWhenStopped = true
         activity.startAnimating()
+        activity.transform = CGAffineTransform(scaleX: 2, y: 2)
+
         return activity
     }()
     func delay(interval: TimeInterval, closure: @escaping () -> Void) {
@@ -107,7 +136,18 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
         view.addSubview(backView!)
         view.addSubview(bgImage)
         backView!.addTapGesture{
-            self.navigationController?.popViewController(animated: true)
+            let alert = UIAlertController(title: "Close".localized(code), message: "You definitely want to complete the calibration?".localized(code), preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "No".localized(code), style: .default, handler: { _ in
+                //Cancel Action
+            }))
+            alert.addAction(UIAlertAction(title: "Yes".localized(code),
+                                          style: .destructive,
+                                          handler: {(_: UIAlertAction!) in
+                                            let  vc =  self.navigationController?.viewControllers.filter({$0 is TarirovkaStartViewControllet}).first
+                                            self.navigationController?.popToViewController(vc!, animated: true)
+            }))
+            self.present(alert, animated: true, completion: nil)
         }
 
         let menuImage = UIImageView(frame: CGRect(x: Int(screenWidth-21), y: dIy + dy + (hasNotch ? dIPrusy+35 : 45), width: 6, height: 24))
@@ -142,32 +182,98 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
             print("Done")
                 UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
                     label.frame = CGRect(x: Int(screenWidth-152), y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 47, width: 150, height: 19)
-                    label.text = "Сохранить файл"
+                    label.text = "Save to file".localized(code)
                     label.textColor = .black
                     label.font = UIFont(name:"FuturaPT-Light", size: 16.0)
                 })
+                label.addTapGesture {
+                        let file = "\(textName).csv"
+                        var contents = ""
+                        for i in 0...self.items.count-1 {
+                            contents = contents + "\(self.items[i]), \(self.levelnumber[i])\n"
+                        }
+                        let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+                        
+                        let fileURL = dir.appendingPathComponent(file)
+                        var filesToShare = [Any]()
+                        
+                        do {
+//                            try FileManager.default.createDirectory(at: fileURL, withIntermediateDirectories: true, attributes: nil)
+                            try contents.write(to: fileURL, atomically: false, encoding: .utf8)
+                            filesToShare.append(fileURL)
+                            self.showToast(message: "Recording was successful".localized(code) + " \(textName)", seconds: 1.0)
+                        }
+                        catch {
+                            print("Error: \(error)")
+                            self.showToast(message: "Error".localized(code), seconds: 1.0)
+
+                        }
+                }
                 UIView.animate(withDuration: 0.2, delay: 0.1, options: .curveEaseOut, animations: {
                     label2.frame = CGRect(x: Int(screenWidth-152), y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 74, width: 150, height: 19)
-                    label2.text = "Поделиться таблицей"
+                    label2.text = "Share".localized(code)
                     label2.textColor = .black
                     label2.font = UIFont(name:"FuturaPT-Light", size: 16.0)
                 })
+                label2.addTapGesture {
+                    let file = "\(textName).csv"
+                    var contents = ""
+                    for i in 0...self.items.count-1 {
+                        contents = contents + "\(self.items[i]), \(self.levelnumber[i])\n"
+                    }
+                    let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+                    let fileURL = dir.appendingPathComponent(file)
+                    var filesToShare = [Any]()
+                    do {
+                        try contents.write(to: fileURL, atomically: false, encoding: .utf8)
+                        filesToShare.append(fileURL)
+                        let activityViewController = UIActivityViewController(activityItems: filesToShare, applicationActivities: nil)
+                        self.present(activityViewController, animated: true, completion: nil)
+                    }
+                    catch {
+                        print("Error: \(error)")
+                    }
+                }
                 UIView.animate(withDuration: 0.2, delay: 0.2, options: .curveEaseOut, animations: {
                     label3.frame = CGRect(x: Int(screenWidth-152), y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 101, width: 150, height: 19)
-                    label3.text = "График"
+                    label3.text = "Tank calibration chart".localized(code)
                     label3.textColor = .black
                     label3.font = UIFont(name:"FuturaPT-Light", size: 16.0)
                 })
+                
+                label3.addTapGesture {
+                    let viewController = Charts()
+                    itemsC = self.items
+                    levelnumberC = self.levelnumber
+                    self.present(viewController, animated: true)
+                }
                 UIView.animate(withDuration: 0.2, delay: 0.3, options: .curveEaseOut, animations: {
                     label4.frame = CGRect(x: Int(screenWidth-152), y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 128, width: 150, height: 19)
-                    label4.text = "Завершить"
+                    label4.text = "Complete".localized(code)
                     label4.textColor = .black
                     label4.font = UIFont(name:"FuturaPT-Light", size: 16.0)
                 })
+                label4.addTapGesture{
+                    let alert = UIAlertController(title: "Close".localized(code), message: "You definitely want to complete the calibration?".localized(code), preferredStyle: .alert)
+                    
+                    alert.addAction(UIAlertAction(title: "No".localized(code), style: .default, handler: { _ in
+                        //Cancel Action
+                    }))
+                    alert.addAction(UIAlertAction(title: "Yes".localized(code),
+                                                  style: .destructive,
+                                                  handler: {(_: UIAlertAction!) in
+                                                    let  vc =  self.navigationController?.viewControllers.filter({$0 is TarirovkaStartViewControllet}).first
+                                                    self.navigationController?.popToViewController(vc!, animated: true)
+                    }))
+                    self.present(alert, animated: true, completion: nil)
+                }
             }
         }
         // delete menu
         viewAll.addTapGesture {
+            closeMenu()
+        }
+        func closeMenu() {
             viewAll.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
             print("Back")
             UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
@@ -188,7 +294,7 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
                     label2.removeFromSuperview()
                     label3.removeFromSuperview()
                     label4.removeFromSuperview()
-
+                    
                 })
             }
         }
@@ -200,21 +306,63 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
         view.addSubview(plusButton)
         var i = 2
         plusButton.addTapGesture {
-            UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseOut, animations: {
-                self.removeView.frame = CGRect(x: 20, y: screenHeight, width: screenWidth-126, height: 60)
-            }) { (true) in
-                self.removeView.removeFromSuperview()
-            }
-            self.levelnumber.insert("\(level)", at: 0)
-            if startVTar-stepTar*self.items.count >= 0 {
-                self.items.insert("\(Int(self.items[0])!-stepTar)", at: 0)
-            } else {
-                if startVTar-stepTar*self.items.count > -stepTar {
-                    self.items.insert("\(0)", at: 0)
+            if sliv == true {
+                startVTar = Int(self.items[0]) ?? 0
+                UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseOut, animations: {
+                    self.removeView.frame = CGRect(x: 20, y: screenHeight, width: screenWidth-126, height: 60)
+                }) { (true) in
+                    self.removeView.removeFromSuperview()
                 }
+                if startVTar-stepTar >= 0 {
+                    self.items.insert("\(Int(self.items[0])!-stepTar)", at: 0)
+                    self.levelnumber.insert("\(level)", at: 0)
+                } else {
+                    if startVTar-stepTar > -stepTar {
+                        self.items.insert("\(0)", at: 0)
+                        self.levelnumber.insert("\(level)", at: 0)
+                    }
+                }
+                i += 1
+            } else {
+                startVTar = Int(self.items[0]) ?? 0
+                print(self.items[0])
+                UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseOut, animations: {
+                    self.removeView.frame = CGRect(x: 20, y: screenHeight, width: screenWidth-126, height: 60)
+                }) { (true) in
+                    self.removeView.removeFromSuperview()
+                }
+                if startVTar+stepTar >= 0 && startVTar+stepTar <= 4095 {
+                    self.items.insert("\(Int(self.items[0])!+stepTar)", at: 0)
+                    self.levelnumber.insert("\(level)", at: 0)
+                } else {
+                    if startVTar+stepTar < 4095+stepTar {
+                        self.items.insert("\(4095)", at: 0)
+                        self.levelnumber.insert("\(level)", at: 0)
+                    }
+                }
+                i += 1
             }
-            i += 1
+            let file = "\(textName).csv"
+            var contents = ""
+            for i in 0...self.items.count-1 {
+                contents = contents + "\(self.items[i]), \(self.levelnumber[i])\n"
+            }
+            let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            
+            let fileURL = dir.appendingPathComponent(file)
+            var filesToShare = [Any]()
+            do {
+                try contents.write(to: fileURL, atomically: false, encoding: .utf8)
+                filesToShare.append(fileURL)
+                //                    self.showToast(message: "Файл \(textName) сохранен", seconds: 1.0)
+            }
+            catch {
+                print("Error: \(error)")
+                //                    self.showToast(message: "Ошибка", seconds: 1.0)
+                
+            }
             self.tableView.reloadData()
+
         }
         timer =  Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { (timer) in
             self.tableView.reloadData()
@@ -251,12 +399,38 @@ extension TirirovkaTableViewController: UITableViewDataSource {
             cell.levelLabel.text = levelnumber[indexPath.item]
             cell.backgroundColor = .clear
             //        cell.coverView.image = UIImage(named: "temp")
+            if indexPath.item == (items.count-1) {
+                let file = "\(textName).csv"
+                var contents = ""
+                for i in 0...self.items.count-1 {
+                    contents = contents + "\(self.items[i]), \(self.levelnumber[i])\n"
+                }
+                let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+
+                let fileURL = dir.appendingPathComponent(file)
+                var filesToShare = [Any]()
+                do {
+                    try contents.write(to: fileURL, atomically: false, encoding: .utf8)
+                    filesToShare.append(fileURL)
+//                    self.showToast(message: "Файл \(textName) сохранен", seconds: 1.0)
+                }
+                catch {
+                    print("Error: \(error)")
+//                    self.showToast(message: "Ошибка", seconds: 1.0)
+
+                }
+            }
             return cell
+
         }
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
-            return 109
+            if sliv == true {
+                return 109
+            } else {
+                return 80
+            }
         } else {
             return 76
         }
@@ -270,14 +444,14 @@ extension TirirovkaTableViewController: UITableViewDataSource {
                 
                 let labelDelete = UILabel(frame: CGRect(x: 20, y: 0, width: 100, height: 30))
                 labelDelete.center.y = 30
-                labelDelete.text = "Удалено"
+                labelDelete.text = "Deleted".localized(code)
                 labelDelete.textColor = UIColor(rgb: 0xEFEFEF)
                 labelDelete.font = UIFont(name:"FuturaPT-Light", size: 18.0)
                 removeView.addSubview(labelDelete)
                 
                 let labelDeleteB = UILabel(frame: CGRect(x: 170, y: 0, width: 100, height: 30))
                 labelDeleteB.center.y = 30
-                labelDeleteB.text = "Отменить"
+                labelDeleteB.text = "Cancel".localized(code)
                 labelDeleteB.textAlignment = .right
                 labelDeleteB.textColor = UIColor(rgb: 0xCF2121)
                 labelDeleteB.font = UIFont(name:"FuturaPT-Medium", size: 20.0)
@@ -351,10 +525,14 @@ extension TirirovkaTableViewController: UITableViewDataSource {
             
             let stabLabel = UILabel()
             stabLabel.frame = CGRect.init(x: 20, y: 84, width: 300, height: 23)
-            stabLabel.text = "Initial tank volume".localized(code) + ": \(startVTar)"
+            stabLabel.text = "Initial tank volume".localized(code) + ": \(String(describing: items.last!))"
             stabLabel.font = UIFont(name:"FuturaPT-Light", size: 18.0)
             stabLabel.textColor = UIColor(rgb: 0x272727)
-            headerView.addSubview(stabLabel)
+            if sliv == true {
+                headerView.addSubview(stabLabel)
+            } else {
+                stabLabel.removeFromSuperview()
+            }
             
             let stepNumberlLabel = UILabel(frame: CGRect(x: screenWidth-45, y: 17, width: 35, height: 19))
             stepNumberlLabel.text = "\(stepTar)"
@@ -376,8 +554,8 @@ extension TirirovkaTableViewController: UITableViewDataSource {
             headerView.addSubview(stepLabelPlace)
             
             stepLabelPlace.addTapGesture {
-                let alert = UIAlertController(title: "Внесите изменения на измение шага", message: nil, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil))
+                let alert = UIAlertController(title: "Make changes".localized(code), message: nil, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Cancel".localized(code), style: .cancel, handler: nil))
 
                 alert.addTextField(configurationHandler: { textField in
                     textField.keyboardType = .numberPad
@@ -401,14 +579,23 @@ extension TirirovkaTableViewController: UITableViewDataSource {
 
             let calibLabel = UILabel()
             calibLabel.frame = CGRect.init(x: screenWidth-90, y: 50, width: 80, height: 20)
-            calibLabel.text = "Draining".localized(code)
             calibLabel.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
-            calibLabel.textColor = UIColor(rgb: 0x00A778)
+            if sliv == true {
+                calibLabel.text = "Draining".localized(code)
+                calibLabel.textColor = UIColor(rgb: 0x00A778)
+            } else {
+                calibLabel.text = "Filing".localized(code)
+                calibLabel.textColor = UIColor(rgb: 0xCF2121)
+            }
             calibLabel.textAlignment = .right
             headerView.addSubview(calibLabel)
             
             let seperator = UIView()
-            seperator.frame = CGRect(x: 0, y: headerView.frame.height-2, width: screenWidth, height: 2)
+            if sliv == true {
+                seperator.frame = CGRect(x: 0, y: headerView.frame.height-2, width: screenWidth, height: 2)
+            } else {
+                seperator.frame = CGRect(x: 0, y: headerView.frame.height-31, width: screenWidth, height: 2)
+            }
             seperator.backgroundColor = UIColor(rgb: 0xCF2121)
             headerView.addSubview(seperator)
             
@@ -444,7 +631,7 @@ extension TirirovkaTableViewController: UITableViewDataSource {
             
             let calibLabel = UILabel()
             calibLabel.frame = CGRect.init(x: screenWidth-183, y: 42, width: 168, height: 20)
-            calibLabel.text = "Требуется калибровка"
+            calibLabel.text = ""
             calibLabel.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
             calibLabel.textColor = UIColor(rgb: 0xCF2121)
             calibLabel.textAlignment = .right
@@ -469,9 +656,9 @@ extension TirirovkaTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        let alertController = UIAlertController(title: "Изменение литров и уровня", message: "", preferredStyle: UIAlertController.Style.alert)
+        let alertController = UIAlertController(title: "Make changes".localized(code), message: "", preferredStyle: UIAlertController.Style.alert)
         let labelLits = UILabel(frame: CGRect(x: 25, y: 40, width: 100, height: 30))
-        labelLits.text = "Литры"
+        labelLits.text = "Liters".localized(code)
         labelLits.alpha = 0.58
         labelLits.font = UIFont(name:"FuturaPT-Light", size: 14.0)
 
@@ -501,10 +688,10 @@ extension TirirovkaTableViewController: UITableViewDelegate {
         secondTextField.layer.borderColor = UIColor(named: "Color")?.cgColor
         secondTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: secondTextField.frame.height))
         secondTextField.leftViewMode = .always
-        let cancelAction = UIAlertAction(title: "Отмена", style: UIAlertAction.Style.default, handler: {
+        let cancelAction = UIAlertAction(title: "Cancel".localized(code), style: UIAlertAction.Style.default, handler: {
             (action : UIAlertAction!) -> Void in })
         
-        let saveAction = UIAlertAction(title: "Сохранить", style: UIAlertAction.Style.default, handler: { alert -> Void in
+        let saveAction = UIAlertAction(title: "Save".localized(code), style: UIAlertAction.Style.default, handler: { alert -> Void in
             self.items[indexPath.item] = firstTextField.text ?? ""
             startVTar = Int(self.items[0]) ?? 0
             self.levelnumber[indexPath.item] = secondTextField.text ?? ""
@@ -522,4 +709,37 @@ extension TirirovkaTableViewController: UITableViewDelegate {
 
         self.present(alertController, animated: true, completion: nil)
     }
+}
+extension Data {
+
+    /// Data into file
+    ///
+    /// - Parameters:
+    ///   - fileName: the Name of the file you want to write
+    /// - Returns: Returns the URL where the new file is located in NSURL
+    func dataToFile(fileName: String) -> NSURL? {
+
+        // Make a constant from the data
+        let data = self
+
+        // Make the file path (with the filename) where the file will be loacated after it is created
+        let filePath = getDocumentsDirectory().appendingPathComponent(fileName)
+
+        do {
+            // Write the file from data into the filepath (if there will be an error, the code jumps to the catch block below)
+            try data.write(to: URL(fileURLWithPath: filePath))
+
+            // Returns the URL where the new file is located in NSURL
+            return NSURL(fileURLWithPath: filePath)
+
+        } catch {
+            // Prints the localized description of the error from the do block
+            print("Error writing the file: \(error.localizedDescription)")
+        }
+
+        // Returns nil if there was an error in the do-catch -block
+        return nil
+
+    }
+
 }

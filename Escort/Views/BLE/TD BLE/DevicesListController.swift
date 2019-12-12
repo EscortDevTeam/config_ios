@@ -84,7 +84,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                     _ = uniqueID.components(separatedBy: ["-"])
                     if(!peripherals.contains(peripheral)) {
                         if peripheral.name! == "TD_\(QRCODE)" {
-                            
+                            nameDevice = ""
                             print("YEEEES \(peripheral.name!)")
                             temp = nil
                             self.activityIndicator.startAnimating()
@@ -139,6 +139,8 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                     self.dismiss(animated: true, completion: nil)
                 } else {
                     timer.invalidate()
+                    self.dismiss(animated: true, completion: nil)
+                    self.dismiss(animated: true, completion: nil)
                     let alert = UIAlertController(title: "Warning".localized(code), message: "Connection is lost.".localized(code), preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                         switch action.style{
@@ -146,9 +148,10 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                             print("default")
                             self.dismiss(animated: true, completion: nil)
                             self.dismiss(animated: true, completion: nil)
-                            self.navigationController?.popViewController(animated: true)
+                            let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
+                            self.navigationController?.popToViewController(vc!, animated: true)
                             self.view.subviews.forEach({ $0.removeFromSuperview() })
-                            self.navigationController?.popViewController(animated: true)
+//                            self.navigationController?.popViewController(animated: true)
                         case .cancel:
                             print("cancel")
                         case .destructive:
@@ -375,6 +378,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                     let indexOfPerson = result.firstIndex{$0 == "SE"}
                     print(indexOfPerson!)
                     nameDevice = "\(result[indexOfPerson! + 2])"
+                    nameDeviceT = "\(result[indexOfPerson! + 2])"
                 }
                 if result.contains("UT") {
                     let indexOfPerson = result.firstIndex{$0 == "UT"}
@@ -570,11 +574,16 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
     }()
     
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+        let activity = UIActivityIndicatorView()
+        if #available(iOS 13.0, *) {
+            activity.style = .medium
+        } else {
+            activity.style = .white
+        }
         activity.transform = CGAffineTransform(scaleX: 2, y: 2)
         activity.center = view.center
-        activity.hidesWhenStopped = true
         activity.color = .white
+        activity.hidesWhenStopped = true
         activity.startAnimating()
         return activity
     }()

@@ -87,6 +87,13 @@
 
 "Enter value..." = "Введите значение...";
 
+"Enter password" = "Введите пароль";
+
+"Passwords do not match" = "Пароли не совпадают";
+
+"Passwords match" = "Пароли совпадают";
+
+
 "“Empty” value changing failure" = "Значение Пустой изменить не удалось";
 
 "“Full” value changed successfully" = "Значение Полный успешно изменено";
@@ -112,6 +119,8 @@
 "Reloading TL-BLE" = "Перезагрузка TL-BLE";
 
 "Tank calibration" = "Тарировка";
+
+"The file will be saved in the application \"Files\", in the folder \"Escort\"" = "Файл будет сохранен в приложение \"Файлы\", в папку \"Эскорт\"";
 
 "Continue" = "Возобновить";
 
@@ -170,6 +179,45 @@
 "Remove" = "Удалить";
 
 "Reloading..." = "Перезагружается...";
+
+"You definitely want to complete the calibration?" = "Вы точно хотите завершить тарировку?";
+
+"Close" = "Закрыть";
+
+"Yes" = "Да";
+
+"No" = "Нет";
+
+"Tank calibration chart" = "График тарировки";
+
+"Complete" = "Завершить";
+
+"Share" = "Поделиться";
+
+"Recording was successful" = "Запись прошла успешно";
+
+"Error" = "Ошибка";
+
+"Save to file" = "Сохранить в файл";
+
+"Deleted" = "Удалено";
+
+"Cancel" = "Отменить";
+
+"Make changes" = "Внесите изменения";
+
+"Save" = "Сохранить";
+
+"Not connected to the sensor" = "Не подключен к датчику";
+
+"Set password" = "Установите пароль";
+
+"Confirm password" = "Повторите пароль";
+
+"Create a password" = "Придумайте пароль";
+
+
+"Liters" = "Литры";
 
 
 "Manual configuration input" = "Ручной ввод конфигурации";

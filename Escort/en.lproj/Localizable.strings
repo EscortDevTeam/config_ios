@@ -175,11 +175,54 @@
 
 "Success" = "Success";
 
+"You definitely want to complete the calibration?" = "You definitely want to complete the calibration?";
+
+"Close" = "Close";
+
 "Wrong password" = "Wrong password";
 
 "Enter" = "Enter";
 
 "Remove" = "Remove";
+
+"Yes" = "Yes";
+"No" = "No";
+
+"Error" = "Error";
+
+"Save to file" = "Save to file";
+
+"Save" = "Save";
+
+"Liters" = "Liters";
+
+"Not connected to the sensor" = "Not connected to the sensor";
+
+"Set password" = "Set password";
+"Confirm password" = "Confirm password";
+"Create a password" = "Create a password";
+
+"The file will be saved in the application \"Files\", in the folder \"Escort\"" = "The file will be saved in the application \"Files\", in the folder \"Escort\"";
+"Tank calibration chart" = "Tank calibration chart";
+
+"Complete" = "Complete";
+
+"Enter password" = "Enter password";
+
+"Passwords do not match" = "Passwords do not match";
+
+"Passwords match" = "Passwords match";
+
+
+"Share" = "Share";
+
+"Recording was successful" = "Recording was successful";
+
+"Deleted" = "Deleted";
+
+"Cancel" = "Cancel";
+
+"Make changes" = "Make changes";
 
 "Manual configuration input" = "Manual configuration input";
 
@@ -214,7 +257,7 @@
 "Listening Off" = "Получаю данные от";
 
 /* The title of the cell showing device name */
-"Name" = "Название";
+"Name" = "Name";
 
 /* The title of the cell showing the last idle */
 "On Idle" = "Бездействие";

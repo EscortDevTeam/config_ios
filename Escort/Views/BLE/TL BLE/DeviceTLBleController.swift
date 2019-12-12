@@ -125,12 +125,18 @@ class DeviceTLBleController: UIViewController {
         return v
     }
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+        let activity = UIActivityIndicatorView()
+        if #available(iOS 13.0, *) {
+            activity.style = .medium
+        } else {
+            activity.style = .white
+        }
         activity.center = view.center
-        activity.transform = CGAffineTransform(scaleX: 2, y: 2)
+        activity.color = .black
         activity.hidesWhenStopped = true
-        activity.color = .white
         activity.startAnimating()
+        activity.transform = CGAffineTransform(scaleX: 2, y: 2)
+
         return activity
     }()
     func delay(interval: TimeInterval, closure: @escaping () -> Void) {

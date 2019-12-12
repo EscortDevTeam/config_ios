@@ -47,6 +47,7 @@
 		B5AC887B2383E20800FACEAE /* Path-2.png in Resources */ = {isa = PBXBuildFile; fileRef = B5AC887A2383E20800FACEAE /* Path-2.png */; };
 		B5AC887D2383E21200FACEAE /* Path.png in Resources */ = {isa = PBXBuildFile; fileRef = B5AC887C2383E21100FACEAE /* Path.png */; };
 		B5B3F285239A27C300A6FD09 /* MenuControllerDontLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B3F284239A27C300A6FD09 /* MenuControllerDontLanguage.swift */; };
+		B5B89090239E678800FD727B /* Charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B8908F239E678800FD727B /* Charts.swift */; };
 		B5B8F561236C15D70072EEFB /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B8F560236C15D70072EEFB /* LocalizedString.swift */; };
 		B5D424EE23916B3000F7EBB4 /* RateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D424ED23916B3000F7EBB4 /* RateManager.swift */; };
 		B5FDBC4F23029B5A00442541 /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FDBC4E23029B5A00442541 /* Codable.swift */; };
@@ -166,6 +167,7 @@
 		B5AC887A2383E20800FACEAE /* Path-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Path-2.png"; sourceTree = "<group>"; };
 		B5AC887C2383E21100FACEAE /* Path.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Path.png; sourceTree = "<group>"; };
 		B5B3F284239A27C300A6FD09 /* MenuControllerDontLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuControllerDontLanguage.swift; sourceTree = "<group>"; };
+		B5B8908F239E678800FD727B /* Charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charts.swift; sourceTree = "<group>"; };
 		B5B8F560236C15D70072EEFB /* LocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedString.swift; sourceTree = "<group>"; };
 		B5C5F2AB23605FDE0043F46A /* JSONLanguage.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = JSONLanguage.json; sourceTree = "<group>"; };
 		B5D424ED23916B3000F7EBB4 /* RateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateManager.swift; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 				B58F7036238BAF9300DA99B9 /* TarirovkaStartViewControllet.swift */,
 				B58F7039238BC16800DA99B9 /* TarirovkaSettingsViewController.swift */,
 				B58F703B238BD77600DA99B9 /* TirirovkaTableViewController.swift */,
+				B5B8908F239E678800FD727B /* Charts.swift */,
 				B58F703F238C01F200DA99B9 /* Cell */,
 			);
 			path = Tatitovka;
@@ -776,6 +779,7 @@
 				C41730D322CB3D7700177C54 /* LanguageSelectModel.swift in Sources */,
 				B592FD532399293700EBE8C6 /* MenuController.swift in Sources */,
 				C424A91022D61CB9008E154F /* DevicesListController.swift in Sources */,
+				B5B89090239E678800FD727B /* Charts.swift in Sources */,
 				B503C86F2303F4C3004F248F /* PopupTwoVC.swift in Sources */,
 				B510836B23007E1B0086C462 /* ContainerViewController.swift in Sources */,
 				B5FDBC532302B68000442541 /* User.swift in Sources */,
@@ -968,17 +972,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = HVVJT6BNYW;
 				INFOPLIST_FILE = Escort/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.13;
+				MARKETING_VERSION = 1.0.14;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.fmeter.escortconnect2121;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -993,17 +997,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = HVVJT6BNYW;
 				INFOPLIST_FILE = Escort/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.13;
+				MARKETING_VERSION = 1.0.14;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.fmeter.escortconnect2121;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
