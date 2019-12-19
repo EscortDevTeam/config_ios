@@ -31,7 +31,8 @@ class QRScannerViewController: UIViewController {
                         if pruf.contains("https://www.fmeter.ru/") || pruf.contains("https://www.fmeter.ru/TD/") {
                             let tdstring = pruf.dropFirst(tdstcount!-6)
                             print(tdstring)
-                            self.navigationController?.pushViewController(DevicesListC, animated: true)
+                            hidednCell = true
+                            self.navigationController?.pushViewController(DevicesListControllerNew(), animated: true)
                             QRCODE = String(tdstring)
                         } else {
                             showToast(message: "QR-code не поддерживается", seconds: 2.0)

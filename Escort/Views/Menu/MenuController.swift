@@ -8,12 +8,15 @@
 
 import UIKit
 import UIDrawer
+import RxSwift
+import RxTheme
 
 class MenuController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         viewShow()
+        setupTheme()
     }
     override func viewWillAppear(_ animated: Bool) {
         warning = false
@@ -24,6 +27,21 @@ class MenuController: UIViewController {
         return v
     }()
     
+    lazy var themeSwitch: UISwitch = {
+        let themeSwitch = UISwitch()
+        themeSwitch.tintColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+        themeSwitch.addTarget(self, action: #selector(didChangeThemeSwitchValue), for: .valueChanged)
+        return themeSwitch
+    }()
+    
+    @objc func didChangeThemeSwitchValue() {
+        if themeSwitch.isOn {
+            themeService.switch(.dark)
+        } else {
+            themeService.switch(.light)
+        }
+    }
+
     fileprivate lazy var bgImage: UIImageView = {
         let img = UIImageView(image: UIImage(named: "bg-figures.png")!)
         img.frame = CGRect(x: 0, y: screenHeight-260, width: 201, height: 207)
@@ -227,6 +245,43 @@ class MenuController: UIViewController {
             
             self.present(alert, animated: true)
         }
+//        let aboutApp5 = UILabel(frame: CGRect(x: 0, y: 270, width: 300, height: 45))
+//        aboutApp5.center.x = view.center.x
+//        aboutApp5.textAlignment = .center
+//
+//        let aboutAppView5 = UIView(frame: CGRect(x: 0, y: 270, width: 300, height: 45))
+//        aboutAppView5.backgroundColor = .clear
+//        aboutAppView5.center.x = view.center.x
+//        aboutApp5.text = "Внешний вид".localized(code)
+//        aboutApp5.font = UIFont(name:"FuturaPT-Light", size: 36.0)
+//        aboutApp5.textColor = .white
+//        //        let redLineApp = UIView(frame: CGRect(x: 0, y: 45, width: 200, height: 2))
+//        //        redLineApp.backgroundColor = UIColor(rgb: 0xCF2121)
+//        view.addSubview(aboutApp5)
+//        view.addSubview(aboutAppView5)
+//        aboutAppView5.addTapGesture {
+//            let alert = UIAlertController(title: "Выберете тему".localized(code), message: "", preferredStyle: .actionSheet)
+//
+//            alert.addAction(UIAlertAction(title: "Темная тема", style: .default, handler: { (_) in
+//                isNight = false
+//            }))
+//
+//            alert.addAction(UIAlertAction(title: "Светлая тема", style: .default, handler: { (_) in
+//                isNight = false
+//            }))
+//
+//            alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: { (_) in
+//                print("Назад")
+//            }))
+//
+//            self.present(alert, animated: true)
+//        }
+
+        
+        themeSwitch.frame = CGRect(x: 0, y: 270, width: 50, height: 30)
+        themeSwitch.center.x = screenWidth/2
+        view.addSubview(themeSwitch)
+        
 //        let text = UILabel()
 //        text.text = "Info".localized(code)
 //        text.text = "Посадил дед репку и говорит:\n\n— Расти, расти, репка, сладка! Расти, расти, репка, крепка!\n\nВыросла репка сладка, крепка, большая-пребольшая.\n\nПошел дед репку рвать: тянет-потянет, вытянуть не может.\n\nПозвал дед бабку.\n\nБабка за дедку,\nДедка за репку —\nТянут-потянут, вытянуть не могут.\n\nПозвала бабка внучку.\n\nВнучка за бабку,\nБабка за дедку,\nДедка за репку —\nТянут-потянут, вытянуть не могут.\n\nПозвала внучка Жучку.\n\nЖучка за внучку,\nВнучка за бабку,\nБабка за дедку,\nДедка за репку —\nТянут-потянут, вытянуть не могут.\n\nПозвала Жучка кошку.\n\nКошка за Жучку,\nЖучка за внучку,\nВнучка за бабку,\nБабка за дедку,\nДедка за репку —\nТянут-потянут, вытянуть не могут.\n\nПозвала кошка мышку.\n\nМышка за кошку,\nКошка за Жучку,\nЖучка за внучку,\nВнучка за бабку,\nБабка за дедку,\nДедка за репку —\nТянут-потянут — и вытянули репку\n"
@@ -240,6 +295,10 @@ class MenuController: UIViewController {
 //        scrollView.addSubview(text)
 //
 //        scrollView.contentSize = CGSize(width: screenWidth, height: text.frame.height)
+    }
+    
+    fileprivate func setupTheme() {
+        view.theme.backgroundColor = themed { $0.backgroundColor }
     }
 }
 extension MenuController: UIViewControllerTransitioningDelegate {

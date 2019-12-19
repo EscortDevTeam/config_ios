@@ -3,12 +3,22 @@ PODS:
     - Charts/Core (= 3.4.0)
   - Charts/Core (3.4.0)
   - lottie-ios (3.1.5)
+  - RxCocoa (5.0.1):
+    - RxRelay (~> 5)
+    - RxSwift (~> 5)
+  - RxRelay (5.0.1):
+    - RxSwift (~> 5)
+  - RxSwift (5.0.1)
+  - RxTheme (4.0.0):
+    - RxCocoa (~> 5.0)
+    - RxSwift (~> 5.0)
   - SwiftChart (1.0.1)
   - UIDrawer (1.0)
 
 DEPENDENCIES:
   - Charts
   - lottie-ios
+  - RxTheme
   - SwiftChart
   - UIDrawer (from `https://github.com/Que20/UIDrawer.git`, tag `1.0`)
 
@@ -16,6 +26,10 @@ SPEC REPOS:
   trunk:
     - Charts
     - lottie-ios
+    - RxCocoa
+    - RxRelay
+    - RxSwift
+    - RxTheme
     - SwiftChart
 
 EXTERNAL SOURCES:
@@ -31,9 +45,13 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
   lottie-ios: 32bf84389337d86fbc8b12266e88452e0abf1dee
+  RxCocoa: e741b9749968e8a143e2b787f1dfbff2b63d0a5c
+  RxRelay: 89d54507f4fd4d969e6ec1d4bd7f3673640b4640
+  RxSwift: e2dc62b366a3adf6a0be44ba9f405efd4c94e0c4
+  RxTheme: 0b642f47c7d197a803c6b9c083964188c34f7ddb
   SwiftChart: ba767a678d568a5ee22d419e146a0582865e1aff
   UIDrawer: 1bfbc152fee69f6809a41508000cf1b9bd4b1738
 
-PODFILE CHECKSUM: 3b542af29bedf8cafd7692dbb4c56de98349ed8b
+PODFILE CHECKSUM: 5e7d609a593f80eb17b73eb9b31ce8ec4af78d37
 
 COCOAPODS: 1.8.4

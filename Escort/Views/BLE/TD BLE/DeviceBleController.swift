@@ -329,7 +329,9 @@ class DeviceBleController: UIViewController {
         }
         
         y = y + deltaY
-        
+        if screenHeight == 812.0{
+            y = y - 15
+        }
         let statusName = UILabel(frame: CGRect(x: x, y: y + Int(screenHeight/5), width: Int(screenWidth), height: 60))
         if temp != nil {
             statusName.text = "Connected".localized(code)
@@ -339,6 +341,7 @@ class DeviceBleController: UIViewController {
             statusName.textColor = UIColor(rgb: 0xCF2121)
             item = 0
         }
+
         let lbl4 = UILabel(frame: CGRect(x: x, y: y + Int(screenHeight/5) + (hasNotch ? 30 : 40), width: Int(screenWidth), height: 60))
         let cntMain1: Int = Int(cnt1)!
         cnt1 = cnt2

@@ -111,7 +111,7 @@ class TarirovkaSettingsViewController: UIViewController {
         nameFileField.layer.cornerRadius = 2
         nameFileField.layer.borderWidth = 1
         nameFileField.textColor = .white
-        nameFileField.placeholder = "Enter file name".localized(code)
+        nameFileField.attributedPlaceholder = NSAttributedString(string: "Enter file name".localized(code), attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         nameFileField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: nameFileField.frame.height))
         nameFileField.leftViewMode = .always
         nameFileField.layer.borderColor = UIColor(rgb: 0x959595).cgColor
@@ -123,7 +123,7 @@ class TarirovkaSettingsViewController: UIViewController {
         stepFileField.layer.cornerRadius = 2
         stepFileField.layer.borderWidth = 1
         stepFileField.textColor = .white
-        stepFileField.placeholder = "Step".localized(code)
+        stepFileField.attributedPlaceholder = NSAttributedString(string: "Step".localized(code), attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         stepFileField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: nameFileField.frame.height))
         stepFileField.leftViewMode = .always
         stepFileField.keyboardType = .numberPad
@@ -136,7 +136,8 @@ class TarirovkaSettingsViewController: UIViewController {
         startVBacFileField.layer.cornerRadius = 2
         startVBacFileField.layer.borderWidth = 1
         startVBacFileField.textColor = .white
-        startVBacFileField.placeholder = "Initial tank volume".localized(code)
+        startVBacFileField.attributedPlaceholder = NSAttributedString(string: "Initial tank volume".localized(code), attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+
         startVBacFileField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: nameFileField.frame.height))
         startVBacFileField.leftViewMode = .always
         startVBacFileField.keyboardType = .numberPad
@@ -150,10 +151,9 @@ class TarirovkaSettingsViewController: UIViewController {
         nextButton.backgroundColor = UIColor(rgb: 0xCF2121)
         nextButton.setTitle("Continue Next".localized(code), for: UIControl.State.normal)
         view.addSubview(nextButton)
+
         
-        yHeight = yHeight + 52
-        
-        let nextTextFile = UILabel(frame: CGRect(x: 25, y:Int(yHeight), width: Int(screenWidth-50), height: 43))
+        let nextTextFile = UILabel(frame: CGRect(x: 25, y:Int(yHeight+52), width: Int(screenWidth-50), height: 60))
         nextTextFile.text = "The file will be saved in the application \"Files\", in the folder \"Escort\"".localized(code)
         nextTextFile.textColor = .white
         nextTextFile.numberOfLines = 0

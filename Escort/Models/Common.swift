@@ -36,6 +36,7 @@ var temp : String?
 var passwordHave = false
 var warning = false
 var RSSIMainArray: [String] = []
+var RSSIMainArrayRSSI: [String] = []
 let screenWidth = UIScreen.main.bounds.width, screenHeight = UIScreen.main.bounds.height
 let headerHeight = screenWidth * screenHeight / 3500
 var peripheralName: [String] = []
@@ -61,6 +62,12 @@ var tarNew = true
 var sliv = true
 var sandboxFileURLPath: URL? = nil
 var chekOpen = true
+var adveTemp: [String] = []
+var adveLvl: [String] = []
+var adveVat: [String] = []
+var adveFW: [String] = []
+var isNight = false
+var hidednCell = false
 func headerSet(title: String) -> UIView {
     return headerSet(title: title, showBack: false).0
 }
@@ -73,6 +80,8 @@ func headerSet(title: String, showBack: Bool) -> (UIView, UIView?) {
     bg.frame = CGRect(x: 0, y: 0, width: screenWidth, height: headerHeight)
     v.addSubview(bg)
     print(screenWidth)
+    print(screenHeight)
+
     let dy: Int = screenWidth == 320 ? 0 : 10
     let dIy: Int = screenWidth == 375 ? -15 : 0
     let dIPrusy: Int = screenWidth == 414 ? -12 : 0

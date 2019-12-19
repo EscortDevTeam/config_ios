@@ -8,11 +8,11 @@
 import UIKit
 import UIDrawer
 import MobileCoreServices
+import RxSwift
+import RxTheme
 
-class ConnectionSelectController: UIViewController, SecondVCDelegate {
-    func secondVC_BackClicked(data: String) {
-        viewShow()
-    }
+class ConnectionSelectController: UIViewController {
+
     let DeviceSelectCUSB = DeviceSelectControllerUSB()
     let DeviceSelectC = DeviceSelectController()
     let popUpVC = UIStoryboard(name: "MenuSelf", bundle: nil).instantiateViewController(withIdentifier: "popUpVCid") as! PopupTwoVC
@@ -23,12 +23,12 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewShow()
+        setupTheme()
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        popUpVC.delegate = self
         rightCount = 0
         timer =  Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (timer) in
             print("timerConnection")
@@ -40,6 +40,19 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
         viewShow()
         boolBLE = false
         print("12")
+    }
+    lazy var themeSwitch: UISwitch = {
+        let themeSwitch = UISwitch()
+        themeSwitch.tintColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+        themeSwitch.addTarget(self, action: #selector(didChangeThemeSwitchValue), for: .valueChanged)
+        return themeSwitch
+    }()
+    @objc func didChangeThemeSwitchValue() {
+        if themeSwitch.isOn {
+            themeService.switch(.dark)
+        } else {
+            themeService.switch(.light)
+        }
     }
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView()
@@ -59,7 +72,7 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
     func viewShow() {
         
         view.subviews.forEach({ $0.removeFromSuperview() })
-        view.backgroundColor = .white
+//        view.backgroundColor = .white
         var h = 0
 
         view.addSubview(headerSet(title: "Select connection type".localized(code)))
@@ -145,12 +158,17 @@ class ConnectionSelectController: UIViewController, SecondVCDelegate {
         
         v2.frame = CGRect(x:0, y: Int(headerHeight) + cellHeight + h, width: Int(screenWidth), height: cellHeight-h)
                 v2.addTapGesture{
-                    
+//                    self.timer.invalidate()
+//                    self.navigationController?.pushViewController(DevicesListControllerNew(), animated: true)
                 }
         v2.alpha = 0.5
         view.addSubview(v1)
         view.addSubview(v2)
 
+    }
+    
+    fileprivate func setupTheme() {
+        view.theme.backgroundColor = themed { $0.backgroundColor }
     }
 }
 extension ConnectionSelectController: UIViewControllerTransitioningDelegate {

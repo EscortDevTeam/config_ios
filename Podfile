@@ -10,4 +10,5 @@ target 'Escort' do
 	pod 'UIDrawer', :git => 'https://github.com/Que20/UIDrawer.git', :tag => '1.0'
 	pod 'Charts'
 	pod "SwiftChart"
+	pod 'RxTheme'
 end

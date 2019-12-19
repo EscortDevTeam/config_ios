@@ -46,7 +46,7 @@ import UIDrawer
     
     let popUpVC = UIStoryboard(name: "MenuSelf", bundle: nil).instantiateViewController(withIdentifier: "popUpVCid") as! PopupTwoVC
     let popUpVCNext = UIStoryboard(name: "MainSelf", bundle: nil).instantiateViewController(withIdentifier: "popUpVCid") as! PopupViewController
-    let DevicesListC = DevicesListController()
+    let DevicesListC = DevicesListControllerNew()
     let DevicesListTLC = DevicesTLListController()
     let sc = QRScannerViewController()
 
@@ -209,7 +209,7 @@ import UIDrawer
                         }
                         if d.name == "TD BLE" {
                             DeviceTypeIndex = i
-                            self.navigationController?.pushViewController(self.DevicesListC, animated: true)
+                            self.navigationController?.pushViewController(DevicesListControllerNew(), animated: true)
                             self.view.subviews.forEach({ $0.removeFromSuperview() })
                         }
                         if d.name == "QR-CODE" {
@@ -326,7 +326,7 @@ import UIDrawer
                     }
                     if d.name == "TD BLE" {
                         DeviceTypeIndex = i
-                        self.navigationController?.pushViewController(self.DevicesListC, animated: true)
+                        self.navigationController?.pushViewController(DevicesListControllerNew(), animated: true)
                         self.view.subviews.forEach({ $0.removeFromSuperview() })
                     }
                     if d.name == "QR-CODE" {
