@@ -68,6 +68,10 @@ var adveVat: [String] = []
 var adveFW: [String] = []
 var isNight = false
 var hidednCell = false
+let dy: Int = screenWidth == 320 ? 0 : 10
+let dIy: Int = screenWidth == 375 ? -15 : 0
+let dIPrusy: Int = screenWidth == 414 ? -12 : 0
+
 func headerSet(title: String) -> UIView {
     return headerSet(title: title, showBack: false).0
 }

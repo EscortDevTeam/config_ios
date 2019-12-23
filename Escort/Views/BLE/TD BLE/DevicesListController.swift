@@ -10,6 +10,7 @@ import UIKit
 import CoreBluetooth
 import UIDrawer
 
+
 class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, SecondVCDelegate {
     
     func secondVC_BackClicked(data: String) {
@@ -587,6 +588,14 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         activity.startAnimating()
         return activity
     }()
+    
+    fileprivate lazy var hamburger: UIImageView = {
+        let hamburger = UIImageView(image: UIImage(named: "Hamburger.png")!)
+        hamburger.image = hamburger.image!.withRenderingMode(.alwaysTemplate)
+
+        return hamburger
+    }()
+    
     override func viewDidDisappear(_ animated: Bool) {
         self.view.subviews.forEach({ $0.removeFromSuperview() })
         while let subview = self.scrollView.subviews.last {
@@ -629,7 +638,6 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
     private func mainPartShow() {
         
         aaa.removeAll()
-        let hamburger = UIImageView(image: UIImage(named: "Hamburger.png")!)
         let hamburgerPlace = UIView()
         var yHamb = screenHeight/22
         if screenWidth == 414 {
@@ -643,7 +651,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         }
         hamburgerPlace.frame = CGRect(x: screenWidth-50, y: yHamb, width: 35, height: 35)
         hamburger.frame = CGRect(x: screenWidth-45, y: yHamb, width: 25, height: 25)
-        
+
         view.addSubview(hamburger)
         view.addSubview(hamburgerPlace)
         

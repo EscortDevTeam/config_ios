@@ -149,9 +149,9 @@
             timestampString = "0"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
-            landmarkName = "viewShowTwo()"
+            startingLineNumber = "282"
+            endingLineNumber = "282"
+            landmarkName = "viewShow()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -166,9 +166,9 @@
             timestampString = "0"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
-            landmarkName = "viewShowTwo()"
+            startingLineNumber = "297"
+            endingLineNumber = "297"
+            landmarkName = "viewShow()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -183,9 +183,9 @@
             timestampString = "0"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "246"
-            endingLineNumber = "246"
-            landmarkName = "viewShowMenu()"
+            startingLineNumber = "327"
+            endingLineNumber = "327"
+            landmarkName = "viewShow()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -217,8 +217,8 @@
             timestampString = "0"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "504"
-            endingLineNumber = "504"
+            startingLineNumber = "505"
+            endingLineNumber = "505"
             landmarkName = "refresh(sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -361,8 +361,8 @@
             filePath = "Escort/Views/BLE/TD BLE/DevicesListController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
             landmarkName = "centralManager(_:didDiscover:advertisementData:rssi:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -377,8 +377,8 @@
             filePath = "Escort/Views/BLE/TD BLE/DevicesListControllerNew.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "686"
-            endingLineNumber = "686"
+            startingLineNumber = "694"
+            endingLineNumber = "694"
             landmarkName = "scanBLEDevices()"
             landmarkType = "7">
          </BreakpointContent>

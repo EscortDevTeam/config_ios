@@ -26,6 +26,7 @@
 		B51286472396803C00148E82 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = B51286462396803C00148E82 /* loading.json */; };
 		B5291BBB22FD586300CB8890 /* DeviceListUsbController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5291BBA22FD586300CB8890 /* DeviceListUsbController.swift */; };
 		B52989332306AE1F007D2DE3 /* Battary.png in Resources */ = {isa = PBXBuildFile; fileRef = B52989322306AE1F007D2DE3 /* Battary.png */; };
+		B536F43823AD151A0007C93C /* MainVCNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B536F43723AD15190007C93C /* MainVCNavController.swift */; };
 		B546385D23714AF60073C447 /* SettingAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B546385C23714AF60073C447 /* SettingAppController.swift */; };
 		B546385E23718C940073C447 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B546386023718C940073C447 /* Localizable.strings */; };
 		B549894723AB71EA00B164BB /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B549894623AB71EA00B164BB /* Theme.swift */; };
@@ -144,6 +145,7 @@
 		B51286462396803C00148E82 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		B5291BBA22FD586300CB8890 /* DeviceListUsbController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListUsbController.swift; sourceTree = "<group>"; };
 		B52989322306AE1F007D2DE3 /* Battary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Battary.png; sourceTree = "<group>"; };
+		B536F43723AD15190007C93C /* MainVCNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVCNavController.swift; sourceTree = "<group>"; };
 		B546385C23714AF60073C447 /* SettingAppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAppController.swift; sourceTree = "<group>"; };
 		B546385F23718C940073C447 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B546386123718CCE0073C447 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -469,7 +471,7 @@
 				C491783122C8A94D0006106E /* StartScreenController.swift */,
 				C41730C922CA55DD00177C54 /* LanguageSelectController.swift */,
 				C41730DE22CB880A00177C54 /* ConnectionSelectController.swift */,
-				B549894623AB71EA00B164BB /* Theme.swift */,
+				B536F43723AD15190007C93C /* MainVCNavController.swift */,
 				B546385C23714AF60073C447 /* SettingAppController.swift */,
 				B54795E223631CC2005F408C /* Menu */,
 				B54795E023631C5C005F408C /* BLE */,
@@ -487,6 +489,7 @@
 				C41730D422CB40DC00177C54 /* Common.swift */,
 				C41730F322CB9E2C00177C54 /* DeviceSelectModel.swift */,
 				C424A91722D631F7008E154F /* DevicesListModel.swift */,
+				B549894623AB71EA00B164BB /* Theme.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -783,6 +786,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C491784422C8A9F30006106E /* StartScreenModel.swift in Sources */,
+				B536F43823AD151A0007C93C /* MainVCNavController.swift in Sources */,
 				C41730E122CB899500177C54 /* ConnectionSelectModel.swift in Sources */,
 				B5B8F561236C15D70072EEFB /* LocalizedString.swift in Sources */,
 				B58F703C238BD77600DA99B9 /* TirirovkaTableViewController.swift in Sources */,

@@ -9,6 +9,8 @@
 import UIKit
 import CoreBluetooth
 import UIDrawer
+import RxSwift
+import RxTheme
 
 struct cellData {
     var opened = Bool()
@@ -17,11 +19,8 @@ struct cellData {
 }
 var rrsiPink = 0
 var kCBAdvDataManufacturerData = ""
-class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, SecondVCDelegate {
-    
-    func secondVC_BackClicked(data: String) {
-        viewShow()
-    }
+class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate {
+
     var (headerView, backView) = headerSet(title: "List of available devices".localized(code), showBack: true)
     let viewAlpha = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
     let searchBar = UISearchBar(frame: CGRect(x: 0, y: headerHeight, width: screenWidth, height: 35))
@@ -611,6 +610,14 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    
+    fileprivate lazy var hamburger: UIImageView = {
+        let hamburger = UIImageView(image: UIImage(named: "Hamburger.png")!)
+        hamburger.image = hamburger.image!.withRenderingMode(.alwaysTemplate)
+
+        return hamburger
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.5)
@@ -631,6 +638,7 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
         self.tableView.register(DevicesListCellMain.self, forCellReuseIdentifier: "DevicesListCellMain")
         self.tableView.register(DevicesListCell.self, forCellReuseIdentifier: "DevicesListCell")
         tableView.separatorStyle = .none
+        setupTheme()
     }
     
     var tr = 0
@@ -686,7 +694,7 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
         self.view.isUserInteractionEnabled = false
         var time = 0.0
         if QRCODE != "" {
-            time = 9.0
+            time = 12.0
         }
         //stop scanning after 5 seconds
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0 + time) {
@@ -744,7 +752,7 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
     }
     private func viewShow() {
 //        view.subviews.forEach({ $0.removeFromSuperview() })
-        view.backgroundColor = UIColor(rgb: 0x1F2222)
+//        view.backgroundColor = UIColor(rgb: 0x1F2222)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             (self.headerView, self.backView) = headerSet(title: "List of available devices".localized(code), showBack: true)
             self.view.addSubview(self.headerView)
@@ -762,13 +770,12 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
             if QRCODE == "" {
                 self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
                 self.viewAlpha.removeFromSuperview()
-                self.view.backgroundColor = UIColor(rgb: 0x1F2222).withAlphaComponent(1)
+//                self.view.backgroundColor = UIColor(rgb: 0x1F2222).withAlphaComponent(1)
                 self.activityIndicator.stopAnimating()
             }
 //            self.mainPartShow()
             
         }
-        let hamburger = UIImageView(image: UIImage(named: "Hamburger.png")!)
         let hamburgerPlace = UIView()
         var yHamb = screenHeight/22
         if screenWidth == 414 {
@@ -783,9 +790,9 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
         hamburgerPlace.frame = CGRect(x: screenWidth-50, y: yHamb, width: 35, height: 35)
         hamburger.frame = CGRect(x: screenWidth-45, y: yHamb, width: 25, height: 25)
         
-        view.addSubview(hamburger)
+
         view.addSubview(hamburgerPlace)
-        
+        view.addSubview(hamburger)
         
         hamburgerPlace.addTapGesture {
             let viewController = MenuControllerDontLanguage()
@@ -800,7 +807,10 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
     var searchedCountry = [String]()
     var aaa = [String]()
     let label = UILabel()
-
+    fileprivate func setupTheme() {
+        view.theme.backgroundColor = themed { $0.backgroundColor }
+        hamburger.theme.tintColor = themed{ $0.navigationTintColor }
+    }
 }
 extension DevicesListControllerNew: UISearchBarDelegate {
     

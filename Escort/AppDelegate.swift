@@ -24,8 +24,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navgiationController.navigationBar.isHidden = true
 //        navgiationController.interactivePopGestureRecognizer?.isEnabled = true
 
+        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+        if launchedBefore  {
+            print("Not first launch.")
+            code = UserDefaults.standard.string(forKey: "code") ?? code
+            isNight = UserDefaults.standard.bool(forKey: "isNight")
+            if isNight {
+                UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
+            } else {
+                UIApplication.shared.statusBarStyle = UIStatusBarStyle.darkContent
+            }
+        } else {
+            print("First launch, setting UserDefault.")
+            UserDefaults.standard.set(true, forKey: "launchedBefore")
+            UserDefaults.standard.set(code, forKey: "code")
+            UIApplication.shared.statusBarStyle = UIStatusBarStyle.darkContent
+        }
+        
         navgiationController.pushViewController(StartScreenController(), animated: true)
-
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = navgiationController
         window?.makeKeyAndVisible()

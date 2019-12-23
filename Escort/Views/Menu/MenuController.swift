@@ -17,6 +17,10 @@ class MenuController: UIViewController {
         super.viewDidLoad()
         viewShow()
         setupTheme()
+        if isNight == true {
+            themeSwitch.isOn = true
+        }
+
     }
     override func viewWillAppear(_ animated: Bool) {
         warning = false
@@ -27,9 +31,32 @@ class MenuController: UIViewController {
         return v
     }()
     
+    fileprivate lazy var aboutApp: UILabel = {
+        let aboutApp = UILabel(frame: CGRect(x: 0, y: 70, width: 300, height: 45))
+        aboutApp.center.x = view.center.x
+        aboutApp.textAlignment = .center
+        aboutApp.text = "About the program".localized(code)
+        aboutApp.font = UIFont(name:"FuturaPT-Light", size: 36.0)
+        aboutApp.textColor = .white
+        return aboutApp
+    }()
+    lazy var styleBackground: UILabel = {
+        let styleBackground = UILabel(frame: CGRect(x: 0, y: 270, width: 300, height: 45))
+        styleBackground.center.x = view.center.x
+        styleBackground.textAlignment = .center
+        styleBackground.text = "Appearance".localized(code)
+        styleBackground.font = UIFont(name:"FuturaPT-Light", size: 36.0)
+        styleBackground.textColor = .white
+        return styleBackground
+    }()
     lazy var themeSwitch: UISwitch = {
         let themeSwitch = UISwitch()
-        themeSwitch.tintColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+        themeSwitch.onTintColor = .lightGray
+        if isNight {
+            themeSwitch.thumbTintColor = UIColor(rgb: 0x1F2222)
+        } else {
+            themeSwitch.thumbTintColor = .white
+        }
         themeSwitch.addTarget(self, action: #selector(didChangeThemeSwitchValue), for: .valueChanged)
         return themeSwitch
     }()
@@ -37,55 +64,80 @@ class MenuController: UIViewController {
     @objc func didChangeThemeSwitchValue() {
         if themeSwitch.isOn {
             themeService.switch(.dark)
+            isNight = true
+            UserDefaults.standard.set(isNight, forKey: "isNight")
+            UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
+            themeSwitch.thumbTintColor = UIColor(rgb: 0x1F2222)
+
         } else {
             themeService.switch(.light)
+            isNight = false
+            UserDefaults.standard.set(isNight, forKey: "isNight")
+            UIApplication.shared.statusBarStyle = UIStatusBarStyle.darkContent
+            themeSwitch.thumbTintColor = .white
+
         }
     }
 
     fileprivate lazy var bgImage: UIImageView = {
         let img = UIImageView(image: UIImage(named: "bg-figures.png")!)
-        img.frame = CGRect(x: 0, y: screenHeight-260, width: 201, height: 207)
+        img.frame = CGRect(x: 0, y: screenHeight-300, width: 201, height: 207)
         return img
     }()
     
-    private func viewShow() {
-        warning = false
-
-        view.backgroundColor = UIColor(rgb: 0x1F2222)
-        
-//        let (headerView, backView) = headerSet(title: "Reference".localized(code), showBack: true)
-//        view.addSubview(headerView)
-//        view.addSubview(backView!)
-        
-//        backView!.addTapGesture{
-//            self.navigationController?.popViewController(animated: true)
-//        }
-        
-        view.addSubview(bgImage)
+    fileprivate lazy var textMain: UILabel = {
         let textMain = UILabel(frame: CGRect(x: 20, y: 20, width: screenWidth-40, height: 20))
         textMain.center.x = view.center.x
         textMain.textAlignment = .center
         textMain.text = "Menu".localized(code)
         textMain.font = UIFont(name:"FuturaPT-Medium", size: 20)
-        textMain.textColor = UIColor(rgb: 0xE9E9E9)
         textMain.frame.origin.x = 20
+        return textMain
+    }()
+    
+    fileprivate lazy var aboutApp2: UILabel = {
+        let aboutApp2 = UILabel(frame: CGRect(x: 0, y: 120, width: 300, height: 45))
+        aboutApp2.center.x = view.center.x
+        aboutApp2.textAlignment = .center
+        aboutApp2.text = "Tech support".localized(code)
+        aboutApp2.font = UIFont(name:"FuturaPT-Light", size: 36.0)
+        aboutApp2.textColor = .white
+        return aboutApp2
+    }()
+    fileprivate lazy var aboutApp3: UILabel = {
+        let aboutApp3 = UILabel(frame: CGRect(x: 0, y: 220, width: 300, height: 45))
+        aboutApp3.center.x = view.center.x
+        aboutApp3.textAlignment = .center
+        aboutApp3.text = "Language".localized(code)
+        aboutApp3.font = UIFont(name:"FuturaPT-Light", size: 36.0)
+        aboutApp3.textColor = .white
+        return aboutApp3
+    }()
+    fileprivate lazy var aboutApp4: UILabel = {
+        let aboutApp4 = UILabel(frame: CGRect(x: 0, y: 170, width: 300, height: 45))
+        aboutApp4.center.x = view.center.x
+        aboutApp4.textAlignment = .center
+        aboutApp4.text = "Reference".localized(code)
+        aboutApp4.font = UIFont(name:"FuturaPT-Light", size: 36.0)
+        aboutApp4.textColor = .white
+        return aboutApp4
+    }()
+    private func viewShow() {
+        warning = false
 
+        view.backgroundColor = UIColor(rgb: 0x1F2222)
+        
+        view.addSubview(bgImage)
         view.addSubview(textMain)
         let lineMain = UIView(frame: CGRect(x: 20, y: 50, width: 142, height: 1))
         lineMain.backgroundColor = UIColor(rgb: 0xCF2121)
         lineMain.center.x = view.center.x
         view.addSubview(lineMain)
-
-        let aboutApp = UILabel(frame: CGRect(x: 0, y: 70, width: 300, height: 45))
-        aboutApp.center.x = view.center.x
-        aboutApp.textAlignment = .center
-
+        
         let aboutAppView = UIView(frame: CGRect(x: 0, y: 70, width: 300, height: 45))
         aboutAppView.backgroundColor = .clear
         aboutAppView.center.x = view.center.x
-        aboutApp.text = "About the program".localized(code)
-        aboutApp.font = UIFont(name:"FuturaPT-Light", size: 36.0)
-        aboutApp.textColor = .white
+        
         let redLineApp = UIView(frame: CGRect(x: 0, y: 45, width: 200, height: 2))
         redLineApp.backgroundColor = UIColor(rgb: 0xCF2121)
         view.addSubview(aboutApp)
@@ -97,17 +149,10 @@ class MenuController: UIViewController {
             let viewController = SettingAppController()
             self.present(viewController, animated: true)
         }
-        
-        let aboutApp2 = UILabel(frame: CGRect(x: 0, y: 120, width: 300, height: 45))
-        aboutApp2.center.x = view.center.x
-        aboutApp2.textAlignment = .center
 
         let aboutAppView2 = UIView(frame: CGRect(x: 0, y: 120, width: 300, height: 45))
         aboutAppView2.backgroundColor = .clear
         aboutAppView2.center.x = view.center.x
-        aboutApp2.text = "Tech support".localized(code)
-        aboutApp2.font = UIFont(name:"FuturaPT-Light", size: 36.0)
-        aboutApp2.textColor = .white
 //        let redLineApp = UIView(frame: CGRect(x: 0, y: 45, width: 200, height: 2))
 //        redLineApp.backgroundColor = UIColor(rgb: 0xCF2121)
         view.addSubview(aboutApp2)
@@ -158,16 +203,10 @@ class MenuController: UIViewController {
             
             self.present(alert, animated: true)
         }
-        let aboutApp4 = UILabel(frame: CGRect(x: 0, y: 170, width: 300, height: 45))
-        aboutApp4.center.x = view.center.x
-        aboutApp4.textAlignment = .center
-        
+
         let aboutAppView4 = UIView(frame: CGRect(x: 0, y: 170, width: 300, height: 45))
         aboutAppView4.backgroundColor = .clear
         aboutAppView4.center.x = view.center.x
-        aboutApp4.text = "Reference".localized(code)
-        aboutApp4.font = UIFont(name:"FuturaPT-Light", size: 36.0)
-        aboutApp4.textColor = .white
         //        let redLineApp = UIView(frame: CGRect(x: 0, y: 45, width: 200, height: 2))
         //        redLineApp.backgroundColor = UIColor(rgb: 0xCF2121)
         view.addSubview(aboutApp4)
@@ -178,16 +217,9 @@ class MenuController: UIViewController {
             self.present(viewController, animated: true)
         }
         
-        let aboutApp3 = UILabel(frame: CGRect(x: 0, y: 220, width: 300, height: 45))
-        aboutApp3.center.x = view.center.x
-        aboutApp3.textAlignment = .center
-        
         let aboutAppView3 = UIView(frame: CGRect(x: 0, y: 220, width: 300, height: 45))
         aboutAppView3.backgroundColor = .clear
         aboutAppView3.center.x = view.center.x
-        aboutApp3.text = "Language".localized(code)
-        aboutApp3.font = UIFont(name:"FuturaPT-Light", size: 36.0)
-        aboutApp3.textColor = .white
         //        let redLineApp = UIView(frame: CGRect(x: 0, y: 45, width: 200, height: 2))
         //        redLineApp.backgroundColor = UIColor(rgb: 0xCF2121)
         view.addSubview(aboutApp3)
@@ -197,11 +229,13 @@ class MenuController: UIViewController {
             
             alert.addAction(UIAlertAction(title: "РУССКИЙ", style: .default, handler: { (_) in
                 code = "ru"
-                aboutApp.text = "About the program".localized(code)
-                aboutApp2.text = "Tech support".localized(code)
-                aboutApp3.text = "Language".localized(code)
-                textMain.text = "Menu".localized(code)
-                aboutApp4.text = "Reference".localized(code)
+                UserDefaults.standard.set(code, forKey: "code")
+                self.aboutApp.text = "About the program".localized(code)
+                self.aboutApp2.text = "Tech support".localized(code)
+                self.aboutApp3.text = "Language".localized(code)
+                self.textMain.text = "Menu".localized(code)
+                self.aboutApp4.text = "Reference".localized(code)
+                self.styleBackground.text = "Appearance".localized(code)
 
                 checkMenu = true
                 
@@ -209,32 +243,39 @@ class MenuController: UIViewController {
             
             alert.addAction(UIAlertAction(title: "ENGLISH", style: .default, handler: { (_) in
                 code = "en"
-                aboutApp.text = "About the program".localized(code)
-                aboutApp2.text = "Tech support".localized(code)
-                aboutApp3.text = "Language".localized(code)
-                textMain.text = "Menu".localized(code)
-                aboutApp4.text = "Reference".localized(code)
+                UserDefaults.standard.set(code, forKey: "code")
+                self.aboutApp.text = "About the program".localized(code)
+                self.aboutApp2.text = "Tech support".localized(code)
+                self.aboutApp3.text = "Language".localized(code)
+                self.textMain.text = "Menu".localized(code)
+                self.aboutApp4.text = "Reference".localized(code)
+                self.styleBackground.text = "Appearance".localized(code)
 
+                
                 checkMenu = true
             }))
             
             alert.addAction(UIAlertAction(title: "PORTUGUÊS", style: .default, handler: { (_) in
                 code = "pt-PT"
-                aboutApp.text = "About the program".localized(code)
-                aboutApp2.text = "Tech support".localized(code)
-                aboutApp3.text = "Language".localized(code)
-                textMain.text = "Menu".localized(code)
-                aboutApp4.text = "Reference".localized(code)
+                UserDefaults.standard.set(code, forKey: "code")
+                self.aboutApp.text = "About the program".localized(code)
+                self.aboutApp2.text = "Tech support".localized(code)
+                self.aboutApp3.text = "Language".localized(code)
+                self.textMain.text = "Menu".localized(code)
+                self.aboutApp4.text = "Reference".localized(code)
+                self.styleBackground.text = "Appearance".localized(code)
 
                 checkMenu = true
             }))
             alert.addAction(UIAlertAction(title: "ESPAÑOl", style: .default, handler: { (_) in
                 code = "es"
-                aboutApp.text = "About the program".localized(code)
-                aboutApp2.text = "Tech support".localized(code)
-                aboutApp3.text = "Language".localized(code)
-                textMain.text = "Menu".localized(code)
-                aboutApp4.text = "Reference".localized(code)
+                UserDefaults.standard.set(code, forKey: "code")
+                self.aboutApp.text = "About the program".localized(code)
+                self.aboutApp2.text = "Tech support".localized(code)
+                self.aboutApp3.text = "Language".localized(code)
+                self.textMain.text = "Menu".localized(code)
+                self.aboutApp4.text = "Reference".localized(code)
+                self.styleBackground.text = "Appearance".localized(code)
 
                 checkMenu = true
             }))
@@ -245,60 +286,23 @@ class MenuController: UIViewController {
             
             self.present(alert, animated: true)
         }
-//        let aboutApp5 = UILabel(frame: CGRect(x: 0, y: 270, width: 300, height: 45))
-//        aboutApp5.center.x = view.center.x
-//        aboutApp5.textAlignment = .center
-//
-//        let aboutAppView5 = UIView(frame: CGRect(x: 0, y: 270, width: 300, height: 45))
-//        aboutAppView5.backgroundColor = .clear
-//        aboutAppView5.center.x = view.center.x
-//        aboutApp5.text = "Внешний вид".localized(code)
-//        aboutApp5.font = UIFont(name:"FuturaPT-Light", size: 36.0)
-//        aboutApp5.textColor = .white
-//        //        let redLineApp = UIView(frame: CGRect(x: 0, y: 45, width: 200, height: 2))
-//        //        redLineApp.backgroundColor = UIColor(rgb: 0xCF2121)
-//        view.addSubview(aboutApp5)
-//        view.addSubview(aboutAppView5)
-//        aboutAppView5.addTapGesture {
-//            let alert = UIAlertController(title: "Выберете тему".localized(code), message: "", preferredStyle: .actionSheet)
-//
-//            alert.addAction(UIAlertAction(title: "Темная тема", style: .default, handler: { (_) in
-//                isNight = false
-//            }))
-//
-//            alert.addAction(UIAlertAction(title: "Светлая тема", style: .default, handler: { (_) in
-//                isNight = false
-//            }))
-//
-//            alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: { (_) in
-//                print("Назад")
-//            }))
-//
-//            self.present(alert, animated: true)
-//        }
 
         
-        themeSwitch.frame = CGRect(x: 0, y: 270, width: 50, height: 30)
-        themeSwitch.center.x = screenWidth/2
+        themeSwitch.frame = CGRect(x: 0, y: 280, width: 50, height: 45)
+        themeSwitch.center.x = screenWidth/2+130
         view.addSubview(themeSwitch)
-        
-//        let text = UILabel()
-//        text.text = "Info".localized(code)
-//        text.text = "Посадил дед репку и говорит:\n\n— Расти, расти, репка, сладка! Расти, расти, репка, крепка!\n\nВыросла репка сладка, крепка, большая-пребольшая.\n\nПошел дед репку рвать: тянет-потянет, вытянуть не может.\n\nПозвал дед бабку.\n\nБабка за дедку,\nДедка за репку —\nТянут-потянут, вытянуть не могут.\n\nПозвала бабка внучку.\n\nВнучка за бабку,\nБабка за дедку,\nДедка за репку —\nТянут-потянут, вытянуть не могут.\n\nПозвала внучка Жучку.\n\nЖучка за внучку,\nВнучка за бабку,\nБабка за дедку,\nДедка за репку —\nТянут-потянут, вытянуть не могут.\n\nПозвала Жучка кошку.\n\nКошка за Жучку,\nЖучка за внучку,\nВнучка за бабку,\nБабка за дедку,\nДедка за репку —\nТянут-потянут, вытянуть не могут.\n\nПозвала кошка мышку.\n\nМышка за кошку,\nКошка за Жучку,\nЖучка за внучку,\nВнучка за бабку,\nБабка за дедку,\nДедка за репку —\nТянут-потянут — и вытянули репку\n"
-//        text.textColor = UIColor(rgb: 0xE9E9E9)
-//        text.lineBreakMode = .byWordWrapping
-//        text.font = UIFont(name:"FuturaPT-Light", size: 18.0)
-//        text.numberOfLines = 0
-//        text.frame.origin.x = 20
-//        text.frame.size.width = screenWidth-40
-//        text.sizeToFit()
-//        scrollView.addSubview(text)
-//
-//        scrollView.contentSize = CGSize(width: screenWidth, height: text.frame.height)
+        view.addSubview(styleBackground)
+
     }
     
     fileprivate func setupTheme() {
         view.theme.backgroundColor = themed { $0.backgroundColor }
+        textMain.theme.textColor = themed { $0.navigationTintColor }
+        aboutApp.theme.textColor = themed { $0.navigationTintColor }
+        aboutApp2.theme.textColor = themed { $0.navigationTintColor }
+        aboutApp3.theme.textColor = themed { $0.navigationTintColor }
+        aboutApp4.theme.textColor = themed { $0.navigationTintColor }
+        styleBackground.theme.textColor = themed { $0.navigationTintColor }
     }
 }
 extension MenuController: UIViewControllerTransitioningDelegate {
@@ -306,4 +310,3 @@ extension MenuController: UIViewControllerTransitioningDelegate {
         return DrawerPresentationController(presentedViewController: presented, presenting: presenting)
     }
 }
-

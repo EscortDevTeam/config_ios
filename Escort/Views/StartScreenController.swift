@@ -60,15 +60,6 @@ class StartScreenController: UIViewController {
     private func move() {
         self.activityIndicator.stopAnimating()
         navigationController?.pushViewController(ConnectionSelectC, animated: true)
-        //        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
-        //        if launchedBefore  {
-        //            print("Not first launch.")
-        //            navigationController?.pushViewController(ConnectionSelectC, animated: true)
-        //        } else {
-        //            print("First launch, setting UserDefault.")
-        //            self.navigationController?.pushViewController(LanguageVC, animated: false)
-        //            UserDefaults.standard.set(true, forKey: "launchedBefore")
-        //        }
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(true)
