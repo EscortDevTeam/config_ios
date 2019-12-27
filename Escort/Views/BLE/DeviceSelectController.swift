@@ -57,7 +57,7 @@ import RxTheme
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
     override func viewDidAppear(_ animated: Bool) {
-
+        QRCODE = ""
     }
     
     fileprivate lazy var scrollView: UIScrollView = {
@@ -99,7 +99,7 @@ import RxTheme
     fileprivate lazy var imageTD: UIImageView = {
         let imageTD = UIImageView(image: #imageLiteral(resourceName: "bleImage"))
         imageTD.image = imageTD.image!.withRenderingMode(.alwaysTemplate)
-        imageTD.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
+        imageTD.frame = CGRect(x: 0, y: 0, width: 90, height: 90)
         return imageTD
     }()
     fileprivate lazy var labelTD: UILabel = {
@@ -114,7 +114,7 @@ import RxTheme
     fileprivate lazy var imageQR: UIImageView = {
         let imageQR = UIImageView(image: #imageLiteral(resourceName: "qrcodeImage"))
         imageQR.image = imageQR.image!.withRenderingMode(.alwaysTemplate)
-        imageQR.frame = CGRect(x: 0, y: 0, width: 61, height: 80)
+        imageQR.frame = CGRect(x: 0, y: 0, width: 90, height: 90)
         return imageQR
     }()
     fileprivate lazy var labelQR: UILabel = {
@@ -127,9 +127,9 @@ import RxTheme
         return labelQR
     }()
     fileprivate lazy var imageTL: UIImageView = {
-        let imageTL = UIImageView(image: #imageLiteral(resourceName: "tlBleBack"))
+        let imageTL = UIImageView(image: #imageLiteral(resourceName: "TLImage"))
         imageTL.image = imageTL.image!.withRenderingMode(.alwaysTemplate)
-        imageTL.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
+        imageTL.frame = CGRect(x: 0, y: 0, width: 90, height: 90)
         return imageTL
     }()
     fileprivate lazy var labelTL: UILabel = {
@@ -268,81 +268,6 @@ import RxTheme
             print("TL")
             self.navigationController?.pushViewController(DevicesTLListController(), animated: true)
         }
-        
-//            var z = 10
-//            let data = bleDevices
-//            let cellWidth = Int(screenWidth / 2), cellHeight = 180
-//            let cellWidthXName = Int(screenWidth / 2)+10
-
-//            for (i, d) in data.enumerated() {
-//                let x = i % 2 == 0 ? 0 : cellWidth
-//                let xName = i % 2 == 0 ? 0 : cellWidthXName
-//                var y = 0
-//                if i > 1 {
-//                    y = (i % 2 == 0 ? i : i - 1) * (cellHeight / 2 + 5)
-//                    if x == 0 {
-//                        z = 10
-//                    }
-//                }
-//
-//                let container = UIView(frame: CGRect(x: x, y: y, width: cellWidth, height: cellHeight))
-//
-//                let img = UIImageView(image: UIImage(named: d.image)!)
-//                img.frame = CGRect(x: x+10, y: y+Int(headerHeight), width: 200, height: 130)
-//
-//                let labelB = self.cellLabel
-//                labelB.frame = CGRect(x: xName, y: y + cellHeight+Int(headerHeight)-50, width: cellWidth, height: 20)
-//                labelB.text = d.name
-//
-//
-//                let separator = UIView(frame: CGRect(x: z, y: cellHeight, width: Int(screenWidth/2)-10, height: 2))
-//                separator.backgroundColor = .red
-//                z = 0
-//                img.removeFromSuperview()
-//                self.view.addSubview(img)
-//                self.view.addSubview(labelB)
-//
-//                container.addSubview(separator)
-//
-//                container.removeFromSuperview()
-//                self.scrollView.addSubview(container)
-//                self.scrollView.bringSubviewToFront(container)
-//
-//                self.scrollView.removeFromSuperview()
-//                self.view.addSubview(self.scrollView)
-//
-//                self.scrollView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 0).isActive = true
-//                self.scrollView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: headerHeight).isActive = true
-//                self.scrollView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: 0).isActive = true
-//                self.scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
-//
-//                if !d.isHide {
-//                    container.addTapGesture {
-//                        if d.name == "TL BLE" {
-//                            self.navigationController?.pushViewController(self.DevicesListTLC, animated: true)
-////                            self.view.subviews.forEach({ $0.removeFromSuperview() })
-//
-//                        }
-//                        if d.name == "TD BLE" {
-//                            DeviceTypeIndex = i
-//                            self.navigationController?.pushViewController(DevicesListControllerNew(), animated: true)
-////                            self.view.subviews.forEach({ $0.removeFromSuperview() })
-//                        }
-//                        if d.name == "QR-CODE" {
-//                            DeviceTypeIndex = i
-//                            let storyboard = UIStoryboard(name: "StoryboardScanner", bundle: nil)
-//                            let homeViewController = storyboard.instantiateViewController(withIdentifier: "StoryboardScanner")
-//                            self.navigationController?.pushViewController(homeViewController, animated: true)
-////                            self.view.subviews.forEach({ $0.removeFromSuperview() })
-//                        }
-//                    }
-//                }
-//            }
-            
-//            self.scrollView.contentSize = CGSize(width: Int(screenWidth), height: data.count * cellHeight/2)
-//            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-//                self.t += 1
-//            })
     }
     
     fileprivate func setupTheme() {
@@ -359,10 +284,10 @@ import RxTheme
         labelTD.theme.textColor = themed{ $0.navigationTintColor }
         labelTL.theme.textColor = themed{ $0.navigationTintColor }
         backView.theme.tintColor = themed{ $0.navigationTintColor }
-
     }
  }
  extension DeviceSelectController: UIViewControllerTransitioningDelegate {
      func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        return DrawerPresentationController(presentedViewController: presented, presenting: presenting, blurEffectStyle: isNight ? .light : .dark)     }
+        return DrawerPresentationController(presentedViewController: presented, presenting: presenting, blurEffectStyle: isNight ? .light : .dark)
+    }
  }

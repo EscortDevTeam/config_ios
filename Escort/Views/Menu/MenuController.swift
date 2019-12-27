@@ -75,6 +75,7 @@ class MenuController: UIViewController {
             UserDefaults.standard.set(isNight, forKey: "isNight")
             UIApplication.shared.statusBarStyle = UIStatusBarStyle.darkContent
             themeSwitch.thumbTintColor = .white
+            
 
         }
     }

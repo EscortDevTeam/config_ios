@@ -115,11 +115,22 @@ class DevicesListCell: UITableViewCell {
         self.titleLabel.textColor = .white
         self.levelLabel.font = UIFont.systemFont(ofSize: 18)
         self.levelLabel.textColor = .white
+        setupTheme()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
 
+    }
+    fileprivate func setupTheme() {
+        coverView.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+        macAdres.theme.textColor = themed { $0.navigationTintColor }
+        FW.theme.textColor = themed { $0.navigationTintColor }
+        T.theme.textColor = themed { $0.navigationTintColor }
+        Lvl.theme.textColor = themed { $0.navigationTintColor }
+        Vbat.theme.textColor = themed { $0.navigationTintColor }
+        titleLabel.theme.textColor = themed { $0.navigationTintColor }
+        levelLabel.theme.textColor = themed { $0.navigationTintColor }
     }
 }
 

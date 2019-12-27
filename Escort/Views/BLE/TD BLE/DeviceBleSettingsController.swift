@@ -57,6 +57,9 @@ class DeviceBleSettingsController: UIViewController {
         uPicker.delegate = self
         uPicker2.dataSource = self
         uPicker2.delegate = self
+        uPicker.setValue(UIColor.black, forKey: "textColor")
+        uPicker2.setValue(UIColor.red, forKey: "textColor")
+        setupTheme()
     }
     override func viewWillAppear(_ animated: Bool) {
         warning = false
@@ -65,6 +68,7 @@ class DeviceBleSettingsController: UIViewController {
     fileprivate lazy var bgImage: UIImageView = {
         let img = UIImageView(image: UIImage(named: "bg-figures.png")!)
         img.frame = CGRect(x: 0, y: screenHeight-260, width: 201, height: 207)
+        img.alpha = 0.3
         return img
     }()
     
@@ -111,17 +115,67 @@ class DeviceBleSettingsController: UIViewController {
         activity.transform = CGAffineTransform(scaleX: 2, y: 2)
         return activity
     }()
+    fileprivate lazy var lblTitle: UILabel = {
+        let lblTitle = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
+        lblTitle.text = "Minimum level".localized(code)
+        lblTitle.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
+        return lblTitle
+    }()
     
+    fileprivate lazy var lblTitle3: UILabel = {
+        let lblTitle3 = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
+        lblTitle3.text = "Maximum level".localized(code)
+        lblTitle3.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
+        return lblTitle3
+    }()
+    
+    fileprivate lazy var lblTitle4: UILabel = {
+        let lblTitle4 = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
+        lblTitle4.text = "Filtration".localized(code)
+        lblTitle4.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
+        return lblTitle4
+    }()
+    
+    fileprivate lazy var termoLabel: UILabel = {
+        let termoLabel = UILabel(frame: CGRect(x: 30, y: 40 + Int(headerHeight) + 65*7 + 25, width: Int(screenWidth/2 + 70), height: 20))
+        termoLabel.text = "Disable Thermal Compensation".localized(code)
+        return termoLabel
+    }()
+    
+    fileprivate lazy var themeBackView3: UIView = {
+        let v = UIView()
+        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12))
+        v.layer.shadowRadius = 3.0
+        v.layer.shadowOpacity = 0.2
+        v.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+        return v
+    }()
+    fileprivate lazy var MainLabel: UILabel = {
+        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy, width: Int(screenWidth-70), height: 40))
+        text.text = "Type of bluetooth sensor".localized(code)
+        text.textColor = UIColor(rgb: 0x272727)
+        text.font = UIFont(name:"BankGothicBT-Medium", size: 19.0)
+        return text
+    }()
+    fileprivate lazy var backView: UIImageView = {
+        let backView = UIImageView()
+        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40), width: 50, height: 40)
+        let back = UIImageView(image: UIImage(named: "back")!)
+        back.image = back.image!.withRenderingMode(.alwaysTemplate)
+        back.frame = CGRect(x: 8, y: 0 , width: 8, height: 19)
+        back.center.y = backView.bounds.height/2
+        backView.addSubview(back)
+        return backView
+    }()
     private func viewShow() {
         view.subviews.forEach({ $0.removeFromSuperview() })
-        view.backgroundColor = UIColor(rgb: 0x1F2222)
-        
-        let (headerView, backView) = headerSet(title: "TD BLE Settings".localized(code), showBack: true)
-        view.addSubview(headerView)
-        view.addSubview(backView!)
 
+        view.addSubview(themeBackView3)
+        MainLabel.text = "TD BLE Settings".localized(code)
+        view.addSubview(MainLabel)
+        view.addSubview(backView)
         
-        backView!.addTapGesture{
+        backView.addTapGesture{
             self.navigationController?.popViewController(animated: true)
         }
         
@@ -130,10 +184,7 @@ class DeviceBleSettingsController: UIViewController {
         var y = 40 + Int(headerHeight)
         let x = 30, deltaY = 65, deltaYLite = 20
         let v2 = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth-160), height: 20))
-        let lblTitle = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
-        lblTitle.text = "Minimum level".localized(code)
-        lblTitle.textColor = UIColor(rgb: 0xE9E9E9)
-        lblTitle.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
+
         
         let check = UIImageView(image: UIImage(named: "check-green.png")!)
         check.frame = CGRect(x: x+120, y: y+4, width: 22, height: 26)
@@ -141,7 +192,6 @@ class DeviceBleSettingsController: UIViewController {
         input.frame = CGRect(x: 160, y: 0, width: Int(screenWidth/2-30), height: 40)
         input.text = "1"
         input.placeholder = "Enter value...".localized(code)
-        input.textColor = UIColor(rgb: 0xE9E9E9)
         input.font = UIFont(name:"FuturaPT-Light", size: 18.0)
         input.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
         input.layer.borderWidth = 1.0
@@ -160,10 +210,7 @@ class DeviceBleSettingsController: UIViewController {
         
         y = y + deltaY
         let v3 = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth-160), height: 20))
-                let lblTitle3 = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
-        lblTitle3.text = "Maximum level".localized(code)
-                lblTitle3.textColor = UIColor(rgb: 0xE9E9E9)
-                lblTitle3.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
+
                 
                 check3.frame = CGRect(x: x+120, y: y+4, width: 22, height: 26)
                 let imputTap = UIView(frame: CGRect(x: x+160, y: y, width: Int(screenWidth/2)-30, height: 40))
@@ -177,7 +224,6 @@ class DeviceBleSettingsController: UIViewController {
             prov = input3.text!
         }
                 input3.placeholder = "Enter value...".localized(code)
-                input3.textColor = UIColor(rgb: 0xE9E9E9)
                 input3.font = UIFont(name:"FuturaPT-Light", size: 18.0)
                 input3.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
                 input3.layer.borderWidth = 1.0
@@ -202,10 +248,6 @@ class DeviceBleSettingsController: UIViewController {
     
         y = y + deltaY
         let v4 = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth-160), height: 20))
-                let lblTitle4 = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
-        lblTitle4.text = "Filtration".localized(code)
-                lblTitle4.textColor = UIColor(rgb: 0xE9E9E9)
-                lblTitle4.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
                 
                 check4.frame = CGRect(x: x+120, y: y+4, width: 22, height: 26)
                 let imputTap2 = UIView(frame: CGRect(x: x+160, y: y, width: Int(screenWidth/2)-30, height: 40))
@@ -510,9 +552,8 @@ class DeviceBleSettingsController: UIViewController {
 //            input4.text = "15"
 //            prov2 = input4.text!
 //        }
-                input4.placeholder = "Enter value...".localized(code)
-                input4.textColor = UIColor(rgb: 0xE9E9E9)
-                input4.font = UIFont(name:"FuturaPT-Light", size: 18.0)
+        input4.placeholder = "Enter value...".localized(code)
+        input4.font = UIFont(name:"FuturaPT-Light", size: 18.0)
         input4.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
         input4.layer.borderWidth = 1.0
         input4.layer.cornerRadius = 4.0
@@ -703,7 +744,6 @@ class DeviceBleSettingsController: UIViewController {
         
         lbl1 = UILabel(frame: CGRect(x: 0, y: 0, width: 120, height: 20))
         lbl1.text = "\(nothing)"
-        lbl1.textColor = UIColor(rgb: 0xE9E9E9)
         lbl1.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
         
         lbl2 = UILabel(frame: CGRect(x: Int(screenWidth-170), y: 0, width: 120, height: 20))
@@ -1013,9 +1053,6 @@ class DeviceBleSettingsController: UIViewController {
         separatorTwo.backgroundColor = UIColor(rgb: 0xCF2121)
         view.addSubview(separatorTwo)
         
-        let termoLabel = UILabel(frame: CGRect(x: x, y: y+35, width: Int(screenWidth/2 + 70), height: 20))
-        termoLabel.text = "Disable Thermal Compensation".localized(code)
-        termoLabel.textColor = UIColor(rgb: 0xE9E9E9)
         view.addSubview(termoLabel)
         
         termoSwitch.frame = CGRect(x: Int(screenWidth/2+110), y: y+32, width: 30, height: 20)
@@ -1283,6 +1320,7 @@ class DeviceBleSettingsController: UIViewController {
                             switch action.style{
                             case .default:
                                 print("default")
+                                passwordSuccess = true
                             case .cancel:
                                 print("cancel")
                                 
@@ -1391,6 +1429,7 @@ class DeviceBleSettingsController: UIViewController {
                                 switch action.style{
                                 case .default:
                                     print("default")
+                                    passwordSuccess = true
                                 case .cancel:
                                     print("cancel")
                                 case .destructive:
@@ -1532,7 +1571,7 @@ class DeviceBleSettingsController: UIViewController {
 
 
     func viewShowParametrs(lbl1: UILabel,lbl2: UILabel,lbl3: UILabel, lbl4: UILabel, y: Int) {
-        lbl3.text = "CNT          \(cnt)"
+        lbl3.text = "CNT\t\t\(cnt)"
         lbl1.text = "\(nothing)"
         lbl2.text = "\(full)"
         lbl4.text = "\(statusDeviceY)"
@@ -1555,6 +1594,25 @@ class DeviceBleSettingsController: UIViewController {
         viewLoadTwo.addSubview(lbl4)
 
     }
+    
+    fileprivate func setupTheme() {
+        view.theme.backgroundColor = themed { $0.backgroundColor }
+//        themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+//        footer.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+        lbl1.theme.textColor = themed{ $0.navigationTintColor }
+        lbl2.theme.textColor = themed{ $0.navigationTintColor }
+        lbl3.theme.textColor = themed{ $0.navigationTintColor }
+        input.theme.textColor = themed{ $0.navigationTintColor }
+        input3.theme.textColor = themed{ $0.navigationTintColor }
+        input4.theme.textColor = themed{ $0.navigationTintColor }
+        lblTitle.theme.textColor = themed{ $0.navigationTintColor }
+        lblTitle3.theme.textColor = themed{ $0.navigationTintColor }
+        lblTitle4.theme.textColor = themed{ $0.navigationTintColor }
+        termoLabel.theme.textColor = themed{ $0.navigationTintColor }
+        MainLabel.theme.textColor = themed{ $0.navigationTintColor }
+        themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+        backView.theme.tintColor = themed{ $0.navigationTintColor }
+    }
 }
 
 extension DeviceBleSettingsController: UIPickerViewDelegate, UIPickerViewDataSource {
@@ -1570,7 +1628,7 @@ extension DeviceBleSettingsController: UIPickerViewDelegate, UIPickerViewDataSou
         return dataSource.count
         }
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if iF == 2 {
             input4.text = dataSource2[row]
@@ -1604,10 +1662,10 @@ extension DeviceBleSettingsController: UIPickerViewDelegate, UIPickerViewDataSou
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         if iF == 2 {
             let dt2 = dataSource2[row]
-            return NSAttributedString(string: dt2, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+            return NSAttributedString(string: dt2, attributes: [NSAttributedString.Key.foregroundColor: isNight ? UIColor.white : UIColor.black])
         } else {
             let dt = dataSource[row]
-            return NSAttributedString(string: dt, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+            return NSAttributedString(string: dt, attributes: [NSAttributedString.Key.foregroundColor: isNight ? UIColor.white : UIColor.black])
 
         }
     }

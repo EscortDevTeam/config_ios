@@ -119,7 +119,6 @@ class ConnectionSelectController: UIViewController {
         
         view.subviews.forEach({ $0.removeFromSuperview() })
 //        view.backgroundColor = .white
-        var h = 0
         view.addSubview(themeBackView3)
 
         MainLabel.text = "Select connection type".localized(code)
@@ -163,7 +162,6 @@ class ConnectionSelectController: UIViewController {
         btTitle1.center.y = CGFloat(cellHeight/2)
         v1.addSubview(btImage1)
         v1.addSubview(btTitle1)        
-        h = (cellHeight - Int(btImage1.frame.height)) / 2
 //        v1.frame = CGRect(x:0, y: Int(headerHeight)+h, width: Int(screenWidth), height: Int(screenHeight))
         v1.frame = CGRect(x:0, y: Int(headerHeight), width: Int(screenWidth), height: cellHeight)
         v1.addTapGesture{
@@ -181,19 +179,15 @@ class ConnectionSelectController: UIViewController {
         let btImage2 = UIImageView(image: #imageLiteral(resourceName: "123"))
         btImage2.frame = CGRect(x: 30, y: -20, width: 120, height: 120)
 
-
+        btImage2.center.y = CGFloat(cellHeight/2)
+        btTitle2.center.y = CGFloat(cellHeight/2)
         v2.addSubview(btImage2)
         v2.addSubview(btTitle2)
-        
-        h = (cellHeight - Int(btImage2.frame.height)) / 2
-        
-        v2.frame = CGRect(x:0, y: Int(headerHeight) + cellHeight + h, width: Int(screenWidth), height: cellHeight-h)
+        v2.frame = CGRect(x:0, y: Int(headerHeight) + cellHeight, width: Int(screenWidth), height: cellHeight)
                 v2.addTapGesture{
+                    self.timer.invalidate()
                     print("Тап")
-
-
-//                    self.timer.invalidate()
-//                    self.navigationController?.pushViewController(DevicesListControllerNew(), animated: true)
+                    self.navigationController?.pushViewController(SetupMap(), animated: true)
 
                 }
         v2.alpha = 0.5

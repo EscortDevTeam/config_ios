@@ -38,7 +38,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("First launch, setting UserDefault.")
             UserDefaults.standard.set(true, forKey: "launchedBefore")
             UserDefaults.standard.set(code, forKey: "code")
+            
             UIApplication.shared.statusBarStyle = UIStatusBarStyle.darkContent
+//            if UIApplication.shared.statusBarStyle == UIStatusBarStyle.darkContent {
+//                isNight = true
+//            } else {
+//                isNight = false
+//            }
         }
         
         navgiationController.pushViewController(StartScreenController(), animated: true)

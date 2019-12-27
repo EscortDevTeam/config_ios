@@ -9,6 +9,7 @@
 import UIKit
 import UIDrawer
 import MobileCoreServices
+import UIDrawer
 
 class TarirovkaStartViewControllet: UIViewController, SecondVCDelegate {
     func secondVC_BackClicked(data: String) {
@@ -20,6 +21,7 @@ class TarirovkaStartViewControllet: UIViewController, SecondVCDelegate {
         super.viewDidLoad()
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         viewShow()
+        setupTheme()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,75 +46,174 @@ class TarirovkaStartViewControllet: UIViewController, SecondVCDelegate {
         activity.transform = CGAffineTransform(scaleX: 2, y: 2)
         return activity
     }()
+    fileprivate lazy var backView: UIImageView = {
+        let backView = UIImageView()
+        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40), width: 50, height: 40)
+        let back = UIImageView(image: UIImage(named: "back")!)
+        back.image = back.image!.withRenderingMode(.alwaysTemplate)
+        back.frame = CGRect(x: 8, y: 0 , width: 8, height: 19)
+        back.center.y = backView.bounds.height/2
+        backView.addSubview(back)
+        return backView
+    }()
+    fileprivate lazy var themeBackView3: UIView = {
+        let v = UIView()
+        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12))
+        v.layer.shadowRadius = 3.0
+        v.layer.shadowOpacity = 0.2
+        v.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+        return v
+    }()
+    fileprivate lazy var MainLabel: UILabel = {
+        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy, width: Int(screenWidth-60), height: 40))
+        text.text = "Tank calibration".localized(code)
+        text.font = UIFont(name:"BankGothicBT-Medium", size: 19.0)
+        return text
+    }()
+    lazy var btTitle1: UILabel = {
+        let btTitle1 = UILabel(frame: CGRect(x: 120, y: 36, width: screenWidth, height: 36))
+        btTitle1.frame.origin.x = screenWidth/2-50
+        btTitle1.text = "Start".localized(code)
+        btTitle1.font = UIFont(name:"FuturaPT-Light", size: 42.0)
+        return btTitle1
+    }()
+    lazy var btTitle2: UILabel = {
+        let btTitle2 = UILabel(frame: CGRect(x: 160, y: 16, width: screenWidth, height: 36))
+        btTitle2.frame.origin.x = screenWidth/2-50
+        btTitle2.text = "Continue".localized(code)
+        btTitle2.font = UIFont(name:"FuturaPT-Light", size: 42.0)
+        return btTitle2
+    }()
+    lazy var btTitle3: UILabel = {
+        let btTitle1 = UILabel(frame: CGRect(x: 40, y: 36, width: screenWidth-80, height: 50))
+        btTitle1.text = "The file will be saved in the application \"Files\", in the folder \"Escort\"".localized(code)
+        btTitle1.numberOfLines = 0
+        btTitle1.textAlignment = .center
+        btTitle1.font = UIFont(name:"FuturaPT-Light", size: 18.0)
+        return btTitle1
+    }()
+    lazy var btTitle4: UILabel = {
+        let btTitle2 = UILabel(frame: CGRect(x: 40, y: 16, width: screenWidth-80, height: 50))
+        btTitle2.numberOfLines = 0
+        btTitle2.textAlignment = .center
+        btTitle2.text = "Open the previously created calibration file".localized(code)
+        btTitle2.font = UIFont(name:"FuturaPT-Light", size: 18.0)
+        return btTitle2
+    }()
+    fileprivate lazy var separator: UIView = {
+        let separator = UIView(frame: CGRect(x: 0, y: Int(headerHeight)  + Int((screenHeight - headerHeight) / 2), width: Int(screenWidth), height: 1))
+        separator.alpha = 0.1
+        return separator
+    }()
+    fileprivate lazy var btImage1: UIImageView = {
+        let btImage1 = UIImageView(image: #imageLiteral(resourceName: "startT"))
+        btImage1.frame = CGRect(x: 40, y: 0, width: 70, height: 70)
+        btImage1.image = btImage1.image!.withRenderingMode(.alwaysTemplate)
+        return btImage1
+    }()
+    fileprivate lazy var btImage2: UIImageView = {
+        let btImage2 = UIImageView(image: #imageLiteral(resourceName: "continT"))
+        btImage2.frame = CGRect(x: 40, y: 0, width: 70, height: 60)
+        btImage2.image = btImage2.image!.withRenderingMode(.alwaysTemplate)
+        return btImage2
+    }()
+    fileprivate lazy var hamburger: UIImageView = {
+        let hamburger = UIImageView(image: UIImage(named: "Hamburger.png")!)
+        hamburger.image = hamburger.image!.withRenderingMode(.alwaysTemplate)
+
+        return hamburger
+    }()
     
     private func viewShow() {
-        view.subviews.forEach({ $0.removeFromSuperview() })
-        view.backgroundColor = .white
-        var h = 0
+        
+        view.addSubview(themeBackView3)
+        MainLabel.text = "Tank calibration".localized(code)
+        view.addSubview(MainLabel)
+        view.addSubview(backView)
+        
+        let hamburgerPlace = UIView()
+        var yHamb = screenHeight/22
+        if screenWidth == 414 {
+            yHamb = screenHeight/20
+        }
+        if screenHeight >= 750{
+            yHamb = screenHeight/16
+            if screenWidth == 375 {
+                yHamb = screenHeight/19
+            }
+        }
+        hamburgerPlace.frame = CGRect(x: screenWidth-50, y: yHamb, width: 35, height: 35)
+        self.hamburger.frame = CGRect(x: screenWidth-45, y: yHamb, width: 25, height: 25)
+        
+        self.view.addSubview(self.hamburger)
+        self.view.addSubview(hamburgerPlace)
         
         
-        let (headerView, backView) = headerSet(title: "Tank calibration".localized(code), showBack: true)
-        view.addSubview(headerView)
-        view.addSubview(backView!)
-        backView!.addTapGesture{
+        hamburgerPlace.addTapGesture {
+            let viewController = MenuControllerDontLanguage()
+            viewController.modalPresentationStyle = .custom
+            viewController.transitioningDelegate = self
+            self.present(viewController, animated: true)
+        }
+        backView.addTapGesture{
             self.navigationController?.popViewController(animated: true)
         }
-        let cellHeight = Int((screenHeight - headerHeight) / 2)
-        var con = tarirovkas[0]
-        let v1 = UIView()
-        let btImage1 = UIImageView(image: UIImage(named: con.image)!)
-        btImage1.frame = CGRect(x: 49, y: 0, width: 57, height: 57)
-        btImage1.tintColor = .green
-        let btTitle1 = UILabel(frame: CGRect(x: 139, y: 12, width: screenWidth, height: 36))
-        btTitle1.text = con.name
-        btTitle1.textColor = UIColor(rgb: 0x1F1F1F)
-        btTitle1.font = UIFont(name:"FuturaPT-Light", size: 36.0)
         
+        let cellHeight = Int((screenHeight - headerHeight) / 2)
+        let v1 = UIView()
+
+        btImage1.center.y = CGFloat(cellHeight/2)
+        btTitle1.center.y = CGFloat(cellHeight/2)
+        btTitle3.center.y = CGFloat(cellHeight/2+60)
+        v1.addSubview(btTitle3)
         v1.addSubview(btImage1)
         v1.addSubview(btTitle1)
-        
-        h = (cellHeight - Int(btImage1.frame.height)) / 2
-//        v1.frame = CGRect(x:0, y: Int(headerHeight)+h, width: Int(screenWidth), height: Int(screenHeight))
-        v1.frame = CGRect(x:0, y: Int(headerHeight) + h, width: Int(screenWidth), height: cellHeight-h)
+
+        v1.frame = CGRect(x:0, y: Int(headerHeight), width: Int(screenWidth), height: cellHeight)
         v1.addTapGesture{
             chekOpen = true
             self.navigationController?.pushViewController(TarirovkaSettingsViewController(), animated: true)
 
             
         }
-        
-        let separator = UIView(frame: CGRect(x: 0, y: Int(headerHeight)  + cellHeight, width: Int(screenWidth), height: 1))
-        separator.backgroundColor = UIColor(red:0, green:0, blue:0, alpha:0.09)
         view.addSubview(separator)
         
-        // usb
+        // Continue
         
-        con = tarirovkas[1]
         let v2 = UIView()
-        let btImage2 = UIImageView(image: UIImage(named: con.image)!)
-        btImage2.frame = CGRect(x: 49, y: 0, width: 57, height: 47)
-        let btTitle2 = UILabel(frame: CGRect(x: 139, y: 4, width: screenWidth, height: 36))
-        btTitle2.text = con.name
-        btTitle2.textColor = UIColor(rgb: 0x1F1F1F)
-        btTitle2.font = UIFont(name:"FuturaPT-Light", size: 36.0)
-
+        btImage2.center.y = CGFloat(cellHeight/2)
+        btTitle2.center.y = CGFloat(cellHeight/2)
+        btTitle4.center.y = CGFloat(cellHeight/2+60)
+        v2.addSubview(btTitle4)
         v2.addSubview(btImage2)
         v2.addSubview(btTitle2)
-        
-        h = (cellHeight - Int(btImage2.frame.height)) / 2
-        
-        v2.frame = CGRect(x:0, y: Int(headerHeight) + cellHeight + h, width: Int(screenWidth), height: cellHeight-h)
-                v2.addTapGesture{
-                    chekOpen = false
-                    let documentPicker = UIDocumentPickerViewController(documentTypes: [kUTTypePlainText as String], in: .import)
-                    documentPicker.delegate = self
-                    documentPicker.allowsMultipleSelection = false
-                    self.present(documentPicker, animated: true, completion: nil)
-                }
+        v2.frame = CGRect(x:0, y: Int(headerHeight) + cellHeight, width: Int(screenWidth), height: cellHeight)
+        v2.addTapGesture{
+            chekOpen = false
+            let documentPicker = UIDocumentPickerViewController(documentTypes: [kUTTypePlainText as String], in: .import)
+            documentPicker.delegate = self
+            documentPicker.allowsMultipleSelection = false
+            self.present(documentPicker, animated: true, completion: nil)
+        }
         
         view.addSubview(v1)
         view.addSubview(v2)
     }
+    fileprivate func setupTheme() {
+        view.theme.backgroundColor = themed { $0.backgroundColor }
+        btTitle1.theme.textColor = themed{ $0.navigationTintColor }
+        btTitle2.theme.textColor = themed{ $0.navigationTintColor }
+        btTitle3.theme.textColor = themed{ $0.navigationTintColor }
+        btTitle4.theme.textColor = themed{ $0.navigationTintColor }
+        themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+        MainLabel.theme.textColor = themed{ $0.navigationTintColor }
+        separator.theme.backgroundColor = themed { $0.navigationTintColor }
+        btImage2.theme.tintColor = themed{ $0.navigationTintColor }
+        btImage1.theme.tintColor = themed{ $0.navigationTintColor }
+        backView.theme.tintColor = themed{ $0.navigationTintColor }
+        hamburger.theme.tintColor = themed{ $0.navigationTintColor }
+
+     }
 }
 extension TarirovkaStartViewControllet: UIDocumentPickerDelegate {
     
@@ -333,5 +434,11 @@ extension TarirovkaStartViewControllet: UIDocumentPickerDelegate {
         alertController.addAction(saveAction)
         
         self.present(alertController, animated: true, completion: nil)
+    }
+}
+
+extension TarirovkaStartViewControllet: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return DrawerPresentationController(presentedViewController: presented, presenting: presenting, blurEffectStyle: isNight ? .light : .dark)
     }
 }

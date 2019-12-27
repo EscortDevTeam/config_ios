@@ -10,11 +10,13 @@ import RxSwift
 import RxTheme
 
 typealias Color = UIColor
+typealias ImageView = UIImageView
 typealias Attributes = [NSAttributedString.Key: Any]
 
 protocol Theme {
     var backgroundColor: Color { get }
     var backgroundNavigationColor: Color { get }
+    var imageView: ImageView { get }
 
     var navigationBarTintColor: Color { get }
     var navigationTintColor: Color { get }
@@ -28,7 +30,8 @@ struct LightTheme: Theme {
     
     var backgroundColor: Color = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     var backgroundNavigationColor: Color = #colorLiteral(red: 0.968627451, green: 0.968627451, blue: 0.968627451, alpha: 1)
-
+    var imageView: ImageView = UIImageView(image: #imageLiteral(resourceName: "Group-2"))
+    
     var navigationBarTintColor: Color = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     var navigationTintColor: Color = #colorLiteral(red: 0.1215686275, green: 0.1215686275, blue: 0.1215686275, alpha: 1)
     var navigationBarTitleTextAttr: Attributes = [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0.1215686275, green: 0.1333333333, blue: 0.1333333333, alpha: 1) ]
@@ -41,6 +44,7 @@ struct DarkTheme: Theme {
 
     var backgroundColor: Color = #colorLiteral(red: 0.1215686275, green: 0.1333333333, blue: 0.1333333333, alpha: 1)
     var backgroundNavigationColor: Color = #colorLiteral(red: 0.1529411765, green: 0.1529411765, blue: 0.1529411765, alpha: 1)
+    var imageView: ImageView = UIImageView(image: #imageLiteral(resourceName: "copy"))
 
     var navigationBarTintColor: Color = #colorLiteral(red: 0.1215686275, green: 0.1333333333, blue: 0.1333333333, alpha: 1)
     var navigationTintColor: Color = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)

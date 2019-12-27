@@ -32,14 +32,7 @@ class DevicesListCellMain: UITableViewCell {
     }
     
     func initialize() {
-//        let coverView = UIView(frame: CGRect(x: 0, y: 5, width: screenWidth, height: 52))
-////        coverView.translatesAutoresizingMaskIntoConstraints = false
-//        coverView.layer.borderWidth = 2
-//        coverView.layer.borderColor = UIColor(rgb: 0x959595).cgColor
-//        coverView.layer.cornerRadius = 5
-//        self.contentView.addSubview(coverView)
-//        self.coverView = coverView
-//
+        
         let separetor = UIView(frame: CGRect(x: 20, y: 71, width: screenWidth-40, height: 2))
         separetor.backgroundColor = UIColor(rgb: 0x959595)
         self.contentView.addSubview(separetor)
@@ -63,7 +56,7 @@ class DevicesListCellMain: UITableViewCell {
         
         let btnConnet = UIView(frame: CGRect(x: Int(screenWidth-140-20), y: 12, width: 140, height: 44))
         btnConnet.translatesAutoresizingMaskIntoConstraints = false
-        btnConnet.backgroundColor = UIColor(rgb: 0xCF2121)
+        btnConnet.backgroundColor = UIColor(rgb: 0xE80000)
         btnConnet.layer.cornerRadius = 22
         let connect = UILabel(frame: CGRect(x: 0, y: 0, width: 140, height: 44))
         connect.text = "Connect".localized(code)
@@ -74,8 +67,6 @@ class DevicesListCellMain: UITableViewCell {
         btnConnet.addSubview(connect)
         self.contentView.addSubview(btnConnet)
         self.btnConnet = btnConnet
-        
-        
         
         let titleLabel = UILabel(frame: .zero)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -109,11 +100,19 @@ class DevicesListCellMain: UITableViewCell {
         self.titleLabel.textColor = .white
         self.levelLabel.font = UIFont.systemFont(ofSize: 18)
         self.levelLabel.textColor = .white
+        
+        setupTheme()
+
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
 
+    }
+    fileprivate func setupTheme() {
+        titleRSSI.theme.textColor = themed { $0.navigationTintColor }
+        titleLabel.theme.textColor = themed { $0.navigationTintColor }
+        levelLabel.theme.textColor = themed { $0.navigationTintColor }
     }
 }
 

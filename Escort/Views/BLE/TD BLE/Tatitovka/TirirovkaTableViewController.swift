@@ -26,7 +26,39 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
     let dIPrusy: Int = screenWidth == 414 ? -12 : 0
     var timer = Timer()
     var removeView = UIView(frame: CGRect(x: 20, y: screenHeight, width: screenWidth-126, height: 60))
-
+    
+    fileprivate lazy var backView: UIImageView = {
+        let backView = UIImageView()
+        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40), width: 50, height: 40)
+        let back = UIImageView(image: UIImage(named: "back")!)
+        back.image = back.image!.withRenderingMode(.alwaysTemplate)
+        back.frame = CGRect(x: 8, y: 0 , width: 8, height: 19)
+        back.center.y = backView.bounds.height/2
+        backView.addSubview(back)
+        return backView
+    }()
+    fileprivate lazy var themeBackView3: UIView = {
+        let v = UIView()
+        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12))
+        v.layer.shadowRadius = 3.0
+        v.layer.shadowOpacity = 0.2
+        v.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+        return v
+    }()
+    fileprivate lazy var MainLabel: UILabel = {
+        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy, width: Int(screenWidth-60), height: 40))
+        text.text = "Tank calibration".localized(code)
+        text.font = UIFont(name:"BankGothicBT-Medium", size: 19.0)
+        return text
+    }()
+    fileprivate lazy var headerView: UIView = {
+        let headerView = UIView()
+        return headerView
+    }()
+    fileprivate lazy var headerView1: UIView = {
+        let headerView = UIView()
+        return headerView
+    }()
     override func loadView() {
         super.loadView()
         
@@ -65,6 +97,7 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
         self.tableView.delegate = self
         self.tableView.separatorStyle = .none
         viewShow()
+        setupTheme()
     }
 
 
@@ -75,6 +108,7 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
     fileprivate lazy var bgImage: UIImageView = {
         let img = UIImageView(image: UIImage(named: "bg-figures.png")!)
         img.frame = CGRect(x: 0, y: screenHeight-260, width: 201, height: 207)
+        img.alpha = 0.3
         return img
     }()
 
@@ -129,13 +163,99 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
             closure()
         }
     }
+    fileprivate lazy var menuImage: UIImageView = {
+        let menuImage = UIImageView(frame: CGRect(x: Int(screenWidth-21), y: dIy + dy + (hasNotch ? dIPrusy+35 : 45), width: 6, height: 24))
+        menuImage.image = #imageLiteral(resourceName: "Group 12")
+        menuImage.image = menuImage.image!.withRenderingMode(.alwaysTemplate)
+
+        return menuImage
+    }()
+    fileprivate lazy var tempLabel: UILabel = {
+        let tempLabel = UILabel(frame: CGRect(x: 20, y: 16, width: 30, height: 19))
+        tempLabel.text = "№:"
+        tempLabel.font = UIFont(name:"FuturaPT-Light", size: 18.0)
+        return tempLabel
+    }()
+    fileprivate lazy var nameNumberLabel: UILabel = {
+        let nameNumberLabel = UILabel(frame: CGRect(x: 45, y: 16, width: 90, height: 19))
+        nameNumberLabel.text = "\(nameDevice)"
+        nameNumberLabel.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
+        return nameNumberLabel
+    }()
+    fileprivate lazy var levelLabel: UILabel = {
+        let levelLabel = UILabel()
+        levelLabel.frame = CGRect.init(x: 20, y: 49, width: 30, height: 21)
+        levelLabel.text = "ID:"
+        levelLabel.font = UIFont(name:"FuturaPT-Light", size: 18.0)
+        return levelLabel
+    }()
+    fileprivate lazy var idlLabel: UILabel = {
+        let idlLabel = UILabel(frame: CGRect(x: 45, y: 50, width: 150, height: 19))
+        idlLabel.text = "\(id)"
+        idlLabel.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
+        return idlLabel
+    }()
+
+    fileprivate lazy var stepNumberlLabel: UILabel = {
+        let stepNumberlLabel = UILabel(frame: CGRect(x: screenWidth-45, y: 17, width: 35, height: 19))
+        stepNumberlLabel.text = "\(stepTar)"
+        stepNumberlLabel.textAlignment = .right
+        stepNumberlLabel.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
+        return stepNumberlLabel
+    }()
+    fileprivate lazy var stabLabel: UILabel = {
+        let stabLabel = UILabel()
+        stabLabel.frame = CGRect.init(x: 20, y: 84, width: 300, height: 23)
+        stabLabel.text = "Initial tank volume".localized(code) + ": \(String(describing: items.last!))"
+        stabLabel.font = UIFont(name:"FuturaPT-Light", size: 18.0)
+        return stabLabel
+    }()
+    fileprivate lazy var stepLabel: UILabel = {
+        let pixelstep = stepNumberlLabel.text?.count
+        let stepLabel = UILabel()
+        stepLabel.frame = CGRect.init(x: Int(screenWidth)-70-Int(pixelstep!*10), y: 16, width: 55, height: 19)
+        stepLabel.text = "Step".localized(code) + ":"
+        stepLabel.font = UIFont(name:"FuturaPT-Light", size: 18.0)
+        stepLabel.textAlignment = .right
+        return stepLabel
+    }()
+    fileprivate lazy var imageTemp: UIImageView = {
+        let imageTemp = UIImageView(frame: CGRect(x: 25, y: 13, width: 12, height: 21))
+        imageTemp.image = #imageLiteral(resourceName: "tempBlack")
+        imageTemp.image = imageTemp.image!.withRenderingMode(.alwaysTemplate)
+
+        return imageTemp
+    }()
+    fileprivate lazy var tempLabel1: UILabel = {
+        let tempLabel = UILabel(frame: CGRect(x: 41, y: 13, width: 30, height: 23))
+        tempLabel.text = "\(temp ?? "0")°"
+        tempLabel.font = UIFont(name:"FuturaPT-Light", size: 16.0)
+        return tempLabel
+    }()
+    fileprivate lazy var levelLabel1: UILabel = {
+        let levelLabel = UILabel()
+        levelLabel.frame = CGRect.init(x: 25, y: 42, width: 120, height: 20)
+        levelLabel.text = "Level".localized(code) + ": \(level)"
+        levelLabel.font = UIFont(name:"FuturaPT-Light", size: 18.0)
+        return levelLabel
+    }()
+    fileprivate lazy var stabLabel1: UILabel = {
+        let stabLabel = UILabel()
+        stabLabel.frame = CGRect.init(x: screenWidth-108, y: 13, width: 93, height: 20)
+        stabLabel.text = "Stable".localized(code)
+        stabLabel.textColor = UIColor(rgb: 0x00A778)
+        stabLabel.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
+        stabLabel.textAlignment = .right
+        return stabLabel
+    }()
     private func viewShow() {
-        view.backgroundColor = UIColor(rgb: 0x1F2222)
-        let (headerView, backView) = headerSet(title: "Tank calibration".localized(code), showBack: true)
-        view.addSubview(headerView)
-        view.addSubview(backView!)
+        view.addSubview(themeBackView3)
+        MainLabel.text = "Tank calibration".localized(code)
+        view.addSubview(MainLabel)
+        view.addSubview(backView)
         view.addSubview(bgImage)
-        backView!.addTapGesture{
+        
+        backView.addTapGesture{
             let alert = UIAlertController(title: "Close".localized(code), message: "You definitely want to complete the calibration?".localized(code), preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "No".localized(code), style: .default, handler: { _ in
@@ -150,8 +270,6 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
             self.present(alert, animated: true, completion: nil)
         }
 
-        let menuImage = UIImageView(frame: CGRect(x: Int(screenWidth-21), y: dIy + dy + (hasNotch ? dIPrusy+35 : 45), width: 6, height: 24))
-        menuImage.image = #imageLiteral(resourceName: "Group 12")
         view.addSubview(menuImage)
         let menuImagePlace = UIImageView(frame: CGRect(x: Int(screenWidth-21*2), y: dIy + dy + (hasNotch ? dIPrusy+30 : 40), width: 30, height: 30))
         view.addSubview(menuImagePlace)
@@ -368,6 +486,25 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
             self.tableView.reloadData()
         }
     }
+    fileprivate func setupTheme() {
+        view.theme.backgroundColor = themed { $0.backgroundColor }
+        themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+        MainLabel.theme.textColor = themed{ $0.navigationTintColor }
+        backView.theme.tintColor = themed{ $0.navigationTintColor }
+        headerView.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+        headerView1.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+        menuImage.theme.tintColor = themed{ $0.navigationTintColor }
+        tempLabel.theme.textColor = themed{ $0.navigationTintColor }
+        nameNumberLabel.theme.textColor = themed{ $0.navigationTintColor }
+        levelLabel.theme.textColor = themed{ $0.navigationTintColor }
+        idlLabel.theme.textColor = themed{ $0.navigationTintColor }
+        stepLabel.theme.textColor = themed{ $0.navigationTintColor }
+        stabLabel.theme.textColor = themed{ $0.navigationTintColor }
+        stepNumberlLabel.theme.textColor = themed{ $0.navigationTintColor }
+        levelLabel1.theme.textColor = themed{ $0.navigationTintColor }
+        tempLabel1.theme.textColor = themed{ $0.navigationTintColor }
+        imageTemp.theme.tintColor = themed{ $0.navigationTintColor }
+     }
 }
 
 extension TirirovkaTableViewController: UITableViewDataSource {
@@ -493,63 +630,36 @@ extension TirirovkaTableViewController: UITableViewDataSource {
             }
         }
     }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
-            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 109))
-            headerView.backgroundColor = UIColor(rgb: 0xEFEFEF)
-            
-            let tempLabel = UILabel(frame: CGRect(x: 20, y: 16, width: 30, height: 19))
-            tempLabel.text = "№:"
-            tempLabel.textColor = UIColor(rgb: 0x272727)
-            tempLabel.font = UIFont(name:"FuturaPT-Light", size: 18.0)
+            headerView.frame = CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 109)
+        
             headerView.addSubview(tempLabel)
-            
-            let nameNumberLabel = UILabel(frame: CGRect(x: 45, y: 16, width: 90, height: 19))
             nameNumberLabel.text = "\(nameDevice)"
-            nameNumberLabel.textColor = UIColor(rgb: 0x272727)
-            nameNumberLabel.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
+
             headerView.addSubview(nameNumberLabel)
             
-            let levelLabel = UILabel()
-            levelLabel.frame = CGRect.init(x: 20, y: 49, width: 30, height: 21)
-            levelLabel.text = "ID:"
-            levelLabel.textColor = UIColor(rgb: 0x272727)
-            levelLabel.font = UIFont(name:"FuturaPT-Light", size: 18.0)
             headerView.addSubview(levelLabel)
-            
-            let idlLabel = UILabel(frame: CGRect(x: 45, y: 50, width: 150, height: 19))
             idlLabel.text = "\(id)"
-            idlLabel.textColor = UIColor(rgb: 0x272727)
-            idlLabel.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
+
             headerView.addSubview(idlLabel)
-            
-            let stabLabel = UILabel()
-            stabLabel.frame = CGRect.init(x: 20, y: 84, width: 300, height: 23)
             stabLabel.text = "Initial tank volume".localized(code) + ": \(String(describing: items.last!))"
-            stabLabel.font = UIFont(name:"FuturaPT-Light", size: 18.0)
-            stabLabel.textColor = UIColor(rgb: 0x272727)
             if sliv == true {
                 headerView.addSubview(stabLabel)
             } else {
                 stabLabel.removeFromSuperview()
             }
             
-            let stepNumberlLabel = UILabel(frame: CGRect(x: screenWidth-45, y: 17, width: 35, height: 19))
             stepNumberlLabel.text = "\(stepTar)"
-            stepNumberlLabel.textColor = UIColor(rgb: 0x272727)
-            stepNumberlLabel.textAlignment = .right
-            stepNumberlLabel.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
+
             headerView.addSubview(stepNumberlLabel)
             let pixelstep = stepNumberlLabel.text?.count
-            
-            let stepLabel = UILabel()
+
             stepLabel.frame = CGRect.init(x: Int(screenWidth)-70-Int(pixelstep!*10), y: 16, width: 55, height: 19)
-            stepLabel.text = "Step".localized(code) + ":"
-            stepLabel.font = UIFont(name:"FuturaPT-Light", size: 18.0)
-            stepLabel.textColor = UIColor(rgb: 0x272727)
-            stepLabel.textAlignment = .right
+
             headerView.addSubview(stepLabel)
-            
+
             let stepLabelPlace = UIView(frame: CGRect(x: Int(screenWidth)-80-Int(pixelstep!*10), y: 10, width: Int(screenWidth)-80-Int(pixelstep!*10), height: 35))
             headerView.addSubview(stepLabelPlace)
             
@@ -601,48 +711,32 @@ extension TirirovkaTableViewController: UITableViewDataSource {
             
             return headerView
         } else {
-            let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 76))
-            headerView.backgroundColor = UIColor(rgb: 0xEFEFEF)
-
-            let imageTemp = UIImageView(frame: CGRect(x: 25, y: 13, width: 12, height: 21))
-            imageTemp.image = #imageLiteral(resourceName: "tempBlack")
-            headerView.addSubview(imageTemp)
+            headerView1.frame = CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 76)
+            headerView1.addSubview(imageTemp)
             
-            let tempLabel = UILabel(frame: CGRect(x: 41, y: 13, width: 30, height: 23))
-            tempLabel.text = "\(temp ?? "0")°"
-            tempLabel.textColor = UIColor(rgb: 0x272727)
-            tempLabel.font = UIFont(name:"FuturaPT-Light", size: 16.0)
-            headerView.addSubview(tempLabel)
+            tempLabel1.text = "\(temp ?? "0")°"
+            headerView1.addSubview(tempLabel1)
             
-            let levelLabel = UILabel()
-            levelLabel.frame = CGRect.init(x: 25, y: 42, width: 120, height: 20)
-            levelLabel.text = "Level".localized(code) + ": \(level)"
-            levelLabel.textColor = UIColor(rgb: 0x272727)
-            levelLabel.font = UIFont(name:"FuturaPT-Light", size: 18.0)
-            headerView.addSubview(levelLabel)
+            levelLabel1.text = "Level".localized(code) + ": \(level)"
+            headerView1.addSubview(levelLabel1)
             
-            let stabLabel = UILabel()
-            stabLabel.frame = CGRect.init(x: screenWidth-108, y: 13, width: 93, height: 20)
-            stabLabel.text = "Stable".localized(code)
-            stabLabel.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
-            stabLabel.textColor = UIColor(rgb: 0x00A778)
-            stabLabel.textAlignment = .right
-            headerView.addSubview(stabLabel)
+            stabLabel1.text = "Stable".localized(code)
+            headerView1.addSubview(stabLabel1)
             
-            let calibLabel = UILabel()
-            calibLabel.frame = CGRect.init(x: screenWidth-183, y: 42, width: 168, height: 20)
-            calibLabel.text = ""
-            calibLabel.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
-            calibLabel.textColor = UIColor(rgb: 0xCF2121)
-            calibLabel.textAlignment = .right
-            headerView.addSubview(calibLabel)
+//            let calibLabel = UILabel()
+//            calibLabel.frame = CGRect.init(x: screenWidth-183, y: 42, width: 168, height: 20)
+//            calibLabel.text = ""
+//            calibLabel.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
+//            calibLabel.textColor = UIColor(rgb: 0xCF2121)
+//            calibLabel.textAlignment = .right
+//            headerView1.addSubview(calibLabel)
             
             let seperator = UIView()
-            seperator.frame = CGRect(x: 0, y: headerView.frame.height-2, width: screenWidth, height: 2)
+            seperator.frame = CGRect(x: 0, y: headerView1.frame.height-2, width: screenWidth, height: 2)
             seperator.backgroundColor = UIColor(rgb: 0xCF2121)
-            headerView.addSubview(seperator)
+            headerView1.addSubview(seperator)
             
-            return headerView
+            return headerView1
         }
     }
 }

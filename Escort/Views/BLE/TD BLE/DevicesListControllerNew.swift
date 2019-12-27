@@ -21,7 +21,6 @@ var rrsiPink = 0
 var kCBAdvDataManufacturerData = ""
 class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate {
 
-    var (headerView, backView) = headerSet(title: "List of available devices".localized(code), showBack: true)
     let viewAlpha = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
     let searchBar = UISearchBar(frame: CGRect(x: 0, y: headerHeight, width: screenWidth, height: 35))
     var refreshControl = UIRefreshControl()
@@ -131,6 +130,11 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                                     abn7.insert(".", at: abn7.index(abn7.startIndex, offsetBy: 3))
                                     print(abn7)
                                     adveFW.insert(String(abn7), at: 0)
+                                } else {
+                                    adveLvl.insert("...", at: 0)
+                                    adveVat.insert("...", at: 0)
+                                    adveTemp.insert("...", at: 0)
+                                    adveFW.insert("...", at: 0)
                                 }
 
                             } else {
@@ -179,6 +183,11 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                                     print(abn7)
                                     adveFW.append(String(abn7))
 
+                                } else {
+                                    adveLvl.append("...")
+                                    adveVat.append("...")
+                                    adveTemp.append("...")
+                                    adveFW.append("...")
                                 }
                             }
                             tableView.reloadData()
@@ -216,6 +225,7 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                                 self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
                                 if let navController = self.navigationController {
                                     navController.pushViewController(DeviceBleController(), animated: true)
+                                    QRCODE = ""
                                 }
                                 print("Connected to " +  peripheral.name!)
                                 self.viewAlpha.removeFromSuperview()
@@ -507,7 +517,9 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                 if result.contains("UD") {
                     let indexOfPerson = result.firstIndex{$0 == "UD"}
                     print(indexOfPerson!)
+                    if indexOfPerson! + 2 <= result.count-1 {
                     id = "\(result[indexOfPerson! + 2])"
+                    }
                 }
                 if result.contains("LK") {
                     let indexOfPerson = result.firstIndex{$0 == "LK"}
@@ -560,9 +572,11 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                 if result.contains("WM") {
                     let indexOfPerson = result.firstIndex{$0 == "WM"}
                     if result.count >= indexOfPerson!+2{
-                        wmMax = "\(result[indexOfPerson! + 2])"
-                        if let wmMaxUINt = Int(wmMax) {
-                            wmMaxInt = wmMaxUINt
+                        if indexOfPerson! + 2 <= result.count-1 {
+                            wmMax = "\(result[indexOfPerson! + 2])"
+                            if let wmMaxUINt = Int(wmMax) {
+                                wmMaxInt = wmMaxUINt
+                            }
                         }
                     }
                 }
@@ -590,7 +604,33 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
     
     var tableViewData = [cellData]()
     weak var tableView: UITableView!
-
+    
+    fileprivate lazy var themeBackView3: UIView = {
+        let v = UIView()
+        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12))
+        v.layer.shadowRadius = 3.0
+        v.layer.shadowOpacity = 0.2
+        v.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+        return v
+    }()
+    fileprivate lazy var MainLabel: UILabel = {
+        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy, width: Int(screenWidth-70), height: 40))
+        text.text = "Type of bluetooth sensor".localized(code)
+        text.textColor = UIColor(rgb: 0x272727)
+        text.font = UIFont(name:"BankGothicBT-Medium", size: 19.0)
+        return text
+    }()
+    fileprivate lazy var backView: UIImageView = {
+        let backView = UIImageView()
+        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40), width: 50, height: 40)
+        let back = UIImageView(image: UIImage(named: "back")!)
+        back.image = back.image!.withRenderingMode(.alwaysTemplate)
+        back.frame = CGRect(x: 8, y: 0 , width: 8, height: 19)
+        back.center.y = backView.bounds.height/2
+        backView.addSubview(back)
+        return backView
+    }()
+    
     override func loadView() {
         super.loadView()
         
@@ -618,14 +658,13 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
         return hamburger
     }()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         searchBar.delegate = self
         searchBar.searchBarStyle = .minimal
         searchBar.showsCancelButton = true
-        searchBar.tintColor = .white
-        searchBar.textColor = .white
         searchBar.keyboardType = UIKeyboardType.decimalPad
         view.addSubview(searchBar)
         viewShow()
@@ -639,6 +678,35 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
         self.tableView.register(DevicesListCell.self, forCellReuseIdentifier: "DevicesListCell")
         tableView.separatorStyle = .none
         setupTheme()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        passNotif = 0
+        viewAlpha.addSubview(activityIndicator)
+        view.addSubview(viewAlpha)
+        self.view.isUserInteractionEnabled = false
+        activityIndicator.startAnimating()
+        if QRCODE == "" {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                self.activityIndicator.stopAnimating()
+                self.viewAlpha.removeFromSuperview()
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                self.view.isUserInteractionEnabled = true
+                
+            }
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 15.0) {
+                if QRCODE != "" {
+                    if checkPopQR == false {
+                        self.timer.invalidate()
+                        self.navigationController?.popViewController(animated: true)
+                        checkPopQR = true
+                    }
+                }
+                self.view.isUserInteractionEnabled = true
+            }
+        }
+
     }
     
     var tr = 0
@@ -684,7 +752,6 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
         }
         scanBLEDevices()
         rightCount = 0
-        headerView = headerSet(title: "List of available devices".localized(code))
 
     }
     
@@ -716,6 +783,7 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
     
     fileprivate lazy var bgImage: UIImageView = {
         let img = UIImageView(image: UIImage(named: "bg-figures.png")!)
+        img.alpha = 0.3
         img.frame = CGRect(x: 0, y: screenHeight-260, width: 201, height: 207)
         return img
     }()
@@ -751,31 +819,11 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
         }
     }
     private func viewShow() {
-//        view.subviews.forEach({ $0.removeFromSuperview() })
-//        view.backgroundColor = UIColor(rgb: 0x1F2222)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            (self.headerView, self.backView) = headerSet(title: "List of available devices".localized(code), showBack: true)
-            self.view.addSubview(self.headerView)
-            self.view.addSubview(self.backView!)
-            self.view.addSubview(self.viewAlpha)
-            self.backView!.addTapGesture{
-                self.navigationController?.popViewController(animated: true)
-            }
-        }
-        view.addSubview(bgImage)
-        viewAlpha.addSubview(activityIndicator)
-        activityIndicator.startAnimating()
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-            if QRCODE == "" {
-                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                self.viewAlpha.removeFromSuperview()
-//                self.view.backgroundColor = UIColor(rgb: 0x1F2222).withAlphaComponent(1)
-                self.activityIndicator.stopAnimating()
-            }
-//            self.mainPartShow()
-            
-        }
+        
+        view.addSubview(themeBackView3)
+        MainLabel.text = "List of available devices".localized(code)
+        view.addSubview(MainLabel)
+        view.addSubview(backView)
         let hamburgerPlace = UIView()
         var yHamb = screenHeight/22
         if screenWidth == 414 {
@@ -801,6 +849,19 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
             self.present(viewController, animated: true)
         }
 
+        self.backView.addTapGesture{
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        view.addSubview(bgImage)
+        activityIndicator.startAnimating()
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            if QRCODE == "" {
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+//                self.view.backgroundColor = UIColor(rgb: 0x1F2222).withAlphaComponent(1)
+            }
+        }
     }
     
     var searching = false
@@ -810,6 +871,17 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
     fileprivate func setupTheme() {
         view.theme.backgroundColor = themed { $0.backgroundColor }
         hamburger.theme.tintColor = themed{ $0.navigationTintColor }
+        MainLabel.theme.textColor = themed{ $0.navigationTintColor }
+        themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+        searchBar.theme.tintColor = themed{ $0.navigationTintColor }
+        searchBar.theme.backgroundColor = themed { $0.backgroundColor }
+        backView.theme.tintColor = themed{ $0.navigationTintColor }
+
+        if isNight {
+            searchBar.textColor = .white
+        } else {
+            searchBar.textColor = .black
+        }
     }
 }
 extension DevicesListControllerNew: UISearchBarDelegate {
@@ -844,7 +916,7 @@ extension DevicesListControllerNew: UISearchBarDelegate {
 
 extension DevicesListControllerNew: UIViewControllerTransitioningDelegate {
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        return DrawerPresentationController(presentedViewController: presented, presenting: presenting)
+        return DrawerPresentationController(presentedViewController: presented, presenting: presenting, blurEffectStyle: isNight ? .light : .dark)
     }
 }
 
@@ -913,6 +985,11 @@ extension DevicesListControllerNew: UITableViewDataSource {
                     cell.btnConnet.addTapGesture {
                         temp = nil
                         nameDevice = ""
+                        VV = ""
+                        level = ""
+                        RSSIMain = ""
+                        vatt = ""
+                        id = ""
                         self.activityIndicator.startAnimating()
                         self.view.addSubview(self.viewAlpha)
                         zeroTwo = 0
@@ -978,13 +1055,9 @@ extension DevicesListControllerNew: UITableViewDataSource {
 //            cell.titleLabel.text = tableViewData[indexPath.section].sectionData[indexPath.row - 1]
 //            cell.macAdres.text = "MAC = F6:F6:F6:F6:F6:F6"
             cell.FW.text = "F.W. = \(adveFW[indexPath.section-1])"
-            cell.FW.textColor = .white
             cell.T.text = "Temperature = \(adveTemp[indexPath.section-1]) C°"
-            cell.T.textColor = .white
             cell.Lvl.text = "Level = \(adveLvl[indexPath.section-1])"
-            cell.Lvl.textColor = .white
             cell.Vbat.text = "Vbatt = \(adveVat[indexPath.section-1]) V"
-            cell.Vbat.textColor = .white
             cell.backgroundColor = .clear
             return cell
         }

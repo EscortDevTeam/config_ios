@@ -66,13 +66,19 @@ class TirirovkaCellViewController: UITableViewCell {
         ])
         
         self.titleLabel.font = UIFont.systemFont(ofSize: 18)
-        self.titleLabel.textColor = .white
+//        self.titleLabel.textColor = .white
         self.levelLabel.font = UIFont.systemFont(ofSize: 18)
-        self.levelLabel.textColor = .white
+//        self.levelLabel.textColor = .white
+        setupTheme()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-
+        
+    }
+    fileprivate func setupTheme() {
+        
+        titleLabel.theme.textColor = themed { $0.navigationTintColor }
+        levelLabel.theme.textColor = themed { $0.navigationTintColor }
     }
 }

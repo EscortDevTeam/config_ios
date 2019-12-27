@@ -33,7 +33,7 @@ class DeviceBleSettingsAddController: UIViewController {
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         viewShow()
-        
+        setupTheme()
     }
     override func viewWillAppear(_ animated: Bool) {
         warning = false
@@ -41,6 +41,7 @@ class DeviceBleSettingsAddController: UIViewController {
     fileprivate lazy var bgImage: UIImageView = {
         let img = UIImageView(image: UIImage(named: "bg-figures.png")!)
         img.frame = CGRect(x: 0, y: screenHeight-260, width: 201, height: 207)
+        img.alpha = 0.3
         return img
     }()
     fileprivate lazy var scrollView: UIScrollView = {
@@ -60,7 +61,6 @@ class DeviceBleSettingsAddController: UIViewController {
         let input = UITextField(frame: CGRect(x: 120, y: 0, width: Int(screenWidth/2-30), height: 40))
         input.text = text
         input.placeholder = "Enter value...".localized(code)
-        input.textColor = UIColor(rgb: 0xE9E9E9)
         input.font = UIFont(name:"FuturaPT-Light", size: 18.0)
         input.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
         input.layer.borderWidth = 1.0
@@ -82,6 +82,94 @@ class DeviceBleSettingsAddController: UIViewController {
         return v
     }
     
+    fileprivate lazy var themeBackView3: UIView = {
+        let v = UIView()
+        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12))
+        v.layer.shadowRadius = 3.0
+        v.layer.shadowOpacity = 0.2
+        v.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+        return v
+    }()
+    fileprivate lazy var MainLabel: UILabel = {
+        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy, width: Int(screenWidth-70), height: 40))
+        text.text = "Type of bluetooth sensor".localized(code)
+        text.textColor = UIColor(rgb: 0x272727)
+        text.font = UIFont(name:"BankGothicBT-Medium", size: 19.0)
+        return text
+    }()
+    fileprivate lazy var backView: UIImageView = {
+        let backView = UIImageView()
+        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40), width: 50, height: 40)
+        let back = UIImageView(image: UIImage(named: "back")!)
+        back.image = back.image!.withRenderingMode(.alwaysTemplate)
+        back.frame = CGRect(x: 8, y: 0 , width: 8, height: 19)
+        back.center.y = backView.bounds.height/2
+        backView.addSubview(back)
+        return backView
+    }()
+    fileprivate lazy var lblPassword: UILabel = {
+        let lblPassword = UILabel(frame: CGRect(x: 30, y: 20, width: Int(screenWidth)-30, height: 22))
+        lblPassword.text = "Password for changing settings".localized(code)
+        lblPassword.font = UIFont(name:"FuturaPT-Medium", size: 20.0)
+        return lblPassword
+    }()
+    
+    fileprivate lazy var lblTitle: UILabel = {
+        let lblTitle = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
+        lblTitle.text = "Password".localized(code)
+        lblTitle.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
+        return lblTitle
+    }()
+    fileprivate lazy var input: UITextField = {
+        let input = UITextField(frame: CGRect(x: 120, y: 0, width: Int(screenWidth/2-30), height: 40))
+        input.text = "\(mainPassword)"
+        input.isSecureTextEntry = true
+        input.addTarget(self, action: #selector(DeviceBleSettingsAddController.textFieldDidChange(_:)),for: UIControl.Event.editingChanged)
+        input.attributedPlaceholder = NSAttributedString(string: "Enter value...".localized(code), attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        input.textColor = UIColor(rgb: 0xE9E9E9)
+        input.font = UIFont(name:"FuturaPT-Light", size: 18.0)
+        input.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
+        input.layer.borderWidth = 1.0
+        input.layer.cornerRadius = 4.0
+        input.layer.borderColor = UIColor(rgb: 0x959595).cgColor
+        input.backgroundColor = .clear
+        input.leftViewMode = .always
+        input.keyboardType = UIKeyboardType.decimalPad
+        return input
+    }()
+    
+    fileprivate lazy var lblSettings: UILabel = {
+        let lblSettings = UILabel(frame: CGRect(x: 30, y: 255, width: Int(screenWidth), height: 22))
+        lblSettings.text = "Manual configuration input".localized(code)
+        lblSettings.font = UIFont(name:"FuturaPT-Medium", size: 20.0)
+        return lblSettings
+    }()
+    fileprivate lazy var lblTitle1: UILabel = {
+        let lblTitle1 = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
+        lblTitle1.text = "Full".localized(code)
+        lblTitle1.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
+        return lblTitle1
+    }()
+    fileprivate lazy var lblPrefix1: UILabel = {
+        let lblPrefix1 = UILabel(frame: CGRect(x: Int(screenWidth/2-30), y: 10, width: Int(screenWidth/2-30), height: 20))
+        lblPrefix1.text = "\(full)"
+        lblPrefix1.textAlignment = .right
+        lblPrefix1.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
+        return lblPrefix1
+    }()
+    fileprivate lazy var lblTitle2: UILabel = {
+        let lblTitle2 = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
+        lblTitle2.text = "Empty".localized(code)
+        lblTitle2.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
+        return lblTitle2
+    }()
+    fileprivate lazy var lblPrefix2: UILabel = {
+        let lblPrefix2 = UILabel(frame: CGRect(x: Int(screenWidth/2-30), y: 10, width: Int(screenWidth/2-30), height: 20))
+        lblPrefix2.text = "\(nothing)"
+        lblPrefix2.textAlignment = .right
+        lblPrefix2.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
+        return lblPrefix2
+    }()
     @objc func adjustForKeyboard(notification: Notification) {
         guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
 
@@ -125,16 +213,15 @@ class DeviceBleSettingsAddController: UIViewController {
     private func viewShow() {
         warning = false
         view.subviews.forEach({ $0.removeFromSuperview() })
-        view.backgroundColor = UIColor(rgb: 0x1F2222)
         
-        let (headerView, backView) = headerSet(title: "Additional Features".localized(code), showBack: true)
-        view.addSubview(headerView)
-        view.addSubview(backView!)
+        view.addSubview(themeBackView3)
+        MainLabel.text = "TD BLE Settings".localized(code)
+        view.addSubview(MainLabel)
+        view.addSubview(backView)
         
-        backView!.addTapGesture{
+        backView.addTapGesture{
             self.navigationController?.popViewController(animated: true)
         }
-        
         view.addSubview(bgImage)
         view.addSubview(scrollView)
 
@@ -147,11 +234,6 @@ class DeviceBleSettingsAddController: UIViewController {
         var y = 20
         let x = 30, deltaY = 65, deltaYLite = 20
         
-        let lblPassword = UILabel(frame: CGRect(x: x, y: y, width: Int(screenWidth)-30, height: 22))
-        lblPassword.text = "Password for changing settings".localized(code)
-        lblPassword.textColor = UIColor(rgb: 0xE9E9E9)
-        lblPassword.font = UIFont(name:"FuturaPT-Medium", size: 20.0)
-        
         scrollView.addSubview(lblPassword)
         scrollView.addTapGesture {
             self.scrollView.endEditing(true)
@@ -160,27 +242,8 @@ class DeviceBleSettingsAddController: UIViewController {
         y = y + deltaY
         
         let v = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth), height: 40))
-        
-        let lblTitle = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
-        lblTitle.text = "Password".localized(code)
-        lblTitle.textColor = UIColor(rgb: 0xE9E9E9)
-        lblTitle.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
-        
-        let input = UITextField(frame: CGRect(x: 120, y: 0, width: Int(screenWidth/2-30), height: 40))
-        input.text = "\(mainPassword)"
-        input.isSecureTextEntry = true
+
         checkMaxLength(textField: input, maxLength: 10)
-        input.addTarget(self, action: #selector(DeviceBleSettingsAddController.textFieldDidChange(_:)),for: UIControl.Event.editingChanged)
-        input.attributedPlaceholder = NSAttributedString(string: "Enter value...".localized(code), attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        input.textColor = UIColor(rgb: 0xE9E9E9)
-        input.font = UIFont(name:"FuturaPT-Light", size: 18.0)
-        input.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
-        input.layer.borderWidth = 1.0
-        input.layer.cornerRadius = 4.0
-        input.layer.borderColor = UIColor(rgb: 0x959595).cgColor
-        input.backgroundColor = .clear
-        input.leftViewMode = .always
-        input.keyboardType = UIKeyboardType.decimalPad
         v.addSubview(lblTitle)
         v.addSubview(input)
         
@@ -234,7 +297,7 @@ class DeviceBleSettingsAddController: UIViewController {
             scrollView.addSubview(btnTextTruePassDelete)
         }
         btn1TruePass.addTapGesture {
-            if let it: Int = Int(input.text!) {
+            if let it: Int = Int(self.input.text!) {
                 mainPassword = "\(it)"
                 reload = 9
                 self.activityIndicator.startAnimating()
@@ -262,6 +325,7 @@ class DeviceBleSettingsAddController: UIViewController {
                                 btnTextTruePassDelete.removeFromSuperview()
                                 self.view.subviews.forEach({ $0.removeFromSuperview() })
                                 self.viewShow()
+                                self.setupTheme()
                             case .cancel:
                                 print("cancel")
                                 
@@ -305,7 +369,7 @@ class DeviceBleSettingsAddController: UIViewController {
             }
         }
         btnTruePassDelete.addTapGesture {
-            if let it: Int = Int(input.text!) {
+            if let it: Int = Int(self.input.text!) {
                 mainPassword = "\(it)"
                 reload = 7
                 self.activityIndicator.startAnimating()
@@ -335,6 +399,7 @@ class DeviceBleSettingsAddController: UIViewController {
                                 btnTextTruePassDelete.removeFromSuperview()
                                 self.view.subviews.forEach({ $0.removeFromSuperview() })
                                 self.viewShow()
+                                self.setupTheme()
                             case .cancel:
                                 print("cancel")
                                 
@@ -377,7 +442,7 @@ class DeviceBleSettingsAddController: UIViewController {
             }
         }
         btn1.addTapGesture {
-            if let it: Int = Int(input.text!) {
+            if let it: Int = Int(self.input.text!) {
                 reload = 8
                 mainPassword = "\(it)"
                 self.activityIndicator.startAnimating()
@@ -403,6 +468,7 @@ class DeviceBleSettingsAddController: UIViewController {
                             btn1Text.removeFromSuperview()
                             self.view.subviews.forEach({ $0.removeFromSuperview() })
                             self.viewShow()
+                            self.setupTheme()
                         case .cancel:
                             print("cancel")
                             
@@ -440,11 +506,6 @@ class DeviceBleSettingsAddController: UIViewController {
         
         y = y + deltaYLite
         
-        let lblSettings = UILabel(frame: CGRect(x: x, y: y, width: Int(screenWidth), height: 22))
-        lblSettings.text = "Manual configuration input".localized(code)
-        lblSettings.textColor = UIColor(rgb: 0xE9E9E9)
-        lblSettings.font = UIFont(name:"FuturaPT-Medium", size: 20.0)
-        
         scrollView.addSubview(lblSettings)
         
         y = y + deltaY
@@ -452,16 +513,10 @@ class DeviceBleSettingsAddController: UIViewController {
         //        scrollView.addSubview(textLineCreate(title: "\(setFull)", text: "\(full)", x: x, y: y, prefix: "\(full)"))
         let v1 = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth), height: 40))
         
-        let lblTitle1 = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
-        lblTitle1.text = "Full".localized(code)
-        lblTitle1.textColor = UIColor(rgb: 0xE9E9E9)
-        lblTitle1.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
-        
         input1 = UITextField(frame: CGRect(x: 70, y: 0, width: Int(screenWidth/2-30), height: 40))
         input1.text = "\(full)"
         input1.addTarget(self, action: #selector(DeviceBleSettingsAddController.textFieldDidChange(_:)),for: UIControl.Event.editingChanged)
         input1.attributedPlaceholder = NSAttributedString(string: "Enter value...".localized(code), attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        input1.textColor = UIColor(rgb: 0xE9E9E9)
         input1.font = UIFont(name:"FuturaPT-Light", size: 18.0)
         input1.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
         input1.layer.borderWidth = 1.0
@@ -471,11 +526,6 @@ class DeviceBleSettingsAddController: UIViewController {
         input1.leftViewMode = .always
         input1.keyboardType = UIKeyboardType.decimalPad
         
-        let lblPrefix1 = UILabel(frame: CGRect(x: Int(screenWidth/2-30), y: 10, width: Int(screenWidth/2-30), height: 20))
-        lblPrefix1.text = "\(full)"
-        lblPrefix1.textColor = UIColor(rgb: 0xE9E9E9)
-        lblPrefix1.textAlignment = .right
-        lblPrefix1.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
         v1.addSubview(lblPrefix1)
         
         
@@ -487,16 +537,11 @@ class DeviceBleSettingsAddController: UIViewController {
         
         let v2 = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth), height: 40))
         
-        let lblTitle2 = UILabel(frame: CGRect(x: 0, y: 10, width: Int(screenWidth/2), height: 20))
-        lblTitle2.text = "Empty".localized(code)
-        lblTitle2.textColor = UIColor(rgb: 0xE9E9E9)
-        lblTitle2.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
         
         input2 = UITextField(frame: CGRect(x: 70, y: 0, width: Int(screenWidth/2-30), height: 40))
         input2.text = "\(nothing)"
         input2.addTarget(self, action: #selector(DeviceBleSettingsAddController.textFieldDidChange(_:)),for: UIControl.Event.editingChanged)
         input2.attributedPlaceholder = NSAttributedString(string: "Enter value...".localized(code), attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        input2.textColor = UIColor(rgb: 0xE9E9E9)
         input2.font = UIFont(name:"FuturaPT-Light", size: 18.0)
         input2.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
         input2.layer.borderWidth = 1.0
@@ -506,11 +551,6 @@ class DeviceBleSettingsAddController: UIViewController {
         input2.leftViewMode = .always
         input2.keyboardType = UIKeyboardType.decimalPad
         
-        let lblPrefix2 = UILabel(frame: CGRect(x: Int(screenWidth/2-30), y: 10, width: Int(screenWidth/2-30), height: 20))
-        lblPrefix2.text = "\(nothing)"
-        lblPrefix2.textAlignment = .right
-        lblPrefix2.textColor = UIColor(rgb: 0xE9E9E9)
-        lblPrefix2.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
         v2.addSubview(lblPrefix2)
         
         
@@ -888,6 +928,7 @@ class DeviceBleSettingsAddController: UIViewController {
                             btn1Text.removeFromSuperview()
                             self.view.subviews.forEach({ $0.removeFromSuperview() })
                             self.viewShow()
+                            self.setupTheme()
                         case .cancel:
                             print("cancel")
                             
@@ -1004,6 +1045,7 @@ class DeviceBleSettingsAddController: UIViewController {
                                 btn1Text.removeFromSuperview()
                                 self.view.subviews.forEach({ $0.removeFromSuperview() })
                                 self.viewShow()
+                                self.setupTheme()
                             case .cancel:
                                 print("cancel")
                             case .destructive:
@@ -1025,6 +1067,7 @@ class DeviceBleSettingsAddController: UIViewController {
                                 btn1Text.removeFromSuperview()
                                 self.view.subviews.forEach({ $0.removeFromSuperview() })
                                 self.viewShow()
+                                self.setupTheme()
                             case .cancel:
                                 print("cancel")
                             case .destructive:
@@ -1139,4 +1182,21 @@ class DeviceBleSettingsAddController: UIViewController {
         }
         checkMaxLength(textField: textField, maxLength: 10)
     }
+    
+        fileprivate func setupTheme() {
+            view.theme.backgroundColor = themed { $0.backgroundColor }
+            MainLabel.theme.textColor = themed{ $0.navigationTintColor }
+            themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            backView.theme.tintColor = themed{ $0.navigationTintColor }
+            input.theme.textColor = themed{ $0.navigationTintColor }
+            input1.theme.textColor = themed{ $0.navigationTintColor }
+            input2.theme.textColor = themed{ $0.navigationTintColor }
+            lblPassword.theme.textColor = themed{ $0.navigationTintColor }
+            lblTitle.theme.textColor = themed{ $0.navigationTintColor }
+            lblSettings.theme.textColor = themed{ $0.navigationTintColor }
+            lblPrefix2.theme.textColor = themed{ $0.navigationTintColor }
+            lblTitle2.theme.textColor = themed{ $0.navigationTintColor }
+            lblPrefix1.theme.textColor = themed{ $0.navigationTintColor }
+            lblTitle1.theme.textColor = themed{ $0.navigationTintColor }
+        }
 }

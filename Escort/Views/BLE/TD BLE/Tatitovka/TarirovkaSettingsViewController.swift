@@ -19,6 +19,7 @@ class TarirovkaSettingsViewController: UIViewController {
         startVTar = 0
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         viewShow()
+        setupTheme()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -29,6 +30,7 @@ class TarirovkaSettingsViewController: UIViewController {
     fileprivate lazy var bgImage: UIImageView = {
         let img = UIImageView(image: UIImage(named: "bg-figures.png")!)
         img.frame = CGRect(x: 0, y: screenHeight-260, width: 201, height: 207)
+        img.alpha = 0.3
         return img
     }()
 
@@ -82,32 +84,47 @@ class TarirovkaSettingsViewController: UIViewController {
             closure()
         }
     }
-    private func viewShow() {
-        view.backgroundColor = UIColor(rgb: 0x1F2222)
-        let (headerView, backView) = headerSet(title: "Tank calibration".localized(code), showBack: true)
-        view.addSubview(headerView)
-        view.addSubview(backView!)
-        view.addSubview(bgImage)
-        backView!.addTapGesture{
-            self.navigationController?.popViewController(animated: true)
-        }
-        var yHeight = (hasNotch ? 88 : headerHeight+40)
-        let slivButton = UIButton(frame: CGRect(x: 25, y: Int(yHeight), width: Int(screenWidth/2-50), height: 43))
-        slivButton.layer.cornerRadius = 20
-        slivButton.backgroundColor = UIColor(rgb: 0xCF2121)
-        slivButton.setTitle("Draining".localized(code), for: UIControl.State.normal)
-        view.addSubview(slivButton)
-        
-        let zalivButton = UIButton(frame: CGRect(x: Int(screenWidth/2+25), y:Int(yHeight), width: Int(screenWidth/2-50), height: 43))
+    fileprivate lazy var backView: UIImageView = {
+        let backView = UIImageView()
+        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40), width: 50, height: 40)
+        let back = UIImageView(image: UIImage(named: "back")!)
+        back.image = back.image!.withRenderingMode(.alwaysTemplate)
+        back.frame = CGRect(x: 8, y: 0 , width: 8, height: 19)
+        back.center.y = backView.bounds.height/2
+        backView.addSubview(back)
+        return backView
+    }()
+    fileprivate lazy var themeBackView3: UIView = {
+        let v = UIView()
+        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12))
+        v.layer.shadowRadius = 3.0
+        v.layer.shadowOpacity = 0.2
+        v.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+        return v
+    }()
+    fileprivate lazy var MainLabel: UILabel = {
+        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy, width: Int(screenWidth-60), height: 40))
+        text.text = "Tank calibration".localized(code)
+        text.font = UIFont(name:"BankGothicBT-Medium", size: 19.0)
+        return text
+    }()
+    fileprivate lazy var zalivButton: UIButton = {
+        let zalivButton = UIButton(frame: CGRect(x: Int(screenWidth/2+25), y: hasNotch ? Int(88) : Int(headerHeight+40), width: Int(screenWidth/2-50), height: 43))
         zalivButton.layer.cornerRadius = 20
         zalivButton.layer.borderWidth = 1
         zalivButton.layer.borderColor = UIColor(rgb: 0x959595).cgColor
         zalivButton.setTitle("Filing".localized(code), for: UIControl.State.normal)
-        view.addSubview(zalivButton)
-        
-        yHeight = yHeight + 77
-        
-        let nameFileField = UITextField(frame: CGRect(x: 25, y: Int(yHeight), width: Int(screenWidth - 50), height: 36))
+        return zalivButton
+    }()
+    fileprivate lazy var slivButton: UIButton = {
+        let slivButton = UIButton(frame: CGRect(x: 25, y: hasNotch ? Int(88) : Int(headerHeight+40), width: Int(screenWidth/2-50), height: 43))
+        slivButton.layer.cornerRadius = 20
+        slivButton.backgroundColor = UIColor(rgb: 0xCF2121)
+        slivButton.setTitle("Draining".localized(code), for: UIControl.State.normal)
+        return slivButton
+    }()
+    fileprivate lazy var nameFileField: UITextField = {
+        let nameFileField = UITextField(frame: CGRect(x: 25, y: 77 + (hasNotch ? Int(88) : Int(headerHeight+40)), width: Int(screenWidth - 50), height: 36))
         nameFileField.layer.cornerRadius = 2
         nameFileField.layer.borderWidth = 1
         nameFileField.textColor = .white
@@ -115,11 +132,10 @@ class TarirovkaSettingsViewController: UIViewController {
         nameFileField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: nameFileField.frame.height))
         nameFileField.leftViewMode = .always
         nameFileField.layer.borderColor = UIColor(rgb: 0x959595).cgColor
-        view.addSubview(nameFileField)
-        
-        yHeight = yHeight + 48
-        
-        let stepFileField = UITextField(frame: CGRect(x: 25, y: Int(yHeight), width: Int(screenWidth - 50), height: 36))
+        return nameFileField
+    }()
+    fileprivate lazy var stepFileField: UITextField = {
+        let stepFileField = UITextField(frame: CGRect(x: 25, y: 125 + (hasNotch ? Int(88) : Int(headerHeight+40)), width: Int(screenWidth - 50), height: 36))
         stepFileField.layer.cornerRadius = 2
         stepFileField.layer.borderWidth = 1
         stepFileField.textColor = .white
@@ -128,11 +144,10 @@ class TarirovkaSettingsViewController: UIViewController {
         stepFileField.leftViewMode = .always
         stepFileField.keyboardType = .numberPad
         stepFileField.layer.borderColor = UIColor(rgb: 0x959595).cgColor
-        view.addSubview(stepFileField)
-        
-        yHeight = yHeight + 52
-        
-        let startVBacFileField = UITextField(frame: CGRect(x: 25, y: Int(yHeight), width: Int(screenWidth - 50), height: 36))
+        return stepFileField
+    }()
+    fileprivate lazy var startVBacFileField: UITextField = {
+        let startVBacFileField = UITextField(frame: CGRect(x: 25, y: 177 + (hasNotch ? Int(88) : Int(headerHeight+40)), width: Int(screenWidth - 50), height: 36))
         startVBacFileField.layer.cornerRadius = 2
         startVBacFileField.layer.borderWidth = 1
         startVBacFileField.textColor = .white
@@ -142,6 +157,44 @@ class TarirovkaSettingsViewController: UIViewController {
         startVBacFileField.leftViewMode = .always
         startVBacFileField.keyboardType = .numberPad
         startVBacFileField.layer.borderColor = UIColor(rgb: 0x959595).cgColor
+        return startVBacFileField
+    }()
+    fileprivate lazy var nextTextFile: UILabel = {
+        let nextTextFile = UILabel(frame: CGRect(x: 25, y: 281 + (hasNotch ? Int(88) : Int(headerHeight+40)), width: Int(screenWidth-50), height: 60))
+        nextTextFile.text = "The file will be saved in the application \"Files\", in the folder \"Escort\"".localized(code)
+        nextTextFile.textColor = .white
+        nextTextFile.numberOfLines = 0
+        nextTextFile.font = UIFont(name:"FuturaPT-Light", size: 18.0)
+        return nextTextFile
+    }()
+    
+    private func viewShow() {
+        view.addSubview(themeBackView3)
+        MainLabel.text = "Tank calibration".localized(code)
+        view.addSubview(MainLabel)
+        view.addSubview(backView)
+        view.addSubview(bgImage)
+
+        backView.addTapGesture{
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        var yHeight = (hasNotch ? 88 : headerHeight+40)
+        
+        view.addSubview(slivButton)
+        
+        view.addSubview(zalivButton)
+        
+        yHeight = yHeight + 77
+        
+        view.addSubview(nameFileField)
+        
+        yHeight = yHeight + 48
+        
+        view.addSubview(stepFileField)
+        
+        yHeight = yHeight + 52
+        
         view.addSubview(startVBacFileField)
         
         yHeight = yHeight + 52
@@ -152,38 +205,45 @@ class TarirovkaSettingsViewController: UIViewController {
         nextButton.setTitle("Continue Next".localized(code), for: UIControl.State.normal)
         view.addSubview(nextButton)
 
-        
-        let nextTextFile = UILabel(frame: CGRect(x: 25, y:Int(yHeight+52), width: Int(screenWidth-50), height: 60))
-        nextTextFile.text = "The file will be saved in the application \"Files\", in the folder \"Escort\"".localized(code)
-        nextTextFile.textColor = .white
-        nextTextFile.numberOfLines = 0
-        
-        nextTextFile.font = UIFont(name:"FuturaPT-Light", size: 18.0)
         view.addSubview(nextTextFile)
 
         slivButton.addTapGesture {
-            self.view.addSubview(startVBacFileField)
+            self.view.addSubview(self.startVBacFileField)
             nextButton.removeFromSuperview()
             nextButton.frame = CGRect(x: Int(screenWidth/2+25), y: Int(yHeight), width: Int(screenWidth/2-50), height: 43)
             self.view.addSubview(nextButton)
-            slivButton.backgroundColor = UIColor(rgb: 0xCF2121)
-            slivButton.layer.borderWidth = 0
-            zalivButton.layer.borderWidth = 1
-            zalivButton.layer.borderColor = UIColor(rgb: 0x959595).cgColor
-            zalivButton.backgroundColor = .clear
+            self.slivButton.backgroundColor = UIColor(rgb: 0xCF2121)
+            self.slivButton.layer.borderWidth = 0
+            self.zalivButton.layer.borderWidth = 1
+            self.zalivButton.layer.borderColor = UIColor(rgb: 0x959595).cgColor
+            self.zalivButton.backgroundColor = .clear
+            if isNight {
+                self.zalivButton.setTitleColor(.white, for: .normal)
+                self.slivButton.setTitleColor(.white, for: .normal)
+            } else {
+                self.zalivButton.setTitleColor(.black, for: .normal)
+                self.slivButton.setTitleColor(.white, for: .normal)
+            }
             sliv = true
         }
         zalivButton.addTapGesture {
-            startVBacFileField.removeFromSuperview()
+            self.startVBacFileField.removeFromSuperview()
             nextButton.removeFromSuperview()
             nextButton.frame = CGRect(x: Int(screenWidth/2+25), y: Int(yHeight-52), width: Int(screenWidth/2-50), height: 43)
             self.view.addSubview(nextButton)
-            zalivButton.backgroundColor = UIColor(rgb: 0xCF2121)
-            zalivButton.layer.borderWidth = 0
-            startVBacFileField.text = ""
-            slivButton.layer.borderWidth = 1
-            slivButton.layer.borderColor = UIColor(rgb: 0x959595).cgColor
-            slivButton.backgroundColor = .clear
+            if isNight {
+                self.zalivButton.setTitleColor(.white, for: .normal)
+                self.slivButton.setTitleColor(.white, for: .normal)
+            } else {
+                self.zalivButton.setTitleColor(.white, for: .normal)
+                self.slivButton.setTitleColor(.black, for: .normal)
+            }
+            self.zalivButton.backgroundColor = UIColor(rgb: 0xCF2121)
+            self.zalivButton.layer.borderWidth = 0
+            self.startVBacFileField.text = ""
+            self.slivButton.layer.borderWidth = 1
+            self.slivButton.layer.borderColor = UIColor(rgb: 0x959595).cgColor
+            self.slivButton.backgroundColor = .clear
             sliv = false
         }
         if nameFileField.text == "" {
@@ -192,12 +252,12 @@ class TarirovkaSettingsViewController: UIViewController {
             nextButton.isEnabled = true
         }
         nextButton.addTapGesture {
-            if nameFileField.text != "" && stepFileField.text != "" {
+            if self.nameFileField.text != "" && self.stepFileField.text != "" {
                 if sliv == true {
-                    if startVBacFileField.text != "" {
-                        textName = nameFileField.text ?? "No name Escort"
-                        stepTar = Int(stepFileField.text!) ?? 0
-                        startVTar = Int(startVBacFileField.text!) ?? 0
+                    if self.startVBacFileField.text != "" {
+                        textName = self.nameFileField.text ?? "No name Escort"
+                        stepTar = Int(self.stepFileField.text!) ?? 0
+                        startVTar = Int(self.startVBacFileField.text!) ?? 0
                         print("startVTar: \(startVTar)")
                         tarNew = true
                         self.navigationController?.pushViewController(TirirovkaTableViewController(), animated: true)
@@ -205,8 +265,8 @@ class TarirovkaSettingsViewController: UIViewController {
                         self.showToast(message: "Enter".localized(code) + " " + "Initial tank volume".localized(code), seconds: 1.0)
                     }
                 } else {
-                    textName = nameFileField.text ?? "No name Escort"
-                    stepTar = Int(stepFileField.text!) ?? 0
+                    textName = self.nameFileField.text ?? "No name Escort"
+                    stepTar = Int(self.stepFileField.text!) ?? 0
                     tarNew = true
                     self.navigationController?.pushViewController(TirirovkaTableViewController(), animated: true)
                 }
@@ -215,4 +275,15 @@ class TarirovkaSettingsViewController: UIViewController {
             }
         }
     }
+    fileprivate func setupTheme() {
+        view.theme.backgroundColor = themed { $0.backgroundColor }
+        themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+        MainLabel.theme.textColor = themed{ $0.navigationTintColor }
+        backView.theme.tintColor = themed{ $0.navigationTintColor }
+        zalivButton.theme.titleColor(from: themed{ $0.navigationTintColor }, for: .normal)
+        nameFileField.theme.textColor = themed{ $0.navigationTintColor }
+        stepFileField.theme.textColor = themed{ $0.navigationTintColor }
+        startVBacFileField.theme.textColor = themed{ $0.navigationTintColor }
+        nextTextFile.theme.textColor = themed{ $0.navigationTintColor }
+     }
 }

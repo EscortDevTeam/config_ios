@@ -39,14 +39,7 @@ class DevicesListCellHeder: UITableViewCell {
     }
     
     func initialize() {
-//        let coverView = UIView(frame: CGRect(x: 0, y: 5, width: screenWidth, height: 52))
-////        coverView.translatesAutoresizingMaskIntoConstraints = false
-//        coverView.layer.borderWidth = 2
-//        coverView.layer.borderColor = UIColor(rgb: 0x959595).cgColor
-//        coverView.layer.cornerRadius = 5
-//        self.contentView.addSubview(coverView)
-//        self.coverView = coverView
-//
+
         let separetor = UIView(frame: CGRect(x: 0, y: 53, width: screenWidth, height: 2))
         separetor.backgroundColor = UIColor(rgb: 0x959595)
         self.contentView.addSubview(separetor)
@@ -115,11 +108,15 @@ class DevicesListCellHeder: UITableViewCell {
         self.titleLabel.textColor = .white
 //        self.levelLabel.font = UIFont.systemFont(ofSize: 18)
 //        self.levelLabel.textColor = .white
+        setupTheme()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
 
+    }
+    fileprivate func setupTheme() {
+        titleLabel.theme.textColor = themed { $0.navigationTintColor }
     }
 }
 
