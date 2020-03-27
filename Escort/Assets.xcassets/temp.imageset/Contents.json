@@ -1,23 +1,23 @@
 {
   "images" : [
     {
+      "filename" : "градус 2.png",
       "idiom" : "universal",
-      "filename" : "градус.png",
       "scale" : "1x"
     },
     {
+      "filename" : "градус-2 2.png",
       "idiom" : "universal",
-      "filename" : "градус-2.png",
       "scale" : "2x"
     },
     {
+      "filename" : "градус-3 2.png",
       "idiom" : "universal",
-      "filename" : "градус-3.png",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

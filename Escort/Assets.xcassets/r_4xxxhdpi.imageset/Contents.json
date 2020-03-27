@@ -1,23 +1,23 @@
 {
   "images" : [
     {
+      "filename" : "r_4xhdpi 2.png",
       "idiom" : "universal",
-      "filename" : "r_4xhdpi.png",
       "scale" : "1x"
     },
     {
+      "filename" : "r_4xxhdpi 2.png",
       "idiom" : "universal",
-      "filename" : "r_4xxhdpi.png",
       "scale" : "2x"
     },
     {
+      "filename" : "r_4xxxhdpi 2.png",
       "idiom" : "universal",
-      "filename" : "r_4xxxhdpi.png",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

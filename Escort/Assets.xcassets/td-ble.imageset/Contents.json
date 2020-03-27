@@ -1,23 +1,23 @@
 {
   "images" : [
     {
+      "filename" : "датчик_без крышки_2 2.png",
       "idiom" : "universal",
-      "filename" : "датчик_без крышки_2.png",
       "scale" : "1x"
     },
     {
+      "filename" : "датчик_без крышки_2-2 2.png",
       "idiom" : "universal",
-      "filename" : "датчик_без крышки_2-2.png",
       "scale" : "2x"
     },
     {
+      "filename" : "датчик_без крышки_2-3 2.png",
       "idiom" : "universal",
-      "filename" : "датчик_без крышки_2-3.png",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

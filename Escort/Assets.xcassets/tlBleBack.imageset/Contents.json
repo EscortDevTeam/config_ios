@@ -1,23 +1,23 @@
 {
   "images" : [
     {
+      "filename" : "tl_Монтажная область 1xhdpi 2.png",
       "idiom" : "universal",
-      "filename" : "tl_Монтажная область 1xhdpi.png",
       "scale" : "1x"
     },
     {
+      "filename" : "tl_Монтажная область 1xxhdpi 2.png",
       "idiom" : "universal",
-      "filename" : "tl_Монтажная область 1xxhdpi.png",
       "scale" : "2x"
     },
     {
+      "filename" : "tl_Монтажная область 1xxxhdpi 2.png",
       "idiom" : "universal",
-      "filename" : "tl_Монтажная область 1xxxhdpi.png",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

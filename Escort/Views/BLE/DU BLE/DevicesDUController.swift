@@ -74,7 +74,7 @@ class DevicesDUController: UIViewController, CBCentralManagerDelegate, CBPeriphe
         print("advertisementData: \(advertisementData)")
         if peripheral.name != nil {
             let nameDevicesOps = peripheral.name!.components(separatedBy: ["_"])
-            if nameDevicesOps[0] == "DU" && nameDevicesOps[1] != "UPDATE" {
+            if nameDevicesOps[0] == "Sokol-M" && nameDevicesOps[1] != "UPDATE" {
                 if QRCODE == "" {
                     print("advertisementData[kCBAdvDataManufacturerData]): \(kCBAdvDataManufacturerData)")
                     let abc = advertisementData[key] as? [CBUUID]
@@ -121,7 +121,7 @@ class DevicesDUController: UIViewController, CBCentralManagerDelegate, CBPeriphe
                                     let result6 = UInt16(strtoul("0x\(string6)", nil, 16)) //температура
                                     print(result6)
                                     adveTemp.insert(String(result6), at: 0)
-                                    
+                                    if manufacturerData.count >= 7 { return }
                                     let versionCounter = manufacturerData[7]
                                     let string7 = "\(String(format: "%02X", versionCounter))"
                                     print(string7) //->000D
@@ -173,7 +173,7 @@ class DevicesDUController: UIViewController, CBCentralManagerDelegate, CBPeriphe
                                     let result6 = UInt16(strtoul("0x\(string6)", nil, 16)) //температура
                                     print(result6)
                                     adveTemp.append(String(result6))
-                                    
+                                    if manufacturerData.count >= 7 { return }
                                     let versionCounter = manufacturerData[7]
                                     let string7 = "\(String(format: "%02X", versionCounter))"
                                     print(string7) //->000D
@@ -302,7 +302,7 @@ class DevicesDUController: UIViewController, CBCentralManagerDelegate, CBPeriphe
     }
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         
-        let valueAll = "GA\r"
+        let valueAll = "USER_PWD,123\r"
         let valueReload = "PR,PW:1:\(mainPassword)"
         let FullReload = "SH,PW:1:"
         let NothingReload = "SL,PW:1:"
@@ -330,7 +330,7 @@ class DevicesDUController: UIViewController, CBCentralManagerDelegate, CBPeriphe
         print("sdValTwo: \(sdValTwo)")
         print("passInstall: \(passInstall)")
         
-        let dataAll = withUnsafeBytes(of: valueAll) { Data($0) }
+        let dataAll = Data(valueAll.utf8)
         let dataReload = Data(valueReload.utf8)
         let dataFullReload = Data(FullReload.utf8)
         let dataNothingReload = Data(NothingReload.utf8)
@@ -584,7 +584,7 @@ class DevicesDUController: UIViewController, CBCentralManagerDelegate, CBPeriphe
             let string = String(data: Data(rxByteArray), encoding: .utf8)
             stringAll = stringAll + string!
             let result = stringAll.components(separatedBy: [":",",","\r"])
-            if result.count >= 35 {
+            if result.count >= 1 {
                 print(result)
                 if result.contains("SE") {
                     let indexOfPerson = result.firstIndex{$0 == "SE"}
