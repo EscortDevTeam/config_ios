@@ -42,8 +42,7 @@ extension LoggingController {
         label.center.x = screenWidth / 3 * centerX
         label.center.y = screenHeight / 2
         label.textAlignment = .center
-        stack.alignment = .center
-        stack.addArrangedSubview(label)
+        view.addSubview(label)
     }
     
     func setupTheme() {

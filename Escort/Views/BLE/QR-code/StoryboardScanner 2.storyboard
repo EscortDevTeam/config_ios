@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--QRScanner-->
+        <scene sceneID="uh0-2j-1i7">
+            <objects>
+                <viewController storyboardIdentifier="StoryboardScanner" id="pxN-pN-dNc" customClass="QRScannerViewController" customModule="Escort" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="C5x-De-xhO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c9j-Z2-GVZ" customClass="QRScannerView" customModule="Escort" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="c9j-Z2-GVZ" secondAttribute="bottom" id="0AG-JF-Jnb"/>
+                            <constraint firstItem="PiI-uR-xO6" firstAttribute="trailing" secondItem="c9j-Z2-GVZ" secondAttribute="trailing" id="5XS-zj-gOs"/>
+                            <constraint firstItem="c9j-Z2-GVZ" firstAttribute="leading" secondItem="PiI-uR-xO6" secondAttribute="leading" id="XW0-Aj-L2J"/>
+                            <constraint firstItem="c9j-Z2-GVZ" firstAttribute="top" secondItem="C5x-De-xhO" secondAttribute="top" id="p1d-PH-r52"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="PiI-uR-xO6"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="QRScanner" largeTitleDisplayMode="always" id="Un3-Y6-qhu"/>
+                    <connections>
+                        <outlet property="scannerView" destination="c9j-Z2-GVZ" id="sC3-18-UUa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Ji-qR-PJu" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="992.79999999999995" y="27.436281859070466"/>
+        </scene>
+    </scenes>
+</document>
