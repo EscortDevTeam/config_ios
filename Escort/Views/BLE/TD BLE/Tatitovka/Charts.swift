@@ -63,12 +63,14 @@ class Charts: UIViewController {
         view.addSubview(bgImage)
         let (headerView, backView) = headerSetMenu(title:"Tank calibration chart".localized(code), showBack: true)
         view.addSubview(headerView)
-        
+        if iphone5s {
+            view.addSubview(backView!)
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.activityIndicator.stopAnimating()
             backView!.addTapGesture{
-                self.navigationController?.popViewController(animated: true)
-                self.view.subviews.forEach({ $0.removeFromSuperview() })
+                let  vc =  self.navigationController?.viewControllers.filter({$0 is TirirovkaTableViewController}).first
+                self.navigationController?.popToViewController(vc!, animated: true)
             }
             
             let chart = Chart(frame: CGRect(x: 50, y: 200, width: screenWidth-100, height: screenHeight/2))

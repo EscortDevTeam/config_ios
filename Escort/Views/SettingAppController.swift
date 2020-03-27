@@ -67,7 +67,7 @@ class SettingAppController: UIViewController {
         return v
     }()
     fileprivate lazy var MainLabel: UILabel = {
-        let text = UILabel(frame: CGRect(x: 0, y: dIy + (hasNotch ? dIPrusy+20 : 20) + dy, width: Int(screenWidth), height: 40))
+        let text = UILabel(frame: CGRect(x: 0, y: dIy + (hasNotch ? dIPrusy+20 : 20) + dy - (iphone5s ? 10 : 0), width: Int(screenWidth), height: 40))
         text.text = "About the program".localized(code)
         text.textAlignment = .center
         text.font = UIFont(name:"BankGothicBT-Medium", size: 30.0)
@@ -279,28 +279,32 @@ class SettingAppController: UIViewController {
         UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
     }
     fileprivate func setupTheme() {
-        view.theme.backgroundColor = themed { $0.backgroundColor }
-        MainLabel.theme.textColor = themed{ $0.navigationTintColor }
-        themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
-        backView.theme.tintColor = themed{ $0.navigationTintColor }
-        version.theme.textColor = themed{ $0.navigationTintColor }
-        versionView.theme.backgroundColor = themed { $0.backgroundNavigationColor }
-        versionViewLabel.theme.textColor = themed{ $0.navigationTintColor }
-        address.theme.textColor = themed{ $0.navigationTintColor }
-        addressView.theme.backgroundColor = themed { $0.backgroundNavigationColor }
-        addressViewLabel.theme.textColor = themed{ $0.navigationTintColor }
-        
-        phone.theme.textColor = themed{ $0.navigationTintColor }
-        phoneView.theme.backgroundColor = themed { $0.backgroundNavigationColor }
-        phoneViewLabel.theme.textColor = themed{ $0.navigationTintColor }
-        phoneViewLabelTwo.theme.textColor = themed{ $0.navigationTintColor }
-        
-        email.theme.textColor = themed{ $0.navigationTintColor }
-        emailView.theme.backgroundColor = themed { $0.backgroundNavigationColor }
-        emailViewLabel.theme.textColor = themed{ $0.navigationTintColor }
-        
-        site.theme.textColor = themed{ $0.navigationTintColor }
-        siteView.theme.backgroundColor = themed { $0.backgroundNavigationColor }
-        siteViewLabel.theme.textColor = themed{ $0.navigationTintColor }
+        if #available(iOS 13.0, *) {
+            view.theme.backgroundColor = themed { $0.backgroundColor }
+            MainLabel.theme.textColor = themed{ $0.navigationTintColor }
+            themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            backView.theme.tintColor = themed{ $0.navigationTintColor }
+            version.theme.textColor = themed{ $0.navigationTintColor }
+            versionView.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            versionViewLabel.theme.textColor = themed{ $0.navigationTintColor }
+            address.theme.textColor = themed{ $0.navigationTintColor }
+            addressView.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            addressViewLabel.theme.textColor = themed{ $0.navigationTintColor }
+            
+            phone.theme.textColor = themed{ $0.navigationTintColor }
+            phoneView.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            phoneViewLabel.theme.textColor = themed{ $0.navigationTintColor }
+            phoneViewLabelTwo.theme.textColor = themed{ $0.navigationTintColor }
+            
+            email.theme.textColor = themed{ $0.navigationTintColor }
+            emailView.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            emailViewLabel.theme.textColor = themed{ $0.navigationTintColor }
+            
+            site.theme.textColor = themed{ $0.navigationTintColor }
+            siteView.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            siteViewLabel.theme.textColor = themed{ $0.navigationTintColor }
+        } else {
+            // Fallback on earlier versions
+        }
     }
 }

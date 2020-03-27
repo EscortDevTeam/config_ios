@@ -110,29 +110,15 @@ class DeviceBleHelpController: UIViewController {
         
         scrollView.contentSize = CGSize(width: screenWidth, height: text.frame.height)
     }
-        fileprivate func setupTheme() {
+    fileprivate func setupTheme() {
+        if #available(iOS 13.0, *) {
             view.theme.backgroundColor = themed { $0.backgroundColor }
             MainLabel.theme.textColor = themed{ $0.navigationTintColor }
             themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
             backView.theme.tintColor = themed{ $0.navigationTintColor }
             text.theme.textColor = themed{ $0.navigationTintColor }
-    //        hamburger.theme.tintColor = themed{ $0.navigationTintColor }
-    //        backView.theme.tintColor = themed{ $0.navigationTintColor }
-    //        textLineCreateLevel.theme.textColor = themed{ $0.navigationTintColor }
-    //        textLineCreateRssi.theme.textColor = themed{ $0.navigationTintColor }
-    //        textLineCreateVbat.theme.textColor = themed{ $0.navigationTintColor }
-    //        textLineCreateID.theme.textColor = themed{ $0.navigationTintColor }
-    //        textLineCreateTempText.theme.textColor = themed{ $0.navigationTintColor }
-    //        textLineCreateTemp.theme.tintColor = themed{ $0.navigationTintColor }
-    //        textLineCreateName.theme.textColor = themed{ $0.navigationTintColor }
-    //        sensorImage.theme.tintColor = themed{ $0.navigationTintColor }
-    //        bgImageSignal.theme.tintColor = themed{ $0.navigationTintColor }
-    //        bgImageSignal2.theme.tintColor = themed{ $0.navigationTintColor }
-    //        bgImageSignal3.theme.tintColor = themed{ $0.navigationTintColor }
-    //        bgImageBattary.theme.tintColor = themed{ $0.navigationTintColor }
-    //        bgImageBattary1.theme.backgroundColor = themed{ $0.navigationTintColor }
-    //        bgImageBattary2.theme.backgroundColor = themed{ $0.navigationTintColor }
-    //        bgImageBattary3.theme.backgroundColor = themed{ $0.navigationTintColor }
-
+        } else {
+            // Fallback on earlier versions
         }
+    }
 }

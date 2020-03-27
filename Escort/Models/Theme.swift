@@ -22,10 +22,22 @@ protocol Theme {
     var navigationTintColor: Color { get }
     var navigationBarTitleTextAttr: Attributes { get }
     var navigationBarTitleTextAttr2: UIActivityIndicatorView.Style { get }
+    var imageColorMenu: Color { get }
+    var infoColor: Color { get }
+
 
 }
 
+@available(iOS 13.0, *)
 struct LightTheme: Theme {
+    
+    var infoColor: Color = #colorLiteral(red: 0.04705882353, green: 0, blue: 0.3529411765, alpha: 1)
+    
+    
+//    var imageColorMenu: Color = #colorLiteral(red: 0.04705882353, green: 0, blue: 0.3529411765, alpha: 1)
+    var imageColorMenu: Color = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
+
+    
     var navigationBarTitleTextAttr2: UIActivityIndicatorView.Style = .medium
     
     var backgroundColor: Color = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -39,7 +51,13 @@ struct LightTheme: Theme {
 }
 //1F2222
 
+@available(iOS 13.0, *)
 struct DarkTheme: Theme {
+    
+    var infoColor: Color = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    
+    var imageColorMenu: Color = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
+    
     var navigationBarTitleTextAttr2: UIActivityIndicatorView.Style = .large
 
     var backgroundColor: Color = #colorLiteral(red: 0.1215686275, green: 0.1333333333, blue: 0.1333333333, alpha: 1)
@@ -51,6 +69,7 @@ struct DarkTheme: Theme {
     var navigationBarTitleTextAttr: Attributes = [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) ]
 }
 
+@available(iOS 13.0, *)
 enum ThemeType: ThemeProvider {
     case light, dark
     var associatedObject: Theme {
@@ -63,7 +82,9 @@ enum ThemeType: ThemeProvider {
     }
 }
 
+@available(iOS 13.0, *)
 let themeService = ThemeType.service(initial: isNight ? .dark : .light)
+@available(iOS 13.0, *)
 func themed<T>(_ mapper: @escaping ((Theme) -> T)) -> Observable<T> {
     return themeService.attrStream(mapper)
 }

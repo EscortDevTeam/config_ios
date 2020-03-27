@@ -20,8 +20,8 @@ var police = false
 
 class DeviceBleSettingsController: UIViewController {
     
-    let viewLoad = UIView(frame:CGRect(x: 30, y: headerHeight + 325, width: 200, height: 40))
-    let viewLoadTwo = UIView(frame:CGRect(x: 30, y: headerHeight + 415, width: 300, height: 40))
+    let viewLoad = UIView(frame:CGRect(x: 30, y: headerHeight + 370, width: 200, height: 40))
+    let viewLoadTwo = UIView(frame:CGRect(x: 30, y: headerHeight + 510, width: 300, height: 40))
     let viewAlpha = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
     let termoSwitch = UISwitch()
     let uPicker = UIPickerView()
@@ -43,7 +43,8 @@ class DeviceBleSettingsController: UIViewController {
     let secondTextField = UITextField()
     let validatePassword = UILabel()
     var saveAction = UIAlertAction()
-    
+    let generator = UIImpactFeedbackGenerator(style: .light)
+
     let firstTextFieldSecond = UITextField()
     let secondTextFieldSecond = UITextField()
     let validatePasswordSecond = UILabel()
@@ -101,6 +102,53 @@ class DeviceBleSettingsController: UIViewController {
         
         return v
     }
+    fileprivate lazy var btn2: UIView =  {
+        let btn2 = UIView(frame: CGRect(x: 0, y: 0, width: Int(screenWidth / 2), height: 44))
+        btn2.backgroundColor = UIColor(rgb: 0xAAAAAA)
+        btn2.layer.cornerRadius = 22
+        return btn2
+    }()
+    
+    fileprivate lazy var btn2Text: UILabel =  {
+        let btn2Text = UILabel(frame: CGRect(x: 0, y: 0, width: Int(screenWidth / 2), height: 44))
+        btn2Text.text = "Empty".localized(code)
+        btn2Text.textColor = .white
+        btn2Text.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
+        btn2Text.textAlignment = .center
+        return btn2Text
+    }()
+    fileprivate lazy var btn3: UIView =  {
+        let btn3 = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 44))
+        btn3.backgroundColor = UIColor(rgb: 0xAAAAAA)
+        btn3.layer.cornerRadius = 22
+        return btn3
+    }()
+    
+    fileprivate lazy var btn3Text: UILabel =  {
+        let btn3Text = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        btn3Text.text = "Full".localized(code)
+        btn3Text.textColor = .white
+        btn3Text.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
+        btn3Text.textAlignment = .center
+        return btn3Text
+    }()
+    
+    fileprivate lazy var btnAuto: UIView =  {
+        let btnAuto = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        btnAuto.backgroundColor = UIColor(rgb: 0xCF2121)
+        btnAuto.layer.cornerRadius = 22
+        return btnAuto
+    }()
+    
+    fileprivate lazy var btnAutoText: UILabel =  {
+        let btnAutoText = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        btnAutoText.text = "Откалибровать".localized(code)
+        btnAutoText.textColor = .white
+        btnAutoText.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
+        btnAutoText.textAlignment = .center
+        return btnAutoText
+    }()
+    
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView()
         if #available(iOS 13.0, *) {
@@ -137,29 +185,77 @@ class DeviceBleSettingsController: UIViewController {
     }()
     
     fileprivate lazy var termoLabel: UILabel = {
-        let termoLabel = UILabel(frame: CGRect(x: 30, y: 40 + Int(headerHeight) + 65*7 + 25, width: Int(screenWidth/2 + 70), height: 20))
+        let termoLabel = UILabel(frame: CGRect(x: 30, y: 130 + Int(headerHeight) + 65*7, width: Int(screenWidth/2 + 70), height: 20))
         termoLabel.text = "Disable Thermal Compensation".localized(code)
         return termoLabel
     }()
+    fileprivate lazy var autoCalibLabel: UILabel = {
+        let termoLabel = UILabel(frame: CGRect(x: 30, y: Int(headerHeight) + 65*7, width: Int(screenWidth/2 + 70), height: 20))
+        termoLabel.text = "Калибровка без топлива".localized(code)
+        return termoLabel
+    }()
+    
+    fileprivate lazy var scrollView: UIScrollView = {
+        let v = UIScrollView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    @objc func adjustForKeyboard(notification: Notification) {
+        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+
+        let keyboardScreenEndFrame = keyboardValue.cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
+        if notification.name == UIResponder.keyboardWillHideNotification {
+            let contentInset:UIEdgeInsets = UIEdgeInsets.zero
+                scrollView.contentInset = contentInset
+            
+        } else {
+            scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height - view.safeAreaInsets.bottom, right: 0)
+        }
+        scrollView.scrollIndicatorInsets = scrollView.contentInset
+    }
+    
+    fileprivate lazy var autoCalibSwitch: UISwitch = {
+        let autoCalibSwitch = UISwitch()
+        autoCalibSwitch.isOn = true
+        autoCalibSwitch.thumbTintColor = .lightGray
+        autoCalibSwitch.onTintColor = UIColor(rgb: 0xCF2121)
+        autoCalibSwitch.addTarget(self, action: #selector(switchPressed(_:)), for: .valueChanged)
+        //        v2.addTarget(self, action: #selector(onButtonClick(_:)), for: UIControl.Event.touchUpInside)
+
+        return autoCalibSwitch
+    }()
+    @objc private func switchPressed(_ sender: UISwitch) {
+        print(sender.isOn)
+        if sender.isOn == true {
+            btnAuto.backgroundColor = UIColor(rgb: 0xCF2121)
+            btn2.backgroundColor = UIColor(rgb: 0xAAAAAA)
+            btn3.backgroundColor = UIColor(rgb: 0xAAAAAA)
+        } else {
+            btnAuto.backgroundColor = UIColor(rgb: 0xAAAAAA)
+            btn2.backgroundColor = UIColor(rgb: 0xCF2121)
+            btn3.backgroundColor = UIColor(rgb: 0xCF2121)
+        }
+    }
     
     fileprivate lazy var themeBackView3: UIView = {
         let v = UIView()
-        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12))
+        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12) + (iphone5s ? 10 : 0))
         v.layer.shadowRadius = 3.0
         v.layer.shadowOpacity = 0.2
         v.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
         return v
     }()
     fileprivate lazy var MainLabel: UILabel = {
-        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy, width: Int(screenWidth-70), height: 40))
+        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy - (iphone5s ? 10 : 0), width: Int(screenWidth-70), height: 40))
         text.text = "Type of bluetooth sensor".localized(code)
         text.textColor = UIColor(rgb: 0x272727)
-        text.font = UIFont(name:"BankGothicBT-Medium", size: 19.0)
+        text.font = UIFont(name:"BankGothicBT-Medium", size: (iphone5s ? 17.0 : 19.0))
         return text
     }()
     fileprivate lazy var backView: UIImageView = {
         let backView = UIImageView()
-        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40), width: 50, height: 40)
+        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40) - (iphone5s ? 10 : 0), width: 50, height: 40)
         let back = UIImageView(image: UIImage(named: "back")!)
         back.image = back.image!.withRenderingMode(.alwaysTemplate)
         back.frame = CGRect(x: 8, y: 0 , width: 8, height: 19)
@@ -167,8 +263,690 @@ class DeviceBleSettingsController: UIViewController {
         backView.addSubview(back)
         return backView
     }()
+    fileprivate func changeTermoSwitch() {
+        if passwordHave == true {
+            if passwordSuccess == true {
+                police = false
+                self.activityIndicator.startAnimating()
+                self.viewAlpha.addSubview(self.activityIndicator)
+                self.view.addSubview(self.viewAlpha)
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                self.view.isUserInteractionEnabled = false
+                self.viewLoad.removeFromSuperview()
+                self.viewLoadTwo.removeFromSuperview()
+                self.lbl1.removeFromSuperview()
+                self.lbl2.removeFromSuperview()
+                self.lbl3.removeFromSuperview()
+                self.lbl4.removeFromSuperview()
+                let b = (self.input4.text! as NSString).integerValue
+                reload = 6
+                if self.input3.text == "1023" {
+                    if self.termoSwitch.isOn == true{
+                        wmPar = "\(b)"
+                    } else {
+                        let a = 128 + b
+                        wmPar = "\(a)"
+                    }
+                }
+                if self.input3.text == "4095" {
+                    if self.termoSwitch.isOn == true{
+                        let a = 32768 + b
+                        wmPar = "\(a)"
+                    } else {
+                        let a = 32896 + b
+                        wmPar = "\(a)"
+                    }
+                }
+                self.viewLoad.isHidden = true
+                self.viewLoadTwo.isHidden = true
+                
+                //            self.view.addSubview(check)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+                    self.check4.image = UIImage(named: "check-green.png")
+                    self.check3.image = UIImage(named: "check-green.png")
+                    //                check.image = UIImage(named: "check-green.png")
+                    //                self.view.addSubview(check)
+                    
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 7.0) {
+                    self.check4.removeFromSuperview()
+                    self.check3.removeFromSuperview()
+                    if self.termoSwitch.isOn == true {
+                        self.termoSwitch.isOn = false
+                    } else {
+                        self.termoSwitch.isOn = true
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        police = true
+                        self.viewAlpha.removeFromSuperview()
+                        self.viewLoad.isHidden = false
+                        self.viewLoadTwo.isHidden = false
+                        //                            self.viewShow()
+                        self.view.isUserInteractionEnabled = true
+                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                        //                    self.viewAlpha.removeFromSuperview()
+                        //                    self.view.isUserInteractionEnabled = true
+                    }
+                    //                check.removeFromSuperview()
+                    
+                }
+            } else {
+                let alert = UIAlertController(title: "Warning".localized(code), message: "Enter password to continue".localized(code), preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    switch action.style{
+                    case .default:
+                        print("default")
+                    case .cancel:
+                        print("cancel")
+                    case .destructive:
+                        print("destructive")
+                    @unknown default:
+                        fatalError()
+                    }}))
+                self.present(alert, animated: true, completion: nil)
+            }
+        } else  {
+            police = false
+            self.activityIndicator.startAnimating()
+            self.viewAlpha.addSubview(self.activityIndicator)
+            self.view.addSubview(self.viewAlpha)
+            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+            self.view.isUserInteractionEnabled = false
+            self.viewLoad.removeFromSuperview()
+            self.viewLoadTwo.removeFromSuperview()
+            self.lbl1.removeFromSuperview()
+            self.lbl2.removeFromSuperview()
+            self.lbl3.removeFromSuperview()
+            self.lbl4.removeFromSuperview()
+            let b = (self.input4.text! as NSString).integerValue
+            reload = 6
+            if self.input3.text == "1023" {
+                if self.termoSwitch.isOn == true{
+                    wmPar = "\(b)"
+                } else {
+                    let a = 128 + b
+                    wmPar = "\(a)"
+                }
+            }
+            if self.input3.text == "4095" {
+                if self.termoSwitch.isOn == true {
+                    let a = 32768 + b
+                    wmPar = "\(a)"
+                } else {
+                    let a = 32896 + b
+                    wmPar = "\(a)"
+                }
+            }
+            self.viewLoad.isHidden = true
+            self.viewLoadTwo.isHidden = true
+            
+            //            self.view.addSubview(check)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+                self.check4.image = UIImage(named: "check-green.png")
+                self.check3.image = UIImage(named: "check-green.png")
+                //                check.image = UIImage(named: "check-green.png")
+                //                self.view.addSubview(check)
+                
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 7.0) {
+                self.check4.removeFromSuperview()
+                self.check3.removeFromSuperview()
+                if self.termoSwitch.isOn == true {
+                    self.termoSwitch.isOn = false
+                } else {
+                    self.termoSwitch.isOn = true
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    police = true
+                    self.viewAlpha.removeFromSuperview()
+                    self.viewLoad.isHidden = false
+                    self.viewLoadTwo.isHidden = false
+                    //                            self.viewShow()
+                    self.view.isUserInteractionEnabled = true
+                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                    //                    self.viewAlpha.removeFromSuperview()
+                    //                    self.view.isUserInteractionEnabled = true
+                }
+                //                check.removeFromSuperview()
+                
+            }
+        }
+    }
+    
+    fileprivate func changeBtn3() {
+        reload = 2
+        if passwordHave == true {
+            if passwordSuccess == true {
+                errorWRN = false
+                self.activityIndicator.startAnimating()
+                self.viewAlpha.addSubview(self.activityIndicator)
+                self.view.addSubview(self.viewAlpha)
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                self.view.isUserInteractionEnabled = false
+                self.viewLoad.isHidden = true
+                self.viewLoadTwo.isHidden = true
+                self.viewLoad.removeFromSuperview()
+                self.lbl2.removeFromSuperview()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 8.0) {
+                    if errorWRN == false {
+                        self.view.isUserInteractionEnabled = true
+                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                        self.viewAlpha.removeFromSuperview()
+                        self.viewLoad.isHidden = false
+                        self.viewLoadTwo.isHidden = false
+                        let alert = UIAlertController(title: "Value changed – calibration is done successfully".localized(code), message: "“Full” value changed successfully".localized(code), preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                            switch action.style{
+                            case .default:
+                                print("default")
+                            case .cancel:
+                                print("cancel")
+                            case .destructive:
+                                print("destructive")
+                            @unknown default:
+                                fatalError()
+                            }}))
+                        self.present(alert, animated: true, completion: nil)
+                    } else {
+                        errorWRN = false
+                        self.view.isUserInteractionEnabled = true
+                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                        self.viewAlpha.removeFromSuperview()
+                        self.viewLoad.isHidden = false
+                        self.viewLoadTwo.isHidden = false
+                        let alert = UIAlertController(title: "Value not changed – calibration failure".localized(code), message: "“Full” value changing failure".localized(code), preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                            switch action.style{
+                            case .default:
+                                print("default")
+                            case .cancel:
+                                print("cancel")
+                            case .destructive:
+                                print("destructive")
+                            @unknown default:
+                                fatalError()
+                            }}))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                }
+            } else {
+                let alert = UIAlertController(title: "Warning".localized(code), message: "Enter password to continue".localized(code), preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    switch action.style{
+                    case .default:
+                        print("default")
+                    case .cancel:
+                        print("cancel")
+                    case .destructive:
+                        print("destructive")
+                    @unknown default:
+                        fatalError()
+                    }}))
+                self.present(alert, animated: true, completion: nil)
+            }
+        } else {
+            errorWRN = false
+            self.activityIndicator.startAnimating()
+            self.viewAlpha.addSubview(self.activityIndicator)
+            self.view.addSubview(self.viewAlpha)
+            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+            self.view.isUserInteractionEnabled = false
+            self.viewLoad.isHidden = true
+            self.viewLoadTwo.isHidden = true
+            self.viewLoad.removeFromSuperview()
+            self.lbl2.removeFromSuperview()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 8.0) {
+                if errorWRN == false {
+                    self.view.isUserInteractionEnabled = true
+                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                    self.viewAlpha.removeFromSuperview()
+                    self.viewLoad.isHidden = false
+                    self.viewLoadTwo.isHidden = false
+                    let alert = UIAlertController(title: "Value changed – calibration is done successfully".localized(code), message: "“Full” value changed successfully".localized(code), preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                        switch action.style{
+                        case .default:
+                            print("default")
+                        case .cancel:
+                            print("cancel")
+                        case .destructive:
+                            print("destructive")
+                        @unknown default:
+                            fatalError()
+                        }}))
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    errorWRN = false
+                    self.view.isUserInteractionEnabled = true
+                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                    self.viewAlpha.removeFromSuperview()
+                    self.viewLoad.isHidden = false
+                    self.viewLoadTwo.isHidden = false
+                    let alert = UIAlertController(title: "Value not changed – calibration failure".localized(code), message: "“Full” value changing failure".localized(code), preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                        switch action.style{
+                        case .default:
+                            print("default")
+                        case .cancel:
+                            print("cancel")
+                        case .destructive:
+                            print("destructive")
+                        @unknown default:
+                            fatalError()
+                        }}))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
+    fileprivate func changeBtn2() {
+        reload = 3
+        if passwordHave == true {
+            if passwordSuccess == true {
+                errorWRN = false
+                self.activityIndicator.startAnimating()
+                self.viewAlpha.addSubview(self.activityIndicator)
+                self.view.addSubview(self.viewAlpha)
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                self.view.isUserInteractionEnabled = false
+                self.viewLoad.isHidden = true
+                self.viewLoadTwo.isHidden = true
+                self.viewLoad.removeFromSuperview()
+                self.lbl1.removeFromSuperview()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 8.0) {
+                    if errorWRN == false {
+                        self.view.isUserInteractionEnabled = true
+                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                        self.viewAlpha.removeFromSuperview()
+                        self.viewLoad.isHidden = false
+                        self.viewLoadTwo.isHidden = false
+                        let alert = UIAlertController(title: "Value changed – calibration is done successfully".localized(code), message: "“Empty” value changed successfully".localized(code), preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                            switch action.style{
+                            case .default:
+                                print("default")
+                            case .cancel:
+                                print("cancel")
+                            case .destructive:
+                                print("destructive")
+                            @unknown default:
+                                fatalError()
+                            }}))
+                        self.present(alert, animated: true, completion: nil)
+                    } else {
+                        errorWRN = false
+                        self.view.isUserInteractionEnabled = true
+                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                        self.viewAlpha.removeFromSuperview()
+                        self.viewLoad.isHidden = false
+                        self.viewLoadTwo.isHidden = false
+                        let alert = UIAlertController(title: "Value not changed – calibration failure".localized(code), message: "“Empty” value changing failure".localized(code), preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                            switch action.style{
+                            case .default:
+                                print("default")
+                            case .cancel:
+                                print("cancel")
+                                
+                            case .destructive:
+                                print("destructive")
+                            @unknown default:
+                                fatalError()
+                            }}))
+                        self.present(alert, animated: true, completion: nil)
+                        
+                    }
+                }
+            } else {
+                let alert = UIAlertController(title: "Warning".localized(code), message: "Enter password to continue".localized(code), preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    switch action.style{
+                    case .default:
+                        print("default")
+                    case .cancel:
+                        print("cancel")
+                    case .destructive:
+                        print("destructive")
+                    @unknown default:
+                        fatalError()
+                    }}))
+                self.present(alert, animated: true, completion: nil)
+            }
+        } else {
+            errorWRN = false
+            self.activityIndicator.startAnimating()
+            self.viewAlpha.addSubview(self.activityIndicator)
+            self.view.addSubview(self.viewAlpha)
+            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+            self.view.isUserInteractionEnabled = false
+            self.viewLoad.isHidden = true
+            self.viewLoadTwo.isHidden = true
+            self.viewLoad.removeFromSuperview()
+            self.lbl1.removeFromSuperview()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 8.0) {
+                if errorWRN == false {
+                    self.view.isUserInteractionEnabled = true
+                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                    self.viewAlpha.removeFromSuperview()
+                    self.viewLoad.isHidden = false
+                    self.viewLoadTwo.isHidden = false
+                    let alert = UIAlertController(title: "Value changed – calibration is done successfully".localized(code), message: "“Empty” value changed successfully".localized(code), preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                        switch action.style{
+                        case .default:
+                            print("default")
+                        case .cancel:
+                            print("cancel")
+                        case .destructive:
+                            print("destructive")
+                        @unknown default:
+                            fatalError()
+                        }}))
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    errorWRN = false
+                    self.view.isUserInteractionEnabled = true
+                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                    self.viewAlpha.removeFromSuperview()
+                    self.viewLoad.isHidden = false
+                    self.viewLoadTwo.isHidden = false
+                    let alert = UIAlertController(title: "Value not changed – calibration failure".localized(code), message: "“Empty” value changing failure".localized(code), preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                        switch action.style{
+                        case .default:
+                            print("default")
+                        case .cancel:
+                            print("cancel")
+                            
+                        case .destructive:
+                            print("destructive")
+                        @unknown default:
+                            fatalError()
+                        }}))
+                    self.present(alert, animated: true, completion: nil)
+                    
+                }
+            }
+        }
+    }
+    
+    fileprivate func changeBntAuto() {
+        if let tempInt = Int(temp ?? "-1"), let cntInt = Int(cnt) {
+            let emptyAuto = cntInt - temperKoef * tempInt + 100
+            nothing = "\(emptyAuto)"
+            var fullAuto = 2 * (cntInt - 9770) + 9770
+            fullAuto = fullAuto - tempInt * (temperKoef - cntInt / (2 * 1200))
+            full = "\(fullAuto)"
+            reload = 10
+            if passwordHave == true {
+                if passwordSuccess == true {
+                    errorWRN = false
+                    self.activityIndicator.startAnimating()
+                    self.viewAlpha.addSubview(self.activityIndicator)
+                    self.view.addSubview(self.viewAlpha)
+                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                    self.view.isUserInteractionEnabled = false
+                    self.viewLoad.isHidden = true
+                    self.viewLoadTwo.isHidden = true
+                    self.viewLoad.removeFromSuperview()
+                    self.lbl1.removeFromSuperview()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 8.0) {
+                        if errorWRN == false {
+                            self.view.isUserInteractionEnabled = true
+                            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                            self.viewAlpha.removeFromSuperview()
+                            self.viewLoad.isHidden = false
+                            self.viewLoadTwo.isHidden = false
+                            let alert = UIAlertController(title: "Value changed – calibration is done successfully".localized(code), message: "Устройство успешно откалибровалось".localized(code), preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                                switch action.style{
+                                case .default:
+                                    print("default")
+                                case .cancel:
+                                    print("cancel")
+                                case .destructive:
+                                    print("destructive")
+                                @unknown default:
+                                    fatalError()
+                                }}))
+                            self.present(alert, animated: true, completion: nil)
+                        } else {
+                            errorWRN = false
+                            self.view.isUserInteractionEnabled = true
+                            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                            self.viewAlpha.removeFromSuperview()
+                            self.viewLoad.isHidden = false
+                            self.viewLoadTwo.isHidden = false
+                            let alert = UIAlertController(title: "Value not changed – calibration failure".localized(code), message: "Error".localized(code), preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                                switch action.style{
+                                case .default:
+                                    print("default")
+                                case .cancel:
+                                    print("cancel")
+                                    
+                                case .destructive:
+                                    print("destructive")
+                                @unknown default:
+                                    fatalError()
+                                }}))
+                            self.present(alert, animated: true, completion: nil)
+                            
+                        }
+                    }
+                } else {
+                    let alert = UIAlertController(title: "Warning".localized(code), message: "Enter password to continue".localized(code), preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                        switch action.style{
+                        case .default:
+                            print("default")
+                        case .cancel:
+                            print("cancel")
+                        case .destructive:
+                            print("destructive")
+                        @unknown default:
+                            fatalError()
+                        }}))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            } else {
+                errorWRN = false
+                self.activityIndicator.startAnimating()
+                self.viewAlpha.addSubview(self.activityIndicator)
+                self.view.addSubview(self.viewAlpha)
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                self.view.isUserInteractionEnabled = false
+                self.viewLoad.isHidden = true
+                self.viewLoadTwo.isHidden = true
+                self.viewLoad.removeFromSuperview()
+                self.lbl1.removeFromSuperview()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 8.0) {
+                    if errorWRN == false {
+                        self.view.isUserInteractionEnabled = true
+                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                        self.viewAlpha.removeFromSuperview()
+                        self.viewLoad.isHidden = false
+                        self.viewLoadTwo.isHidden = false
+                        let alert = UIAlertController(title: "Value changed – calibration is done successfully".localized(code), message: "Устройство успешно откалибровалось".localized(code), preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                            switch action.style{
+                            case .default:
+                                print("default")
+                            case .cancel:
+                                print("cancel")
+                            case .destructive:
+                                print("destructive")
+                            @unknown default:
+                                fatalError()
+                            }}))
+                        self.present(alert, animated: true, completion: nil)
+                    } else {
+                        errorWRN = false
+                        self.view.isUserInteractionEnabled = true
+                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                        self.viewAlpha.removeFromSuperview()
+                        self.viewLoad.isHidden = false
+                        self.viewLoadTwo.isHidden = false
+                        let alert = UIAlertController(title: "Value not changed – calibration failure".localized(code), message: "Error".localized(code), preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                            switch action.style{
+                            case .default:
+                                print("default")
+                            case .cancel:
+                                print("cancel")
+                                
+                            case .destructive:
+                                print("destructive")
+                            @unknown default:
+                                fatalError()
+                            }}))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                }
+            }
+        } else {
+            self.showToast(message: "Попробуйте снова", seconds: 1.0)
+        }
+    }
+    
+    fileprivate func changeBnt1() {
+        if passwordHave == true {
+            if passwordSuccess == true {
+                police = false
+                self.activityIndicator.startAnimating()
+                self.viewAlpha.addSubview(self.activityIndicator)
+                self.view.addSubview(self.viewAlpha)
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                self.view.isUserInteractionEnabled = false
+                let b = (self.input4.text! as NSString).integerValue
+                reload = 6
+                if self.input3.text == "1023" {
+                    if self.termoSwitch.isOn == false{
+                        wmPar = "\(b)"
+                    } else {
+                        let a = 128 + b
+                        wmPar = "\(a)"
+                    }
+                }
+                if self.input3.text == "4095" {
+                    if self.termoSwitch.isOn == false{
+                        let a = 32768 + b
+                        wmPar = "\(a)"
+                    } else {
+                        let a = 32896 + b
+                        wmPar = "\(a)"
+                    }
+                }
+                self.viewLoad.isHidden = true
+                self.viewLoadTwo.isHidden = true
+                
+                //            self.view.addSubview(check)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+                    self.check4.image = UIImage(named: "check-green.png")
+                    self.check3.image = UIImage(named: "check-green.png")
+                    //                check.image = UIImage(named: "check-green.png")
+                    //                self.view.addSubview(check)
+                    
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 7.0) {
+                    self.check4.removeFromSuperview()
+                    self.check3.removeFromSuperview()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        police = true
+                        self.viewAlpha.removeFromSuperview()
+                        self.viewLoad.isHidden = false
+                        self.viewLoadTwo.isHidden = false
+                        //                            self.viewShow()
+                        self.view.isUserInteractionEnabled = true
+                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                        //                    self.viewAlpha.removeFromSuperview()
+                        //                    self.view.isUserInteractionEnabled = true
+                    }
+                    //                check.removeFromSuperview()
+                    
+                }
+            } else {
+                let alert = UIAlertController(title: "Warning".localized(code), message: "Enter password to continue".localized(code), preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    switch action.style{
+                    case .default:
+                        print("default")
+                    case .cancel:
+                        print("cancel")
+                    case .destructive:
+                        print("destructive")
+                    @unknown default:
+                        fatalError()
+                    }}))
+                self.present(alert, animated: true, completion: nil)
+            }
+        } else  {
+            police = false
+            self.activityIndicator.startAnimating()
+            self.viewAlpha.addSubview(self.activityIndicator)
+            self.view.addSubview(self.viewAlpha)
+            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+            self.view.isUserInteractionEnabled = false
+            self.viewLoad.removeFromSuperview()
+            self.viewLoadTwo.removeFromSuperview()
+            self.lbl1.removeFromSuperview()
+            self.lbl2.removeFromSuperview()
+            self.lbl3.removeFromSuperview()
+            self.lbl4.removeFromSuperview()
+            let b = (self.input4.text! as NSString).integerValue
+            reload = 6
+            if self.input3.text == "1023" {
+                if self.termoSwitch.isOn == false{
+                    wmPar = "\(b)"
+                } else {
+                    let a = 128 + b
+                    wmPar = "\(a)"
+                }
+            }
+            if self.input3.text == "4095" {
+                if self.termoSwitch.isOn == false{
+                    let a = 32768 + b
+                    wmPar = "\(a)"
+                } else {
+                    let a = 32896 + b
+                    wmPar = "\(a)"
+                }
+            }
+            self.viewLoad.isHidden = true
+            self.viewLoadTwo.isHidden = true
+            
+            //            self.view.addSubview(check)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+                self.check4.image = UIImage(named: "check-green.png")
+                self.check3.image = UIImage(named: "check-green.png")
+                //                check.image = UIImage(named: "check-green.png")
+                //                self.view.addSubview(check)
+                
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 7.0) {
+                self.check4.removeFromSuperview()
+                self.check3.removeFromSuperview()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    police = true
+                    self.viewAlpha.removeFromSuperview()
+                    self.viewLoad.isHidden = false
+                    self.viewLoadTwo.isHidden = false
+                    //                            self.viewShow()
+                    self.view.isUserInteractionEnabled = true
+                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                    //                    self.viewAlpha.removeFromSuperview()
+                    //                    self.view.isUserInteractionEnabled = true
+                }
+                //                check.removeFromSuperview()
+                
+            }
+        }
+    }
+    
     private func viewShow() {
         view.subviews.forEach({ $0.removeFromSuperview() })
+        view.addSubview(scrollView)
 
         view.addSubview(themeBackView3)
         MainLabel.text = "TD BLE Settings".localized(code)
@@ -180,6 +958,13 @@ class DeviceBleSettingsController: UIViewController {
         }
         
         view.addSubview(bgImage)
+        
+        scrollView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+        scrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+
+        scrollView.contentSize = CGSize(width: Int(screenWidth), height: Int(screenHeight+100))
         
         var y = 40 + Int(headerHeight)
         let x = 30, deltaY = 65, deltaYLite = 20
@@ -203,7 +988,7 @@ class DeviceBleSettingsController: UIViewController {
         
         v2.addSubview(lblTitle)
         v2.addSubview(input)
-        view.addSubview(v2)
+        scrollView.addSubview(v2)
         
         uPicker.frame = CGRect(x: x+170, y: y+60, width: 100, height: 100)
 //        view.addSubview(uPicker)
@@ -235,14 +1020,14 @@ class DeviceBleSettingsController: UIViewController {
                 
                 v3.addSubview(lblTitle3)
                 v3.addSubview(input3)
-                view.addSubview(v3)
-                view.addSubview(imputTap)
+                scrollView.addSubview(v3)
+                scrollView.addSubview(imputTap)
                 uPicker.frame = CGRect(x: x+200, y: y-30, width: 100, height: 100)
                 uPicker.tintColor = .white
                 imputTap.addTapGesture {
                     self.iF = 1
                     self.uPicker2.removeFromSuperview()
-                    self.view.addSubview(self.uPicker)
+                    self.scrollView.addSubview(self.uPicker)
                     
                 }
     
@@ -564,15 +1349,15 @@ class DeviceBleSettingsController: UIViewController {
         
         v4.addSubview(lblTitle4)
         v4.addSubview(input4)
-        view.addSubview(v4)
-        view.addSubview(imputTap2)
+        scrollView.addSubview(v4)
+        scrollView.addSubview(imputTap2)
         uPicker2.frame = CGRect(x: x+200, y: y-30, width: 100, height: 100)
         imputTap2.addTapGesture {
             self.iF = 2
             self.uPicker.removeFromSuperview()
-            self.view.addSubview(self.uPicker2)
+            self.scrollView.addSubview(self.uPicker2)
         }
-        view.addTapGesture {
+        scrollView.addTapGesture {
             self.uPicker.removeFromSuperview()
             self.uPicker2.removeFromSuperview()
         }
@@ -593,154 +1378,31 @@ class DeviceBleSettingsController: UIViewController {
         let separator = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth/2 + 40), height: 1))
         separator.backgroundColor = UIColor(rgb: 0xCF2121)
         
-        view.addSubview(btn1)
-        view.addSubview(btn1Text)
-        view.addSubview(separator)
+        scrollView.addSubview(btn1)
+        scrollView.addSubview(btn1Text)
+        scrollView.addSubview(separator)
         
         
         btn1.addTapGesture {
-            if passwordHave == true {
-                if passwordSuccess == true {
-                    self.activityIndicator.startAnimating()
-                    self.viewAlpha.addSubview(self.activityIndicator)
-                    self.view.addSubview(self.viewAlpha)
-                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-                    self.view.isUserInteractionEnabled = false
-                    self.viewLoad.removeFromSuperview()
-                    self.viewLoadTwo.removeFromSuperview()
-                    self.lbl1.removeFromSuperview()
-                    self.lbl2.removeFromSuperview()
-                    self.lbl3.removeFromSuperview()
-                    self.lbl4.removeFromSuperview()
-                    let b = (self.input4.text! as NSString).integerValue
-                    reload = 6
-                    if self.input3.text == "1023" {
-                        if self.termoSwitch.isOn == false{
-                            wmPar = "\(b)"
-                        } else {
-                            let a = 128 + b
-                            wmPar = "\(a)"
-                        }
-                    }
-                    if self.input3.text == "4095" {
-                        if self.termoSwitch.isOn == false{
-                            let a = 32768 + b
-                            wmPar = "\(a)"
-                        } else {
-                            let a = 32896 + b
-                            wmPar = "\(a)"
-                        }
-                    }
-                    self.viewLoad.isHidden = true
-                    self.viewLoadTwo.isHidden = true
-                    
-                    //            self.view.addSubview(check)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
-                        self.check4.image = UIImage(named: "check-green.png")
-                        self.check3.image = UIImage(named: "check-green.png")
-                        //                check.image = UIImage(named: "check-green.png")
-                        //                self.view.addSubview(check)
-                        
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 7.0) {
-                        self.check4.removeFromSuperview()
-                        self.check3.removeFromSuperview()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                            police = false
-                            self.viewLoad.removeFromSuperview()
-                            self.viewLoadTwo.removeFromSuperview()
-                            self.lbl1.removeFromSuperview()
-                            self.lbl2.removeFromSuperview()
-                            self.lbl3.removeFromSuperview()
-                            self.lbl4.removeFromSuperview()
-                            self.viewShow()
-                            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                            //                    self.viewAlpha.removeFromSuperview()
-                            //                    self.view.isUserInteractionEnabled = true
-                        }
-                        //                check.removeFromSuperview()
-                        
-                    }
-                } else {
-                    let alert = UIAlertController(title: "Warning".localized(code), message: "Enter password to continue".localized(code), preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                        switch action.style{
-                        case .default:
-                            print("default")
-                        case .cancel:
-                            print("cancel")
-                        case .destructive:
-                            print("destructive")
-                        @unknown default:
-                            fatalError()
-                        }}))
-                    self.present(alert, animated: true, completion: nil)
-                }
-            } else  {
-                self.activityIndicator.startAnimating()
-                self.viewAlpha.addSubview(self.activityIndicator)
-                self.view.addSubview(self.viewAlpha)
-                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-                self.view.isUserInteractionEnabled = false
-                self.viewLoad.removeFromSuperview()
-                self.viewLoadTwo.removeFromSuperview()
-                self.lbl1.removeFromSuperview()
-                self.lbl2.removeFromSuperview()
-                self.lbl3.removeFromSuperview()
-                self.lbl4.removeFromSuperview()
-                let b = (self.input4.text! as NSString).integerValue
-                reload = 6
-                if self.input3.text == "1023" {
-                    if self.termoSwitch.isOn == false{
-                        wmPar = "\(b)"
-                    } else {
-                        let a = 128 + b
-                        wmPar = "\(a)"
-                    }
-                }
-                if self.input3.text == "4095" {
-                    if self.termoSwitch.isOn == false{
-                        let a = 32768 + b
-                        wmPar = "\(a)"
-                    } else {
-                        let a = 32896 + b
-                        wmPar = "\(a)"
-                    }
-                }
-                self.viewLoad.isHidden = true
-                self.viewLoadTwo.isHidden = true
-                
-                //            self.view.addSubview(check)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
-                    self.check4.image = UIImage(named: "check-green.png")
-                    self.check3.image = UIImage(named: "check-green.png")
-                    //                check.image = UIImage(named: "check-green.png")
-                    //                self.view.addSubview(check)
-                    
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 7.0) {
-                    self.check4.removeFromSuperview()
-                    self.check3.removeFromSuperview()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        police = false
-                        self.viewLoad.removeFromSuperview()
-                        self.viewLoadTwo.removeFromSuperview()
-                        self.lbl1.removeFromSuperview()
-                        self.lbl2.removeFromSuperview()
-                        self.lbl3.removeFromSuperview()
-                        self.lbl4.removeFromSuperview()
-                        self.viewShow()
-                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                        //                    self.viewAlpha.removeFromSuperview()
-                        //                    self.view.isUserInteractionEnabled = true
-                    }
-                    //                check.removeFromSuperview()
-                    
-                }
-            }
+            let alert = UIAlertController(title: "Warning".localized(code), message: "Are you sure you want to make changes?".localized(code), preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "No".localized(code), style: .default, handler: { _ in
+                //Cancel Action
+            }))
+            alert.addAction(UIAlertAction(title: "Yes".localized(code),
+                                          style: .destructive,
+                                          handler: {(_: UIAlertAction!) in
+                                            self.changeBnt1()
+            }))
+            self.present(alert, animated: true, completion: nil)
         }
 
-        y = y + deltaYLite
+        autoCalibSwitch.frame = CGRect(x: Int(screenWidth / 2 + 110) - (iphone5s ? 10 : 0), y: y + 25, width: 30, height: 20)
+        autoCalibLabel.frame.origin = CGPoint(x: 30, y: y + 32)
+
+        scrollView.addSubview(autoCalibLabel)
+        scrollView.addSubview(autoCalibSwitch)
+        y = y + deltaY
         
         lbl1 = UILabel(frame: CGRect(x: 0, y: 0, width: 120, height: 20))
         lbl1.text = "\(nothing)"
@@ -755,289 +1417,79 @@ class DeviceBleSettingsController: UIViewController {
         
         y = y + deltaYLite + deltaYLite/2
         
-        let btn2 = UIView(frame: CGRect(x: x, y: y, width: 120, height: 44))
-        btn2.backgroundColor = UIColor(rgb: 0xCF2121)
-        btn2.layer.cornerRadius = 22
+        btn2.frame = CGRect(x: x, y: y, width: Int(screenWidth / 2) - x - (x / 2), height: 44)
+
         
-        let btn2Text = UILabel(frame: CGRect(x: x, y: y, width: 120, height: 44))
-        btn2Text.text = "Empty".localized(code)
-        btn2Text.textColor = .white
-        btn2Text.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
-        btn2Text.textAlignment = .center
+        btn2Text.frame = CGRect(x: x, y: y, width: Int(screenWidth / 2) - x, height: 44)
         
-        view.addSubview(btn2)
-        view.addSubview(btn2Text)
+        scrollView.addSubview(btn2)
+        scrollView.addSubview(btn2Text)
         
-        let btn3 = UIView(frame: CGRect(x: Int(screenWidth-150), y: y, width: 120, height: 44))
-        btn3.backgroundColor = UIColor(rgb: 0xCF2121)
-        btn3.layer.cornerRadius = 22
+        btn3.frame = CGRect(x: Int(screenWidth / 2) + (x / 2), y: y, width: Int(screenWidth / 2) - x - (x / 2), height: 44)
+
         
-        let btn3Text = UILabel(frame: CGRect(x: Int(screenWidth-150), y: y, width: 120, height: 44))
-        btn3Text.text = "Full".localized(code)
-        btn3Text.textColor = .white
-        btn3Text.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
-        btn3Text.textAlignment = .center
+        btn3Text.frame =  CGRect(x: Int(screenWidth / 2) + (x / 2), y: y, width: Int(screenWidth / 2) - x - (x / 2), height: 44)
         
-        view.addSubview(btn3)
-        view.addSubview(btn3Text)
+        scrollView.addSubview(btn3)
+        scrollView.addSubview(btn3Text)
         
+        y = y + deltaYLite * 3
+        
+        btnAuto.frame = CGRect(x: x, y: y, width: Int(screenWidth) - (2 * x), height: 44)
+        
+        btnAutoText.frame = CGRect(x: x, y: y, width: Int(screenWidth) - (2 * x), height: 44)
+        
+        scrollView.addSubview(btnAuto)
+        scrollView.addSubview(btnAutoText)
+        
+        btnAuto.addTapGesture {
+            self.generator.impactOccurred()
+            if self.btnAuto.backgroundColor != UIColor(rgb: 0xAAAAAA) {
+                let alert = UIAlertController(title: "Warning".localized(code), message: "Are you sure you want to make changes?".localized(code), preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "No".localized(code), style: .default, handler: { _ in
+                    //Cancel Action
+                }))
+                alert.addAction(UIAlertAction(title: "Yes".localized(code),
+                                              style: .destructive,
+                                              handler: {(_: UIAlertAction!) in
+                                                self.changeBntAuto()
+                }))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
         btn2.addTapGesture {
-            reload = 3
-            if passwordHave == true {
-                if passwordSuccess == true {
-                    errorWRN = false
-                    self.activityIndicator.startAnimating()
-                    self.viewAlpha.addSubview(self.activityIndicator)
-                    self.view.addSubview(self.viewAlpha)
-                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-                    self.view.isUserInteractionEnabled = false
-                    self.viewLoad.isHidden = true
-                    self.viewLoadTwo.isHidden = true
-                    self.viewLoad.removeFromSuperview()
-                    self.lbl1.removeFromSuperview()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 8.0) {
-                        if errorWRN == false {
-                            self.view.isUserInteractionEnabled = true
-                            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                            self.viewAlpha.removeFromSuperview()
-                            self.viewLoad.isHidden = false
-                            self.viewLoadTwo.isHidden = false
-                            let alert = UIAlertController(title: "Value changed – calibration is done successfully".localized(code), message: "“Empty” value changed successfully".localized(code), preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                                switch action.style{
-                                case .default:
-                                    print("default")
-                                case .cancel:
-                                    print("cancel")
-                                case .destructive:
-                                    print("destructive")
-                                @unknown default:
-                                    fatalError()
-                                }}))
-                            self.present(alert, animated: true, completion: nil)
-                        } else {
-                            errorWRN = false
-                            self.view.isUserInteractionEnabled = true
-                            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                            self.viewAlpha.removeFromSuperview()
-                            self.viewLoad.isHidden = false
-                            self.viewLoadTwo.isHidden = false
-                            let alert = UIAlertController(title: "Value not changed – calibration failure".localized(code), message: "“Empty” value changing failure".localized(code), preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                                switch action.style{
-                                case .default:
-                                    print("default")
-                                case .cancel:
-                                    print("cancel")
-                                    
-                                case .destructive:
-                                    print("destructive")
-                                @unknown default:
-                                    fatalError()
-                                }}))
-                            self.present(alert, animated: true, completion: nil)
-                            
-                        }
-                    }
-                } else {
-                    let alert = UIAlertController(title: "Warning".localized(code), message: "Enter password to continue".localized(code), preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                        switch action.style{
-                        case .default:
-                            print("default")
-                        case .cancel:
-                            print("cancel")
-                        case .destructive:
-                            print("destructive")
-                        @unknown default:
-                            fatalError()
-                        }}))
-                    self.present(alert, animated: true, completion: nil)
-                }
-            } else {
-                errorWRN = false
-                self.activityIndicator.startAnimating()
-                self.viewAlpha.addSubview(self.activityIndicator)
-                self.view.addSubview(self.viewAlpha)
-                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-                self.view.isUserInteractionEnabled = false
-                self.viewLoad.isHidden = true
-                self.viewLoadTwo.isHidden = true
-                self.viewLoad.removeFromSuperview()
-                self.lbl1.removeFromSuperview()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 8.0) {
-                    if errorWRN == false {
-                        self.view.isUserInteractionEnabled = true
-                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                        self.viewAlpha.removeFromSuperview()
-                        self.viewLoad.isHidden = false
-                        self.viewLoadTwo.isHidden = false
-                        let alert = UIAlertController(title: "Value changed – calibration is done successfully".localized(code), message: "“Empty” value changed successfully".localized(code), preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                            switch action.style{
-                            case .default:
-                                print("default")
-                            case .cancel:
-                                print("cancel")
-                            case .destructive:
-                                print("destructive")
-                            @unknown default:
-                                fatalError()
-                            }}))
-                        self.present(alert, animated: true, completion: nil)
-                    } else {
-                        errorWRN = false
-                        self.view.isUserInteractionEnabled = true
-                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                        self.viewAlpha.removeFromSuperview()
-                        self.viewLoad.isHidden = false
-                        self.viewLoadTwo.isHidden = false
-                        let alert = UIAlertController(title: "Value not changed – calibration failure".localized(code), message: "“Empty” value changing failure".localized(code), preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                            switch action.style{
-                            case .default:
-                                print("default")
-                            case .cancel:
-                                print("cancel")
-                                
-                            case .destructive:
-                                print("destructive")
-                            @unknown default:
-                                fatalError()
-                            }}))
-                        self.present(alert, animated: true, completion: nil)
-                        
-                    }
-                }
+            self.generator.impactOccurred()
+            if self.btn2.backgroundColor != UIColor(rgb: 0xAAAAAA) {
+                let alert = UIAlertController(title: "Warning".localized(code), message: "Are you sure you want to make changes?".localized(code), preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "No".localized(code), style: .default, handler: { _ in
+                    //Cancel Action
+                }))
+                alert.addAction(UIAlertAction(title: "Yes".localized(code),
+                                              style: .destructive,
+                                              handler: {(_: UIAlertAction!) in
+                                                self.changeBtn2()
+                }))
+                self.present(alert, animated: true, completion: nil)
             }
         }
         btn3.addTapGesture {
-            reload = 2
-            if passwordHave == true {
-                if passwordSuccess == true {
-                    errorWRN = false
-                    self.activityIndicator.startAnimating()
-                    self.viewAlpha.addSubview(self.activityIndicator)
-                    self.view.addSubview(self.viewAlpha)
-                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-                    self.view.isUserInteractionEnabled = false
-                    self.viewLoad.isHidden = true
-                    self.viewLoadTwo.isHidden = true
-                    self.viewLoad.removeFromSuperview()
-                    self.lbl2.removeFromSuperview()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 8.0) {
-                        if errorWRN == false {
-                            self.view.isUserInteractionEnabled = true
-                            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                            self.viewAlpha.removeFromSuperview()
-                            self.viewLoad.isHidden = false
-                            self.viewLoadTwo.isHidden = false
-                            let alert = UIAlertController(title: "Value changed – calibration is done successfully".localized(code), message: "“Full” value changed successfully".localized(code), preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                                switch action.style{
-                                case .default:
-                                    print("default")
-                                case .cancel:
-                                    print("cancel")
-                                case .destructive:
-                                    print("destructive")
-                                @unknown default:
-                                    fatalError()
-                                }}))
-                            self.present(alert, animated: true, completion: nil)
-                        } else {
-                            errorWRN = false
-                            self.view.isUserInteractionEnabled = true
-                            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                            self.viewAlpha.removeFromSuperview()
-                            self.viewLoad.isHidden = false
-                            self.viewLoadTwo.isHidden = false
-                            let alert = UIAlertController(title: "Value not changed – calibration failure".localized(code), message: "“Full” value changing failure".localized(code), preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                                switch action.style{
-                                case .default:
-                                    print("default")
-                                case .cancel:
-                                    print("cancel")
-                                case .destructive:
-                                    print("destructive")
-                                @unknown default:
-                                    fatalError()
-                                }}))
-                            self.present(alert, animated: true, completion: nil)
-                        }
-                    }
-                } else {
-                    let alert = UIAlertController(title: "Warning".localized(code), message: "Enter password to continue".localized(code), preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                        switch action.style{
-                        case .default:
-                            print("default")
-                        case .cancel:
-                            print("cancel")
-                        case .destructive:
-                            print("destructive")
-                        @unknown default:
-                            fatalError()
-                        }}))
-                    self.present(alert, animated: true, completion: nil)
-                }
-            } else {
-                errorWRN = false
-                self.activityIndicator.startAnimating()
-                self.viewAlpha.addSubview(self.activityIndicator)
-                self.view.addSubview(self.viewAlpha)
-                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-                self.view.isUserInteractionEnabled = false
-                self.viewLoad.isHidden = true
-                self.viewLoadTwo.isHidden = true
-                self.viewLoad.removeFromSuperview()
-                self.lbl2.removeFromSuperview()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 8.0) {
-                    if errorWRN == false {
-                        self.view.isUserInteractionEnabled = true
-                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                        self.viewAlpha.removeFromSuperview()
-                        self.viewLoad.isHidden = false
-                        self.viewLoadTwo.isHidden = false
-                        let alert = UIAlertController(title: "Value changed – calibration is done successfully".localized(code), message: "“Full” value changed successfully".localized(code), preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                            switch action.style{
-                            case .default:
-                                print("default")
-                            case .cancel:
-                                print("cancel")
-                            case .destructive:
-                                print("destructive")
-                            @unknown default:
-                                fatalError()
-                            }}))
-                        self.present(alert, animated: true, completion: nil)
-                    } else {
-                        errorWRN = false
-                        self.view.isUserInteractionEnabled = true
-                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                        self.viewAlpha.removeFromSuperview()
-                        self.viewLoad.isHidden = false
-                        self.viewLoadTwo.isHidden = false
-                        let alert = UIAlertController(title: "Value not changed – calibration failure".localized(code), message: "“Full” value changing failure".localized(code), preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                            switch action.style{
-                            case .default:
-                                print("default")
-                            case .cancel:
-                                print("cancel")
-                            case .destructive:
-                                print("destructive")
-                            @unknown default:
-                                fatalError()
-                            }}))
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                }
+            self.generator.impactOccurred()
+            if self.btn3.backgroundColor != UIColor(rgb: 0xAAAAAA) {
+                let alert = UIAlertController(title: "Warning".localized(code), message: "Are you sure you want to make changes?".localized(code), preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "No".localized(code), style: .default, handler: { _ in
+                    //Cancel Action
+                }))
+                alert.addAction(UIAlertAction(title: "Yes".localized(code),
+                                              style: .destructive,
+                                              handler: {(_: UIAlertAction!) in
+                                                self.changeBtn3()
+                }))
+                self.present(alert, animated: true, completion: nil)
             }
         }
-        
         y = y + deltaY
         
         lbl3 = UILabel(frame: CGRect(x: 0, y: 0, width: Int(screenWidth), height: 20))
@@ -1048,173 +1500,35 @@ class DeviceBleSettingsController: UIViewController {
         lbl4 = UILabel(frame: CGRect(x: Int(screenWidth/2+20), y: 0, width: Int(screenWidth/3), height: 20))
         lbl4.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
 //        lbl4.textAlignment = .right
-        y = y + deltaY
+        y = y + deltaYLite + 10
         let separatorTwo = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth/2 + 40), height: 1))
         separatorTwo.backgroundColor = UIColor(rgb: 0xCF2121)
-        view.addSubview(separatorTwo)
-        
-        view.addSubview(termoLabel)
-        
-        termoSwitch.frame = CGRect(x: Int(screenWidth/2+110), y: y+32, width: 30, height: 20)
-        termoSwitch.thumbTintColor = UIColor(rgb: 0xFFFFFF)
-        termoSwitch.onTintColor = UIColor(rgb: 0xCF2121)
+        scrollView.addSubview(separatorTwo)
 
-        view.addSubview(termoSwitch)
+        scrollView.addSubview(termoLabel)
         
-        let viewTermoSwitch = UIView(frame: CGRect(x: Int(screenWidth/2+110), y: y+32, width: 60, height: 40))
+        termoSwitch.frame = CGRect(x: Int(screenWidth / 2 + 110) - (iphone5s ? 10 : 0), y: y + 25, width: 30, height: 20)
+        termoSwitch.thumbTintColor = .lightGray
+        termoSwitch.onTintColor = UIColor(rgb: 0xCF2121)
+        
+        scrollView.addSubview(termoSwitch)
+        
+        let viewTermoSwitch = UIView(frame: CGRect(x: Int(screenWidth / 2 + 110), y: y + 22, width: 60, height: 40))
         viewTermoSwitch.backgroundColor = .clear
-        view.addSubview(viewTermoSwitch)
+        scrollView.addSubview(viewTermoSwitch)
 
         viewTermoSwitch.addTapGesture {
-            if passwordHave == true {
-                if passwordSuccess == true {
-                    self.activityIndicator.startAnimating()
-                    self.viewAlpha.addSubview(self.activityIndicator)
-                    self.view.addSubview(self.viewAlpha)
-                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-                    self.view.isUserInteractionEnabled = false
-                    self.viewLoad.removeFromSuperview()
-                    self.viewLoadTwo.removeFromSuperview()
-                    self.lbl1.removeFromSuperview()
-                    self.lbl2.removeFromSuperview()
-                    self.lbl3.removeFromSuperview()
-                    self.lbl4.removeFromSuperview()
-                    let b = (self.input4.text! as NSString).integerValue
-                    reload = 6
-                    if self.input3.text == "1023" {
-                        if self.termoSwitch.isOn == true{
-                            wmPar = "\(b)"
-                        } else {
-                            let a = 128 + b
-                            wmPar = "\(a)"
-                        }
-                    }
-                    if self.input3.text == "4095" {
-                        if self.termoSwitch.isOn == true{
-                            let a = 32768 + b
-                            wmPar = "\(a)"
-                        } else {
-                            let a = 32896 + b
-                            wmPar = "\(a)"
-                        }
-                    }
-                    self.viewLoad.isHidden = true
-                    self.viewLoadTwo.isHidden = true
-                    
-                    //            self.view.addSubview(check)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
-                        self.check4.image = UIImage(named: "check-green.png")
-                        self.check3.image = UIImage(named: "check-green.png")
-                        //                check.image = UIImage(named: "check-green.png")
-                        //                self.view.addSubview(check)
-                        
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 7.0) {
-                        self.check4.removeFromSuperview()
-                        self.check3.removeFromSuperview()
-                        if self.termoSwitch.isOn == true {
-                            self.termoSwitch.isOn = false
-                        } else {
-                            self.termoSwitch.isOn = true
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                            police = false
-                            self.viewLoad.removeFromSuperview()
-                            self.viewLoadTwo.removeFromSuperview()
-                            self.lbl1.removeFromSuperview()
-                            self.lbl2.removeFromSuperview()
-                            self.lbl3.removeFromSuperview()
-                            self.lbl4.removeFromSuperview()
-                            self.viewShow()
-                            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                            //                    self.viewAlpha.removeFromSuperview()
-                            //                    self.view.isUserInteractionEnabled = true
-                        }
-                        //                check.removeFromSuperview()
-                        
-                    }
-                } else {
-                    let alert = UIAlertController(title: "Warning".localized(code), message: "Enter password to continue".localized(code), preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                        switch action.style{
-                        case .default:
-                            print("default")
-                        case .cancel:
-                            print("cancel")
-                        case .destructive:
-                            print("destructive")
-                        @unknown default:
-                            fatalError()
-                        }}))
-                    self.present(alert, animated: true, completion: nil)
-                }
-            } else  {
-                self.activityIndicator.startAnimating()
-                self.viewAlpha.addSubview(self.activityIndicator)
-                self.view.addSubview(self.viewAlpha)
-                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-                self.view.isUserInteractionEnabled = false
-                self.viewLoad.removeFromSuperview()
-                self.viewLoadTwo.removeFromSuperview()
-                self.lbl1.removeFromSuperview()
-                self.lbl2.removeFromSuperview()
-                self.lbl3.removeFromSuperview()
-                self.lbl4.removeFromSuperview()
-                let b = (self.input4.text! as NSString).integerValue
-                reload = 6
-                if self.input3.text == "1023" {
-                    if self.termoSwitch.isOn == true{
-                        wmPar = "\(b)"
-                    } else {
-                        let a = 128 + b
-                        wmPar = "\(a)"
-                    }
-                }
-                if self.input3.text == "4095" {
-                    if self.termoSwitch.isOn == true {
-                        let a = 32768 + b
-                        wmPar = "\(a)"
-                    } else {
-                        let a = 32896 + b
-                        wmPar = "\(a)"
-                    }
-                }
-                self.viewLoad.isHidden = true
-                self.viewLoadTwo.isHidden = true
-                
-                //            self.view.addSubview(check)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
-                    self.check4.image = UIImage(named: "check-green.png")
-                    self.check3.image = UIImage(named: "check-green.png")
-                    //                check.image = UIImage(named: "check-green.png")
-                    //                self.view.addSubview(check)
-                    
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 7.0) {
-                    self.check4.removeFromSuperview()
-                    self.check3.removeFromSuperview()
-                    if self.termoSwitch.isOn == true {
-                        self.termoSwitch.isOn = false
-                    } else {
-                        self.termoSwitch.isOn = true
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        police = false
-                        self.viewLoad.removeFromSuperview()
-                        self.viewLoadTwo.removeFromSuperview()
-                        self.lbl1.removeFromSuperview()
-                        self.lbl2.removeFromSuperview()
-                        self.lbl3.removeFromSuperview()
-                        self.lbl4.removeFromSuperview()
-                        self.viewShow()
-                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                        //                    self.viewAlpha.removeFromSuperview()
-                        //                    self.view.isUserInteractionEnabled = true
-                    }
-                    //                check.removeFromSuperview()
-                    
-                }
-            }
+            let alert = UIAlertController(title: "Warning".localized(code), message: "Are you sure you want to make changes?".localized(code), preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "No".localized(code), style: .default, handler: { _ in
+                //Cancel Action
+            }))
+            alert.addAction(UIAlertAction(title: "Yes".localized(code),
+                                          style: .destructive,
+                                          handler: {(_: UIAlertAction!) in
+                                            self.changeTermoSwitch()
+            }))
+            self.present(alert, animated: true, completion: nil)
         }
         
         timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
@@ -1242,6 +1556,7 @@ class DeviceBleSettingsController: UIViewController {
             self.firstTextField.frame = CGRect(x: 20, y: 70, width: self.view.frame.width/3*2-40, height: 30)
             self.firstTextField.keyboardType = .numberPad
             self.firstTextField.isSecureTextEntry = true
+            self.firstTextField.inputAccessoryView = self.toolBar()
             self.firstTextField.layer.cornerRadius = 5
             self.firstTextField.layer.borderWidth = 1
             self.firstTextField.returnKeyType = .next
@@ -1272,6 +1587,7 @@ class DeviceBleSettingsController: UIViewController {
             self.secondTextField.frame = CGRect(x: 20, y: 130, width: self.view.frame.width/3*2-40, height: 30)
             self.secondTextField.keyboardType = .numberPad
             self.secondTextField.isSecureTextEntry = true
+            self.secondTextField.inputAccessoryView = self.toolBar()
             self.secondTextField.layer.cornerRadius = 5
             self.secondTextField.layer.borderWidth = 1
             self.secondTextField.layer.borderColor = UIColor(named: "Color")?.cgColor
@@ -1382,6 +1698,7 @@ class DeviceBleSettingsController: UIViewController {
             self.firstTextFieldSecond.frame = CGRect(x: 20, y: 70, width: self.view.frame.width/3*2-40, height: 30)
             self.firstTextFieldSecond.keyboardType = .numberPad
             self.firstTextFieldSecond.isSecureTextEntry = true
+            self.firstTextFieldSecond.inputAccessoryView = self.toolBar()
             self.firstTextFieldSecond.layer.cornerRadius = 5
             self.firstTextFieldSecond.layer.borderWidth = 1
             self.firstTextFieldSecond.returnKeyType = .next
@@ -1572,8 +1889,11 @@ class DeviceBleSettingsController: UIViewController {
 
     func viewShowParametrs(lbl1: UILabel,lbl2: UILabel,lbl3: UILabel, lbl4: UILabel, y: Int) {
         lbl3.text = "CNT\t\t\(cnt)"
+        lbl3.textColor = isNight ? UIColor.white : UIColor.black
         lbl1.text = "\(nothing)"
+        lbl1.textColor = isNight ? UIColor.white : UIColor.black
         lbl2.text = "\(full)"
+        lbl2.textColor = isNight ? UIColor.white : UIColor.black
         lbl4.text = "\(statusDeviceY)"
         if itemColor == 0 {
             lbl4.textColor = UIColor(rgb: 0xCF2121)
@@ -1586,8 +1906,8 @@ class DeviceBleSettingsController: UIViewController {
             viewLoad.isHidden = true
             viewLoadTwo.isHidden = true
         }
-        view.addSubview(viewLoad)
-        view.addSubview(viewLoadTwo)
+        scrollView.addSubview(viewLoad)
+        scrollView.addSubview(viewLoadTwo)
         viewLoad.addSubview(lbl1)
         viewLoad.addSubview(lbl2)
         viewLoadTwo.addSubview(lbl3)
@@ -1596,22 +1916,56 @@ class DeviceBleSettingsController: UIViewController {
     }
     
     fileprivate func setupTheme() {
-        view.theme.backgroundColor = themed { $0.backgroundColor }
+        if #available(iOS 13.0, *) {
+            view.theme.backgroundColor = themed { $0.backgroundColor }
+            lbl1.theme.textColor = themed{ $0.navigationTintColor }
+            lbl2.theme.textColor = themed{ $0.navigationTintColor }
+            lbl3.theme.textColor = themed{ $0.navigationTintColor }
+            autoCalibLabel.theme.textColor = themed{ $0.navigationTintColor }
+            input.theme.textColor = themed{ $0.navigationTintColor }
+            input3.theme.textColor = themed{ $0.navigationTintColor }
+            input4.theme.textColor = themed{ $0.navigationTintColor }
+            lblTitle.theme.textColor = themed{ $0.navigationTintColor }
+            lblTitle3.theme.textColor = themed{ $0.navigationTintColor }
+            lblTitle4.theme.textColor = themed{ $0.navigationTintColor }
+            termoLabel.theme.textColor = themed{ $0.navigationTintColor }
+            MainLabel.theme.textColor = themed{ $0.navigationTintColor }
+            themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            backView.theme.tintColor = themed{ $0.navigationTintColor }
+        } else {
+            view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
+            themeBackView3.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+            MainLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            backView.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            
+            lbl1.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            lbl2.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            lbl3.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            autoCalibLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            input.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            
+            input3.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            input4.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            lblTitle.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            lblTitle3.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            lblTitle4.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            termoLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+        }
 //        themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
 //        footer.theme.backgroundColor = themed { $0.backgroundNavigationColor }
-        lbl1.theme.textColor = themed{ $0.navigationTintColor }
-        lbl2.theme.textColor = themed{ $0.navigationTintColor }
-        lbl3.theme.textColor = themed{ $0.navigationTintColor }
-        input.theme.textColor = themed{ $0.navigationTintColor }
-        input3.theme.textColor = themed{ $0.navigationTintColor }
-        input4.theme.textColor = themed{ $0.navigationTintColor }
-        lblTitle.theme.textColor = themed{ $0.navigationTintColor }
-        lblTitle3.theme.textColor = themed{ $0.navigationTintColor }
-        lblTitle4.theme.textColor = themed{ $0.navigationTintColor }
-        termoLabel.theme.textColor = themed{ $0.navigationTintColor }
-        MainLabel.theme.textColor = themed{ $0.navigationTintColor }
-        themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
-        backView.theme.tintColor = themed{ $0.navigationTintColor }
+    }
+    fileprivate func toolBar() -> UIToolbar {
+        let bar = UIToolbar()
+        let reset = UIBarButtonItem(barButtonSystemItem: .flexibleSpace , target: nil, action: nil)
+        let done = UIBarButtonItem(title: "Done".localized(code), style: .done, target: self, action: #selector(resetTapped))
+        bar.setItems([reset,done], animated: false)
+        bar.sizeToFit()
+        return bar
+    }
+    @objc func resetTapped() {
+        secondTextField.endEditing(true)
+        firstTextField.endEditing(true)
+        firstTextFieldSecond.endEditing(true)
     }
 }
 
@@ -1634,7 +1988,7 @@ extension DeviceBleSettingsController: UIPickerViewDelegate, UIPickerViewDataSou
             input4.text = dataSource2[row]
             if prov2 != self.input4.text {
                 check4.image = UIImage(named: "check-red.png")
-                self.view.addSubview(check4)
+                self.scrollView.addSubview(check4)
             } else {
                     check4.removeFromSuperview()
             }
@@ -1643,7 +1997,7 @@ extension DeviceBleSettingsController: UIPickerViewDelegate, UIPickerViewDataSou
             input3.text = dataSource[row]
             if prov != self.input3.text {
                 check3.image = UIImage(named: "check-red.png")
-                self.view.addSubview(check3)
+                self.scrollView.addSubview(check3)
             } else {
                 check3.removeFromSuperview()
             }
@@ -1666,7 +2020,6 @@ extension DeviceBleSettingsController: UIPickerViewDelegate, UIPickerViewDataSou
         } else {
             let dt = dataSource[row]
             return NSAttributedString(string: dt, attributes: [NSAttributedString.Key.foregroundColor: isNight ? UIColor.white : UIColor.black])
-
         }
     }
 }

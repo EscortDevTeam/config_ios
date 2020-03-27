@@ -84,20 +84,20 @@ class DeviceBleController: UIViewController {
     
     fileprivate lazy var bgImageBattary: UIImageView = {
         let img = UIImageView(image: UIImage(named: "Battary.png")!)
-        img.frame = CGRect(x:screenWidth-60, y: screenHeight/5-31, width: 32, height: 14)
+        img.frame = CGRect(x:screenWidth-60 - (iphone5s ? 80 : 0), y: screenHeight / 5 - 31, width: 32, height: 14)
         img.image = img.image!.withRenderingMode(.alwaysTemplate)
         return img
     }()
     fileprivate lazy var bgImageBattary1: UIView = {
-        let img = UIView(frame: CGRect(x:screenWidth-58, y: screenHeight/5-29, width: 8, height: 10))
+        let img = UIView(frame: CGRect(x:screenWidth - 58 - (iphone5s ? 80 : 0), y: screenHeight / 5 - 29, width: 8, height: 10))
         return img
     }()
     fileprivate lazy var bgImageBattary2: UIView = {
-        let img = UIView(frame: CGRect(x:screenWidth-50, y: screenHeight/5-29, width: 8, height: 10))
+        let img = UIView(frame: CGRect(x:screenWidth - 50 - (iphone5s ? 80 : 0), y: screenHeight / 5 - 29, width: 8, height: 10))
         return img
     }()
     fileprivate lazy var bgImageBattary3: UIView = {
-        let img = UIView(frame: CGRect(x:screenWidth-42, y: screenHeight/5-29, width: 9, height: 10))
+        let img = UIView(frame: CGRect(x:screenWidth - 42 - (iphone5s ? 80 : 0), y: screenHeight / 5 - 29, width: 9, height: 10))
         return img
     }()
     
@@ -136,7 +136,7 @@ class DeviceBleController: UIViewController {
     }()
     
     fileprivate lazy var textLineCreateName: UILabel = {
-        let deviceName = UILabel(frame: CGRect(x: 30, y: Int(screenHeight/4), width: Int(screenWidth), height: 78))
+        let deviceName = UILabel(frame: CGRect(x: 30, y: Int(screenHeight/4) - (iphone5s ? 20 : 0), width: Int(screenWidth), height: 78))
         deviceName.text = "№ \(nameDevice)\nFW: \(VV)"
         deviceName.textColor = UIColor(rgb: 0xE9E9E9)
         deviceName.font = UIFont(name:"FuturaPT-Medium", size: 20.0)
@@ -146,13 +146,13 @@ class DeviceBleController: UIViewController {
     
     fileprivate lazy var textLineCreateTemp: UIImageView = {
         let degreeIcon = UIImageView(image: UIImage(named: "temp")!)
-        degreeIcon.frame = CGRect(x: 130, y: Int(screenHeight/4) + 12, width: 18, height: 31)
+        degreeIcon.frame = CGRect(x: 130, y: Int(screenHeight/4) + 12 - (iphone5s ? 20 : 0), width: 18, height: 31)
         degreeIcon.image = degreeIcon.image!.withRenderingMode(.alwaysTemplate)
 
         return degreeIcon
     }()
     fileprivate lazy var textLineCreateTempText: UILabel = {
-        let degreeName = UILabel(frame: CGRect(x: 154, y: Int(screenHeight/4) + 15, width: 40, height: 31))
+        let degreeName = UILabel(frame: CGRect(x: 154, y: Int(screenHeight/4) + 15 - (iphone5s ? 20 : 0), width: 40, height: 31))
         degreeName.textColor = UIColor(rgb: 0xDADADA)
         degreeName.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
         return degreeName
@@ -177,25 +177,25 @@ class DeviceBleController: UIViewController {
         return lblTitle
     }()
     fileprivate lazy var textLineCreateID: UILabel = {
-        let lblTitle = UILabel(frame: CGRect(x: 30, y: Int(screenHeight / 1.67) + (hasNotch ? 50 : 90), width: Int(screenWidth-160), height: 20))
+        let lblTitle = UILabel(frame: CGRect(x: 30, y: Int(screenHeight / 1.67) + (hasNotch ? 50 : 90), width: Int(screenWidth-60), height: 20))
         lblTitle.textColor = UIColor(rgb: 0xE9E9E9)
         lblTitle.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
         return lblTitle
     }()
     fileprivate lazy var statusName: UILabel = {
-        let statusName = UILabel(frame: CGRect(x: 30, y: Int(screenHeight / 1.67)  + (hasNotch ? 100 : 140), width: Int(screenWidth), height: 60))
+        let statusName = UILabel(frame: CGRect(x: 30, y: Int(screenHeight / 1.67)  + (hasNotch ? 100 : 140) - (iphone5s ? 40 : 0), width: Int(screenWidth), height: 60))
         statusName.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
         return statusName
     }()
     fileprivate lazy var lbl4: UILabel = {
-        let lbl4 = UILabel(frame: CGRect(x: 30, y: Int(screenHeight / 1.67) + (hasNotch ? 130 : 180), width: Int(screenWidth), height: 60))
+        let lbl4 = UILabel(frame: CGRect(x: 30, y: Int(screenHeight / 1.67) + (hasNotch ? 130 : 180) - (iphone5s ? 40 : 0), width: Int(screenWidth), height: 60))
         lbl4.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
         return lbl4
     }()
     
     fileprivate lazy var textLineCreateCopy: UIImageView = {
         let copyView = UIImageView()
-        copyView.frame = CGRect(x: Int(screenWidth/2+53), y: Int(screenHeight / 1.67) + (hasNotch ? 50 : 90), width: 13, height: 16)
+        copyView.frame = CGRect(x: Int(screenWidth/2+53) - (iphone5s ? 20 : 0), y: Int(screenHeight / 1.67) + (hasNotch ? 50 : 90), width: 13, height: 16)
         return copyView
     }()
 
@@ -240,7 +240,7 @@ class DeviceBleController: UIViewController {
     }()
     fileprivate lazy var backView: UIImageView = {
         let backView = UIImageView()
-        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40), width: 50, height: 40)
+        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40) - (iphone5s ? 10 : 0), width: 50, height: 40)
         let back = UIImageView(image: UIImage(named: "back")!)
         back.image = back.image!.withRenderingMode(.alwaysTemplate)
         back.frame = CGRect(x: 8, y: 0 , width: 8, height: 19)
@@ -250,17 +250,17 @@ class DeviceBleController: UIViewController {
     }()
     fileprivate lazy var themeBackView3: UIView = {
         let v = UIView()
-        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12))
+        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12) + (iphone5s ? 10 : 0))
         v.layer.shadowRadius = 3.0
         v.layer.shadowOpacity = 0.2
         v.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
         return v
     }()
     fileprivate lazy var MainLabel: UILabel = {
-        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy, width: Int(screenWidth-60), height: 40))
+        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy - (iphone5s ? 10 : 0), width: Int(screenWidth-60), height: 40))
         text.text = "Type of bluetooth sensor".localized(code)
         text.textColor = UIColor(rgb: 0x272727)
-        text.font = UIFont(name:"BankGothicBT-Medium", size: 19.0)
+        text.font = UIFont(name:"BankGothicBT-Medium", size: (iphone5s ? 17.0 : 19.0))
         return text
     }()
     fileprivate lazy var footer: UIView = {
@@ -360,30 +360,6 @@ class DeviceBleController: UIViewController {
         view.addSubview(backView)
         
         self.activityIndicator.stopAnimating()
-        let hamburgerPlace = UIView()
-        var yHamb = screenHeight/22
-        if screenWidth == 414 {
-            yHamb = screenHeight/20
-        }
-        if screenHeight >= 750{
-            yHamb = screenHeight/16
-            if screenWidth == 375 {
-                yHamb = screenHeight/19
-            }
-        }
-        hamburgerPlace.frame = CGRect(x: screenWidth-50, y: yHamb, width: 35, height: 35)
-        self.hamburger.frame = CGRect(x: screenWidth-45, y: yHamb, width: 25, height: 25)
-        
-        self.view.addSubview(self.hamburger)
-        self.view.addSubview(hamburgerPlace)
-        
-        
-        hamburgerPlace.addTapGesture {
-            let viewController = MenuControllerDontLanguage()
-            viewController.modalPresentationStyle = .custom
-            viewController.transitioningDelegate = self
-            self.present(viewController, animated: true)
-        }
     
         self.view.isUserInteractionEnabled = true
         
@@ -408,7 +384,7 @@ class DeviceBleController: UIViewController {
         view.addSubview(bgImageSignal3)
 
         var y = 100
-        let x = 30, deltaY = 50
+        let deltaY = 50
         
         textLineCreateName.text = "№ \(nameDevice)\nFW: \(VV)"
         view.addSubview(textLineCreateName)
@@ -446,7 +422,7 @@ class DeviceBleController: UIViewController {
             textLineCreateCopy.image = #imageLiteral(resourceName: "Group-2")
         }
         view.addSubview(textLineCreateCopy)
-        let copyViewMain = UIView(frame: CGRect(x: Int(screenWidth/2+53)-10, y: y + Int(screenHeight/5)-10, width: 35, height: 35))
+        let copyViewMain = UIView(frame: CGRect(x: Int(screenWidth/2+53)-10 - (iphone5s ? 20 : 0), y: y + Int(screenHeight/5)-10, width: 35, height: 35))
         copyViewMain.backgroundColor = .clear
         view.addSubview(copyViewMain)
         
@@ -575,7 +551,7 @@ class DeviceBleController: UIViewController {
         }
         scaleView.frame.size = CGSize(width: 14, height: Int(myInt))
         view.addSubview(scaleView)
-        let lineView = UIView(frame: CGRect(x: 0, y: screenHeight/4+80, width: 207, height: 1))
+        let lineView = UIView(frame: CGRect(x: 0, y: screenHeight/4+80 - (iphone5s ? 20 : 0), width: 207, height: 1))
         lineView.backgroundColor = UIColor(rgb: 0xCF2121)
         view.addSubview(lineView)
         
@@ -583,10 +559,10 @@ class DeviceBleController: UIViewController {
     func repeatData() {
         textLineCreateName.text = "№ \(nameDevice)\nFW: \(VV)"
         textLineCreateTempText.text = "\(temp ?? "0")°"
-        textLineCreateLevel.text = "Level:\t\t\(level)"
-        textLineCreateRssi.text = "RSSI:\t\t\(RSSIMain)"
-        textLineCreateVbat.text = "Vbat:\t\t\(vatt)V"
-        textLineCreateID.text = "ID:\t\t\t\(id)"
+        textLineCreateLevel.text = "Level:\t" + "\(iphone5s ? "" : "\t")" + "\(level)"
+        textLineCreateRssi.text = "RSSI:\t" + "\(iphone5s ? "" : "\t")" + "\(RSSIMain)"
+        textLineCreateVbat.text = "Vbat:\t" + "\(iphone5s ? "" : "\t")" + "\(vatt)V"
+        textLineCreateID.text = "ID:\t" + "\(iphone5s ? "" : "\t\t")" + "\(id)"
         let vatDouble = Double(vatt)
         bgImageBattary1.isHidden = true
         bgImageBattary2.isHidden = true
@@ -686,32 +662,62 @@ class DeviceBleController: UIViewController {
 //        y = Int(screenHeight / 1.67) + 100 + (hasNotch ? 30 : 40)
     }
     fileprivate func setupTheme() {
-        view.theme.backgroundColor = themed { $0.backgroundColor }
-        themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
-        footer.theme.backgroundColor = themed { $0.backgroundNavigationColor }
-        cellSettingName.theme.textColor = themed{ $0.navigationTintColor }
-        cellSettingAddName.theme.textColor = themed{ $0.navigationTintColor }
-        cellHelpName.theme.textColor = themed{ $0.navigationTintColor }
-        hamburger.theme.tintColor = themed{ $0.navigationTintColor }
-        MainLabel.theme.textColor = themed{ $0.navigationTintColor }
-        backView.theme.tintColor = themed{ $0.navigationTintColor }
-        textLineCreateLevel.theme.textColor = themed{ $0.navigationTintColor }
-        textLineCreateRssi.theme.textColor = themed{ $0.navigationTintColor }
-        textLineCreateVbat.theme.textColor = themed{ $0.navigationTintColor }
-        textLineCreateID.theme.textColor = themed{ $0.navigationTintColor }
-        textLineCreateTempText.theme.textColor = themed{ $0.navigationTintColor }
-        textLineCreateTemp.theme.tintColor = themed{ $0.navigationTintColor }
-        textLineCreateName.theme.textColor = themed{ $0.navigationTintColor }
-        sensorImage.theme.tintColor = themed{ $0.navigationTintColor }
-        bgImageSignal.theme.tintColor = themed{ $0.navigationTintColor }
-        bgImageSignal2.theme.tintColor = themed{ $0.navigationTintColor }
-        bgImageSignal3.theme.tintColor = themed{ $0.navigationTintColor }
-        bgImageBattary.theme.tintColor = themed{ $0.navigationTintColor }
-        bgImageBattary1.theme.backgroundColor = themed{ $0.navigationTintColor }
-        bgImageBattary2.theme.backgroundColor = themed{ $0.navigationTintColor }
-        bgImageBattary3.theme.backgroundColor = themed{ $0.navigationTintColor }
-        cellSettingSeparetorTwo.theme.backgroundColor = themed{ $0.navigationTintColor }
-        cellSettingSeparetor.theme.backgroundColor = themed{ $0.navigationTintColor }
+        if #available(iOS 13.0, *) {
+            view.theme.backgroundColor = themed { $0.backgroundColor }
+            themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            footer.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            cellSettingName.theme.textColor = themed{ $0.navigationTintColor }
+            cellSettingAddName.theme.textColor = themed{ $0.navigationTintColor }
+            cellHelpName.theme.textColor = themed{ $0.navigationTintColor }
+            hamburger.theme.tintColor = themed{ $0.navigationTintColor }
+            MainLabel.theme.textColor = themed{ $0.navigationTintColor }
+            backView.theme.tintColor = themed{ $0.navigationTintColor }
+            textLineCreateLevel.theme.textColor = themed{ $0.navigationTintColor }
+            textLineCreateRssi.theme.textColor = themed{ $0.navigationTintColor }
+            textLineCreateVbat.theme.textColor = themed{ $0.navigationTintColor }
+            textLineCreateID.theme.textColor = themed{ $0.navigationTintColor }
+            textLineCreateTempText.theme.textColor = themed{ $0.navigationTintColor }
+            textLineCreateTemp.theme.tintColor = themed{ $0.navigationTintColor }
+            textLineCreateName.theme.textColor = themed{ $0.navigationTintColor }
+            sensorImage.theme.tintColor = themed{ $0.navigationTintColor }
+            bgImageSignal.theme.tintColor = themed{ $0.navigationTintColor }
+            bgImageSignal2.theme.tintColor = themed{ $0.navigationTintColor }
+            bgImageSignal3.theme.tintColor = themed{ $0.navigationTintColor }
+            bgImageBattary.theme.tintColor = themed{ $0.navigationTintColor }
+            bgImageBattary1.theme.backgroundColor = themed{ $0.navigationTintColor }
+            bgImageBattary2.theme.backgroundColor = themed{ $0.navigationTintColor }
+            bgImageBattary3.theme.backgroundColor = themed{ $0.navigationTintColor }
+            cellSettingSeparetorTwo.theme.backgroundColor = themed{ $0.navigationTintColor }
+            cellSettingSeparetor.theme.backgroundColor = themed{ $0.navigationTintColor }
+        } else {
+            view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
+            themeBackView3.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+            MainLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            backView.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            hamburger.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            cellSettingName.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            cellSettingAddName.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            cellHelpName.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            textLineCreateLevel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            textLineCreateRssi.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            textLineCreateVbat.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            textLineCreateID.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            textLineCreateTempText.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            textLineCreateTemp.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            textLineCreateName.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            sensorImage.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            bgImageSignal.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            bgImageSignal2.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            bgImageSignal3.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            bgImageBattary.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            bgImageBattary1.backgroundColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            bgImageBattary2.backgroundColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            bgImageBattary3.backgroundColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            cellSettingSeparetorTwo.backgroundColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            cellSettingSeparetor.backgroundColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            footer.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+        }
+
     }
 }
 

@@ -15,6 +15,7 @@
 		B503C87723042E21004F248F /* DeviceSelectControllerUSB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B503C87623042E21004F248F /* DeviceSelectControllerUSB.swift */; };
 		B505AA6F2375EABC00146A16 /* DevicesTLListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B505AA6E2375EABC00146A16 /* DevicesTLListController.swift */; };
 		B505AA7123797E0900146A16 /* DeviceTLBleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B505AA7023797E0900146A16 /* DeviceTLBleController.swift */; };
+		B507AE8823FD5B4B00A677D6 /* SetupMapNewOrDowl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B507AE8723FD5B4B00A677D6 /* SetupMapNewOrDowl.swift */; };
 		B510836523007CDB0086C462 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B510836423007CDB0086C462 /* MenuViewController.swift */; };
 		B510836723007D010086C462 /* MenuTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B510836623007D010086C462 /* MenuTableCell.swift */; };
 		B510836923007D660086C462 /* MenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B510836823007D660086C462 /* MenuModel.swift */; };
@@ -24,31 +25,87 @@
 		B510837D230194700086C462 /* strel.png in Resources */ = {isa = PBXBuildFile; fileRef = B510837C230194700086C462 /* strel.png */; };
 		B510837F230196D60086C462 /* strela2.png in Resources */ = {isa = PBXBuildFile; fileRef = B510837E230196D50086C462 /* strela2.png */; };
 		B51286472396803C00148E82 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = B51286462396803C00148E82 /* loading.json */; };
+		B525FD9123EABB370094FDE7 /* TabGesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525FD9023EABB370094FDE7 /* TabGesController.swift */; };
+		B525FD9323EBE2480094FDE7 /* SetupMapLoadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525FD9223EBE2480094FDE7 /* SetupMapLoadView.swift */; };
+		B525FD9523EBEC9B0094FDE7 /* MapTrackOneCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525FD9423EBEC9B0094FDE7 /* MapTrackOneCell.swift */; };
+		B525FD9823EBF0730094FDE7 /* MapTrackTwoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525FD9723EBF0730094FDE7 /* MapTrackTwoCell.swift */; };
+		B525FD9A23EBF3800094FDE7 /* MapTrackZeroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525FD9923EBF3800094FDE7 /* MapTrackZeroCell.swift */; };
+		B525FD9C23EBF8240094FDE7 /* MapTrackThreeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525FD9B23EBF8240094FDE7 /* MapTrackThreeCell.swift */; };
+		B525FD9E23EBFA370094FDE7 /* MapTrackFourCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525FD9D23EBFA370094FDE7 /* MapTrackFourCell.swift */; };
+		B525FDA023EBFF040094FDE7 /* MapTrackFiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525FD9F23EBFF040094FDE7 /* MapTrackFiveCell.swift */; };
+		B525FDA323EC2DC20094FDE7 /* MapLvlTopOneCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525FDA223EC2DC20094FDE7 /* MapLvlTopOneCell.swift */; };
+		B525FDA523EC32B50094FDE7 /* MapLvlTopTwoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525FDA423EC32B50094FDE7 /* MapLvlTopTwoCell.swift */; };
 		B5291BBB22FD586300CB8890 /* DeviceListUsbController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5291BBA22FD586300CB8890 /* DeviceListUsbController.swift */; };
 		B52989332306AE1F007D2DE3 /* Battary.png in Resources */ = {isa = PBXBuildFile; fileRef = B52989322306AE1F007D2DE3 /* Battary.png */; };
+		B536BE5523C9E3880030EB1F /* MapColectionTwoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B536BE5423C9E3880030EB1F /* MapColectionTwoCell.swift */; };
 		B536F43823AD151A0007C93C /* MainVCNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B536F43723AD15190007C93C /* MainVCNavController.swift */; };
+		B537B21623E821E800520263 /* DeviceDUPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = B537B21523E821E800520263 /* DeviceDUPassword.swift */; };
+		B537B21823E8299000520263 /* DevicaDUSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B537B21723E8299000520263 /* DevicaDUSettings.swift */; };
 		B546385D23714AF60073C447 /* SettingAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B546385C23714AF60073C447 /* SettingAppController.swift */; };
 		B546385E23718C940073C447 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B546386023718C940073C447 /* Localizable.strings */; };
 		B549894723AB71EA00B164BB /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B549894623AB71EA00B164BB /* Theme.swift */; };
+		B54B5AEA23E7ECA300B1CDD9 /* DevicesDUController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B5AE923E7ECA300B1CDD9 /* DevicesDUController.swift */; };
+		B54B5AEC23E7EF3B00B1CDD9 /* DeviceDUBleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54B5AEB23E7EF3B00B1CDD9 /* DeviceDUBleController.swift */; };
+		B54FD85E23DDF77800875B91 /* MapCellOneMore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54FD85D23DDF77800875B91 /* MapCellOneMore.swift */; };
+		B54FD86223DE0B6100875B91 /* MapCellOneMoreAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54FD86123DE0B6100875B91 /* MapCellOneMoreAdd.swift */; };
+		B5658A30240FD32800836D97 /* StartAppMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5658A2F240FD32800836D97 /* StartAppMenuController.swift */; };
+		B5658A33240FD41800836D97 /* StartAppMenuTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5658A32240FD41800836D97 /* StartAppMenuTableView.swift */; };
+		B5658A35240FD82B00836D97 /* CellSettingDUT.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5658A34240FD82B00836D97 /* CellSettingDUT.swift */; };
+		B5658A37240FE27300836D97 /* CellMapSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5658A36240FE27300836D97 /* CellMapSet.swift */; };
+		B5658A3924103E0100836D97 /* CellCalc.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5658A3824103E0100836D97 /* CellCalc.swift */; };
+		B5658A3B241042CE00836D97 /* CellSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5658A3A241042CE00836D97 /* CellSupport.swift */; };
+		B5658A3D2410C49000836D97 /* CellSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5658A3C2410C49000836D97 /* CellSettings.swift */; };
+		B5676FB123F14E72003182D7 /* du_ble_black_2.json in Resources */ = {isa = PBXBuildFile; fileRef = B5676FAD23F14E71003182D7 /* du_ble_black_2.json */; };
+		B5676FB223F14E72003182D7 /* du-ble_black_1.json in Resources */ = {isa = PBXBuildFile; fileRef = B5676FAE23F14E71003182D7 /* du-ble_black_1.json */; };
+		B5676FB323F14E72003182D7 /* du_ble_white_2.json in Resources */ = {isa = PBXBuildFile; fileRef = B5676FAF23F14E71003182D7 /* du_ble_white_2.json */; };
+		B5676FB423F14E72003182D7 /* du_ble_white_1.json in Resources */ = {isa = PBXBuildFile; fileRef = B5676FB023F14E72003182D7 /* du_ble_white_1.json */; };
+		B5676FB623F17DFB003182D7 /* AddSensorObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5676FB523F17DFB003182D7 /* AddSensorObject.swift */; };
+		B5676FB823F182E9003182D7 /* AddSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5676FB723F182E9003182D7 /* AddSensor.swift */; };
+		B5676FC823F3DDCB003182D7 /* AddSensorTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5676FC723F3DDCB003182D7 /* AddSensorTableView.swift */; };
+		B5676FCB23F3E1E8003182D7 /* AddSensorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5676FCA23F3E1E8003182D7 /* AddSensorCell.swift */; };
+		B5676FCD23F3E440003182D7 /* AddSensorLoadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5676FCC23F3E440003182D7 /* AddSensorLoadView.swift */; };
+		B5676FCF23F3E77F003182D7 /* AddSensorCellTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5676FCE23F3E77F003182D7 /* AddSensorCellTwo.swift */; };
+		B5676FD123F3F0C6003182D7 /* AddSensorCellThree.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5676FD023F3F0C6003182D7 /* AddSensorCellThree.swift */; };
+		B5676FD323F40178003182D7 /* AddSensorCellFour.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5676FD223F40178003182D7 /* AddSensorCellFour.swift */; };
+		B5676FD523F4041A003182D7 /* AddSensorCellFive.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5676FD423F4041A003182D7 /* AddSensorCellFive.swift */; };
+		B5676FD723F51D31003182D7 /* MapCellNumberTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5676FD623F51D30003182D7 /* MapCellNumberTC.swift */; };
+		B5676FD923F68332003182D7 /* MapCollectionTrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5676FD823F68331003182D7 /* MapCollectionTrackCell.swift */; };
+		B5676FDB23F68FE9003182D7 /* MapCollectionPlombaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5676FDA23F68FE9003182D7 /* MapCollectionPlombaCell.swift */; };
+		B5676FDD23F692A5003182D7 /* MapCollectionPhotoPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5676FDC23F692A5003182D7 /* MapCollectionPhotoPlaceCell.swift */; };
+		B567A3E623B73660008B0B8D /* MapColectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B567A3E523B73660008B0B8D /* MapColectionCell.swift */; };
+		B56E98F623B62178002B292A /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56E98F523B62178002B292A /* ImagePicker.swift */; };
+		B56E98F823B624CB002B292A /* SetupMapPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56E98F723B624CB002B292A /* SetupMapPhoto.swift */; };
+		B56E98FA23B62A91002B292A /* ModelTCTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56E98F923B62A91002B292A /* ModelTCTableView.swift */; };
+		B56E98FC23B62C05002B292A /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56E98FB23B62C05002B292A /* MapCell.swift */; };
 		B574930D22EED58900DE9371 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B574930C22EED58900DE9371 /* CoreBluetooth.framework */; };
+		B57E1331240F7CCC00167280 /* ReferenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57E1330240F7CCC00167280 /* ReferenceController.swift */; };
+		B580F0A52420CD9C00FE66A8 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = B580F0A42420CD9C00FE66A8 /* Notifications.swift */; };
+		B580F0A82420E8EA00FE66A8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B580F0A72420E8EA00FE66A8 /* GoogleService-Info.plist */; };
 		B582CCFB23758A150012E232 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B582CCFD23758A150012E232 /* InfoPlist.strings */; };
 		B5856F8D22FD918100C51803 /* signal1.png in Resources */ = {isa = PBXBuildFile; fileRef = B5856F8C22FD918100C51803 /* signal1.png */; };
 		B5856F8F22FD918A00C51803 /* signal2.png in Resources */ = {isa = PBXBuildFile; fileRef = B5856F8E22FD918A00C51803 /* signal2.png */; };
 		B5856F9122FD919000C51803 /* signal3.png in Resources */ = {isa = PBXBuildFile; fileRef = B5856F9022FD919000C51803 /* signal3.png */; };
 		B5884C3323A8E104007CD76D /* DevicesListCellHeder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5884C3223A8E104007CD76D /* DevicesListCellHeder.swift */; };
+		B5891E2523ED66CF00509749 /* PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5891E2423ED66CF00509749 /* PDF.swift */; };
 		B58F7037238BAF9300DA99B9 /* TarirovkaStartViewControllet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58F7036238BAF9300DA99B9 /* TarirovkaStartViewControllet.swift */; };
 		B58F703A238BC16800DA99B9 /* TarirovkaSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58F7039238BC16800DA99B9 /* TarirovkaSettingsViewController.swift */; };
 		B58F703C238BD77600DA99B9 /* TirirovkaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58F703B238BD77600DA99B9 /* TirirovkaTableViewController.swift */; };
 		B58F703E238C001200DA99B9 /* TirirovkaCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58F703D238C001200DA99B9 /* TirirovkaCellViewController.swift */; };
+		B5921AF023FE4F880061272D /* CalibrationCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5921AEF23FE4F880061272D /* CalibrationCreate.swift */; };
+		B5921AF223FE59CD0061272D /* CalibrationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5921AF123FE59CD0061272D /* CalibrationCell.swift */; };
+		B592972A23FC48C0009C214F /* UIImageRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B592972923FC48C0009C214F /* UIImageRepresentation.swift */; };
 		B592FD532399293700EBE8C6 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B592FD522399293700EBE8C6 /* MenuController.swift */; };
 		B59AFFBB239103E100C0DAF0 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59AFFBA239103E100C0DAF0 /* QRScannerViewController.swift */; };
 		B59AFFBD2391075B00C0DAF0 /* QRScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59AFFBC2391075B00C0DAF0 /* QRScannerView.swift */; };
 		B59AFFBF239107BE00C0DAF0 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59AFFBE239107BE00C0DAF0 /* UIViewController+Alert.swift */; };
 		B59AFFC5239109E500C0DAF0 /* StoryboardScanner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B59AFFC4239109E500C0DAF0 /* StoryboardScanner.storyboard */; };
+		B5A4CA3D242B371F0071E6E6 /* LoggingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A4CA3C242B371F0071E6E6 /* LoggingController.swift */; };
+		B5A4CA3F242B37F60071E6E6 /* LoggingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A4CA3E242B37F60071E6E6 /* LoggingView.swift */; };
 		B5A8197923B47F660053570B /* SetupMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A8197823B47F660053570B /* SetupMap.swift */; };
 		B5A8197B23B480100053570B /* SetupMapObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A8197A23B480100053570B /* SetupMapObject.swift */; };
 		B5A8198023B4A36A0053570B /* StatusBarCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A8197F23B4A36A0053570B /* StatusBarCustom.swift */; };
 		B5A8198223B4ED830053570B /* ButtonsNextMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A8198123B4ED830053570B /* ButtonsNextMap.swift */; };
+		B5A8343F241B85DB0083A8C5 /* SetupMapSearchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A8343E241B85DB0083A8C5 /* SetupMapSearchDelegate.swift */; };
 		B5AC88742383CFC300FACEAE /* DeviceBLETLSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AC88732383CFC300FACEAE /* DeviceBLETLSettings.swift */; };
 		B5AC88792383E1FE00FACEAE /* Path-3.png in Resources */ = {isa = PBXBuildFile; fileRef = B5AC88782383E1FE00FACEAE /* Path-3.png */; };
 		B5AC887B2383E20800FACEAE /* Path-2.png in Resources */ = {isa = PBXBuildFile; fileRef = B5AC887A2383E20800FACEAE /* Path-2.png */; };
@@ -60,7 +117,6 @@
 		B5F698C523A768C2001DC6D1 /* DevicesListControllerNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F698C423A768C2001DC6D1 /* DevicesListControllerNew.swift */; };
 		B5F698C723A78094001DC6D1 /* DevicesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F698C623A78094001DC6D1 /* DevicesListCell.swift */; };
 		B5F698C923A78A40001DC6D1 /* DevicesListCellMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F698C823A78A40001DC6D1 /* DevicesListCellMain.swift */; };
-		B5FDBC4F23029B5A00442541 /* Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FDBC4E23029B5A00442541 /* Codable.swift */; };
 		C41730A722C8B04700177C54 /* main.png in Resources */ = {isa = PBXBuildFile; fileRef = C41730A622C8B04600177C54 /* main.png */; };
 		C41730B122C8C6CA00177C54 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = C41730AD22C8C6CA00177C54 /* 2.png */; };
 		C41730B222C8C6CA00177C54 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = C41730AE22C8C6CA00177C54 /* 1.png */; };
@@ -137,6 +193,7 @@
 		B503C87623042E21004F248F /* DeviceSelectControllerUSB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSelectControllerUSB.swift; sourceTree = "<group>"; };
 		B505AA6E2375EABC00146A16 /* DevicesTLListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesTLListController.swift; sourceTree = "<group>"; };
 		B505AA7023797E0900146A16 /* DeviceTLBleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTLBleController.swift; sourceTree = "<group>"; };
+		B507AE8723FD5B4B00A677D6 /* SetupMapNewOrDowl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupMapNewOrDowl.swift; sourceTree = "<group>"; };
 		B510836423007CDB0086C462 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		B510836623007D010086C462 /* MenuTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableCell.swift; sourceTree = "<group>"; };
 		B510836823007D660086C462 /* MenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModel.swift; sourceTree = "<group>"; };
@@ -146,16 +203,66 @@
 		B510837C230194700086C462 /* strel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = strel.png; sourceTree = "<group>"; };
 		B510837E230196D50086C462 /* strela2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = strela2.png; sourceTree = "<group>"; };
 		B51286462396803C00148E82 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
+		B525FD9023EABB370094FDE7 /* TabGesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabGesController.swift; sourceTree = "<group>"; };
+		B525FD9223EBE2480094FDE7 /* SetupMapLoadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupMapLoadView.swift; sourceTree = "<group>"; };
+		B525FD9423EBEC9B0094FDE7 /* MapTrackOneCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTrackOneCell.swift; sourceTree = "<group>"; };
+		B525FD9723EBF0730094FDE7 /* MapTrackTwoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTrackTwoCell.swift; sourceTree = "<group>"; };
+		B525FD9923EBF3800094FDE7 /* MapTrackZeroCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTrackZeroCell.swift; sourceTree = "<group>"; };
+		B525FD9B23EBF8240094FDE7 /* MapTrackThreeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTrackThreeCell.swift; sourceTree = "<group>"; };
+		B525FD9D23EBFA370094FDE7 /* MapTrackFourCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTrackFourCell.swift; sourceTree = "<group>"; };
+		B525FD9F23EBFF040094FDE7 /* MapTrackFiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTrackFiveCell.swift; sourceTree = "<group>"; };
+		B525FDA223EC2DC20094FDE7 /* MapLvlTopOneCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLvlTopOneCell.swift; sourceTree = "<group>"; };
+		B525FDA423EC32B50094FDE7 /* MapLvlTopTwoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLvlTopTwoCell.swift; sourceTree = "<group>"; };
 		B5291BBA22FD586300CB8890 /* DeviceListUsbController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListUsbController.swift; sourceTree = "<group>"; };
 		B52989322306AE1F007D2DE3 /* Battary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Battary.png; sourceTree = "<group>"; };
+		B536BE5423C9E3880030EB1F /* MapColectionTwoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapColectionTwoCell.swift; sourceTree = "<group>"; };
 		B536F43723AD15190007C93C /* MainVCNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVCNavController.swift; sourceTree = "<group>"; };
+		B537B21523E821E800520263 /* DeviceDUPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDUPassword.swift; sourceTree = "<group>"; };
+		B537B21723E8299000520263 /* DevicaDUSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicaDUSettings.swift; sourceTree = "<group>"; };
 		B546385C23714AF60073C447 /* SettingAppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAppController.swift; sourceTree = "<group>"; };
 		B546385F23718C940073C447 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B546386123718CCE0073C447 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B546386223718EC80073C447 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B546386323718EE40073C447 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		B549894623AB71EA00B164BB /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		B54B5AE923E7ECA300B1CDD9 /* DevicesDUController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesDUController.swift; sourceTree = "<group>"; };
+		B54B5AEB23E7EF3B00B1CDD9 /* DeviceDUBleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDUBleController.swift; sourceTree = "<group>"; };
+		B54FD85D23DDF77800875B91 /* MapCellOneMore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCellOneMore.swift; sourceTree = "<group>"; };
+		B54FD86123DE0B6100875B91 /* MapCellOneMoreAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCellOneMoreAdd.swift; sourceTree = "<group>"; };
+		B5658A2F240FD32800836D97 /* StartAppMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartAppMenuController.swift; sourceTree = "<group>"; };
+		B5658A32240FD41800836D97 /* StartAppMenuTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartAppMenuTableView.swift; sourceTree = "<group>"; };
+		B5658A34240FD82B00836D97 /* CellSettingDUT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellSettingDUT.swift; sourceTree = "<group>"; };
+		B5658A36240FE27300836D97 /* CellMapSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellMapSet.swift; sourceTree = "<group>"; };
+		B5658A3824103E0100836D97 /* CellCalc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellCalc.swift; sourceTree = "<group>"; };
+		B5658A3A241042CE00836D97 /* CellSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellSupport.swift; sourceTree = "<group>"; };
+		B5658A3C2410C49000836D97 /* CellSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellSettings.swift; sourceTree = "<group>"; };
+		B5676FAD23F14E71003182D7 /* du_ble_black_2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = du_ble_black_2.json; sourceTree = "<group>"; };
+		B5676FAE23F14E71003182D7 /* du-ble_black_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "du-ble_black_1.json"; sourceTree = "<group>"; };
+		B5676FAF23F14E71003182D7 /* du_ble_white_2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = du_ble_white_2.json; sourceTree = "<group>"; };
+		B5676FB023F14E72003182D7 /* du_ble_white_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = du_ble_white_1.json; sourceTree = "<group>"; };
+		B5676FB523F17DFB003182D7 /* AddSensorObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSensorObject.swift; sourceTree = "<group>"; };
+		B5676FB723F182E9003182D7 /* AddSensor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSensor.swift; sourceTree = "<group>"; };
+		B5676FC723F3DDCB003182D7 /* AddSensorTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSensorTableView.swift; sourceTree = "<group>"; };
+		B5676FCA23F3E1E8003182D7 /* AddSensorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSensorCell.swift; sourceTree = "<group>"; };
+		B5676FCC23F3E440003182D7 /* AddSensorLoadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSensorLoadView.swift; sourceTree = "<group>"; };
+		B5676FCE23F3E77F003182D7 /* AddSensorCellTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSensorCellTwo.swift; sourceTree = "<group>"; };
+		B5676FD023F3F0C6003182D7 /* AddSensorCellThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSensorCellThree.swift; sourceTree = "<group>"; };
+		B5676FD223F40178003182D7 /* AddSensorCellFour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSensorCellFour.swift; sourceTree = "<group>"; };
+		B5676FD423F4041A003182D7 /* AddSensorCellFive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSensorCellFive.swift; sourceTree = "<group>"; };
+		B5676FD623F51D30003182D7 /* MapCellNumberTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCellNumberTC.swift; sourceTree = "<group>"; };
+		B5676FD823F68331003182D7 /* MapCollectionTrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionTrackCell.swift; sourceTree = "<group>"; };
+		B5676FDA23F68FE9003182D7 /* MapCollectionPlombaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionPlombaCell.swift; sourceTree = "<group>"; };
+		B5676FDC23F692A5003182D7 /* MapCollectionPhotoPlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCollectionPhotoPlaceCell.swift; sourceTree = "<group>"; };
+		B567A3E523B73660008B0B8D /* MapColectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapColectionCell.swift; sourceTree = "<group>"; };
+		B56E98F523B62178002B292A /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		B56E98F723B624CB002B292A /* SetupMapPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupMapPhoto.swift; sourceTree = "<group>"; };
+		B56E98F923B62A91002B292A /* ModelTCTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTCTableView.swift; sourceTree = "<group>"; };
+		B56E98FB23B62C05002B292A /* MapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
 		B574930C22EED58900DE9371 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		B57E1330240F7CCC00167280 /* ReferenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceController.swift; sourceTree = "<group>"; };
+		B580F0A42420CD9C00FE66A8 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		B580F0A62420DBB000FE66A8 /* Escort.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Escort.entitlements; sourceTree = "<group>"; };
+		B580F0A72420E8EA00FE66A8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B582CCFC23758A150012E232 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B582CCFE23758A270012E232 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		B582CCFF23758A270012E232 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -164,19 +271,26 @@
 		B5856F8E22FD918A00C51803 /* signal2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signal2.png; sourceTree = "<group>"; };
 		B5856F9022FD919000C51803 /* signal3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signal3.png; sourceTree = "<group>"; };
 		B5884C3223A8E104007CD76D /* DevicesListCellHeder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesListCellHeder.swift; sourceTree = "<group>"; };
+		B5891E2423ED66CF00509749 /* PDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDF.swift; sourceTree = "<group>"; };
 		B58F7036238BAF9300DA99B9 /* TarirovkaStartViewControllet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TarirovkaStartViewControllet.swift; sourceTree = "<group>"; };
 		B58F7039238BC16800DA99B9 /* TarirovkaSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TarirovkaSettingsViewController.swift; sourceTree = "<group>"; };
 		B58F703B238BD77600DA99B9 /* TirirovkaTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TirirovkaTableViewController.swift; sourceTree = "<group>"; };
 		B58F703D238C001200DA99B9 /* TirirovkaCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TirirovkaCellViewController.swift; sourceTree = "<group>"; };
+		B5921AEF23FE4F880061272D /* CalibrationCreate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationCreate.swift; sourceTree = "<group>"; };
+		B5921AF123FE59CD0061272D /* CalibrationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationCell.swift; sourceTree = "<group>"; };
+		B592972923FC48C0009C214F /* UIImageRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageRepresentation.swift; sourceTree = "<group>"; };
 		B592FD522399293700EBE8C6 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		B59AFFBA239103E100C0DAF0 /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
 		B59AFFBC2391075B00C0DAF0 /* QRScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerView.swift; sourceTree = "<group>"; };
 		B59AFFBE239107BE00C0DAF0 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		B59AFFC4239109E500C0DAF0 /* StoryboardScanner.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StoryboardScanner.storyboard; sourceTree = "<group>"; };
+		B5A4CA3C242B371F0071E6E6 /* LoggingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingController.swift; sourceTree = "<group>"; };
+		B5A4CA3E242B37F60071E6E6 /* LoggingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingView.swift; sourceTree = "<group>"; };
 		B5A8197823B47F660053570B /* SetupMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupMap.swift; sourceTree = "<group>"; };
 		B5A8197A23B480100053570B /* SetupMapObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupMapObject.swift; sourceTree = "<group>"; };
 		B5A8197F23B4A36A0053570B /* StatusBarCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarCustom.swift; sourceTree = "<group>"; };
 		B5A8198123B4ED830053570B /* ButtonsNextMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsNextMap.swift; sourceTree = "<group>"; };
+		B5A8343E241B85DB0083A8C5 /* SetupMapSearchDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupMapSearchDelegate.swift; sourceTree = "<group>"; };
 		B5AC88732383CFC300FACEAE /* DeviceBLETLSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceBLETLSettings.swift; sourceTree = "<group>"; };
 		B5AC88752383D20000FACEAE /* tl-ble-hide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tl-ble-hide.png"; sourceTree = "<group>"; };
 		B5AC88782383E1FE00FACEAE /* Path-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Path-3.png"; sourceTree = "<group>"; };
@@ -185,12 +299,10 @@
 		B5B3F284239A27C300A6FD09 /* MenuControllerDontLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuControllerDontLanguage.swift; sourceTree = "<group>"; };
 		B5B8908F239E678800FD727B /* Charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charts.swift; sourceTree = "<group>"; };
 		B5B8F560236C15D70072EEFB /* LocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedString.swift; sourceTree = "<group>"; };
-		B5C5F2AB23605FDE0043F46A /* JSONLanguage.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = JSONLanguage.json; sourceTree = "<group>"; };
 		B5D424ED23916B3000F7EBB4 /* RateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateManager.swift; sourceTree = "<group>"; };
 		B5F698C423A768C2001DC6D1 /* DevicesListControllerNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesListControllerNew.swift; sourceTree = "<group>"; };
 		B5F698C623A78094001DC6D1 /* DevicesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesListCell.swift; sourceTree = "<group>"; };
 		B5F698C823A78A40001DC6D1 /* DevicesListCellMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesListCellMain.swift; sourceTree = "<group>"; };
-		B5FDBC4E23029B5A00442541 /* Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codable.swift; sourceTree = "<group>"; };
 		C41730A622C8B04600177C54 /* main.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main.png; sourceTree = "<group>"; };
 		C41730AD22C8C6CA00177C54 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
 		C41730AE22C8C6CA00177C54 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
@@ -287,9 +399,7 @@
 			children = (
 				C424A90F22D61CB9008E154F /* DevicesListController.swift */,
 				B5F698C423A768C2001DC6D1 /* DevicesListControllerNew.swift */,
-				B5F698C823A78A40001DC6D1 /* DevicesListCellMain.swift */,
-				B5F698C623A78094001DC6D1 /* DevicesListCell.swift */,
-				B5884C3223A8E104007CD76D /* DevicesListCellHeder.swift */,
+				B56E98FE23B62C1D002B292A /* CellList */,
 				C424A92322D73648008E154F /* DeviceBleController.swift */,
 				C424A93F22D779C2008E154F /* DeviceBleSettingsController.swift */,
 				C424A94122D77A28008E154F /* DeviceBleSettingsAddController.swift */,
@@ -320,10 +430,36 @@
 			path = Menu;
 			sourceTree = "<group>";
 		};
+		B525FD9623EBF0580094FDE7 /* TrackCell */ = {
+			isa = PBXGroup;
+			children = (
+				B525FD9923EBF3800094FDE7 /* MapTrackZeroCell.swift */,
+				B525FD9423EBEC9B0094FDE7 /* MapTrackOneCell.swift */,
+				B5676FD823F68331003182D7 /* MapCollectionTrackCell.swift */,
+				B525FD9723EBF0730094FDE7 /* MapTrackTwoCell.swift */,
+				B525FD9B23EBF8240094FDE7 /* MapTrackThreeCell.swift */,
+				B5676FDA23F68FE9003182D7 /* MapCollectionPlombaCell.swift */,
+				B525FD9D23EBFA370094FDE7 /* MapTrackFourCell.swift */,
+				B5676FDC23F692A5003182D7 /* MapCollectionPhotoPlaceCell.swift */,
+				B525FD9F23EBFF040094FDE7 /* MapTrackFiveCell.swift */,
+			);
+			path = TrackCell;
+			sourceTree = "<group>";
+		};
+		B525FDA123EC2D860094FDE7 /* LvlTop */ = {
+			isa = PBXGroup;
+			children = (
+				B525FDA223EC2DC20094FDE7 /* MapLvlTopOneCell.swift */,
+				B525FDA423EC32B50094FDE7 /* MapLvlTopTwoCell.swift */,
+			);
+			path = LvlTop;
+			sourceTree = "<group>";
+		};
 		B54795E023631C5C005F408C /* BLE */ = {
 			isa = PBXGroup;
 			children = (
 				C41730EF22CB9AB900177C54 /* DeviceSelectController.swift */,
+				B54B5AE823E7EA3300B1CDD9 /* DU BLE */,
 				B505AA6D2375EA9500146A16 /* TL BLE */,
 				B505AA6C2375E69C00146A16 /* TD BLE */,
 				B59AFFB9239103D000C0DAF0 /* QR-code */,
@@ -353,8 +489,74 @@
 				B503C86E2303F4C3004F248F /* PopupTwoVC.swift */,
 				B592FD522399293700EBE8C6 /* MenuController.swift */,
 				B5B3F284239A27C300A6FD09 /* MenuControllerDontLanguage.swift */,
+				B57E1330240F7CCC00167280 /* ReferenceController.swift */,
 			);
 			path = Menu;
+			sourceTree = "<group>";
+		};
+		B54B5AE823E7EA3300B1CDD9 /* DU BLE */ = {
+			isa = PBXGroup;
+			children = (
+				B54B5AE923E7ECA300B1CDD9 /* DevicesDUController.swift */,
+				B54B5AEB23E7EF3B00B1CDD9 /* DeviceDUBleController.swift */,
+				B537B21523E821E800520263 /* DeviceDUPassword.swift */,
+				B537B21723E8299000520263 /* DevicaDUSettings.swift */,
+				B5676FAD23F14E71003182D7 /* du_ble_black_2.json */,
+				B5676FB023F14E72003182D7 /* du_ble_white_1.json */,
+				B5676FAF23F14E71003182D7 /* du_ble_white_2.json */,
+				B5676FAE23F14E71003182D7 /* du-ble_black_1.json */,
+			);
+			path = "DU BLE";
+			sourceTree = "<group>";
+		};
+		B5658A31240FD33800836D97 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B5658A2F240FD32800836D97 /* StartAppMenuController.swift */,
+				B5658A32240FD41800836D97 /* StartAppMenuTableView.swift */,
+				B5A4CA3B242B35E20071E6E6 /* CellMenu */,
+			);
+			name = Controllers;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B5676FC923F3E1D2003182D7 /* CellAddSensor */ = {
+			isa = PBXGroup;
+			children = (
+				B5676FCA23F3E1E8003182D7 /* AddSensorCell.swift */,
+				B5676FCE23F3E77F003182D7 /* AddSensorCellTwo.swift */,
+				B5676FD023F3F0C6003182D7 /* AddSensorCellThree.swift */,
+				B5676FD223F40178003182D7 /* AddSensorCellFour.swift */,
+				B5676FD423F4041A003182D7 /* AddSensorCellFive.swift */,
+				B5921AEF23FE4F880061272D /* CalibrationCreate.swift */,
+				B5921AF123FE59CD0061272D /* CalibrationCell.swift */,
+			);
+			path = CellAddSensor;
+			sourceTree = "<group>";
+		};
+		B56E98FD23B62C0B002B292A /* CellMap */ = {
+			isa = PBXGroup;
+			children = (
+				B56E98FB23B62C05002B292A /* MapCell.swift */,
+				B5676FD623F51D30003182D7 /* MapCellNumberTC.swift */,
+				B54FD85D23DDF77800875B91 /* MapCellOneMore.swift */,
+				B54FD86123DE0B6100875B91 /* MapCellOneMoreAdd.swift */,
+				B567A3E523B73660008B0B8D /* MapColectionCell.swift */,
+				B536BE5423C9E3880030EB1F /* MapColectionTwoCell.swift */,
+				B525FD9623EBF0580094FDE7 /* TrackCell */,
+				B525FDA123EC2D860094FDE7 /* LvlTop */,
+			);
+			path = CellMap;
+			sourceTree = "<group>";
+		};
+		B56E98FE23B62C1D002B292A /* CellList */ = {
+			isa = PBXGroup;
+			children = (
+				B5F698C823A78A40001DC6D1 /* DevicesListCellMain.swift */,
+				B5F698C623A78094001DC6D1 /* DevicesListCell.swift */,
+				B5884C3223A8E104007CD76D /* DevicesListCellHeder.swift */,
+			);
+			path = CellList;
 			sourceTree = "<group>";
 		};
 		B574930B22EED58900DE9371 /* Frameworks */ = {
@@ -396,24 +598,38 @@
 			path = "QR-code";
 			sourceTree = "<group>";
 		};
+		B5A4CA3B242B35E20071E6E6 /* CellMenu */ = {
+			isa = PBXGroup;
+			children = (
+				B5658A34240FD82B00836D97 /* CellSettingDUT.swift */,
+				B5658A36240FE27300836D97 /* CellMapSet.swift */,
+				B5658A3824103E0100836D97 /* CellCalc.swift */,
+				B5658A3A241042CE00836D97 /* CellSupport.swift */,
+				B5658A3C2410C49000836D97 /* CellSettings.swift */,
+			);
+			path = CellMenu;
+			sourceTree = "<group>";
+		};
 		B5A8197C23B487B30053570B /* SetupMap */ = {
 			isa = PBXGroup;
 			children = (
+				B507AE8723FD5B4B00A677D6 /* SetupMapNewOrDowl.swift */,
 				B5A8197823B47F660053570B /* SetupMap.swift */,
-				B5A8197A23B480100053570B /* SetupMapObject.swift */,
+				B5676FB523F17DFB003182D7 /* AddSensorObject.swift */,
+				B5676FB723F182E9003182D7 /* AddSensor.swift */,
+				B5676FCC23F3E440003182D7 /* AddSensorLoadView.swift */,
+				B5676FC723F3DDCB003182D7 /* AddSensorTableView.swift */,
+				B5676FC923F3E1D2003182D7 /* CellAddSensor */,
 				B5A8197F23B4A36A0053570B /* StatusBarCustom.swift */,
+				B5A8197A23B480100053570B /* SetupMapObject.swift */,
+				B5A8343E241B85DB0083A8C5 /* SetupMapSearchDelegate.swift */,
 				B5A8198123B4ED830053570B /* ButtonsNextMap.swift */,
+				B56E98F723B624CB002B292A /* SetupMapPhoto.swift */,
+				B525FD9223EBE2480094FDE7 /* SetupMapLoadView.swift */,
+				B56E98F923B62A91002B292A /* ModelTCTableView.swift */,
+				B56E98FD23B62C0B002B292A /* CellMap */,
 			);
 			path = SetupMap;
-			sourceTree = "<group>";
-		};
-		B5FDBC4D23029B1700442541 /* JSON */ = {
-			isa = PBXGroup;
-			children = (
-				B5FDBC4E23029B5A00442541 /* Codable.swift */,
-				B5C5F2AB23605FDE0043F46A /* JSONLanguage.json */,
-			);
-			path = JSON;
 			sourceTree = "<group>";
 		};
 		C41730A122C8B00000177C54 /* Resources */ = {
@@ -476,6 +692,7 @@
 				C41730CD22CB3A2C00177C54 /* UIColor+hexColor.swift */,
 				B59AFFBE239107BE00C0DAF0 /* UIViewController+Alert.swift */,
 				C41730DC22CB6CA000177C54 /* UIView+tap.swift */,
+				B592972923FC48C0009C214F /* UIImageRepresentation.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -487,12 +704,17 @@
 				C491783122C8A94D0006106E /* StartScreenController.swift */,
 				C41730C922CA55DD00177C54 /* LanguageSelectController.swift */,
 				C41730DE22CB880A00177C54 /* ConnectionSelectController.swift */,
+				B5A4CA3C242B371F0071E6E6 /* LoggingController.swift */,
+				B5A4CA3E242B37F60071E6E6 /* LoggingView.swift */,
+				B5891E2423ED66CF00509749 /* PDF.swift */,
+				B56E98F523B62178002B292A /* ImagePicker.swift */,
+				B525FD9023EABB370094FDE7 /* TabGesController.swift */,
 				B536F43723AD15190007C93C /* MainVCNavController.swift */,
 				B5A8197C23B487B30053570B /* SetupMap */,
-				B546385C23714AF60073C447 /* SettingAppController.swift */,
 				B54795E223631CC2005F408C /* Menu */,
 				B54795E023631C5C005F408C /* BLE */,
 				B54795E123631C9D005F408C /* USB */,
+				B546385C23714AF60073C447 /* SettingAppController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -610,15 +832,18 @@
 		C491782E22C8A94D0006106E /* Escort */ = {
 			isa = PBXGroup;
 			children = (
-				B5FDBC4D23029B1700442541 /* JSON */,
+				B580F0A62420DBB000FE66A8 /* Escort.entitlements */,
 				B510836323007CCC0086C462 /* Menu */,
 				C41730D122CB3CE800177C54 /* Models */,
+				B5658A31240FD33800836D97 /* Controllers */,
 				C41730D022CB3CCD00177C54 /* Views */,
 				C41730CF22CB3C7F00177C54 /* Extensions */,
 				C41730A122C8B00000177C54 /* Resources */,
 				C491782F22C8A94D0006106E /* AppDelegate.swift */,
+				B580F0A42420CD9C00FE66A8 /* Notifications.swift */,
 				B5D424ED23916B3000F7EBB4 /* RateManager.swift */,
 				C491783622C8A94E0006106E /* Assets.xcassets */,
+				B580F0A72420E8EA00FE66A8 /* GoogleService-Info.plist */,
 				C491783B22C8A94E0006106E /* Info.plist */,
 				B582CCFD23758A150012E232 /* InfoPlist.strings */,
 				B546386023718C940073C447 /* Localizable.strings */,
@@ -717,6 +942,7 @@
 				B59AFFC5239109E500C0DAF0 /* StoryboardScanner.storyboard in Resources */,
 				B546385E23718C940073C447 /* Localizable.strings in Resources */,
 				C424A93E22D778A6008E154F /* charge-full.png in Resources */,
+				B5676FB323F14E72003182D7 /* du_ble_white_2.json in Resources */,
 				C424A93722D76B3A008E154F /* check-green.png in Resources */,
 				B503C8752304000C004F248F /* Hamburger.png in Resources */,
 				C424A92122D7332D008E154F /* escort-net-hide.png in Resources */,
@@ -731,9 +957,12 @@
 				C41730B222C8C6CA00177C54 /* 1.png in Resources */,
 				C424A90922D61C3C008E154F /* copy.png in Resources */,
 				C424A92022D7332D008E154F /* tl-ble-hide1.png in Resources */,
+				B580F0A82420E8EA00FE66A8 /* GoogleService-Info.plist in Resources */,
 				C41730C622CA552100177C54 /* russia.png in Resources */,
+				B5676FB423F14E72003182D7 /* du_ble_white_1.json in Resources */,
 				C424A91622D63180008E154F /* bg-figures.png in Resources */,
 				C41730FF22CBA18900177C54 /* td-500.png in Resources */,
+				B5676FB123F14E72003182D7 /* du_ble_black_2.json in Resources */,
 				C424A92F22D73D6C008E154F /* sensor-usb.png in Resources */,
 				C424A90122D61C05008E154F /* help.png in Resources */,
 				B582CCFB23758A150012E232 /* InfoPlist.strings in Resources */,
@@ -747,6 +976,7 @@
 				B503C86D2303F452004F248F /* MenuSelf.storyboard in Resources */,
 				B5856F8D22FD918100C51803 /* signal1.png in Resources */,
 				C417310022CBA18900177C54 /* ble.png in Resources */,
+				B5676FB223F14E72003182D7 /* du-ble_black_1.json in Resources */,
 				B503C8712303F78E004F248F /* closeMenu.png in Resources */,
 				C41730EE22CB904E00177C54 /* usb.png in Resources */,
 				C491783722C8A94E0006106E /* Assets.xcassets in Resources */,
@@ -802,38 +1032,75 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5921AF223FE59CD0061272D /* CalibrationCell.swift in Sources */,
+				B5658A3B241042CE00836D97 /* CellSupport.swift in Sources */,
+				B5676FC823F3DDCB003182D7 /* AddSensorTableView.swift in Sources */,
+				B5A4CA3D242B371F0071E6E6 /* LoggingController.swift in Sources */,
+				B5676FD323F40178003182D7 /* AddSensorCellFour.swift in Sources */,
 				C491784422C8A9F30006106E /* StartScreenModel.swift in Sources */,
+				B567A3E623B73660008B0B8D /* MapColectionCell.swift in Sources */,
+				B54FD85E23DDF77800875B91 /* MapCellOneMore.swift in Sources */,
+				B536BE5523C9E3880030EB1F /* MapColectionTwoCell.swift in Sources */,
+				B54B5AEA23E7ECA300B1CDD9 /* DevicesDUController.swift in Sources */,
 				B536F43823AD151A0007C93C /* MainVCNavController.swift in Sources */,
 				C41730E122CB899500177C54 /* ConnectionSelectModel.swift in Sources */,
 				B5B8F561236C15D70072EEFB /* LocalizedString.swift in Sources */,
+				B56E98FA23B62A91002B292A /* ModelTCTableView.swift in Sources */,
 				B58F703C238BD77600DA99B9 /* TirirovkaTableViewController.swift in Sources */,
+				B5658A30240FD32800836D97 /* StartAppMenuController.swift in Sources */,
 				C424A93122D75784008E154F /* DeviceUsbHelpController.swift in Sources */,
+				B5676FDB23F68FE9003182D7 /* MapCollectionPlombaCell.swift in Sources */,
+				B5921AF023FE4F880061272D /* CalibrationCreate.swift in Sources */,
 				C424A92622D73683008E154F /* DeviceUsbController.swift in Sources */,
 				B58F703A238BC16800DA99B9 /* TarirovkaSettingsViewController.swift in Sources */,
 				B59AFFBB239103E100C0DAF0 /* QRScannerViewController.swift in Sources */,
 				C424A94022D779C2008E154F /* DeviceBleSettingsController.swift in Sources */,
 				C41730D322CB3D7700177C54 /* LanguageSelectModel.swift in Sources */,
 				B592FD532399293700EBE8C6 /* MenuController.swift in Sources */,
+				B5676FCD23F3E440003182D7 /* AddSensorLoadView.swift in Sources */,
+				B57E1331240F7CCC00167280 /* ReferenceController.swift in Sources */,
+				B56E98F823B624CB002B292A /* SetupMapPhoto.swift in Sources */,
+				B56E98FC23B62C05002B292A /* MapCell.swift in Sources */,
 				C424A91022D61CB9008E154F /* DevicesListController.swift in Sources */,
 				B5B89090239E678800FD727B /* Charts.swift in Sources */,
 				B503C86F2303F4C3004F248F /* PopupTwoVC.swift in Sources */,
+				B525FD9823EBF0730094FDE7 /* MapTrackTwoCell.swift in Sources */,
 				B5A8197B23B480100053570B /* SetupMapObject.swift in Sources */,
 				B510836B23007E1B0086C462 /* ContainerViewController.swift in Sources */,
+				B54FD86223DE0B6100875B91 /* MapCellOneMoreAdd.swift in Sources */,
+				B5676FDD23F692A5003182D7 /* MapCollectionPhotoPlaceCell.swift in Sources */,
+				B525FDA323EC2DC20094FDE7 /* MapLvlTopOneCell.swift in Sources */,
+				B525FD9323EBE2480094FDE7 /* SetupMapLoadView.swift in Sources */,
+				B56E98F623B62178002B292A /* ImagePicker.swift in Sources */,
+				B525FD9A23EBF3800094FDE7 /* MapTrackZeroCell.swift in Sources */,
+				B525FDA023EBFF040094FDE7 /* MapTrackFiveCell.swift in Sources */,
 				B510836523007CDB0086C462 /* MenuViewController.swift in Sources */,
+				B5676FCB23F3E1E8003182D7 /* AddSensorCell.swift in Sources */,
+				B525FD9C23EBF8240094FDE7 /* MapTrackThreeCell.swift in Sources */,
 				B5D424EE23916B3000F7EBB4 /* RateManager.swift in Sources */,
 				B59AFFBF239107BE00C0DAF0 /* UIViewController+Alert.swift in Sources */,
+				B5658A33240FD41800836D97 /* StartAppMenuTableView.swift in Sources */,
 				B5B3F285239A27C300A6FD09 /* MenuControllerDontLanguage.swift in Sources */,
 				B5F698C523A768C2001DC6D1 /* DevicesListControllerNew.swift in Sources */,
+				B5658A3924103E0100836D97 /* CellCalc.swift in Sources */,
 				B546385D23714AF60073C447 /* SettingAppController.swift in Sources */,
+				B592972A23FC48C0009C214F /* UIImageRepresentation.swift in Sources */,
 				B510836723007D010086C462 /* MenuTableCell.swift in Sources */,
 				B5F698C723A78094001DC6D1 /* DevicesListCell.swift in Sources */,
 				B5884C3323A8E104007CD76D /* DevicesListCellHeder.swift in Sources */,
+				B525FDA523EC32B50094FDE7 /* MapLvlTopTwoCell.swift in Sources */,
 				C424A92422D73648008E154F /* DeviceBleController.swift in Sources */,
+				B5676FB623F17DFB003182D7 /* AddSensorObject.swift in Sources */,
 				B5291BBB22FD586300CB8890 /* DeviceListUsbController.swift in Sources */,
 				B5A8198023B4A36A0053570B /* StatusBarCustom.swift in Sources */,
 				C41730CE22CB3A2C00177C54 /* UIColor+hexColor.swift in Sources */,
+				B5891E2523ED66CF00509749 /* PDF.swift in Sources */,
+				B5658A35240FD82B00836D97 /* CellSettingDUT.swift in Sources */,
+				B507AE8823FD5B4B00A677D6 /* SetupMapNewOrDowl.swift in Sources */,
 				C41730DF22CB880A00177C54 /* ConnectionSelectController.swift in Sources */,
+				B525FD9E23EBFA370094FDE7 /* MapTrackFourCell.swift in Sources */,
 				C424A93322D7612E008E154F /* DeviceUsbSettingsController.swift in Sources */,
+				B5676FCF23F3E77F003182D7 /* AddSensorCellTwo.swift in Sources */,
 				B5F698C923A78A40001DC6D1 /* DevicesListCellMain.swift in Sources */,
 				C41730F022CB9AB900177C54 /* DeviceSelectController.swift in Sources */,
 				B5A8197923B47F660053570B /* SetupMap.swift in Sources */,
@@ -843,20 +1110,34 @@
 				B505AA6F2375EABC00146A16 /* DevicesTLListController.swift in Sources */,
 				C41730CA22CA55DD00177C54 /* LanguageSelectController.swift in Sources */,
 				C41730F422CB9E2C00177C54 /* DeviceSelectModel.swift in Sources */,
+				B5676FD923F68332003182D7 /* MapCollectionTrackCell.swift in Sources */,
+				B54B5AEC23E7EF3B00B1CDD9 /* DeviceDUBleController.swift in Sources */,
+				B5676FD723F51D31003182D7 /* MapCellNumberTC.swift in Sources */,
+				B5676FD523F4041A003182D7 /* AddSensorCellFive.swift in Sources */,
 				B5AC88742383CFC300FACEAE /* DeviceBLETLSettings.swift in Sources */,
 				B58F7037238BAF9300DA99B9 /* TarirovkaStartViewControllet.swift in Sources */,
 				C424A93A22D77392008E154F /* DeviceUsbSettingsAddController.swift in Sources */,
 				C41730DD22CB6CA000177C54 /* UIView+tap.swift in Sources */,
+				B580F0A52420CD9C00FE66A8 /* Notifications.swift in Sources */,
 				B503C87723042E21004F248F /* DeviceSelectControllerUSB.swift in Sources */,
-				B5FDBC4F23029B5A00442541 /* Codable.swift in Sources */,
+				B537B21623E821E800520263 /* DeviceDUPassword.swift in Sources */,
+				B5A4CA3F242B37F60071E6E6 /* LoggingView.swift in Sources */,
 				B549894723AB71EA00B164BB /* Theme.swift in Sources */,
 				C491783222C8A94D0006106E /* StartScreenController.swift in Sources */,
 				B59AFFBD2391075B00C0DAF0 /* QRScannerView.swift in Sources */,
 				B510836923007D660086C462 /* MenuModel.swift in Sources */,
+				B5676FD123F3F0C6003182D7 /* AddSensorCellThree.swift in Sources */,
+				B5A8343F241B85DB0083A8C5 /* SetupMapSearchDelegate.swift in Sources */,
+				B537B21823E8299000520263 /* DevicaDUSettings.swift in Sources */,
 				B5A8198223B4ED830053570B /* ButtonsNextMap.swift in Sources */,
+				B5658A37240FE27300836D97 /* CellMapSet.swift in Sources */,
+				B5676FB823F182E9003182D7 /* AddSensor.swift in Sources */,
 				C424A91822D631F7008E154F /* DevicesListModel.swift in Sources */,
 				C491783022C8A94D0006106E /* AppDelegate.swift in Sources */,
+				B5658A3D2410C49000836D97 /* CellSettings.swift in Sources */,
+				B525FD9123EABB370094FDE7 /* TabGesController.swift in Sources */,
 				C41730D522CB40DC00177C54 /* Common.swift in Sources */,
+				B525FD9523EBEC9B0094FDE7 /* MapTrackOneCell.swift in Sources */,
 				B510837B230167200086C462 /* PopupViewController.swift in Sources */,
 				B58F703E238C001200DA99B9 /* TirirovkaCellViewController.swift in Sources */,
 			);
@@ -1016,20 +1297,21 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = HVVJT6BNYW;
+				CODE_SIGN_ENTITLEMENTS = Escort/Escort.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 49436C2U7G;
 				INFOPLIST_FILE = Escort/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.15;
-				PRODUCT_BUNDLE_IDENTIFIER = ru.fmeter.escortconnect2121;
+				MARKETING_VERSION = 1.0.18;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.fmeter.escortconnect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "Push Development Profile";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1041,20 +1323,21 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = HVVJT6BNYW;
+				CODE_SIGN_ENTITLEMENTS = Escort/Escort.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 49436C2U7G;
 				INFOPLIST_FILE = Escort/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.15;
-				PRODUCT_BUNDLE_IDENTIFIER = ru.fmeter.escortconnect2121;
+				MARKETING_VERSION = 1.0.18;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.fmeter.escortconnect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "Push Development Profile";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

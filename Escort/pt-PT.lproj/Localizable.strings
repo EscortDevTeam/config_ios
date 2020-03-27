@@ -29,6 +29,8 @@
 
 "Menu" = "O menu";
 
+"Done" = "Done";
+
 /* The title of the section describing commands */
 "Commands" = "Команды";
 
@@ -236,6 +238,8 @@
 
 "Appearance" = "Appearance";
 
+"DU BLE Settings" = "DU BLE Settings";
+
 "Make changes" = "Make changes";
 
 "Recording was successful" = "Recording was successful";
@@ -281,3 +285,96 @@
 
 /* The title of the cell showing BLE signal strength (RSSI) */
 "Signal Strength" = "Уровень сигнала";
+
+"Top" = "Top";
+
+"Down" = "Down";
+
+"Delta" = "Delta";
+
+"Turn ON delay" = "Turn ON delay";
+
+"Turn OFF delay" = "Turn OFF delay";
+
+"Bucket" = "Bucket";
+
+"Plow" = "Plow";
+
+"Delay value only 1 to 99" = "Delay value only 1 to 99";
+
+"Mode is set successfully" = "Mode is set successfully";
+
+"Mode setting failure. Try again" = "Mode setting failure. Try again";
+
+"Angle" = "Angle";
+
+"Zero angle setup succesfully done" = "Zero angle setup succesfully done";
+
+"Set 0" = "Set 0";
+
+"Failed to set zero angle" = "Failed to set zero angle";
+
+"Delta value 1 to 179" = "Delta value 1 to 179";
+
+"Active" = "Active";
+
+"Event notific." = "Event notific.";
+
+"Transportation" = "Transportation";
+
+"Angel control" = "Angel control";
+
+"Horizontal rotation control" = "Horizontal rotation control";
+
+"Vertical rotation control" = "Vertical rotation control";
+
+"Inactive" = "Inactive";
+
+"To the left" = "To the left";
+
+"To the right" = "To the right";
+
+"Accelerometer is off" = "Accelerometer is off";
+
+"Settings saved" = "Settings saved";
+
+"Couldn't save settings" = "Couldn't save settings";
+
+"Value top only 1 to 179" = "Value top only 1 to 179";
+
+"Value down only 1 to 179" = "Value down only 1 to 179";
+
+"Only numbers are allowed for password" = "Only numbers are allowed for password";
+
+"/0/ password can't be used" = "/0/ password can't be used";
+
+"Reloading DU-BLE" = "Reloading DU-BLE";
+
+"Mode" = "Mode";
+
+"Menu" = "Menu";
+
+"Profitability Calculator" = "Profitability Calculator";
+
+"Sensor settings" = "Sensor settings";
+
+"Escort Configurator" = "Escort Configurator";
+
+"Installation report" = "Installation report";
+
+"Installation is now much simpler" = "Installation is now much simpler";
+
+"Online 24/7" = "Online 24/7";
+
+"App settings" = "App settings";
+
+"Tech Support" = "Tech Support";
+
+"In development" = "In development";
+
+" and " = " and ";
+
+
+"Available only in Russian" = "Available only in Russian";
+
+"Are you sure you want to make changes?" = "Are you sure you want to make changes?";

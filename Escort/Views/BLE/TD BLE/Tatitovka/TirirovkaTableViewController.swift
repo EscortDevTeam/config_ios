@@ -29,7 +29,7 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
     
     fileprivate lazy var backView: UIImageView = {
         let backView = UIImageView()
-        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40), width: 50, height: 40)
+        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40) - (iphone5s ? 10 : 0), width: 50, height: 40)
         let back = UIImageView(image: UIImage(named: "back")!)
         back.image = back.image!.withRenderingMode(.alwaysTemplate)
         back.frame = CGRect(x: 8, y: 0 , width: 8, height: 19)
@@ -39,16 +39,16 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
     }()
     fileprivate lazy var themeBackView3: UIView = {
         let v = UIView()
-        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12))
+        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12) + (iphone5s ? 10 : 0))
         v.layer.shadowRadius = 3.0
         v.layer.shadowOpacity = 0.2
         v.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
         return v
     }()
     fileprivate lazy var MainLabel: UILabel = {
-        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy, width: Int(screenWidth-60), height: 40))
+        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy - (iphone5s ? 10 : 0), width: Int(screenWidth-60), height: 40))
         text.text = "Tank calibration".localized(code)
-        text.font = UIFont(name:"BankGothicBT-Medium", size: 19.0)
+        text.font = UIFont(name:"BankGothicBT-Medium", size: (iphone5s ? 17.0 : 19.0))
         return text
     }()
     fileprivate lazy var headerView: UIView = {
@@ -66,7 +66,7 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            self.view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: tableView.topAnchor, constant: -headerHeight+(hasNotch ? 30 : 60)),
+            self.view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: tableView.topAnchor, constant: -headerHeight+(hasNotch ? 30 : 60) - (iphone5s ? 15 : 0)),
             self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
             self.view.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
             self.view.trailingAnchor.constraint(equalTo: tableView.trailingAnchor, constant: 1),
@@ -164,7 +164,7 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     fileprivate lazy var menuImage: UIImageView = {
-        let menuImage = UIImageView(frame: CGRect(x: Int(screenWidth-21), y: dIy + dy + (hasNotch ? dIPrusy+35 : 45), width: 6, height: 24))
+        let menuImage = UIImageView(frame: CGRect(x: Int(screenWidth-21), y: dIy + dy + (hasNotch ? dIPrusy+35 : 45) - (iphone5s ? 10 : 0), width: 6, height: 24))
         menuImage.image = #imageLiteral(resourceName: "Group 12")
         menuImage.image = menuImage.image!.withRenderingMode(.alwaysTemplate)
 
@@ -271,9 +271,9 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
         }
 
         view.addSubview(menuImage)
-        let menuImagePlace = UIImageView(frame: CGRect(x: Int(screenWidth-21*2), y: dIy + dy + (hasNotch ? dIPrusy+30 : 40), width: 30, height: 30))
+        let menuImagePlace = UIImageView(frame: CGRect(x: Int(screenWidth-21*2), y: dIy + dy + (hasNotch ? dIPrusy+30 : 40) - (iphone5s ? 10 : 0), width: 40, height: 40))
         view.addSubview(menuImagePlace)
-        viewMenu = UIView(frame: CGRect(x: Int(screenWidth)-1, y: dIy + dy + (hasNotch ? dIPrusy+35 : 45) + 38, width: 0, height: 0))
+        viewMenu = UIView(frame: CGRect(x: Int(screenWidth)-1, y: dIy + dy + (hasNotch ? dIPrusy+35 : 45) + 38 - (iphone5s ? 10 : 0), width: 0, height: 0))
         viewMenu.backgroundColor = UIColor(rgb: 0xF7F7F7)
         let viewAll = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         let label = UILabel(frame: CGRect(x: Int(screenWidth), y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 47, width: 150, height: 19))
@@ -292,16 +292,16 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
             self.view.addSubview(label4)
 
             UIView.animate(withDuration: 0.4, delay: 0.0, options: .curveEaseOut, animations: {
-                self.viewMenu.frame = CGRect(x: Int(screenWidth-173), y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 38, width: 172, height: 120)
+                self.viewMenu.frame = CGRect(x: Int(screenWidth-173), y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 38 - (iphone5s ? 15 : 0), width: 172, height: 120)
                 self.viewMenu.layer.shadowOffset = CGSize(width: -6.0, height: 6.0)
                 self.viewMenu.layer.shadowRadius = 2.0
                 self.viewMenu.layer.shadowOpacity = 0.3
             }) { (true) in
             print("Done")
                 UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
-                    label.frame = CGRect(x: Int(screenWidth-152), y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 47, width: 150, height: 19)
+                    label.frame = CGRect(x: Int(screenWidth-152), y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 47 - (iphone5s ? 15 : 0), width: 150, height: 19)
                     label.text = "Save to file".localized(code)
-                    label.textColor = .black
+                    label.textColor = isNight ? UIColor.white : UIColor.black
                     label.font = UIFont(name:"FuturaPT-Light", size: 16.0)
                 })
                 label.addTapGesture {
@@ -328,9 +328,9 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
                         }
                 }
                 UIView.animate(withDuration: 0.2, delay: 0.1, options: .curveEaseOut, animations: {
-                    label2.frame = CGRect(x: Int(screenWidth-152), y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 74, width: 150, height: 19)
+                    label2.frame = CGRect(x: Int(screenWidth-152), y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 74 - (iphone5s ? 15 : 0), width: 150, height: 19)
                     label2.text = "Share".localized(code)
-                    label2.textColor = .black
+                    label2.textColor = isNight ? UIColor.white : UIColor.black
                     label2.font = UIFont(name:"FuturaPT-Light", size: 16.0)
                 })
                 label2.addTapGesture {
@@ -353,22 +353,26 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
                     }
                 }
                 UIView.animate(withDuration: 0.2, delay: 0.2, options: .curveEaseOut, animations: {
-                    label3.frame = CGRect(x: Int(screenWidth-152), y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 101, width: 150, height: 19)
+                    label3.frame = CGRect(x: Int(screenWidth-152), y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 101 - (iphone5s ? 15 : 0), width: 150, height: 19)
                     label3.text = "Tank calibration chart".localized(code)
-                    label3.textColor = .black
+                    label3.textColor = isNight ? UIColor.white : UIColor.black
                     label3.font = UIFont(name:"FuturaPT-Light", size: 16.0)
                 })
                 
                 label3.addTapGesture {
-                    let viewController = Charts()
-                    itemsC = self.items
-                    levelnumberC = self.levelnumber
-                    self.present(viewController, animated: true)
+                    if #available(iOS 13.0, *) {
+                        let viewController = Charts()
+                        itemsC = self.items
+                        levelnumberC = self.levelnumber
+                        self.present(viewController, animated: true)
+                    } else {
+                        self.showToast(message: "Доступно c IOS 13", seconds: 1.0)
+                    }
                 }
                 UIView.animate(withDuration: 0.2, delay: 0.3, options: .curveEaseOut, animations: {
-                    label4.frame = CGRect(x: Int(screenWidth-152), y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 128, width: 150, height: 19)
+                    label4.frame = CGRect(x: Int(screenWidth-152), y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 128 - (iphone5s ? 15 : 0), width: 150, height: 19)
                     label4.text = "Complete".localized(code)
-                    label4.textColor = .black
+                    label4.textColor = isNight ? UIColor.white : UIColor.black
                     label4.font = UIFont(name:"FuturaPT-Light", size: 16.0)
                 })
                 label4.addTapGesture{
@@ -395,19 +399,19 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
             viewAll.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
             print("Back")
             UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
-                label4.frame = CGRect(x: Int(screenWidth), y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 128, width: 150, height: 19)
+                label4.frame = CGRect(x: Int(screenWidth), y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 128 - (iphone5s ? 15 : 0), width: 150, height: 19)
             })
             UIView.animate(withDuration: 0.2, delay: 0.1, options: .curveEaseOut, animations: {
-                label3.frame = CGRect(x: Int(screenWidth), y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 101, width: 150, height: 19)
+                label3.frame = CGRect(x: Int(screenWidth), y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 101 - (iphone5s ? 15 : 0), width: 150, height: 19)
             })
             UIView.animate(withDuration: 0.2, delay: 0.2, options: .curveEaseOut, animations: {
-                label2.frame = CGRect(x: Int(screenWidth), y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 74, width: 150, height: 19)
+                label2.frame = CGRect(x: Int(screenWidth), y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 74 - (iphone5s ? 15 : 0), width: 150, height: 19)
             })
             UIView.animate(withDuration: 0.2, delay: 0.3, options: .curveEaseOut, animations: {
-                label.frame = CGRect(x: Int(screenWidth), y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 41, width: 150, height: 19)
+                label.frame = CGRect(x: Int(screenWidth), y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 41 - (iphone5s ? 15 : 0), width: 150, height: 19)
             }) { (true) in
                 UIView.animate(withDuration: 0.4, delay: 0.0, options: .curveEaseOut, animations: {
-                    self.viewMenu.frame = CGRect(x: Int(screenWidth)-1, y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 38, width: 0, height: 0)
+                    self.viewMenu.frame = CGRect(x: Int(screenWidth)-1, y: self.dIy + self.dy + (hasNotch ? self.dIPrusy+35 : 45) + 38 - (iphone5s ? 15 : 0), width: 0, height: 0)
                     label.removeFromSuperview()
                     label2.removeFromSuperview()
                     label3.removeFromSuperview()
@@ -487,23 +491,45 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     fileprivate func setupTheme() {
-        view.theme.backgroundColor = themed { $0.backgroundColor }
-        themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
-        MainLabel.theme.textColor = themed{ $0.navigationTintColor }
-        backView.theme.tintColor = themed{ $0.navigationTintColor }
-        headerView.theme.backgroundColor = themed { $0.backgroundNavigationColor }
-        headerView1.theme.backgroundColor = themed { $0.backgroundNavigationColor }
-        menuImage.theme.tintColor = themed{ $0.navigationTintColor }
-        tempLabel.theme.textColor = themed{ $0.navigationTintColor }
-        nameNumberLabel.theme.textColor = themed{ $0.navigationTintColor }
-        levelLabel.theme.textColor = themed{ $0.navigationTintColor }
-        idlLabel.theme.textColor = themed{ $0.navigationTintColor }
-        stepLabel.theme.textColor = themed{ $0.navigationTintColor }
-        stabLabel.theme.textColor = themed{ $0.navigationTintColor }
-        stepNumberlLabel.theme.textColor = themed{ $0.navigationTintColor }
-        levelLabel1.theme.textColor = themed{ $0.navigationTintColor }
-        tempLabel1.theme.textColor = themed{ $0.navigationTintColor }
-        imageTemp.theme.tintColor = themed{ $0.navigationTintColor }
+        if #available(iOS 13.0, *) {
+            view.theme.backgroundColor = themed { $0.backgroundColor }
+            themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            MainLabel.theme.textColor = themed{ $0.navigationTintColor }
+            backView.theme.tintColor = themed{ $0.navigationTintColor }
+            headerView.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            headerView1.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            menuImage.theme.tintColor = themed{ $0.navigationTintColor }
+            tempLabel.theme.textColor = themed{ $0.navigationTintColor }
+            nameNumberLabel.theme.textColor = themed{ $0.navigationTintColor }
+            levelLabel.theme.textColor = themed{ $0.navigationTintColor }
+            idlLabel.theme.textColor = themed{ $0.navigationTintColor }
+            stepLabel.theme.textColor = themed{ $0.navigationTintColor }
+            stabLabel.theme.textColor = themed{ $0.navigationTintColor }
+            stepNumberlLabel.theme.textColor = themed{ $0.navigationTintColor }
+            levelLabel1.theme.textColor = themed{ $0.navigationTintColor }
+            tempLabel1.theme.textColor = themed{ $0.navigationTintColor }
+            imageTemp.theme.tintColor = themed{ $0.navigationTintColor }
+            viewMenu.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+        } else {
+            view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
+            themeBackView3.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+            MainLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            backView.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            viewMenu.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+            imageTemp.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            tempLabel1.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            levelLabel1.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            stabLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            stepLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            idlLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            levelLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            nameNumberLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            tempLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            menuImage.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            headerView1.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+            headerView.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+            stepNumberlLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+        }
      }
 }
 
@@ -586,8 +612,9 @@ extension TirirovkaTableViewController: UITableViewDataSource {
                 labelDelete.font = UIFont(name:"FuturaPT-Light", size: 18.0)
                 removeView.addSubview(labelDelete)
                 
-                let labelDeleteB = UILabel(frame: CGRect(x: 170, y: 0, width: 100, height: 30))
+                let labelDeleteB = UILabel(frame: CGRect(x: screenWidth/2, y: 0, width: 100, height: 30))
                 labelDeleteB.center.y = 30
+                labelDeleteB.center.x = screenWidth/2 - (iphone5s ? 30 : 0)
                 labelDeleteB.text = "Cancel".localized(code)
                 labelDeleteB.textAlignment = .right
                 labelDeleteB.textColor = UIColor(rgb: 0xCF2121)
@@ -749,55 +776,35 @@ extension TirirovkaTableViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-
-        let alertController = UIAlertController(title: "Make changes".localized(code), message: "", preferredStyle: UIAlertController.Style.alert)
-        let labelLits = UILabel(frame: CGRect(x: 25, y: 40, width: 100, height: 30))
-        labelLits.text = "Liters".localized(code)
-        labelLits.alpha = 0.58
-        labelLits.font = UIFont(name:"FuturaPT-Light", size: 14.0)
-
-        let height:NSLayoutConstraint = NSLayoutConstraint(item: alertController.view as Any, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 220)
-
-        alertController.view.addConstraint(height)
         
-        let firstTextField = UITextField(frame: CGRect(x: 20, y: 70, width: view.frame.width/3*2-40, height: 30))
-        firstTextField.text = self.items[indexPath.item]
-        firstTextField.keyboardType = .numberPad
-        firstTextField.layer.cornerRadius = 5
-        firstTextField.layer.borderWidth = 1
-        firstTextField.layer.borderColor = UIColor(named: "Color")!.cgColor
-        firstTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: firstTextField.frame.height))
-        firstTextField.leftViewMode = .always
-
-        let labelLevel = UILabel(frame: CGRect(x: 25, y: 100, width: 100, height: 30))
-        labelLevel.text = "Level".localized(code)
-        labelLevel.alpha = 0.58
-        labelLevel.font = UIFont(name:"FuturaPT-Light", size: 14.0)
+        let alertController = UIAlertController(title: "Make changes".localized(code), message: "Liters".localized(code) + " and " + "Level".localized(code), preferredStyle: UIAlertController.Style.alert)
         
-        let secondTextField = UITextField(frame: CGRect(x: 20, y: 130, width: view.frame.width/3*2-40, height: 30))
-        secondTextField.text =  self.levelnumber[indexPath.item]
-        secondTextField.keyboardType = .numberPad
-        secondTextField.layer.cornerRadius = 5
-        secondTextField.layer.borderWidth = 1
-        secondTextField.layer.borderColor = UIColor(named: "Color")?.cgColor
-        secondTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: secondTextField.frame.height))
-        secondTextField.leftViewMode = .always
+        alertController.addTextField()
+        alertController.addTextField()
+
+        alertController.textFields![0].text = self.items[indexPath.item]
+        alertController.textFields![0].keyboardType = .numberPad
+        alertController.textFields![0].leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: alertController.textFields![0].frame.height))
+        alertController.textFields![0].leftViewMode = .always
+        alertController.textFields![0].keyboardAppearance = isNight ? .dark : .light
+        alertController.textFields![0].autocorrectionType = .default
+
+        alertController.textFields![1].text =  self.levelnumber[indexPath.item]
+        alertController.textFields![1].keyboardType = .numberPad
+        alertController.textFields![1].leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: alertController.textFields![1].frame.height))
+        alertController.textFields![1].leftViewMode = .always
+        alertController.textFields![1].keyboardAppearance = isNight ? .dark : .light
+        alertController.textFields![1].autocorrectionType = .default
+        
         let cancelAction = UIAlertAction(title: "Cancel".localized(code), style: UIAlertAction.Style.default, handler: {
             (action : UIAlertAction!) -> Void in })
         
         let saveAction = UIAlertAction(title: "Save".localized(code), style: UIAlertAction.Style.default, handler: { alert -> Void in
-            self.items[indexPath.item] = firstTextField.text ?? ""
+            self.items[indexPath.item] = alertController.textFields![0].text ?? ""
             startVTar = Int(self.items[0]) ?? 0
-            self.levelnumber[indexPath.item] = secondTextField.text ?? ""
+            self.levelnumber[indexPath.item] = alertController.textFields![1].text ?? ""
             self.tableView.reloadData()
         })
-        
-
-        alertController.view.addSubview(labelLits)
-        alertController.view.addSubview(labelLevel)
-        alertController.view.addSubview(firstTextField)
-        alertController.view.addSubview(secondTextField)
-        
         alertController.addAction(cancelAction)
         alertController.addAction(saveAction)
 

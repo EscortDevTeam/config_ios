@@ -28,6 +28,8 @@
 /* The title of the section describing commands */
 "Commands" = "Команды";
 
+"Done" = "Done";
+
 "Tech support" = "Soporte tecnico";
 
 "Social network" = "Red social";
@@ -88,7 +90,7 @@
 
 "Empty" = "Vacío";
 
-"Full" = "Completo";
+"Full" = "Lleno";
 
 "Disable Thermal Compensation" = "Desactivar compensación térmica";
 
@@ -231,6 +233,8 @@
 
 "Open the previously created calibration file" = "Abre el archivo de calibración fina creado anteriormente";
 
+"DU BLE Settings" = "Configuraciones de DU BLE";
+
 "Low signal devices" = "Dispositivos con baja intensidad de señal";
 
 "Make changes" = "Realizar los cambios";
@@ -284,3 +288,97 @@
 
 /* The title of the cell showing BLE signal strength (RSSI) */
 "Signal Strength" = "Уровень сигнала";
+
+
+"Top" = "Superior";
+
+"Down" = "Inferior";
+
+"Delta" = "Delta";
+
+"Turn ON delay" = "Activar retraso";
+
+"Turn OFF delay" = "Apagar retraso";
+
+"Bucket" = "Cuchara";
+
+"Plow" = "Hoja";
+
+"Delay value only 1 to 99" = "Valor de retraso solo de 1 a 99";
+
+"Mode is set successfully" = "Modo se configuró correctamente";
+
+"Mode setting failure. Try again" = "Error al establecer el modo";
+
+"Angle" = "Ángulo";
+
+"Zero angle setup succesfully done" = "Configuración de ángulo cero realizada correctamente";
+
+"Set 0" = "Establecer 0";
+
+"Failed to set zero angle" = "Error al establecer el ángulo cero";
+
+"Delta value 1 to 179" = "Valores de delta solo de 1 a 179";
+
+"Active" = "Actividad";
+
+"Event notific." = "Aviso de evento";
+
+"Transportation" = "Inoperacional";
+
+"Angel control" = "Control de ángulo";
+
+"Horizontal rotation control" = "Control de rotación horizontal";
+
+"Vertical rotation control" = "Control de rotación vertical";
+
+"Inactive" = "Inactivo";
+
+"To the left" = "A la izquierda";
+
+"To the right" = "A la derecha";
+
+"Accelerometer is off" = "Acelerómetro desactivado";
+
+"Settings saved" = "Ajustes se han guardado";
+
+"Couldn't save settings" = "Error en guardar ajustes";
+
+"Value top only 1 to 179" = "Valor de superior solo de 1 a 179";
+
+"Value down only 1 to 179" = "Valor de inferior solo de 1 a 179";
+
+"Only numbers are allowed for password" = "La contraseña puede constar solo los números";
+
+"/0/ password can't be used" = "No se puede usar la contraseña /0/";
+
+"Reloading DU-BLE" = "Reinicio de DU-BLE";
+
+"Mode" = "Modo";
+
+"Menu" = "Menú";
+
+"Profitability Calculator" = "Calculadora de rentabilidad";
+
+"Sensor settings" = "Ajustes de sensor";
+
+"Escort Configurator" = "Escort Configurador";
+
+"Installation report" = "Informe de instalación";
+
+"Installation is now much simpler!" = "Instalación se vuelve aún más conveniente!";
+
+"Online 24/7" = "En línea 24/7";
+
+"App settings" = "Ajustes de app";
+
+" and " = " y ";
+
+"Tech Support" = "Soporte Técnico";
+
+"In development" = "En desarrollo";
+
+"Are you sure you want to make changes?" = "Está seguro de que quiere hacer cambios?";
+
+
+"Available only in Russian" = "Disponible aún solo en ruso";

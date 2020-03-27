@@ -86,7 +86,7 @@ class TarirovkaSettingsViewController: UIViewController {
     }
     fileprivate lazy var backView: UIImageView = {
         let backView = UIImageView()
-        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40), width: 50, height: 40)
+        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40) - (iphone5s ? 10 : 0), width: 50, height: 40)
         let back = UIImageView(image: UIImage(named: "back")!)
         back.image = back.image!.withRenderingMode(.alwaysTemplate)
         back.frame = CGRect(x: 8, y: 0 , width: 8, height: 19)
@@ -96,16 +96,16 @@ class TarirovkaSettingsViewController: UIViewController {
     }()
     fileprivate lazy var themeBackView3: UIView = {
         let v = UIView()
-        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12))
+        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12) + (iphone5s ? 10 : 0))
         v.layer.shadowRadius = 3.0
         v.layer.shadowOpacity = 0.2
         v.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
         return v
     }()
     fileprivate lazy var MainLabel: UILabel = {
-        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy, width: Int(screenWidth-60), height: 40))
+        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy - (iphone5s ? 10 : 0), width: Int(screenWidth-60), height: 40))
         text.text = "Tank calibration".localized(code)
-        text.font = UIFont(name:"BankGothicBT-Medium", size: 19.0)
+        text.font = UIFont(name:"BankGothicBT-Medium", size: (iphone5s ? 17.0 : 19.0))
         return text
     }()
     fileprivate lazy var zalivButton: UIButton = {
@@ -131,6 +131,7 @@ class TarirovkaSettingsViewController: UIViewController {
         nameFileField.attributedPlaceholder = NSAttributedString(string: "Enter file name".localized(code), attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         nameFileField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: nameFileField.frame.height))
         nameFileField.leftViewMode = .always
+        nameFileField.inputAccessoryView = self.toolBar()
         nameFileField.layer.borderColor = UIColor(rgb: 0x959595).cgColor
         return nameFileField
     }()
@@ -142,6 +143,7 @@ class TarirovkaSettingsViewController: UIViewController {
         stepFileField.attributedPlaceholder = NSAttributedString(string: "Step".localized(code), attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         stepFileField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: nameFileField.frame.height))
         stepFileField.leftViewMode = .always
+        stepFileField.inputAccessoryView = self.toolBar()
         stepFileField.keyboardType = .numberPad
         stepFileField.layer.borderColor = UIColor(rgb: 0x959595).cgColor
         return stepFileField
@@ -152,7 +154,7 @@ class TarirovkaSettingsViewController: UIViewController {
         startVBacFileField.layer.borderWidth = 1
         startVBacFileField.textColor = .white
         startVBacFileField.attributedPlaceholder = NSAttributedString(string: "Initial tank volume".localized(code), attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-
+        startVBacFileField.inputAccessoryView = self.toolBar()
         startVBacFileField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: nameFileField.frame.height))
         startVBacFileField.leftViewMode = .always
         startVBacFileField.keyboardType = .numberPad
@@ -275,15 +277,40 @@ class TarirovkaSettingsViewController: UIViewController {
             }
         }
     }
+    fileprivate func toolBar() -> UIToolbar {
+        let bar = UIToolbar()
+        let reset = UIBarButtonItem(barButtonSystemItem: .flexibleSpace , target: nil, action: nil)
+        let done = UIBarButtonItem(title: "Done".localized(code), style: .done, target: self, action: #selector(resetTapped))
+        bar.setItems([reset,done], animated: false)
+        bar.sizeToFit()
+        return bar
+    }
+    @objc func resetTapped() {
+        startVBacFileField.endEditing(true)
+        stepFileField.endEditing(true)
+        nameFileField.endEditing(true)
+    }
     fileprivate func setupTheme() {
-        view.theme.backgroundColor = themed { $0.backgroundColor }
-        themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
-        MainLabel.theme.textColor = themed{ $0.navigationTintColor }
-        backView.theme.tintColor = themed{ $0.navigationTintColor }
-        zalivButton.theme.titleColor(from: themed{ $0.navigationTintColor }, for: .normal)
-        nameFileField.theme.textColor = themed{ $0.navigationTintColor }
-        stepFileField.theme.textColor = themed{ $0.navigationTintColor }
-        startVBacFileField.theme.textColor = themed{ $0.navigationTintColor }
-        nextTextFile.theme.textColor = themed{ $0.navigationTintColor }
+        if #available(iOS 13.0, *) {
+            view.theme.backgroundColor = themed { $0.backgroundColor }
+            themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            MainLabel.theme.textColor = themed{ $0.navigationTintColor }
+            backView.theme.tintColor = themed{ $0.navigationTintColor }
+            zalivButton.theme.titleColor(from: themed{ $0.navigationTintColor }, for: .normal)
+            nameFileField.theme.textColor = themed{ $0.navigationTintColor }
+            stepFileField.theme.textColor = themed{ $0.navigationTintColor }
+            startVBacFileField.theme.textColor = themed{ $0.navigationTintColor }
+            nextTextFile.theme.textColor = themed{ $0.navigationTintColor }
+        } else {
+            view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
+            themeBackView3.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+            MainLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            backView.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            zalivButton.setTitleColor(UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F), for: .normal)
+            nameFileField.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            stepFileField.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            startVBacFileField.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            nextTextFile.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+        }
      }
 }

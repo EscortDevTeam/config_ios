@@ -44,8 +44,13 @@ extension SetupMap {
                     self.successGreen.alpha = 0.0
 
                     self.mapHelp.textAlignment = .center
-                    self.mapHelp.frame = CGRect(x: 0, y: (hasNotch ? 0 : 50) + 100, width: 205, height: 80)
-                    self.mapHelp.text = "Карта установщика позволит вам:".localized(code)
+                    self.mapHelp.frame = CGRect(x: 0, y: (hasNotch ? 0 : 50) + 100 - (iphone5s ? 20 : 0), width: 250, height: 80)
+                    self.mapHelp.text = "Карта установщика позволит вам".localized(code)
+                    self.referenceImageFIO.isHidden = true
+                    self.referenceImageZakaz.isHidden = true
+                    self.referenceImageZakaz.alpha = 0.0
+                    self.referenceImageFIO.alpha = 0.0
+
                     self.mapHelp.center.x = screenWidth/2
                     self.setupMapTextField.frame.origin.x = screenWidth
                     self.setupMapTextFieldSecond.frame.origin.x = -screenWidth
@@ -58,8 +63,12 @@ extension SetupMap {
                     self.nextStatus = 1
                 case 3:
                     UIView.animate(withDuration: 0.5, animations: {
-                        self.mapHelp.text = "Установщик/Заказчик:".localized(code)
+                        self.mapHelp.text = "Установщик/Заказчик".localized(code)
                     })
+                    self.referenceImageFIO.isHidden = false
+                    self.referenceImageZakaz.isHidden = false
+                    self.referenceImageZakaz.alpha = 1.0
+                    self.referenceImageFIO.alpha = 1.0
                     self.setupMapTextField.center.x = screenWidth/2-20
                      self.setupMapTextFieldSecond.center.x = screenWidth/2-20
                      self.setupMapText.center.x = screenWidth/2-10
@@ -69,33 +78,57 @@ extension SetupMap {
                      self.successGreen.alpha = 1.0
                      self.successGreenSecond.alpha = 1.0
                     
+                    self.tableView.isHidden = true
+                    self.tableView.alpha = 0.0
+                    
                     self.statusBarRedTwo.frame.size.width = 0
                     self.backStatus = 2
                     self.nextStatus = 3
                 case 4:
+                    self.tableView.isHidden = false
+                    self.tableViewTrack.alpha = 0.0
+                    self.tableViewTrack.isHidden = true
+                    self.mapHelp.alpha = 1.0
                     UIView.animate(withDuration: 0.5, animations: {
-                        self.mapHelp.text = "Модель ТС:".localized(code)
+                        self.mapHelp.text = "Транспортное средство".localized(code)
+                        self.tableView.alpha = 1.0
+                        
                     })
+                    
                     self.statusBarRedThree.frame.size.width = 0
                     self.backStatus = 3
                     self.nextStatus = 4
                 case 5:
                     UIView.animate(withDuration: 0.5, animations: {
-                        self.mapHelp.text = "Трекер:".localized(code)
+                        self.mapHelp.text = "Трекер".localized(code)
                     })
+                    self.mapHelp.alpha = 0.0
+                    self.tableViewTrack.alpha = 1.0
+                    self.tableViewTrack.isHidden = false
+                    self.tableViewLvlTop.isHidden = true
+                    self.tableViewLvlTop.alpha = 0.0
                     self.statusBarRedFour.frame.size.width = 0
                     self.backStatus = 4
                     self.nextStatus = 5
                 case 6:
                     UIView.animate(withDuration: 0.5, animations: {
-                        self.mapHelp.text = "Датчик уровня топлива:".localized(code)
+                        self.mapHelp.text = "Датчик уровня топлива".localized(code)
                     })
+                    self.tableViewLvlTop.isHidden = false
+                    self.tableViewLvlTop.alpha = 1.0
+                    self.tableViewOneMore.alpha = 0.0
+                    self.tableViewOneMore.isHidden = true
                     self.statusBarRedFive.frame.size.width = 0
                     self.backStatus = 5
                     self.nextStatus = 6
                 case 7:
-                    self.mapHelp.text = "Дополнительные сведения:".localized(code)
+                    self.mapHelp.text = "Дополнительные сведения".localized(code)
                     self.mapHelpButton.setTitle("Далее".localized(code), for: .normal)
+                    self.setupMapTextSuccess.alpha = 0.0
+                    self.SupportTell.alpha = 0.0
+                    self.SupportTell.isHidden = true
+                    self.tableViewOneMore.alpha = 1.0
+                    self.tableViewOneMore.isHidden = false
 
                     self.statusBarRedSix.frame.size.width = 0
                     self.backStatus = 6

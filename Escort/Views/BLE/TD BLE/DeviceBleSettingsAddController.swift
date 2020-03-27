@@ -9,8 +9,6 @@
 import UIKit
 import UIDrawer
 
-
-
 class DeviceBleSettingsAddController: UIViewController {
     let viewAlpha = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
     var input1 = UITextField()
@@ -84,22 +82,22 @@ class DeviceBleSettingsAddController: UIViewController {
     
     fileprivate lazy var themeBackView3: UIView = {
         let v = UIView()
-        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12))
+        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12) + (iphone5s ? 10 : 0))
         v.layer.shadowRadius = 3.0
         v.layer.shadowOpacity = 0.2
         v.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
         return v
     }()
     fileprivate lazy var MainLabel: UILabel = {
-        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy, width: Int(screenWidth-70), height: 40))
+        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy - (iphone5s ? 10 : 0), width: Int(screenWidth-70), height: 40))
         text.text = "Type of bluetooth sensor".localized(code)
         text.textColor = UIColor(rgb: 0x272727)
-        text.font = UIFont(name:"BankGothicBT-Medium", size: 19.0)
+        text.font = UIFont(name:"BankGothicBT-Medium", size: (iphone5s ? 17.0 : 19.0))
         return text
     }()
     fileprivate lazy var backView: UIImageView = {
         let backView = UIImageView()
-        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40), width: 50, height: 40)
+        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40) - (iphone5s ? 10 : 0), width: 50, height: 40)
         let back = UIImageView(image: UIImage(named: "back")!)
         back.image = back.image!.withRenderingMode(.alwaysTemplate)
         back.frame = CGRect(x: 8, y: 0 , width: 8, height: 19)
@@ -226,7 +224,7 @@ class DeviceBleSettingsAddController: UIViewController {
         view.addSubview(scrollView)
 
         scrollView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
-        scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: headerHeight).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: headerHeight + (iphone5s ? 10 : 0)).isActive = true
         scrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
 
@@ -841,6 +839,7 @@ class DeviceBleSettingsAddController: UIViewController {
         self.firstTextField.frame = CGRect(x: 20, y: 70, width: self.view.frame.width/3*2-40, height: 30)
         self.firstTextField.keyboardType = .numberPad
         self.firstTextField.isSecureTextEntry = true
+        self.firstTextField.inputAccessoryView = toolBar()
         self.firstTextField.layer.cornerRadius = 5
         self.firstTextField.layer.borderWidth = 1
         self.firstTextField.returnKeyType = .next
@@ -871,6 +870,7 @@ class DeviceBleSettingsAddController: UIViewController {
         self.secondTextField.frame = CGRect(x: 20, y: 130, width: self.view.frame.width/3*2-40, height: 30)
         self.secondTextField.keyboardType = .numberPad
         self.secondTextField.isSecureTextEntry = true
+        self.secondTextField.inputAccessoryView = toolBar()
         self.secondTextField.layer.cornerRadius = 5
         self.secondTextField.layer.borderWidth = 1
         self.secondTextField.layer.borderColor = UIColor(named: "Color")?.cgColor
@@ -990,6 +990,7 @@ class DeviceBleSettingsAddController: UIViewController {
         self.firstTextFieldSecond.frame = CGRect(x: 20, y: 70, width: self.view.frame.width/3*2-40, height: 30)
         self.firstTextFieldSecond.keyboardType = .numberPad
         self.firstTextFieldSecond.isSecureTextEntry = true
+        self.firstTextFieldSecond.inputAccessoryView = toolBar()
         self.firstTextFieldSecond.layer.cornerRadius = 5
         self.firstTextFieldSecond.layer.borderWidth = 1
         self.firstTextFieldSecond.returnKeyType = .next
@@ -1183,7 +1184,8 @@ class DeviceBleSettingsAddController: UIViewController {
         checkMaxLength(textField: textField, maxLength: 10)
     }
     
-        fileprivate func setupTheme() {
+    fileprivate func setupTheme() {
+        if #available(iOS 13.0, *) {
             view.theme.backgroundColor = themed { $0.backgroundColor }
             MainLabel.theme.textColor = themed{ $0.navigationTintColor }
             themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
@@ -1198,5 +1200,34 @@ class DeviceBleSettingsAddController: UIViewController {
             lblTitle2.theme.textColor = themed{ $0.navigationTintColor }
             lblPrefix1.theme.textColor = themed{ $0.navigationTintColor }
             lblTitle1.theme.textColor = themed{ $0.navigationTintColor }
-        }
+        } else {
+            view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
+            themeBackView3.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+            MainLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            backView.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            input.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            input1.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            input2.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            lblPassword.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            lblTitle.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            lblSettings.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            lblPrefix2.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            lblTitle2.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            lblPrefix1.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            lblTitle1.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)        }
+    }
+    
+    fileprivate func toolBar() -> UIToolbar {
+        let bar = UIToolbar()
+        let reset = UIBarButtonItem(barButtonSystemItem: .flexibleSpace , target: nil, action: nil)
+        let done = UIBarButtonItem(title: "Done".localized(code), style: .done, target: self, action: #selector(resetTapped))
+        bar.setItems([reset,done], animated: false)
+        bar.sizeToFit()
+        return bar
+    }
+    @objc func resetTapped() {
+        secondTextField.endEditing(true)
+        firstTextField.endEditing(true)
+        firstTextFieldSecond.endEditing(true)
+    }
 }

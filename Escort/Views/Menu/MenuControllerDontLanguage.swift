@@ -58,18 +58,26 @@ class MenuControllerDontLanguage: UIViewController {
     
     @objc func didChangeThemeSwitchValue() {
         if themeSwitch.isOn {
-            themeService.switch(.dark)
-            isNight = true
-            UserDefaults.standard.set(isNight, forKey: "isNight")
-            UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
-            themeSwitch.thumbTintColor = UIColor(rgb: 0x1F2222)
+            if #available(iOS 13.0, *) {
+                themeService.switch(.dark)
+                isNight = true
+                UserDefaults.standard.set(isNight, forKey: "isNight")
+                UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
+                themeSwitch.thumbTintColor = UIColor(rgb: 0x1F2222)
+            } else {
+                // Fallback on earlier versions
+            }
 
         } else {
-            themeService.switch(.light)
-            isNight = false
-            UserDefaults.standard.set(isNight, forKey: "isNight")
-            UIApplication.shared.statusBarStyle = UIStatusBarStyle.darkContent
-            themeSwitch.thumbTintColor = .white
+            if #available(iOS 13.0, *) {
+                themeService.switch(.light)
+                isNight = false
+                UserDefaults.standard.set(isNight, forKey: "isNight")
+                UIApplication.shared.statusBarStyle = UIStatusBarStyle.darkContent
+                themeSwitch.thumbTintColor = .white
+            } else {
+                // Fallback on earlier versions
+            }
         }
     }
     fileprivate lazy var textMain: UILabel = {
@@ -209,13 +217,16 @@ class MenuControllerDontLanguage: UIViewController {
         
     }
     fileprivate func setupTheme() {
-        view.theme.backgroundColor = themed { $0.backgroundColor }
-        textMain.theme.textColor = themed { $0.navigationTintColor }
-        aboutApp.theme.textColor = themed { $0.navigationTintColor }
-        aboutApp2.theme.textColor = themed { $0.navigationTintColor }
-        styleBackground.theme.textColor = themed { $0.navigationTintColor }
-        aboutApp4.theme.textColor = themed { $0.navigationTintColor }
-        styleBackground.theme.textColor = themed { $0.navigationTintColor }
+        if #available(iOS 13.0, *) {
+            view.theme.backgroundColor = themed { $0.backgroundColor }
+            textMain.theme.textColor = themed { $0.navigationTintColor }
+            aboutApp.theme.textColor = themed { $0.navigationTintColor }
+            aboutApp2.theme.textColor = themed { $0.navigationTintColor }
+            styleBackground.theme.textColor = themed { $0.navigationTintColor }
+            aboutApp4.theme.textColor = themed { $0.navigationTintColor }
+        } else {
+            // Fallback on earlier versions
+        }
     }
 }
 extension MenuControllerDontLanguage: UIViewControllerTransitioningDelegate {

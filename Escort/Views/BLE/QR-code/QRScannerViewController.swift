@@ -28,12 +28,31 @@ class QRScannerViewController: UIViewController {
                 if let pruf = qrData?.codeString {
                     print(pruf)
                     if pruf.count == 52 || pruf.count == 55 {
-                        if pruf.contains("https://www.fmeter.ru/") || pruf.contains("https://www.fmeter.ru/TD/") {
-                            let tdstring = pruf.dropFirst(tdstcount!-6)
-                            print(tdstring)
-                            hidednCell = true
-                            self.navigationController?.pushViewController(DevicesListControllerNew(), animated: true)
-                            QRCODE = String(tdstring)
+                        if pruf.contains("https://www.fmeter.ru/") {
+                            if pruf.contains("https://www.fmeter.ru/TD/") {
+                                let tdstring = pruf.dropFirst(tdstcount!-6)
+                                print(tdstring)
+                                hidednCell = true
+                                self.navigationController?.pushViewController(DevicesListControllerNew(), animated: true)
+                                QRCODE = String(tdstring)
+                            } else if pruf.contains("https://www.fmeter.ru/DU/") {
+                                let tdstring = pruf.dropFirst(tdstcount!-6)
+                                print(tdstring)
+                                hidednCell = true
+                                self.navigationController?.pushViewController(DevicesDUController(), animated: true)
+                                QRCODE = String(tdstring)
+                            } else if pruf.contains("https://www.fmeter.ru/TL/") {
+                                let tdstring = pruf.dropFirst(tdstcount!-6)
+                                print(tdstring)
+                                hidednCell = true
+                                self.navigationController?.pushViewController(DevicesTLListController(), animated: true)
+                                QRCODE = String(tdstring)
+                            } else {
+                                showToast(message: "QR-code не поддерживается", seconds: 2.0)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
+                                    self.scannerView.startScanning()
+                                })
+                            }
                         } else {
                             showToast(message: "QR-code не поддерживается", seconds: 2.0)
                             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
@@ -52,7 +71,7 @@ class QRScannerViewController: UIViewController {
     }
     fileprivate lazy var backView: UIImageView = {
         let backView = UIImageView()
-        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40), width: 50, height: 40)
+        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40) - (iphone5s ? 10 : 0), width: 50, height: 40)
         let back = UIImageView(image: UIImage(named: "back")!)
         back.image = back.image!.withRenderingMode(.alwaysTemplate)
         back.frame = CGRect(x: 8, y: 0 , width: 8, height: 19)
@@ -62,16 +81,16 @@ class QRScannerViewController: UIViewController {
     }()
     fileprivate lazy var themeBackView3: UIView = {
         let v = UIView()
-        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12))
+        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12) + (iphone5s ? 10 : 0))
         v.layer.shadowRadius = 3.0
         v.layer.shadowOpacity = 0.2
         v.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
         return v
     }()
     fileprivate lazy var MainLabel: UILabel = {
-        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy, width: Int(screenWidth-60), height: 40))
+        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy - (iphone5s ? 10 : 0), width: Int(screenWidth-60), height: 40))
         text.text = "Tank calibration".localized(code)
-        text.font = UIFont(name:"BankGothicBT-Medium", size: 19.0)
+        text.font = UIFont(name:"BankGothicBT-Medium", size: iphone5s ? 17.0 : 19.0)
         return text
     }()
     override func viewDidLoad() {
@@ -156,10 +175,17 @@ class QRScannerViewController: UIViewController {
         sender.setTitle(buttonTitle, for: .normal)
     }
     fileprivate func setupTheme() {
-        view.theme.backgroundColor = themed { $0.backgroundColor }
-        themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
-        MainLabel.theme.textColor = themed{ $0.navigationTintColor }
-        backView.theme.tintColor = themed{ $0.navigationTintColor }
+        if #available(iOS 13.0, *) {
+            view.theme.backgroundColor = themed { $0.backgroundColor }
+            themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            MainLabel.theme.textColor = themed{ $0.navigationTintColor }
+            backView.theme.tintColor = themed{ $0.navigationTintColor }
+        } else {
+            view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
+            themeBackView3.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+            MainLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            backView.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+        }
      }
 }
 

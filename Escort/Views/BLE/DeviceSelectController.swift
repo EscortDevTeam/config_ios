@@ -15,29 +15,14 @@ import RxTheme
  class DeviceSelectController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate {
     var manager:CBCentralManager? = nil
     var peripherals = [CBPeripheral]()
+    let generator = UIImpactFeedbackGenerator(style: .light)
+
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if central.state == CBManagerState.poweredOn {
             print("ON Bluetooth.")
         }
         else {
-//            print("Bluetooth OFF")
-//            let alert = UIAlertController(title: "Bluetooth off".localized(code), message: "For further work, you must enable Bluetooth".localized(code), preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-//                switch action.style{
-//                case .default:
-//                    print("default")
-//                    self.navigationController?.popViewController(animated: true)
-//                    self.view.subviews.forEach({ $0.removeFromSuperview() })
-//                    
-//                case .cancel:
-//                    print("cancel")
-//                    
-//                case .destructive:
-//                    print("destructive")
-//                @unknown default:
-//                    fatalError()
-//                }}))
-//            self.present(alert, animated: true, completion: nil)
+
         }
     }
     
@@ -85,13 +70,13 @@ import RxTheme
     
     fileprivate lazy var themeBackView: UIView = {
         let v = UIView()
-        v.frame = CGRect(x: 0, y: (hasNotch ? 20 : 45), width: screenWidth, height: headerHeight-(hasNotch ? 35 : 67))
+        v.frame = CGRect(x: 0, y: (hasNotch ? 20 : 45), width: screenWidth, height: headerHeight-(hasNotch ? 35 : 67) + (iphone5s ? 10 : 0))
         v.layer.cornerRadius = 10
         return v
     }()
     fileprivate lazy var themeBackView2: UIView = {
         let v = UIView()
-        v.frame = CGRect(x: 0, y: 0, width: screenWidth, height: (hasNotch ? 35 : 55))
+        v.frame = CGRect(x: 0, y: 0, width: screenWidth, height: (hasNotch ? 35 : 55) + (iphone5s ? 10 : 0))
         v.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         return v
     }()
@@ -141,19 +126,34 @@ import RxTheme
         labelTL.font = UIFont(name:"FuturaPT-Light", size: 24.0)
         return labelTL
     }()
+    fileprivate lazy var imageDU: UIImageView = {
+        let imageDU = UIImageView(image: #imageLiteral(resourceName: "du_ble_72_Монтажная область 1_Монтажная область 1 1"))
+        imageDU.image = imageDU.image!.withRenderingMode(.alwaysTemplate)
+        imageDU.frame = CGRect(x: 0, y: 0, width: 90, height: 90)
+        return imageDU
+    }()
+    fileprivate lazy var labelDU: UILabel = {
+        let labelDU = UILabel()
+        labelDU.textColor = UIColor(rgb: 0x272727)
+        labelDU.frame = CGRect(x: 0, y: 0, width: 100, height: 30)
+        labelDU.textAlignment = .center
+        labelDU.text = "DU BLE"
+        labelDU.font = UIFont(name:"FuturaPT-Light", size: 24.0)
+        return labelDU
+    }()
     fileprivate lazy var themeBackView3: UIView = {
         let v = UIView()
-        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12))
+        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12) + (iphone5s ? 10 : 0))
         v.layer.shadowRadius = 3.0
         v.layer.shadowOpacity = 0.2
         v.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
         return v
     }()
     fileprivate lazy var MainLabel: UILabel = {
-        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy, width: Int(screenWidth-60), height: 40))
+        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy - (iphone5s ? 10 : 0), width: Int(screenWidth-24), height: 40))
         text.text = "Type of bluetooth sensor".localized(code)
         text.textColor = UIColor(rgb: 0x272727)
-        text.font = UIFont(name:"BankGothicBT-Medium", size: 19.0)
+        text.font = UIFont(name:"BankGothicBT-Medium", size: (iphone5s ? 17.0 : 19.0))
         return text
     }()
     
@@ -174,7 +174,7 @@ import RxTheme
     }()
     fileprivate lazy var backView: UIImageView = {
         let backView = UIImageView()
-        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40), width: 50, height: 40)
+        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40) - (iphone5s ? 10 : 0), width: 50, height: 40)
         let back = UIImageView(image: UIImage(named: "back")!)
         back.image = back.image!.withRenderingMode(.alwaysTemplate)
         back.frame = CGRect(x: 8, y: 0 , width: 8, height: 19)
@@ -190,35 +190,37 @@ import RxTheme
         view.addSubview(MainLabel)
         view.addSubview(backView)
         
-            self.activityIndicator.stopAnimating()
-            let hamburgerPlace = UIView()
-            var yHamb = screenHeight/22
-            if screenWidth == 414 {
-                yHamb = screenHeight/20
-            }
-            if screenHeight >= 750{
-                yHamb = screenHeight/16
-                if screenWidth == 375 {
-                    yHamb = screenHeight/19
-                }
-            }
-            hamburgerPlace.frame = CGRect(x: screenWidth-50, y: yHamb, width: 35, height: 35)
-            self.hamburger.frame = CGRect(x: screenWidth-45, y: yHamb, width: 25, height: 25)
-            
-            self.view.addSubview(self.hamburger)
-            self.view.addSubview(hamburgerPlace)
-            
-            
-            hamburgerPlace.addTapGesture {
-                let viewController = MenuControllerDontLanguage()
-                viewController.modalPresentationStyle = .custom
-                viewController.transitioningDelegate = self
-                self.present(viewController, animated: true)
-            }
-            
-            backView.addTapGesture{
-                self.navigationController?.popViewController(animated: true)
-            }
+        self.activityIndicator.stopAnimating()
+//        let hamburgerPlace = UIView()
+//        var yHamb = screenHeight/22
+//        if screenWidth == 414 {
+//            yHamb = screenHeight/20
+//        }
+//        if screenHeight >= 750{
+//            yHamb = screenHeight/16
+//            if screenWidth == 375 {
+//                yHamb = screenHeight/19
+//            }
+//        }
+//        hamburgerPlace.frame = CGRect(x: screenWidth-50, y: yHamb, width: 35, height: 35)
+//        self.hamburger.frame = CGRect(x: screenWidth-45, y: yHamb, width: 25, height: 25)
+//        
+//        self.view.addSubview(self.hamburger)
+//        self.view.addSubview(hamburgerPlace)
+//        
+//        
+//        hamburgerPlace.addTapGesture {
+//            self.generator.impactOccurred()
+//            let viewController = MenuControllerDontLanguage()
+//            viewController.modalPresentationStyle = .custom
+//            viewController.transitioningDelegate = self
+//            self.present(viewController, animated: true)
+//        }
+        
+        backView.addTapGesture{
+            self.generator.impactOccurred()
+            self.navigationController?.popViewController(animated: true)
+        }
         
         let cellHeight = 180
         let containerTD = UIView(frame: CGRect(x: 0, y: headerHeight, width: screenWidth/2, height: CGFloat(cellHeight)))
@@ -232,6 +234,7 @@ import RxTheme
         
         containerTD.addTapGesture {
             print("TD")
+            self.generator.impactOccurred()
             self.navigationController?.pushViewController(DevicesListControllerNew(), animated: true)
         }
         
@@ -246,6 +249,7 @@ import RxTheme
         
         containerQR.addTapGesture {
             print("QR")
+            self.generator.impactOccurred()
             let storyboard = UIStoryboard(name: "StoryboardScanner", bundle: nil)
             let homeViewController = storyboard.instantiateViewController(withIdentifier: "StoryboardScanner")
             self.navigationController?.pushViewController(homeViewController, animated: true)        }
@@ -266,24 +270,64 @@ import RxTheme
         
         containerTL.addTapGesture {
             print("TL")
+            self.generator.impactOccurred()
             self.navigationController?.pushViewController(DevicesTLListController(), animated: true)
         }
+        
+        let containerDU = UIView(frame: CGRect(x: Int(screenWidth/2), y: Int(headerHeight)+Int(cellHeight), width: Int(screenWidth/2), height: Int(cellHeight)))
+        imageDU.center.x = view.center.x/2
+        imageDU.center.y = containerDU.bounds.height/2 - 20
+        containerDU.addSubview(imageDU)
+        labelDU.center.x = view.center.x/2
+        
+        labelDU.center.y = containerDU.bounds.height/2 + 50
+        containerDU.addSubview(labelDU)
+        view.addSubview(containerDU)
+        
+        containerDU.addTapGesture {
+            print("DU")
+            self.generator.impactOccurred()
+            self.navigationController?.pushViewController(DevicesDUController(), animated: true)
+        }
+        
+        let separatorTwo = UIView(frame: CGRect(x: 15, y: Int(Float(headerHeight)+Float(cellHeight*2)), width: Int(screenWidth-30), height: 2))
+        separatorTwo.backgroundColor = UIColor(named: "SeperatorColor")
+        view.addSubview(separatorTwo)
     }
     
     fileprivate func setupTheme() {
-        view.theme.backgroundColor = themed { $0.backgroundColor }
-        themeBackView.theme.backgroundColor = themed { $0.backgroundNavigationColor }
-        themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
-        hamburger.theme.tintColor = themed{ $0.navigationTintColor }
-        MainLabel.theme.textColor = themed{ $0.navigationTintColor }
-        cellLabel.theme.textColor = themed{ $0.navigationTintColor }
-        imageQR.theme.tintColor = themed{ $0.navigationTintColor }
-        imageTL.theme.tintColor = themed{ $0.navigationTintColor }
-        imageTD.theme.tintColor = themed{ $0.navigationTintColor }
-        labelQR.theme.textColor = themed{ $0.navigationTintColor }
-        labelTD.theme.textColor = themed{ $0.navigationTintColor }
-        labelTL.theme.textColor = themed{ $0.navigationTintColor }
-        backView.theme.tintColor = themed{ $0.navigationTintColor }
+        if #available(iOS 13.0, *) {
+            view.theme.backgroundColor = themed { $0.backgroundColor }
+            themeBackView.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            MainLabel.theme.textColor = themed{ $0.navigationTintColor }
+            cellLabel.theme.textColor = themed{ $0.navigationTintColor }
+            imageQR.theme.tintColor = themed{ $0.navigationTintColor }
+            imageTL.theme.tintColor = themed{ $0.navigationTintColor }
+            imageTD.theme.tintColor = themed{ $0.navigationTintColor }
+            labelQR.theme.textColor = themed{ $0.navigationTintColor }
+            labelTD.theme.textColor = themed{ $0.navigationTintColor }
+            labelTL.theme.textColor = themed{ $0.navigationTintColor }
+            imageDU.theme.tintColor = themed{ $0.navigationTintColor }
+            labelDU.theme.textColor = themed{ $0.navigationTintColor }
+            backView.theme.tintColor = themed{ $0.navigationTintColor }
+        } else {
+            view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
+            themeBackView.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+            themeBackView3.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+            MainLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            cellLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            imageQR.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            imageTL.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            imageTD.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            labelQR.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            labelTD.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            labelTL.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            imageDU.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            labelDU.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            backView.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            
+        }
     }
  }
  extension DeviceSelectController: UIViewControllerTransitioningDelegate {

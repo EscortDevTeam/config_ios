@@ -26,6 +26,17 @@ var langu = "Language".localized(code)
 var languMain = "Language".localized(code)
 var mainPassword = ""
 var errorWRN = false
+var checkASA = false
+var checkMode = false
+var valH = ""
+var valL = ""
+var deltaK = ""
+var zaderV = ""
+var zaderVi = ""
+var actualMode = 7
+var mode = ""
+var modeS = ""
+var modeLabel = ""
 var wmPar = "1"
 var wmMax = "0"
 var wmMaxInt = 0
@@ -33,6 +44,7 @@ var countNot = 0
 var passNotif = 0
 var passwordSuccess = false
 var temp : String?
+var temperKoef = 0
 var passwordHave = false
 var warning = false
 var RSSIMainArray: [String] = []
@@ -56,6 +68,10 @@ var startVTar = 0
 var checkMenu = false
 var itemsT: [String] = []
 var levelnumberT: [String] = []
+var itemsPdf: [String] = []
+var levelnumberPdf: [String] = []
+var levelnumberPdfSecond: [[String]] = [[""],[""],[""],[""]]
+var itemsPdfSecond: [[String]] = [[""],[""],[""],[""]]
 var itemsC: [String] = []
 var levelnumberC: [String] = []
 var tarNew = true
@@ -71,6 +87,30 @@ var hidednCell = false
 let dy: Int = screenWidth == 320 ? 0 : 10
 let dIy: Int = screenWidth == 375 ? -15 : 0
 let dIPrusy: Int = screenWidth == 414 ? -12 : 0
+var checkToChangeLanguage = 0
+
+
+var numberOfRowPreLast = 2
+var numberOfRowLvlTopPreLast = 1
+var openSensorNumber = 0
+var numberSensorOne: [String] = ["","","",""]
+var numberSelectSensor = 0
+var addORopen = true
+var FIO = ""
+var zakazMap = ""
+
+var modelTcText = ""
+var numberTcText = ""
+
+var modelTrackText = ""
+var plombaTrackText = ""
+var infoTrackText = ""
+var referenceMapMain = ""
+var referenceMapInfo = ""
+
+var dopText = ""
+
+
 
 func headerSet(title: String) -> UIView {
     return headerSet(title: title, showBack: false).0
@@ -110,31 +150,39 @@ func headerSetMenu(title: String, showBack: Bool) -> (UIView, UIView?) {
     let bg = UIImageView(image: UIImage(named: "header-bg.png")!)
     bg.frame = CGRect(x: 0, y: 0, width: screenWidth, height: headerHeight)
     v.addSubview(bg)
-    print(screenWidth)
     let dy: Int = screenWidth == 320 ? 0 : 10
     let dIy: Int = screenWidth == 375 ? -15 : 0
     let dIPrusy: Int = screenWidth == 414 ? -12 : 0
 
-    let backView = UIView(frame: CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+40 : 50), width: 80, height: 40))
+    let backView = UIView(frame: CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+40 : 50) - (iphone5s ? 10 : 0), width: 80, height: 40))
     let back = UIImageView(image: UIImage(named: "back.png")!)
     back.frame = CGRect(x: 8, y: 0, width: 8, height: 19)
     backView.addSubview(back)
     
-    let text = UILabel(frame: CGRect(x: 0, y: dIy + (hasNotch ? dIPrusy+20 : 20) + dy, width: Int(screenWidth), height: 40))
+    let text = UILabel(frame: CGRect(x: 0, y: dIy + (hasNotch ? dIPrusy+20 : 20) + dy - (iphone5s ? 10 : 0), width: Int(screenWidth), height: 40))
     text.text = title
     text.textAlignment = .center
     text.textColor = UIColor(rgb: 0x272727)
-    text.font = UIFont(name:"BankGothicBT-Medium", size: 30.0)
+    text.font = UIFont(name:"BankGothicBT-Medium", size: (iphone5s ? 20 : 30))
     v.addSubview(text)
 
     return (v, showBack ? backView : nil)
 }
 
 var hasNotch: Bool {
+    print(screenHeight)
     if screenHeight > 800 {
         return false
     }
     return true
+}
+
+var iphone5s: Bool {
+    if screenHeight <= 630 {
+        return true
+    } else {
+        return false
+    }
 }
 
 //Цвет UISearchBar

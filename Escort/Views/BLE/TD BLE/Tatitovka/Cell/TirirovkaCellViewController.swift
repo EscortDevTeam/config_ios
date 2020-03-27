@@ -78,7 +78,12 @@ class TirirovkaCellViewController: UITableViewCell {
     }
     fileprivate func setupTheme() {
         
-        titleLabel.theme.textColor = themed { $0.navigationTintColor }
-        levelLabel.theme.textColor = themed { $0.navigationTintColor }
+        if #available(iOS 13.0, *) {
+            titleLabel.theme.textColor = themed { $0.navigationTintColor }
+            levelLabel.theme.textColor = themed { $0.navigationTintColor }
+        } else {
+            titleLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            levelLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+        }
     }
 }

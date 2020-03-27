@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import UIDrawer
 
 class DeviceTLBleController: UIViewController {
     
@@ -23,6 +22,7 @@ class DeviceTLBleController: UIViewController {
         super.viewDidLoad()
         viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         viewShow()
+        setupTheme()
     }
     @objc func refresh(sender:AnyObject) {
         viewShowMain()
@@ -75,29 +75,33 @@ class DeviceTLBleController: UIViewController {
     fileprivate lazy var bgImageBattary: UIImageView = {
         let img = UIImageView(image: UIImage(named: "Battary.png")!)
         img.frame = CGRect(x:screenWidth-60, y: screenHeight/6-31, width: 32, height: 14)
+        img.image = img.image!.withRenderingMode(.alwaysTemplate)
         return img
     }()
     fileprivate lazy var bgImageSignal: UIImageView = {
         let img = UIImageView(image: UIImage(named: "Path")!)
         img.frame = CGRect(x: 40.24, y: headerHeight + 19.59, width: 7.51, height: 5.41)
-        
+        img.image = img.image!.withRenderingMode(.alwaysTemplate)
         return img
     }()
     fileprivate lazy var bgImageSignal2: UIImageView = {
         let img = UIImageView(image: UIImage(named: "Path-2")!)
         img.frame = CGRect(x: 36, y: headerHeight + 14.33, width: 14.8, height: 4.69)
+        img.image = img.image!.withRenderingMode(.alwaysTemplate)
         return img
     }()
     fileprivate lazy var bgImageSignal3: UIImageView = {
         let img = UIImageView(image: UIImage(named: "Path-3")!)
         img.frame = CGRect(x: 33, y: headerHeight + 9, width: 22, height: 6.06)
+        img.image = img.image!.withRenderingMode(.alwaysTemplate)
         return img
     }()
     
     
     fileprivate lazy var sensorImage: UIImageView = {
         let img = UIImageView(image: UIImage(named: "tlBleBack")!)
-        img.frame = CGRect(x: screenWidth/2, y: screenHeight/5+40, width: 152, height: 166)
+        img.frame = CGRect(x: screenWidth/2, y: screenHeight / 5 + 40 - (iphone5s ? 70 : 0), width: 152, height: 166)
+        img.image = img.image!.withRenderingMode(.alwaysTemplate)
         return img
     }()
     fileprivate lazy var scrollView: UIScrollView = {
@@ -111,12 +115,12 @@ class DeviceTLBleController: UIViewController {
         
         let lblTitle = UILabel(frame: CGRect(x: 0, y: 0, width: Int(screenWidth/2), height: 20))
         lblTitle.text = title
-        lblTitle.textColor = UIColor(rgb: 0xE9E9E9)
+        lblTitle.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
         lblTitle.font = UIFont(name:"FuturaPT-Light", size: 18.0)
         
         let lblText = UILabel(frame: CGRect(x: 70, y: 0, width: Int(screenWidth/2), height: 20))
         lblText.text = text
-        lblText.textColor = UIColor(rgb: 0xE9E9E9)
+        lblText.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
         lblText.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
         
         v.addSubview(lblTitle)
@@ -132,7 +136,7 @@ class DeviceTLBleController: UIViewController {
             activity.style = .white
         }
         activity.center = view.center
-        activity.color = .black
+        activity.color = .white
         activity.hidesWhenStopped = true
         activity.startAnimating()
         activity.transform = CGAffineTransform(scaleX: 2, y: 2)
@@ -144,33 +148,71 @@ class DeviceTLBleController: UIViewController {
             closure()
         }
     }
+    fileprivate lazy var backView: UIImageView = {
+        let backView = UIImageView()
+        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40) - (iphone5s ? 10 : 0), width: 50, height: 40)
+        let back = UIImageView(image: UIImage(named: "back")!)
+        back.image = back.image!.withRenderingMode(.alwaysTemplate)
+        back.frame = CGRect(x: 8, y: 0 , width: 8, height: 19)
+        back.center.y = backView.bounds.height/2
+        backView.addSubview(back)
+        return backView
+    }()
+    fileprivate lazy var themeBackView3: UIView = {
+        let v = UIView()
+        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12) + (iphone5s ? 10 : 0))
+        v.layer.shadowRadius = 3.0
+        v.layer.shadowOpacity = 0.2
+        v.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+        return v
+    }()
+    fileprivate lazy var MainLabel: UILabel = {
+        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy - (iphone5s ? 10 : 0), width: Int(screenWidth-60), height: 40))
+        text.text = "Type of bluetooth sensor".localized(code)
+        text.textColor = UIColor(rgb: 0x272727)
+        text.font = UIFont(name:"BankGothicBT-Medium", size: (iphone5s ? 17.0 : 19.0))
+        return text
+    }()
+    fileprivate lazy var footer: UIView = {
+    let footer = UIView(frame: CGRect(x: 0, y: screenHeight - 90, width: screenWidth, height: 90))
+        footer.layer.shadowRadius = 3.0
+        footer.layer.shadowOpacity = 0.2
+        footer.layer.shadowOffset = CGSize(width: 0.0, height: -4.0)
+        return footer
+    }()
+    fileprivate lazy var cellSettingAddName: UILabel = {
+        let cellSettingAddName = UILabel(frame: CGRect(x: 0, y: 55, width: Int(screenWidth/2), height: 20))
+        cellSettingAddName.text = "Settings".localized(code)
+        cellSettingAddName.font = UIFont(name:"FuturaPT-Light", size: 14.0)
+        cellSettingAddName.textAlignment = .center
+        return cellSettingAddName
+    }()
+    fileprivate lazy var cellSettingName: UILabel = {
+        let cellSettingName = UILabel(frame: CGRect(x: 0, y: 55, width: Int(screenWidth/2), height: 20))
+        cellSettingName.text = "Reference".localized(code)
+        cellSettingName.font = UIFont(name:"FuturaPT-Light", size: 14.0)
+        cellSettingName.textAlignment = .center
+        return cellSettingName
+    }()
+
+    fileprivate lazy var cellSettingSeparetor: UIView = {
+        let cellSettingSeparetor = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 90))
+        cellSettingSeparetor.alpha = 0.1
+        return cellSettingSeparetor
+    }()
+    fileprivate lazy var degreeIcon: UIImageView = {
+        let degreeIcon = UIImageView(image: UIImage(named: "temp")!)
+        degreeIcon.frame = CGRect(x: 20, y: 0, width: 18, height: 31)
+        degreeIcon.image = degreeIcon.image!.withRenderingMode(.alwaysTemplate)
+
+        return degreeIcon
+    }()
     private func viewShow() {
-        view.backgroundColor = UIColor(rgb: 0x1F2222)
-        let (headerView, backView) = headerSet(title: "TL BLE", showBack: true)
-        view.addSubview(headerView)
-        view.addSubview(backView!)
-        let hamburger = UIImageView(image: UIImage(named: "Hamburger.png")!)
-        let hamburgerPlace = UIView()
-        var yHamb = screenHeight/22
-        if screenWidth == 414 {
-            yHamb = screenHeight/20
-        }
-        if screenHeight >= 750{
-            yHamb = screenHeight/16
-            if screenWidth == 375 {
-                yHamb = screenHeight/19
-            }
-        }
-        hamburgerPlace.frame = CGRect(x: screenWidth-50, y: yHamb, width: 35, height: 35)
-        hamburger.frame = CGRect(x: screenWidth-45, y: yHamb, width: 25, height: 25)
-        view.addSubview(hamburger)
-        view.addSubview(hamburgerPlace)
-        hamburgerPlace.addTapGesture {
-            let viewController = MenuControllerDontLanguage()
-            viewController.modalPresentationStyle = .custom
-            viewController.transitioningDelegate = self
-            self.present(viewController, animated: true)
-        }
+        
+        view.addSubview(themeBackView3)
+        MainLabel.text = "TL BLE".localized(code)
+        view.addSubview(MainLabel)
+
         viewAlpha.addSubview(activityIndicator)
         view.addSubview(viewAlpha)
         self.view.isUserInteractionEnabled = false
@@ -203,40 +245,23 @@ class DeviceTLBleController: UIViewController {
     }
     private func viewShowMain() {
         
-        view.subviews.forEach({ $0.removeFromSuperview() })
-        view.backgroundColor = UIColor(rgb: 0x1F2222)
+        self.view.subviews.forEach({ $0.removeFromSuperview() })
         
-        let (headerView, backView) = headerSet(title: "TL BLE", showBack: true)
-        view.addSubview(headerView)
-        view.addSubview(backView!)
-        //                viewAlpha.addSubview(activityIndicator)
-        //                view.addSubview(viewAlpha)
-        let hamburger = UIImageView(image: UIImage(named: "Hamburger.png")!)
-        let hamburgerPlace = UIView()
-        var yHamb = screenHeight/22
-        if screenWidth == 414 {
-            yHamb = screenHeight/20
-        }
-        if screenHeight >= 750{
-            yHamb = screenHeight/16
-            if screenWidth == 375 {
-                yHamb = screenHeight/19
-            }
-        }
-        hamburgerPlace.frame = CGRect(x: screenWidth-50, y: yHamb, width: 35, height: 35)
-        hamburger.frame = CGRect(x: screenWidth-45, y: yHamb, width: 25, height: 25)
-        self.view.addSubview(hamburger)
-        self.view.addSubview(hamburgerPlace)
-        hamburgerPlace.addTapGesture {
-            let viewController = MenuControllerDontLanguage()
-            viewController.modalPresentationStyle = .custom
-            viewController.transitioningDelegate = self
-            self.present(viewController, animated: true)
-        }
+        setupTheme()
+        view.addSubview(themeBackView3)
+        MainLabel.text = "TL BLE".localized(code)
+        view.addSubview(MainLabel)
+        
+        view.addSubview(backView)
+        
+        self.activityIndicator.stopAnimating()
 
         self.view.isUserInteractionEnabled = true
         
-        backView!.addTapGesture{
+
+        self.view.isUserInteractionEnabled = true
+        
+        backView.addTapGesture{
             self.timerTrue = 0
             self.view.subviews.forEach({ $0.removeFromSuperview() })
             self.timer.invalidate()
@@ -245,11 +270,11 @@ class DeviceTLBleController: UIViewController {
             self.navigationController?.popViewController(animated: true)
         }
         let battaryView = UIView(frame: CGRect(x:screenWidth-58, y: screenHeight/6-29, width: 8, height: 10))
-        battaryView.backgroundColor = .white
+        battaryView.backgroundColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
         let battaryViewTwo = UIView(frame: CGRect(x:screenWidth-50, y: screenHeight/6-29, width: 8, height: 10))
-        battaryViewTwo.backgroundColor = .white
+        battaryViewTwo.backgroundColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
         let battaryViewFull = UIView(frame: CGRect(x:screenWidth-42, y: screenHeight/6-29, width: 9, height: 10))
-        battaryViewFull.backgroundColor = .white
+        battaryViewFull.backgroundColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
         view.addSubview(bgImage)
         view.addSubview(sensorImage)
         view.addSubview(bgImageBattary)
@@ -270,16 +295,16 @@ class DeviceTLBleController: UIViewController {
             }
         }
         
-        if Int(RSSIMain)! >= -60 {
+        if Int(RSSIMain) ?? -127 >= -60 {
             view.addSubview(bgImageSignal)
             view.addSubview(bgImageSignal2)
             view.addSubview(bgImageSignal3)
         }
-        if Int(RSSIMain)! <= -61 && Int(RSSIMain)! >= -85 {
+        if Int(RSSIMain) ?? -127 <= -61 && Int(RSSIMain) ?? -127 >= -85 {
             view.addSubview(bgImageSignal)
             view.addSubview(bgImageSignal2)
         }
-        if Int(RSSIMain)! <= -86 && Int(RSSIMain)! >= -110 {
+        if Int(RSSIMain) ?? -127 <= -86 && Int(RSSIMain) ?? -127 >= -110 {
             view.addSubview(bgImageSignal)
         }
         var y = 100
@@ -287,19 +312,17 @@ class DeviceTLBleController: UIViewController {
         
         let deviceName = UILabel(frame: CGRect(x: x, y: Int(screenHeight/5), width: Int(screenWidth), height: 78))
         deviceName.text = "№ \(nameDevice)\nFW: \(VV)"
-        deviceName.textColor = UIColor(rgb: 0xE9E9E9)
+        deviceName.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
         deviceName.font = UIFont(name:"FuturaPT-Medium", size: 20.0)
         deviceName.numberOfLines = 0
         
         view.addSubview(deviceName)
         
         let degree = UIView(frame: CGRect(x: x, y: Int(screenHeight/3), width: 100, height: 31))
-        let degreeIcon = UIImageView(image: UIImage(named: "temp")!)
-        degreeIcon.frame = CGRect(x: 20, y: 0, width: 18, height: 31)
         degree.addSubview(degreeIcon)
         let degreeName = UILabel(frame: CGRect(x: 70, y: 3, width: 40, height: 31))
         degreeName.text = "\(temp ?? "0")°"
-        degreeName.textColor = UIColor(rgb: 0xDADADA)
+        degreeName.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
         degreeName.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
         degree.addSubview(degreeName)
         view.addSubview(degree)
@@ -324,9 +347,14 @@ class DeviceTLBleController: UIViewController {
         y = y + deltaY + (hasNotch ? 0 : 30)
         view.addSubview(textLineCreate(title: "ID", text: "\(id)", x: x, y: y + Int(screenHeight/5)))
         let copyView = UIImageView(image: UIImage(named: "copy.png")!)
-        copyView.frame = CGRect(x: Int(screenWidth/2+53), y: y + Int(screenHeight/5), width: 13, height: 16)
+        copyView.frame = CGRect(x: Int(screenWidth/2+53) + (iphone5s ? 20 : 0), y: y + Int(screenHeight/5), width: 13, height: 16)
+        if isNight {
+            copyView.image = #imageLiteral(resourceName: "copy")
+        } else {
+            copyView.image = #imageLiteral(resourceName: "Group-2")
+        }
         view.addSubview(copyView)
-        let copyViewMain = UIView(frame: CGRect(x: Int(screenWidth/2+53)-10, y: y + Int(screenHeight/5)-10, width: 35, height: 35))
+        let copyViewMain = UIView(frame: CGRect(x: Int(screenWidth/2+53)-10 + (iphone5s ? 20 : 0), y: y + Int(screenHeight/5)-10 , width: 35, height: 35))
         copyViewMain.backgroundColor = .clear
         view.addSubview(copyViewMain)
         
@@ -348,16 +376,9 @@ class DeviceTLBleController: UIViewController {
             self.present(alert, animated: true, completion: nil)
         }
         
-//        y = y + deltaY
-        
-        let copyView2 = UIImageView(image: UIImage(named: "copy.png")!)
-        copyView2.frame = CGRect(x: Int(screenWidth/2+53), y: y + Int(screenHeight/6), width: 13, height: 16)
-        let copyViewMain2 = UIView(frame: CGRect(x: Int(screenWidth/2+53)-10, y: y + Int(screenHeight/5)-10, width: 35, height: 35))
-        copyViewMain2.backgroundColor = .clear
-        
         y = y + deltaY
         
-        let statusName = UILabel(frame: CGRect(x: x, y: y + Int(screenHeight/5), width: Int(screenWidth), height: 60))
+        let statusName = UILabel(frame: CGRect(x: x, y: y + Int(screenHeight/5) - (iphone5s ? 30 : 0), width: Int(screenWidth), height: 60))
         if temp != nil {
             statusName.text = "Connected".localized(code)
             statusName.textColor = UIColor(rgb: 0x00A778)
@@ -366,7 +387,7 @@ class DeviceTLBleController: UIViewController {
             statusName.textColor = UIColor(rgb: 0xCF2121)
             item = 0
         }
-        let lbl4 = UILabel(frame: CGRect(x: x, y: y + Int(screenHeight/5) + (hasNotch ? 30 : 40), width: Int(screenWidth), height: 60))
+        let lbl4 = UILabel(frame: CGRect(x: x, y: y + Int(screenHeight/5) + (hasNotch ? 30 : 40) - (iphone5s ? 30 : 0), width: Int(screenWidth), height: 60))
         let cntMain1: Int = Int(cnt1)!
         cnt1 = cnt2
         let cntMain2: Int = Int(cnt2)!
@@ -397,9 +418,6 @@ class DeviceTLBleController: UIViewController {
         
         // tabs
         
-        let footer = UIView(frame: CGRect(x: 0, y: screenHeight - 90, width: screenWidth, height: 90))
-        footer.backgroundColor = UIColor(rgb: 0xEAEAEB)
-        
         let footerCellWidth = Int(screenWidth/2), footerCellHeight = 90
         
         let cellSetting = UIView(frame: CGRect(x: 0, y: 0, width: footerCellWidth, height: footerCellHeight))
@@ -408,52 +426,61 @@ class DeviceTLBleController: UIViewController {
         cellSettingIcon.center = CGPoint(x: cellSetting.frame.size.width / 2, y: cellSetting.frame.size.height / 2 - 15)
 
         cellSetting.addSubview(cellSettingIcon)
+        cellSetting.addSubview(cellSettingAddName)
 
-        let cellSettingName = UILabel(frame: CGRect(x: 0, y: 55, width: footerCellWidth, height: 20))
-        cellSettingName.text = "Settings".localized(code)
-        cellSettingName.textColor = UIColor(rgb: 0x000000)
-        cellSettingName.font = UIFont(name:"FuturaPT-Light", size: 14.0)
-        cellSettingName.textAlignment = .center
-        cellSetting.addSubview(cellSettingName)
-        
+
         cellSetting.addTapGesture {
             self.navigationController?.pushViewController(DeviceBLETLSettings(), animated: true)
         }
-        let cellSettingSeparetor = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: footerCellHeight))
-        cellSettingSeparetor.backgroundColor = .black
-        cellSettingSeparetor.alpha = 0.1
+
         let cellHelp = UIView(frame: CGRect(x: footerCellWidth, y: 0, width: footerCellWidth, height: footerCellHeight))
         let cellHelpIcon = UIImageView(image: UIImage(named: "help.png")!)
         cellHelpIcon.frame = CGRect(x: 1, y: 0, width: 47, height: 47)
         cellHelpIcon.center = CGPoint(x: cellHelp.frame.size.width / 2, y: cellHelp.frame.size.height / 2 - 15)
         cellHelp.addSubview(cellHelpIcon)
+        cellHelp.addSubview(cellSettingName)
         cellHelp.addSubview(cellSettingSeparetor)
 
-        
-        let cellHelpName = UILabel(frame: CGRect(x: 0, y: 55, width: footerCellWidth, height: 20))
-        cellHelpName.text = "Reference".localized(code)
-        cellHelpName.textColor = UIColor(rgb: 0x000000)
-        cellHelpName.font = UIFont(name:"FuturaPT-Light", size: 14.0)
-        cellHelpName.textAlignment = .center
-        cellHelp.addSubview(cellHelpName)
-        
-        cellHelp.addTapGesture {
-            self.navigationController?.pushViewController(DeviceBleHelpController(), animated: true)
-        }
-        
         footer.addSubview(cellSetting)
         footer.addSubview(cellHelp)
         
         view.addSubview(footer)
-
-        let lineView = UIView(frame: CGRect(x: 0, y: screenHeight/5+80, width: 140, height: 1))
-        lineView.backgroundColor = UIColor(rgb: 0xCF2121)
-        view.addSubview(lineView)
         
     }
-}
-extension DeviceTLBleController: UIViewControllerTransitioningDelegate {
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        return DrawerPresentationController(presentedViewController: presented, presenting: presenting)
+    
+    fileprivate func setupTheme() {
+        if #available(iOS 13.0, *) {
+            view.theme.backgroundColor = themed { $0.backgroundColor }
+            themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            footer.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            cellSettingName.theme.textColor = themed{ $0.navigationTintColor }
+            cellSettingAddName.theme.textColor = themed{ $0.navigationTintColor }
+            MainLabel.theme.textColor = themed{ $0.navigationTintColor }
+            backView.theme.tintColor = themed{ $0.navigationTintColor }
+            sensorImage.theme.tintColor = themed{ $0.navigationTintColor }
+            bgImageSignal.theme.tintColor = themed{ $0.navigationTintColor }
+            bgImageSignal2.theme.tintColor = themed{ $0.navigationTintColor }
+            bgImageSignal3.theme.tintColor = themed{ $0.navigationTintColor }
+            bgImageBattary.theme.tintColor = themed{ $0.navigationTintColor }
+            cellSettingSeparetor.theme.backgroundColor = themed{ $0.navigationTintColor }
+            degreeIcon.theme.tintColor = themed{ $0.navigationTintColor }
+
+        } else {
+            view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
+            themeBackView3.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+            MainLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            backView.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            cellSettingName.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            cellSettingAddName.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            sensorImage.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            bgImageSignal.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            bgImageSignal2.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            bgImageSignal3.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            bgImageBattary.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            cellSettingSeparetor.backgroundColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            degreeIcon.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+
+            footer.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+        }
     }
 }

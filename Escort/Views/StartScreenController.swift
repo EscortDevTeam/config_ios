@@ -12,7 +12,7 @@ class StartScreenController: UIViewController {
     
     var a1 = ""
     let LanguageVC = LanguageSelectController()
-    let ConnectionSelectC = ConnectionSelectController()
+    let ConnectionSelectC = StartAppMenuController()
     override func viewDidLoad() {
         super.viewDidLoad()
         viewShow()
@@ -67,6 +67,7 @@ class StartScreenController: UIViewController {
         
     }
     private func viewShow() {
+        print(screenWidth)
         view.backgroundColor = .white
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             self.move()

@@ -22,7 +22,7 @@ var kCBAdvDataManufacturerData = ""
 class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate {
 
     let viewAlpha = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
-    let searchBar = UISearchBar(frame: CGRect(x: 0, y: headerHeight, width: screenWidth, height: 35))
+    let searchBar = UISearchBar(frame: CGRect(x: 0, y: headerHeight + (iphone5s ? 10 : 0), width: screenWidth, height: 35))
     var refreshControl = UIRefreshControl()
     var attributedTitle = NSAttributedString()
     let attributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -37,6 +37,8 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
     var parsedData:[String : AnyObject] = [:]
     var bluetoothPeripheralManager: CBPeripheralManager?
     var searchList = [String]()
+    let generator = UIImpactFeedbackGenerator(style: .light)
+
     
     func centralManagerDidUpdateState (_ central : CBCentralManager) {
         if central.state == CBManagerState.poweredOn {
@@ -88,9 +90,9 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                                 print("rrsiPink:\(rrsiPink) \(orderNumberInt!)")
                                 peripherals.insert(peripheral, at: 0)
                                 peripheralName.insert(peripheral.name!, at: 0)
-                                tableViewData.insert(cellData(opened: false, title: "\(peripheral.name!)", sectionData: ["\(peripheral.name!)"]), at: 0)
+                                tableViewData.insert(cellData(opened: false, title: "\(peripheral.name!)", sectionData: ["\(peripheral.name!)"]), at: 1)
                                 print("RSSIName: \(peripheral.name!) and  RSSI: \(RSSI)")
-                                RSSIMainArray.insert("\(RSSI)", at: 0)
+                                RSSIMainArray.insert("\(RSSI)", at: 1)
                                 if let manufacturerData = advertisementData["kCBAdvDataManufacturerData"] as? Data {
                                     assert(manufacturerData.count >= 7)
                                     let nodeID = manufacturerData[2]
@@ -319,10 +321,6 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
         let enterPass = "SP,PN:1:\(mainPassword),"
         let r = "\r"
         
-        print("sdParam: \(sdParam)")
-        print("sdValTwo: \(sdValTwo)")
-        print("passInstall: \(passInstall)")
-        
         let dataAll = withUnsafeBytes(of: valueAll) { Data($0) }
         let dataReload = Data(valueReload.utf8)
         let dataFullReload = Data(FullReload.utf8)
@@ -505,6 +503,13 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                 if result.contains("UT") {
                     let indexOfPerson = result.firstIndex{$0 == "UT"}
                     temp = "\(result[indexOfPerson! + 2])"
+                    if let tempInt = Int(temp ?? "-1") {
+                        if tempInt >= 0 {
+                            temperKoef = 6
+                        } else {
+                            temperKoef = 11
+                        }
+                    }
                 }
                 if result.contains("UL") {
                     let indexOfPerson = result.firstIndex{$0 == "UL"}
@@ -607,22 +612,22 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
     
     fileprivate lazy var themeBackView3: UIView = {
         let v = UIView()
-        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12))
+        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12) + (iphone5s ? 10 : 0))
         v.layer.shadowRadius = 3.0
         v.layer.shadowOpacity = 0.2
         v.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
         return v
     }()
     fileprivate lazy var MainLabel: UILabel = {
-        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy, width: Int(screenWidth-70), height: 40))
+        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy - (iphone5s ? 10 : 0), width: Int(screenWidth-70), height: 40))
         text.text = "Type of bluetooth sensor".localized(code)
         text.textColor = UIColor(rgb: 0x272727)
-        text.font = UIFont(name:"BankGothicBT-Medium", size: 19.0)
+        text.font = UIFont(name:"BankGothicBT-Medium", size: (iphone5s ? 17.0 : 19.0))
         return text
     }()
     fileprivate lazy var backView: UIImageView = {
         let backView = UIImageView()
-        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40), width: 50, height: 40)
+        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40) - (iphone5s ? 10 : 0), width: 50, height: 40)
         let back = UIImageView(image: UIImage(named: "back")!)
         back.image = back.image!.withRenderingMode(.alwaysTemplate)
         back.frame = CGRect(x: 8, y: 0 , width: 8, height: 19)
@@ -638,7 +643,7 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
         tableView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            self.view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: tableView.topAnchor, constant: -100),
+            self.view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: tableView.topAnchor, constant: (iphone5s ? -80 : -100)),
             self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
             self.view.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
             self.view.trailingAnchor.constraint(equalTo: tableView.trailingAnchor, constant: 1),
@@ -650,13 +655,6 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-    
-    fileprivate lazy var hamburger: UIImageView = {
-        let hamburger = UIImageView(image: UIImage(named: "Hamburger.png")!)
-        hamburger.image = hamburger.image!.withRenderingMode(.alwaysTemplate)
-
-        return hamburger
-    }()
     
     
     override func viewDidLoad() {
@@ -742,6 +740,10 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
         rrsiPink = 0
         manager?.stopScan()
         tableViewData.removeAll()
+        tableViewData.append(cellData(opened: false, title: "123", sectionData: ["123"]))
+        tableViewData.insert(cellData(opened: false, title: "1234", sectionData: ["1234"]), at: 0)
+        RSSIMainArray.append("2")
+        RSSIMainArray.insert("1", at: 0)
         searchList.removeAll()
         searching = false
         searchBar.text = ""
@@ -824,32 +826,9 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
         MainLabel.text = "List of available devices".localized(code)
         view.addSubview(MainLabel)
         view.addSubview(backView)
-        let hamburgerPlace = UIView()
-        var yHamb = screenHeight/22
-        if screenWidth == 414 {
-            yHamb = screenHeight/20
-        }
-        if screenHeight >= 750{
-            yHamb = screenHeight/16
-            if screenWidth == 375 {
-                yHamb = screenHeight/19
-            }
-        }
-        hamburgerPlace.frame = CGRect(x: screenWidth-50, y: yHamb, width: 35, height: 35)
-        hamburger.frame = CGRect(x: screenWidth-45, y: yHamb, width: 25, height: 25)
-        
-
-        view.addSubview(hamburgerPlace)
-        view.addSubview(hamburger)
-        
-        hamburgerPlace.addTapGesture {
-            let viewController = MenuControllerDontLanguage()
-            viewController.modalPresentationStyle = .custom
-            viewController.transitioningDelegate = self
-            self.present(viewController, animated: true)
-        }
 
         self.backView.addTapGesture{
+            self.generator.impactOccurred()
             self.navigationController?.popViewController(animated: true)
         }
         
@@ -869,13 +848,20 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
     var aaa = [String]()
     let label = UILabel()
     fileprivate func setupTheme() {
-        view.theme.backgroundColor = themed { $0.backgroundColor }
-        hamburger.theme.tintColor = themed{ $0.navigationTintColor }
-        MainLabel.theme.textColor = themed{ $0.navigationTintColor }
-        themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
-        searchBar.theme.tintColor = themed{ $0.navigationTintColor }
-        searchBar.theme.backgroundColor = themed { $0.backgroundColor }
-        backView.theme.tintColor = themed{ $0.navigationTintColor }
+        if #available(iOS 13.0, *) {
+            view.theme.backgroundColor = themed { $0.backgroundColor }
+            MainLabel.theme.textColor = themed{ $0.navigationTintColor }
+            themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            searchBar.theme.tintColor = themed{ $0.navigationTintColor }
+            searchBar.theme.backgroundColor = themed { $0.backgroundColor }
+            backView.theme.tintColor = themed{ $0.navigationTintColor }
+        } else {
+            view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
+            themeBackView3.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+            MainLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            searchBar.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            searchBar.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
+            backView.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)        }
 
         if isNight {
             searchBar.textColor = .white
@@ -966,9 +952,9 @@ extension DevicesListControllerNew: UITableViewDataSource {
                 } else {
                     
                     let cell = tableView.dequeueReusableCell(withIdentifier: "DevicesListCellMain", for: indexPath) as! DevicesListCellMain
-                    cell.titleLabel.text = tableViewData[indexPath.section-1].title
+                    cell.titleLabel.text = tableViewData[indexPath.section].title
                     cell.titleLabel.font = UIFont(name: "FuturaPT-Light", size: 24)
-                    cell.titleRSSI.text = "\(RSSIMainArray[indexPath.section-1]) dBm"
+                    cell.titleRSSI.text = "\(RSSIMainArray[indexPath.section]) dBm"
                     cell.backgroundColor = .clear
                     cell.selectionStyle = .none
                     if indexPath.section == rrsiPink {
@@ -983,6 +969,7 @@ extension DevicesListControllerNew: UITableViewDataSource {
                     }
                     cell.backgroundColor = .clear
                     cell.btnConnet.addTapGesture {
+                        self.generator.impactOccurred()
                         temp = nil
                         nameDevice = ""
                         VV = ""
@@ -996,7 +983,12 @@ extension DevicesListControllerNew: UITableViewDataSource {
                         zero = 0
                         countNot = 0
                         if !self.searching {
-                            self.manager?.connect(self.peripherals[indexPath.section-1], options: nil)
+                            self.stringAll = ""
+                            if indexPath.section > rrsiPink {
+                                self.manager?.connect(self.peripherals[indexPath.section-2], options: nil)
+                            } else {
+                                self.manager?.connect(self.peripherals[indexPath.section-1], options: nil)
+                            }
                         }
                         self.view.isUserInteractionEnabled = false
                         self.manager?.stopScan()
@@ -1021,6 +1013,7 @@ extension DevicesListControllerNew: UITableViewDataSource {
                 cell.selectionStyle = .none
 //                cell.titleRSSI.text = "\(RSSIMainArray[indexPath.section]) dBm"
                 cell.btnConnet.addTapGesture {
+                    self.generator.impactOccurred()
                     temp = nil
                     nameDevice = ""
                     self.activityIndicator.startAnimating()
@@ -1035,6 +1028,7 @@ extension DevicesListControllerNew: UITableViewDataSource {
                     let index = peripheralName.firstIndex(of: "\(self.searchList[indexPath.section])")
                     print("\(index!)")
                     if self.searching {
+                        self.stringAll = ""
                         self.manager?.connect(self.peripherals[index!], options: nil)
                     }
                     self.view.isUserInteractionEnabled = false
@@ -1067,21 +1061,21 @@ extension DevicesListControllerNew: UITableViewDataSource {
         if !searching {
             if indexPath.section != 0 && indexPath.section != rrsiPink + 1 {
                 if indexPath.row == 0 {
-                    if tableViewData[indexPath.section].opened == true {
-                        UIView.animate(withDuration: 0.1, animations: {
-                            let sections = IndexSet.init(integer: indexPath.section)
-                            tableView.reloadSections(sections, with: .none)
-                        })
-                        self.tableViewData[indexPath.section].opened = false
-
-                    } else {
-                        UIView.animate(withDuration: 0.1, animations: {
-                            
-                            self.tableViewData[indexPath.section].opened = true
-                            let sections = IndexSet.init(integer: indexPath.section)
-                            tableView.reloadSections(sections, with: .none)
-                        })
-                    }
+//                    if tableViewData[indexPath.section].opened == true {
+//                        UIView.animate(withDuration: 0.1, animations: {
+//                            let sections = IndexSet.init(integer: indexPath.section)
+//                            tableView.reloadSections(sections, with: .none)
+//                        })
+//                        self.tableViewData[indexPath.section].opened = false
+//
+//                    } else {
+//                        UIView.animate(withDuration: 0.1, animations: {
+//                            
+//                            self.tableViewData[indexPath.section].opened = true
+//                            let sections = IndexSet.init(integer: indexPath.section)
+//                            tableView.reloadSections(sections, with: .none)
+//                        })
+//                    }
                 }
             }
         }

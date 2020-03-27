@@ -21,6 +21,13 @@
 
 "CodeLangu" = "ru";
 
+"Done" = "Готово";
+
+"Installation map" = "Карта установки";
+
+"Now it’s much easier to install!" = "Теперь устанавливать намного проще!";
+
+
 "Type of bluetooth sensor" = "Тип bluetooth датчика";
 
 "For further work, you must enable Bluetooth" = "Для дальнейшей работы необходимо включить Bluetooth";
@@ -66,6 +73,8 @@
 "Minimum level" = "Мин. уровень";
 
 "Filtration" = "Фильтрация";
+
+"DU BLE Settings" = "DU BLE Настройки";
 
 "Write parameters to the device" = "Записать параметры в устройство";
 
@@ -275,3 +284,95 @@
 
 /* The title of the cell showing BLE signal strength (RSSI) */
 "Signal Strength" = "Уровень сигнала";
+
+"Top" = "Верх";
+
+"Down" = "Низ";
+
+"Delta" = "Дельта";
+
+"Turn ON delay" = "Задержка вкл.";
+
+"Turn OFF delay" = "Задержка выкл.";
+
+"Bucket" = "Ковш";
+
+"Plow" = "Отвал";
+
+"Delay value only 1 to 99" = "Значение задержки только от 1 до 99";
+
+"Mode is set successfully" = "Режим успешно установлен";
+
+"Mode setting failure. Try again" = "Не удалось установить режим";
+
+"Angle" = "Угол";
+
+"Zero angle setup succesfully done" = "Ноль установлен успешно";
+
+"Set 0" = "Установить 0";
+
+"Failed to set zero angle" = "Не удалось установить ноль";
+
+"Delta value 1 to 179" = "Значение дельты только от 1 до 179";
+
+"Active" = "Работа";
+
+"Event notific." = "Сраб. события";
+
+"Transportation" = "Транспортировочный";
+
+" and " = "  и ";
+
+"Are you sure you want to make changes?" = "Вы уверены, что хотите внести изменения?";
+
+"Angel control" = "Контроль угла";
+
+"Horizontal rotation control" = "Контроль горизонтального вращения";
+
+"Vertical rotation control" = "Контроль вертикального вращения";
+
+"Inactive" = "Бездействие";
+
+"To the left" = "Влево";
+
+"To the right" = "Вправo";
+
+"Accelerometer is off" = "Акселерометр выключен";
+
+"Settings saved" = "Параметры успешно установлены";
+
+"Couldn't save settings" = "Не удалось установить параметры";
+
+"Value top only 1 to 179" = "Значение \"Верх\" только от 1 до 179";
+
+"Value down only 1 to 179" = "Значение \"Низ\" только от 1 до 179";
+
+"Only numbers are allowed for password" = "Пароль может содержать только цифры";
+
+"/0/ password can't be used" = "Пароль /0/ не может быть использован";
+
+"Reloading DU-BLE" = "Перезагрузить DU-BLE";
+
+"Mode" = "Режим";
+
+"Menu" = "Меню";
+
+"Profitability Calculator" = "Расчёт окупаемости проекта";
+
+"Sensor settings" = "Настройка датчиков";
+
+"Escort Configurator" = "Конфигуратор ГК Эскорт";
+
+"Installation report" = "Карта установки";
+
+"Installation is now much simpler!" = "Теперь устанавливать намного проще!";
+
+"Online 24/7" = "На связи 24/7";
+
+"App settings" = "Настройки приложения";
+
+"Tech Support" = "Техподдержка";
+
+"In development" = "Пока в разработке";
+
+"Available only in Russian" = "Доступно только на русском языке";

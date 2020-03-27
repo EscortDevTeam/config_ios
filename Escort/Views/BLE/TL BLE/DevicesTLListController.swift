@@ -10,35 +10,43 @@ var cellHeight = 70
 import UIKit
 import CoreBluetooth
 import UIDrawer
+import RxSwift
+import RxTheme
 
-class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, SecondVCDelegate {
-    
-    func secondVC_BackClicked(data: String) {
-        viewShow()
-    }
+struct cellDataTL {
+    var opened = Bool()
+    var title = String()
+    var sectionData = [String()]
+}
+
+class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate {
+
     let viewAlpha = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
-    let searchBar = UISearchBar(frame: CGRect(x: 0, y: headerHeight, width: screenWidth, height: 35))
+    let searchBar = UISearchBar(frame: CGRect(x: 0, y: headerHeight + (iphone5s ? 10 : 0), width: screenWidth, height: 35))
     var refreshControl = UIRefreshControl()
     var attributedTitle = NSAttributedString()
     let attributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     let popUpVCNext = UIStoryboard(name: "MainSelf", bundle: nil).instantiateViewController(withIdentifier: "popUpVCid") as! PopupViewController // 1
     var peripherals = [CBPeripheral]()
+    var peripheralsSearch = [CBPeripheral]()
     var manager:CBCentralManager? = nil
-    let DeviceBLEC = DeviceTLBleController()
     var timer = Timer()
     var stringAll: String = ""
     var iter = false
     var parsedData:[String : AnyObject] = [:]
     var bluetoothPeripheralManager: CBPeripheralManager?
+    var searchList = [String]()
+    let generator = UIImpactFeedbackGenerator(style: .light)
+
     
     func centralManagerDidUpdateState (_ central : CBCentralManager) {
         if central.state == CBManagerState.poweredOn {
             let peripheralsArray = Array(peripherals)
             print(peripheralsArray)
-            print("ON Bluetooth.")
+            print("ON Работает.")
         }
         else {
-            print("Bluetooth OFF TL")
+            print("Bluetooth OFF.")
             let alert = UIAlertController(title: "Bluetooth off".localized(code), message: "For further work, you must enable Bluetooth".localized(code), preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                 switch action.style{
@@ -52,6 +60,8 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
                     
                 case .destructive:
                     print("destructive")
+                    
+                    
                 @unknown default:
                     fatalError()
                 }}))
@@ -65,15 +75,163 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
         if peripheral.name != nil {
             let nameDevicesOps = peripheral.name!.components(separatedBy: ["_"])
             if nameDevicesOps[0] == "TL" && nameDevicesOps[1] != "UPDATE" {
-                let abc = advertisementData[key] as? [CBUUID]
-                guard let uniqueID = abc?.first?.uuidString else { return }
-                _ = uniqueID.components(separatedBy: ["-"])
-                if(!peripherals.contains(peripheral)) {
-                    if RSSI != 127{
-                        peripherals.append(peripheral)
-                        RSSIMainArray.append("\(RSSI)")
-                        peripheralName.append(peripheral.name!)
-                        print("RSSIName: \(peripheral.name!) and  RSSI: \(RSSI)")
+                if QRCODE == "" {
+                    print("advertisementData[kCBAdvDataManufacturerData]): \(kCBAdvDataManufacturerData)")
+                    let abc = advertisementData[key] as? [CBUUID]
+                    guard let uniqueID = abc?.first?.uuidString else { return }
+                    _ = uniqueID.components(separatedBy: ["-"])
+                    if(!peripherals.contains(peripheral)) {
+                        if RSSI != 127{
+                            let orderNum: NSNumber? = RSSI
+                            let orderNumberInt  = orderNum?.intValue
+                            if -71 < orderNumberInt! {
+                                rrsiPink = rrsiPink + 1
+                                print("rrsiPink:\(rrsiPink) \(orderNumberInt!)")
+                                peripherals.insert(peripheral, at: 0)
+                                peripheralName.insert(peripheral.name!, at: 0)
+                                tableViewData.insert(cellData(opened: false, title: "\(peripheral.name!)", sectionData: ["\(peripheral.name!)"]), at: 1)
+                                print("RSSIName: \(peripheral.name!) and  RSSI: \(RSSI)")
+                                RSSIMainArray.insert("\(RSSI)", at: 1)
+                                if let manufacturerData = advertisementData["kCBAdvDataManufacturerData"] as? Data {
+                                    assert(manufacturerData.count >= 7)
+                                    let nodeID = manufacturerData[2]
+                                    print(String(format: "%02X", nodeID)) //->FE
+                                    
+                                    let state = UInt16(manufacturerData[3]) + UInt16(manufacturerData[4]) << 8
+                                    let string34 = "\(String(format: "%04X", state))"
+                                    print(string34) //->000D
+                                    let result34 = UInt16(strtoul("0x\(string34)", nil, 16)) //уровень
+                                    print(result34) //->000D
+                                    adveLvl.insert(String(result34), at: 0)
+                                    //c6f - is the sensor tag battery voltage
+                                    //Constructing 2-byte data as big endian (as shown in the Java code)
+                                    let batteryVoltage = UInt16(manufacturerData[5])
+                                    let string5 = "\(String(format: "%02X", batteryVoltage))"
+                                     print(string5) //->000D
+                                    let result5 = UInt16(strtoul("0x\(string5)", nil, 16)) //напряжение
+                                    var abn: String = String(result5)
+                                    abn.insert(".", at: abn.index(abn.startIndex, offsetBy: 1))
+                                    print(abn) //->000D
+                                    adveVat.insert(abn, at: 0)
+
+                                    //32- is the BLE packet counter.
+                                    let packetCounter = manufacturerData[6]
+                                    let string6 = "\(String(format: "%02X", packetCounter))"
+                                    print(string6) //->000D
+                                    let result6 = UInt16(strtoul("0x\(string6)", nil, 16)) //температура
+                                    print(result6)
+                                    adveTemp.insert(String(result6), at: 0)
+                                    
+                                    let versionCounter = manufacturerData[7]
+                                    let string7 = "\(String(format: "%02X", versionCounter))"
+                                    print(string7) //->000D
+                                    let result7 = UInt16(strtoul("0x\(string7)", nil, 16)) //весрия
+                                    var abn7: String = String(result7)
+                                    abn7.insert(".", at: abn7.index(abn7.startIndex, offsetBy: 1))
+                                    abn7.insert(".", at: abn7.index(abn7.startIndex, offsetBy: 3))
+                                    print(abn7)
+                                    adveFW.insert(String(abn7), at: 0)
+                                } else {
+                                    adveLvl.insert("...", at: 0)
+                                    adveVat.insert("...", at: 0)
+                                    adveTemp.insert("...", at: 0)
+                                    adveFW.insert("...", at: 0)
+                                }
+
+                            } else {
+                                peripherals.append(peripheral)
+                                peripheralName.append(peripheral.name!)
+                                print("RSSIName: \(peripheral.name!) and  RSSI: \(RSSI)")
+                                tableViewData.append(cellData(opened: false, title: "\(peripheral.name!)", sectionData: ["\(peripheral.name!)"]))
+                                RSSIMainArray.append("\(RSSI)")
+                                if let manufacturerData = advertisementData["kCBAdvDataManufacturerData"] as? Data {
+                                    assert(manufacturerData.count >= 7)
+                                    let nodeID = manufacturerData[2]
+                                    print(String(format: "%02X", nodeID)) //->FE
+                                    
+                                    let state = UInt16(manufacturerData[3]) + UInt16(manufacturerData[4]) << 8
+                                    let string34 = "\(String(format: "%04X", state))"
+                                    print(string34) //->000D
+                                    let result34 = UInt16(strtoul("0x\(string34)", nil, 16)) //уровень
+                                    print(result34) //->000D
+                                    adveLvl.append(String(result34))
+                                    //c6f - is the sensor tag battery voltage
+                                    //Constructing 2-byte data as big endian (as shown in the Java code)
+                                    let batteryVoltage = UInt16(manufacturerData[5])
+                                    let string5 = "\(String(format: "%02X", batteryVoltage))"
+                                     print(string5) //->000D
+                                    let result5 = UInt16(strtoul("0x\(string5)", nil, 16)) //напряжение
+                                    var abn: String = String(result5)
+                                    abn.insert(".", at: abn.index(abn.startIndex, offsetBy: 1))
+                                    print(abn) //->000D
+                                    adveVat.append(abn)
+
+                                    //32- is the BLE packet counter.
+                                    let packetCounter = manufacturerData[6]
+                                    let string6 = "\(String(format: "%02X", packetCounter))"
+                                    print(string6) //->000D
+                                    let result6 = UInt16(strtoul("0x\(string6)", nil, 16)) //температура
+                                    print(result6)
+                                    adveTemp.append(String(result6))
+                                    
+                                    let versionCounter = manufacturerData[7]
+                                    let string7 = "\(String(format: "%02X", versionCounter))"
+                                    print(string7) //->000D
+                                    let result7 = UInt16(strtoul("0x\(string7)", nil, 16)) //весрия
+                                    var abn7: String = String(result7)
+                                    abn7.insert(".", at: abn7.index(abn7.startIndex, offsetBy: 1))
+                                    abn7.insert(".", at: abn7.index(abn7.startIndex, offsetBy: 3))
+                                    print(abn7)
+                                    adveFW.append(String(abn7))
+
+                                } else {
+                                    adveLvl.append("...")
+                                    adveVat.append("...")
+                                    adveTemp.append("...")
+                                    adveFW.append("...")
+                                }
+                            }
+                            tableView.reloadData()
+
+                        }
+                    } else {
+                        if RSSI != 127{
+                            print("Снова RSSIName: \(peripheral.name!) and  RSSI: \(RSSI)")
+                            if let i = peripherals.firstIndex(of: peripheral) {
+                                RSSIMainArray[i] = "\(RSSI)"
+                            }
+                            tableView.reloadData()
+
+                        }
+                    }
+                } else {
+                    let abc = advertisementData[key] as? [CBUUID]
+                    guard let uniqueID = abc?.first?.uuidString else { return }
+                    _ = uniqueID.components(separatedBy: ["-"])
+                    if(!peripherals.contains(peripheral)) {
+                        if peripheral.name! == "TL_\(QRCODE)" {
+                            nameDevice = ""
+                            print("YEEEES \(peripheral.name!)")
+                            temp = nil
+                            self.activityIndicator.startAnimating()
+                            self.view.addSubview(self.viewAlpha)
+                            zeroTwo = 0
+                            zero = 0
+                            countNot = 0
+                            self.manager?.connect(peripheral, options: nil)
+                            self.view.isUserInteractionEnabled = false
+                            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                            self.manager?.stopScan()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(6), execute: {
+                                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                                if let navController = self.navigationController {
+                                    navController.pushViewController(DeviceTLBleController(), animated: true)
+                                    QRCODE = ""
+                                }
+                                print("Connected to " +  peripheral.name!)
+                                self.viewAlpha.removeFromSuperview()
+                            })
+                        }
                     }
                 }
             }
@@ -87,34 +245,40 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
         didConnect peripheral: CBPeripheral) {
         
         peripheral.delegate = self
-        let nameD = peripheral.name!
-        let nameDOps = nameD.components(separatedBy: ["_"])
-        nameDevice = nameDOps[1]
+//        let nameD = peripheral.name!
+//        let nameDOps = nameD.components(separatedBy: ["_"])
+//        nameDevice = nameDOps[1]
         timer =  Timer.scheduledTimer(withTimeInterval: 4.0, repeats: true) { (timer) in
             peripheral.discoverServices(nil)
             if peripheral.state == CBPeripheralState.connected {
                 print("connectedP")
+                checkQR = true
             }
             if peripheral.state == CBPeripheralState.disconnected {
                 print("disconnectedP")
                 if warning == true{
                     timer.invalidate()
+                    self.dismiss(animated: true, completion: nil)
+                    self.dismiss(animated: true, completion: nil)
                 } else {
                     timer.invalidate()
+                    self.dismiss(animated: true, completion: nil)
+                    self.dismiss(animated: true, completion: nil)
                     let alert = UIAlertController(title: "Warning".localized(code), message: "Connection is lost.".localized(code), preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                         switch action.style{
                         case .default:
                             print("default")
-                            self.navigationController?.popViewController(animated: true)
+                            self.dismiss(animated: true, completion: nil)
+                            self.dismiss(animated: true, completion: nil)
+                            let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
+                            self.navigationController?.popToViewController(vc!, animated: true)
                             self.view.subviews.forEach({ $0.removeFromSuperview() })
-                            self.navigationController?.popViewController(animated: true)
+//                            self.navigationController?.popViewController(animated: true)
                         case .cancel:
                             print("cancel")
                         case .destructive:
                             print("destructive")
-                            
-                            
                         @unknown default:
                             fatalError()
                         }}))
@@ -337,6 +501,7 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
                     let indexOfPerson = result.firstIndex{$0 == "SE"}
                     print(indexOfPerson!)
                     nameDevice = "\(result[indexOfPerson! + 2])"
+                    nameDeviceT = "\(result[indexOfPerson! + 2])"
                 }
                 if result.contains("UT") {
                     let indexOfPerson = result.firstIndex{$0 == "UT"}
@@ -353,7 +518,9 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
                 if result.contains("UD") {
                     let indexOfPerson = result.firstIndex{$0 == "UD"}
                     print(indexOfPerson!)
+                    if indexOfPerson! + 2 <= result.count-1 {
                     id = "\(result[indexOfPerson! + 2])"
+                    }
                 }
                 if result.contains("LK") {
                     let indexOfPerson = result.firstIndex{$0 == "LK"}
@@ -406,9 +573,11 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
                 if result.contains("WM") {
                     let indexOfPerson = result.firstIndex{$0 == "WM"}
                     if result.count >= indexOfPerson!+2{
-                        wmMax = "\(result[indexOfPerson! + 2])"
-                        if let wmMaxUINt = Int(wmMax) {
-                            wmMaxInt = wmMaxUINt
+                        if indexOfPerson! + 2 <= result.count-1 {
+                            wmMax = "\(result[indexOfPerson! + 2])"
+                            if let wmMaxUINt = Int(wmMax) {
+                                wmMaxInt = wmMaxUINt
+                            }
                         }
                     }
                 }
@@ -434,13 +603,103 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
         
     }
     
+    var tableViewData = [cellData]()
+    weak var tableView: UITableView!
     
+    fileprivate lazy var themeBackView3: UIView = {
+        let v = UIView()
+        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12) + (iphone5s ? 10 : 0))
+        v.layer.shadowRadius = 3.0
+        v.layer.shadowOpacity = 0.2
+        v.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+        return v
+    }()
+    fileprivate lazy var MainLabel: UILabel = {
+        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy - (iphone5s ? 10 : 0), width: Int(screenWidth-70), height: 40))
+        text.text = "Type of bluetooth sensor".localized(code)
+        text.textColor = UIColor(rgb: 0x272727)
+        text.font = UIFont(name:"BankGothicBT-Medium", size: (iphone5s ? 17.0 : 19.0))
+        return text
+    }()
+    fileprivate lazy var backView: UIImageView = {
+        let backView = UIImageView()
+        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40) - (iphone5s ? 10 : 0), width: 50, height: 40)
+        let back = UIImageView(image: UIImage(named: "back")!)
+        back.image = back.image!.withRenderingMode(.alwaysTemplate)
+        back.frame = CGRect(x: 8, y: 0 , width: 8, height: 19)
+        back.center.y = backView.bounds.height/2
+        backView.addSubview(back)
+        return backView
+    }()
+    
+    override func loadView() {
+        super.loadView()
+        
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            self.view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: tableView.topAnchor, constant:  (iphone5s ? -80 : -100)),
+            self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
+            self.view.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
+            self.view.trailingAnchor.constraint(equalTo: tableView.trailingAnchor, constant: 1),
+        ])
+        self.tableView = tableView
+        tableView.backgroundColor = .clear
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         searchBar.delegate = self
-        manager = CBCentralManager ( delegate : self , queue : nil , options : nil )
+        searchBar.searchBarStyle = .minimal
+        searchBar.showsCancelButton = true
+        searchBar.keyboardType = UIKeyboardType.decimalPad
+        view.addSubview(searchBar)
         viewShow()
+        rightCount = 0
+        manager = CBCentralManager ( delegate : self , queue : nil , options : nil )
+
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.register(DevicesListCellHeder.self, forCellReuseIdentifier: "DevicesListCellHeder")
+        self.tableView.register(DevicesListCellMain.self, forCellReuseIdentifier: "DevicesListCellMain")
+        self.tableView.register(DevicesListCell.self, forCellReuseIdentifier: "DevicesListCell")
+        tableView.separatorStyle = .none
+        setupTheme()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        passNotif = 0
+        viewAlpha.addSubview(activityIndicator)
+        view.addSubview(viewAlpha)
+        self.view.isUserInteractionEnabled = false
+        activityIndicator.startAnimating()
+        if QRCODE == "" {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                self.activityIndicator.stopAnimating()
+                self.viewAlpha.removeFromSuperview()
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                self.view.isUserInteractionEnabled = true
+                
+            }
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 15.0) {
+                if QRCODE != "" {
+                    if checkPopQR == false {
+                        self.timer.invalidate()
+                        self.navigationController?.popViewController(animated: true)
+                        checkPopQR = true
+                    }
+                }
+                self.view.isUserInteractionEnabled = true
+            }
+        }
+
     }
     
     var tr = 0
@@ -452,73 +711,76 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
         activityIndicator.startAnimating()
         self.view.addSubview(viewAlpha)
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
                 self.viewAlpha.removeFromSuperview()
                 self.activityIndicator.stopAnimating()
             }
-            self.mainPartShow()
+//            self.mainPartShow()
             
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
             self.refreshControl.endRefreshing()
-            while let subview = self.scrollView.subviews.last {
-                subview.removeFromSuperview()
-            }
         }
     }
     override func viewDidAppear(_ animated: Bool) {
         searchBar.text = ""
         mainPassword = ""
-        searchBarCancelButtonClicked(searchBar)
+        timer.invalidate()
         self.searchBar.endEditing(true)
         self.view.isUserInteractionEnabled = true
-        attributedTitle = NSAttributedString(string: "Wait".localized(code), attributes: attributes)
-        refreshControl.attributedTitle = attributedTitle
-        refreshControl.tintColor = .white
-        refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControl.Event.valueChanged)
-        popUpVCNext.delegate = self
-        if tr != 0{
-            viewShow()
-            tr += 1
+        peripherals.removeAll()
+        RSSIMainArray.removeAll()
+        rrsiPink = 0
+        manager?.stopScan()
+        tableViewData.removeAll()
+        tableViewData.append(cellData(opened: false, title: "123", sectionData: ["123"]))
+        tableViewData.insert(cellData(opened: false, title: "1234", sectionData: ["1234"]), at: 0)
+        RSSIMainArray.append("2")
+        RSSIMainArray.insert("1", at: 0)
+        searchList.removeAll()
+        searching = false
+        searchBar.text = ""
+        peripheralName.removeAll()
+        mainPassword = ""
+        if hidednCell == false {
+            tableView.reloadData()
         }
         scanBLEDevices()
         rightCount = 0
-        searchBarCancelButtonClicked(searchBar)
+
     }
     
     func scanBLEDevices() {
-        let uuid = NSUUID().uuidString.lowercased()
-        print("uuid: \(uuid)")
         peripherals.removeAll()
         manager?.scanForPeripherals(withServices: nil)
         self.view.isUserInteractionEnabled = false
+        var time = 0.0
+        if QRCODE != "" {
+            time = 12.0
+        }
         //stop scanning after 5 seconds
-        DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
-            self.stopScanForBLEDevices()
-            print("Stop")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0 + time) {
+
+            if QRCODE != "" {
+                if checkPopQR == false {
+                    self.timer.invalidate()
+                    self.navigationController?.popViewController(animated: true)
+                    checkPopQR = true
+                }
+            }
             self.view.isUserInteractionEnabled = true
-            
         }
     }
     func stopScanForBLEDevices() {
         manager?.stopScan()
+        print("Stop")
     }
-    
-    fileprivate lazy var scrollView: UIScrollView = {
-        let v = UIScrollView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
-    }()
-    fileprivate lazy var scrollViewS: UIScrollView = {
-        let v = UIScrollView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
-    }()
     
     fileprivate lazy var bgImage: UIImageView = {
         let img = UIImageView(image: UIImage(named: "bg-figures.png")!)
+        img.alpha = 0.3
         img.frame = CGRect(x: 0, y: screenHeight-260, width: 201, height: 207)
         return img
     }()
@@ -530,268 +792,310 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
         } else {
             activity.style = .white
         }
+        activity.transform = CGAffineTransform(scaleX: 2, y: 2)
         activity.center = view.center
         activity.color = .white
         activity.hidesWhenStopped = true
         activity.startAnimating()
-        activity.transform = CGAffineTransform(scaleX: 2, y: 2)
         return activity
     }()
     override func viewDidDisappear(_ animated: Bool) {
-        self.view.subviews.forEach({ $0.removeFromSuperview() })
-        while let subview = self.scrollView.subviews.last {
-            subview.removeFromSuperview()
+        print("viewDidDisappear")
+        peripherals.removeAll()
+        RSSIMainArray.removeAll()
+        rrsiPink = 0
+        manager?.stopScan()
+        tableViewData.removeAll()
+        searchList.removeAll()
+        peripheralName.removeAll()
+        mainPassword = ""
+        if QRCODE == ""{
+            if tableViewData.count != 0 {
+                tableView.reloadData()
+            }
         }
     }
     private func viewShow() {
-        view.subviews.forEach({ $0.removeFromSuperview() })
-        view.backgroundColor = UIColor(rgb: 0x1F2222)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            let (headerView, backView) = headerSet(title: "List of available devices".localized(code), showBack: true)
-            self.view.addSubview(headerView)
-            self.view.addSubview(backView!)
-            self.view.addSubview(self.viewAlpha)
-            backView!.addTapGesture{
-                self.navigationController?.popViewController(animated: true)
-            }
-            let hamburger = UIImageView(image: UIImage(named: "Hamburger.png")!)
-            let hamburgerPlace = UIView()
-            var yHamb = screenHeight/22
-            if screenWidth == 414 {
-                yHamb = screenHeight/20
-            }
-            if screenHeight >= 750{
-                yHamb = screenHeight/16
-                if screenWidth == 375 {
-                    yHamb = screenHeight/19
-                }
-            }
-            hamburgerPlace.frame = CGRect(x: screenWidth-50, y: yHamb, width: 35, height: 35)
-            hamburger.frame = CGRect(x: screenWidth-45, y: yHamb, width: 25, height: 25)
-            self.view.addSubview(hamburger)
-            self.view.addSubview(hamburgerPlace)
-            hamburgerPlace.addTapGesture {
-                let viewController = MenuControllerDontLanguage()
-                viewController.modalPresentationStyle = .custom
-                viewController.transitioningDelegate = self
-                self.present(viewController, animated: true)
-            }
-        }
-        view.addSubview(bgImage)
-        viewAlpha.addSubview(activityIndicator)
-        activityIndicator.startAnimating()
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
-            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-            self.viewAlpha.removeFromSuperview()
-            self.view.backgroundColor = UIColor(rgb: 0x1F2222).withAlphaComponent(1)
-            self.activityIndicator.stopAnimating()
-            self.mainPartShow()
-            
+        
+        view.addSubview(themeBackView3)
+        MainLabel.text = "List of available devices".localized(code)
+        view.addSubview(MainLabel)
+        view.addSubview(backView)
+
+        self.backView.addTapGesture{
+            self.generator.impactOccurred()
+            self.navigationController?.popViewController(animated: true)
         }
         
+        view.addSubview(bgImage)
+        activityIndicator.startAnimating()
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            if QRCODE == "" {
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+//                self.view.backgroundColor = UIColor(rgb: 0x1F2222).withAlphaComponent(1)
+            }
+        }
     }
     
     var searching = false
     var searchedCountry = [String]()
     var aaa = [String]()
-    
-    private func mainPartShow() {
-        
-        aaa.removeAll()
-        searchBar.searchBarStyle = .minimal
-        searchBar.showsCancelButton = false
-        searchBar.tintColor = .white
-        searchBar.textColor = .white
-        searchBar.keyboardType = UIKeyboardType.decimalPad
-        view.addSubview(searchBar)
-        
-        print("peripherals: \(peripherals)")
-        let data = peripherals
-        
-        scrollView.addSubview(refreshControl)
-        view.addSubview(scrollView)
-        
-        scrollView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
-        scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: headerHeight + 40).isActive = true
-        scrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
-        
-        var y = 0
-        var yS = 0
-        
-        
-        for (i, peripheral) in data.enumerated() {
-            manager?.cancelPeripheralConnection(peripheral)
-            container2 = UIView(frame: CGRect(x: 20, y: Int(y), width: Int(screenWidth-40), height: cellHeight))
-            //            container2.separatorColor = .clear
-            container2.backgroundColor = .clear
+    let label = UILabel()
+    fileprivate func setupTheme() {
+        if #available(iOS 13.0, *) {
+            view.theme.backgroundColor = themed { $0.backgroundColor }
+            MainLabel.theme.textColor = themed{ $0.navigationTintColor }
+            themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            searchBar.theme.tintColor = themed{ $0.navigationTintColor }
+            searchBar.theme.backgroundColor = themed { $0.backgroundColor }
+            backView.theme.tintColor = themed{ $0.navigationTintColor }
+        } else {
+            view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
+            themeBackView3.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+            MainLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            searchBar.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            searchBar.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
+            backView.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             
-//            container2.addTapGesture {
-//                print("\(peripheral.name!)")
-//                for (_,_) in data.enumerated() {
-//                    print(data.enumerated())
-//                    self.scrollView.removeFromSuperview()
-//                    self.container2.removeFromSuperview()
-//                    self.scrollViewS.removeFromSuperview()
-//                }
-////                cellHeight = 110
-////                self.mainPartShow()
-//                
-//            }
-            let title = UILabel(frame: CGRect(x: 0, y: 20, width: Int(screenWidth/2), height: 20))
-            title.text = peripheral.name
-            let abc = peripheral.name!
-            if aaa.contains(abc) {
-                
-            } else {
-                aaa.append(abc)
-                //                aaa.shuffle()
-                print("searchedCountry: \(aaa)")
-            }
-            
-            
-            title.textColor = .white
-            title.font = UIFont(name:"FuturaPT-Light", size: 24.0)
-            
-            let titleRSSI = UILabel(frame: CGRect(x: 30, y: 50, width: Int(screenWidth/2), height: 10))
-            peripheral.readRSSI()
-            titleRSSI.text = "\(RSSIMainArray[i]) dBm"
-            titleRSSI.textColor = .white
-            titleRSSI.font = UIFont(name:"FuturaPT-Light", size: 14.0)
-            
-            let titleRSSIImage = UIImageView(frame: CGRect(x: 5, y: 50, width: 17, height: 11))
-            titleRSSIImage.image = #imageLiteral(resourceName: "dBm")
-            
-            let btn = UIView(frame: CGRect(x: Int(screenWidth-140-40), y: 12, width: 140, height: 44))
-            btn.backgroundColor = UIColor(rgb: 0xCF2121)
-            btn.layer.cornerRadius = 22
-            
-            let connect = UILabel(frame: CGRect(x: Int(btn.frame.origin.x), y: Int(btn.frame.origin.y), width: Int(btn.frame.width), height: Int(btn.frame.height)))
-            connect.text = "Connect".localized(code)
-            connect.textColor = .white
-            connect.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
-            connect.textAlignment = .center
-            
-            let separator = UIView(frame: CGRect(x: 0, y: cellHeight, width: Int(screenWidth-40), height: 1))
-            separator.backgroundColor = UIColor(rgb: 0x959595)
-            
-            
-            
-            
-            if searching{
-                if searchedCountry.contains(title.text!) {
-                    view.addSubview(scrollViewS)
-                    
-                    scrollViewS.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
-                    scrollViewS.topAnchor.constraint(equalTo: view.topAnchor, constant: headerHeight + 40).isActive = true
-                    scrollViewS.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
-                    scrollViewS.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
-                    scrollView.removeFromSuperview()
-                    
-                    container2.frame = CGRect(x: 20, y: Int(yS), width: Int(screenWidth-40), height: cellHeight+10)
-                    view.addSubview(scrollViewS)
-                    container2.addSubview(btn)
-                    container2.addSubview(title)
-                    container2.addSubview(titleRSSI)
-                    container2.addSubview(titleRSSIImage)
-                    container2.addSubview(connect)
-                    container2.addSubview(separator)
-                    scrollViewS.addSubview(container2)
-                    
-                    yS = yS + cellHeight
-                    
-                }
+        }
 
-            } else {
-                
-                container2.addSubview(btn)
-                container2.addSubview(connect)
-                container2.addSubview(title)
-                container2.addSubview(titleRSSI)
-                container2.addSubview(titleRSSIImage)
-                container2.addSubview(separator)
-                scrollView.addSubview(container2)
-            }
-            
-            connect.addTapGesture {
-                temp = nil
-                DeviceIndex = i
-                self.activityIndicator.startAnimating()
-                self.view.addSubview(self.viewAlpha)
-                zeroTwo = 0
-                zero = 0
-                countNot = 0
-                self.manager?.connect(peripheral, options: nil)
-                self.view.isUserInteractionEnabled = false
-                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5), execute: {
-                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                    if let navController = self.navigationController {
-                        navController.pushViewController(self.DeviceBLEC, animated: true)
-                    }
-                    print("Connected to " +  peripheral.name!)
-                    self.viewAlpha.removeFromSuperview()
-                    self.view.subviews.forEach({ $0.removeFromSuperview() })
-                    while let subview = self.scrollView.subviews.last {
-                        subview.removeFromSuperview()
-                    }
-                })
-            }
-            
-            y = y + cellHeight
-        }
-        if data.count > 10 {
-            scrollView.contentSize = CGSize(width: Int(screenWidth), height: data.count * cellHeight+40)
-            
+        if isNight {
+            searchBar.textColor = .white
         } else {
-            scrollView.contentSize = CGSize(width: Int(screenWidth), height: Int(screenHeight-39))
+            searchBar.textColor = .black
         }
-        if data.count > 10 {
-            scrollViewS.contentSize = CGSize(width: Int(screenWidth), height: data.count * cellHeight+40)
-            
-        } else {
-            scrollViewS.contentSize = CGSize(width: Int(screenWidth), height: Int(screenHeight-39))
-        }
-        tr = 1
-        //delete keyboard
-        scrollView.addTapGesture {
-            self.searchBar.endEditing(true)
-            print("scrollView")
-        }
-        scrollViewS.addTapGesture {
-            self.searchBar.endEditing(true)
-            print("scrollViewS")
-        }
-        
     }
 }
 extension DevicesTLListController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchedCountry = aaa.filter({$0.lowercased().contains(searchText)})
+        if searchText == ""{
+            manager?.scanForPeripherals(withServices: nil, options: nil)
+            searching = false
+            searchBar.text = ""
+        }
+        print(searchText)
+        searchList = peripheralName.filter({$0.lowercased().contains(searchText)})
+        print("searchList: \(searchList)")
+//        print("peripheralName: \(peripheralName)")
+        manager?.stopScan()
         searching = true
-        scrollViewS.subviews.forEach({ $0.removeFromSuperview() })
-        scrollView.subviews.forEach({ $0.removeFromSuperview() })
+        tableView.reloadData()
         if searchText == "" {
             searchBarCancelButtonClicked(searchBar)
         }
-        
-        mainPartShow()
     }
-    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        scrollViewS.subviews.forEach({ $0.removeFromSuperview() })
-        scrollView.subviews.forEach({ $0.removeFromSuperview() })
+        manager?.scanForPeripherals(withServices: nil, options: nil)
         searching = false
         searchBar.text = ""
-        mainPartShow()
+        self.view.endEditing(true)
+        tableView.reloadData()
+
     }
     
 }
 
 extension DevicesTLListController: UIViewControllerTransitioningDelegate {
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        return DrawerPresentationController(presentedViewController: presented, presenting: presenting)
+        return DrawerPresentationController(presentedViewController: presented, presenting: presenting, blurEffectStyle: isNight ? .light : .dark)
     }
 }
+
+
+extension DevicesTLListController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if !searching {
+            if indexPath.section == 0 || indexPath.section == rrsiPink+1 {
+                return 60
+            } else {
+                if indexPath.row == 0 {
+                    return 73
+                } else {
+                    return 65
+                }
+            }
+        } else {
+            return 73
+        }
+    }
+}
+
+
+extension DevicesTLListController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print(indexPath)
+        hidednCell = false
+        if indexPath.row == 0 {
+            if !searching {
+                if indexPath.section == 0 {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "DevicesListCellHeder", for: indexPath) as! DevicesListCellHeder
+                    cell.titleLabel.text = "Nearby devices".localized(code)
+                    cell.titleLabel.font = UIFont(name: "FuturaPT-Medium", size: 20)
+                    cell.backgroundColor = .clear
+                    cell.selectionStyle = .none
+                    return cell
+                    
+                } else if indexPath.section == rrsiPink+1 {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "DevicesListCellHeder", for: indexPath) as! DevicesListCellHeder
+                    cell.titleLabel.text = "Low signal devices".localized(code)
+                    cell.titleLabel.font = UIFont(name: "FuturaPT-Medium", size: 20)
+
+                    cell.backgroundColor = .clear
+                    cell.selectionStyle = .none
+                    return cell
+                } else {
+                    
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "DevicesListCellMain", for: indexPath) as! DevicesListCellMain
+                    cell.titleLabel.text = tableViewData[indexPath.section].title
+                    cell.titleLabel.font = UIFont(name: "FuturaPT-Light", size: 24)
+                    cell.titleRSSI.text = "\(RSSIMainArray[indexPath.section]) dBm"
+                    cell.backgroundColor = .clear
+                    cell.selectionStyle = .none
+                    if indexPath.section == rrsiPink {
+                        cell.separetor.isHidden = true
+                    } else {
+                        cell.separetor.isHidden = false
+                    }
+                    if indexPath.section == 1  || indexPath.section == rrsiPink + 2{
+                        cell.separetor2.isHidden = true
+                    } else {
+                        cell.separetor2.isHidden = false
+                    }
+                    cell.backgroundColor = .clear
+                    cell.btnConnet.addTapGesture {
+                        self.generator.impactOccurred()
+                        temp = nil
+                        nameDevice = ""
+                        VV = ""
+                        level = ""
+                        RSSIMain = ""
+                        vatt = ""
+                        id = ""
+                        self.activityIndicator.startAnimating()
+                        self.view.addSubview(self.viewAlpha)
+                        zeroTwo = 0
+                        zero = 0
+                        countNot = 0
+                        if !self.searching {
+                            self.stringAll = ""
+                            if indexPath.section > rrsiPink {
+                                self.manager?.connect(self.peripherals[indexPath.section-2], options: nil)
+                            } else {
+                                self.manager?.connect(self.peripherals[indexPath.section-1], options: nil)
+                            }
+                        }
+                        self.view.isUserInteractionEnabled = false
+                        self.manager?.stopScan()
+                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5), execute: {
+                            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                            if let navController = self.navigationController {
+                                navController.pushViewController(DeviceTLBleController(), animated: true)
+                            }
+                            self.viewAlpha.removeFromSuperview()
+                        })
+                    }
+                    return cell
+                }
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "DevicesListCellMain", for: indexPath) as! DevicesListCellMain
+                cell.separetor.isHidden = false
+                cell.titleLabel.text = searchList[indexPath.section]
+                cell.titleLabel.font = UIFont(name: "FuturaPT-Light", size: 24)
+
+                cell.backgroundColor = .clear
+                cell.selectionStyle = .none
+//                cell.titleRSSI.text = "\(RSSIMainArray[indexPath.section]) dBm"
+                cell.btnConnet.addTapGesture {
+                    self.generator.impactOccurred()
+                    temp = nil
+                    nameDevice = ""
+                    self.activityIndicator.startAnimating()
+                    self.view.addSubview(self.viewAlpha)
+                    zeroTwo = 0
+                    zero = 0
+                    countNot = 0
+                    print(self.searchList)
+                    print("indexPath.section: \(indexPath.section)")
+
+                    print(self.searchList[indexPath.section])
+                    let index = peripheralName.firstIndex(of: "\(self.searchList[indexPath.section])")
+                    print("\(index!)")
+                    if self.searching {
+                        self.stringAll = ""
+                        self.manager?.connect(self.peripherals[index!], options: nil)
+                    }
+                    self.view.isUserInteractionEnabled = false
+                    self.manager?.stopScan()
+                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5), execute: {
+                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                        if let navController = self.navigationController {
+                            navController.pushViewController(DeviceTLBleController(), animated: true)
+                        }
+                        self.viewAlpha.removeFromSuperview()
+                    })
+                }
+                return cell
+            }
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DevicesListCell", for: indexPath) as! DevicesListCell
+//            cell.titleLabel.text = tableViewData[indexPath.section].sectionData[indexPath.row - 1]
+//            cell.macAdres.text = "MAC = F6:F6:F6:F6:F6:F6"
+            cell.FW.text = "F.W. = \(adveFW[indexPath.section-1])"
+            cell.T.text = "Temperature = \(adveTemp[indexPath.section-1]) C°"
+            cell.Lvl.text = "Level = \(adveLvl[indexPath.section-1])"
+            cell.Vbat.text = "Vbatt = \(adveVat[indexPath.section-1]) V"
+            cell.backgroundColor = .clear
+            return cell
+        }
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.view.endEditing(true)
+        if !searching {
+            if indexPath.section != 0 && indexPath.section != rrsiPink + 1 {
+                if indexPath.row == 0 {
+                    if tableViewData[indexPath.section].opened == true {
+                        UIView.animate(withDuration: 0.1, animations: {
+                            let sections = IndexSet.init(integer: indexPath.section)
+                            tableView.reloadSections(sections, with: .none)
+                        })
+                        self.tableViewData[indexPath.section].opened = false
+
+                    } else {
+                        UIView.animate(withDuration: 0.1, animations: {
+                            
+                            self.tableViewData[indexPath.section].opened = false
+                            let sections = IndexSet.init(integer: indexPath.section)
+                            tableView.reloadSections(sections, with: .none)
+                        })
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if !searching {
+            if tableViewData[section].opened == true {
+                return tableViewData[section].sectionData.count + 1
+            } else {
+                return 1
+            }
+        } else {
+            return 1
+        }
+    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        if !searching {
+            return tableViewData.count
+        } else {
+            return searchList.count
+        }
+    }
+}
+

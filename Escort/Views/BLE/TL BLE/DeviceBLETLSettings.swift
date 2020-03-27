@@ -21,11 +21,36 @@ class DeviceBLETLSettings: UIViewController {
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         viewShow()
-        
+        setupTheme()
     }
     override func viewWillAppear(_ animated: Bool) {
         warning = false
     }
+    fileprivate lazy var backView: UIImageView = {
+        let backView = UIImageView()
+        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40) - (iphone5s ? 10 : 0), width: 50, height: 40)
+        let back = UIImageView(image: UIImage(named: "back")!)
+        back.image = back.image!.withRenderingMode(.alwaysTemplate)
+        back.frame = CGRect(x: 8, y: 0 , width: 8, height: 19)
+        back.center.y = backView.bounds.height/2
+        backView.addSubview(back)
+        return backView
+    }()
+    fileprivate lazy var themeBackView3: UIView = {
+        let v = UIView()
+        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12) + (iphone5s ? 10 : 0))
+        v.layer.shadowRadius = 3.0
+        v.layer.shadowOpacity = 0.2
+        v.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+        return v
+    }()
+    fileprivate lazy var MainLabel: UILabel = {
+        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy - (iphone5s ? 10 : 0), width: Int(screenWidth-60), height: 40))
+        text.text = "Type of bluetooth sensor".localized(code)
+        text.textColor = UIColor(rgb: 0x272727)
+        text.font = UIFont(name:"BankGothicBT-Medium", size: (iphone5s ? 17.0 : 19.0))
+        return text
+    }()
     fileprivate lazy var bgImage: UIImageView = {
         let img = UIImageView(image: UIImage(named: "bg-figures.png")!)
         img.frame = CGRect(x: 0, y: screenHeight-260, width: 201, height: 207)
@@ -79,38 +104,15 @@ class DeviceBLETLSettings: UIViewController {
     }
     private func viewShow() {
         warning = false
-        view.subviews.forEach({ $0.removeFromSuperview() })
-        view.backgroundColor = UIColor(rgb: 0x1F2222)
+        view.addSubview(themeBackView3)
+        MainLabel.text = "TL BLE".localized(code)
+        view.addSubview(MainLabel)
         
-        let (headerView, backView) = headerSet(title: "TL BLE Settings".localized(code), showBack: true)
-        view.addSubview(headerView)
-        view.addSubview(backView!)
-        
-        backView!.addTapGesture{
+        view.addSubview(backView)
+        backView.addTapGesture{
             self.navigationController?.popViewController(animated: true)
         }
-        let hamburger = UIImageView(image: UIImage(named: "Hamburger.png")!)
-        let hamburgerPlace = UIView()
-        var yHamb = screenHeight/22
-        if screenWidth == 414 {
-            yHamb = screenHeight/20
-        }
-        if screenHeight >= 750{
-            yHamb = screenHeight/16
-            if screenWidth == 375 {
-                yHamb = screenHeight/19
-            }
-        }
-        hamburgerPlace.frame = CGRect(x: screenWidth-50, y: yHamb, width: 35, height: 35)
-        hamburger.frame = CGRect(x: screenWidth-45, y: yHamb, width: 25, height: 25)
-        view.addSubview(hamburger)
-        view.addSubview(hamburgerPlace)
-        hamburgerPlace.addTapGesture {
-            let viewController = MenuControllerDontLanguage()
-            viewController.modalPresentationStyle = .custom
-            viewController.transitioningDelegate = self
-            self.present(viewController, animated: true)
-        }
+        
         view.addSubview(bgImage)
         view.addSubview(scrollView)
 
@@ -257,6 +259,19 @@ class DeviceBLETLSettings: UIViewController {
                     }
                 }
             }
+        }
+    }
+    fileprivate func setupTheme() {
+        if #available(iOS 13.0, *) {
+            view.theme.backgroundColor = themed { $0.backgroundColor }
+            themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            MainLabel.theme.textColor = themed{ $0.navigationTintColor }
+            backView.theme.tintColor = themed{ $0.navigationTintColor }
+        } else {
+            view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
+            themeBackView3.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+            MainLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            backView.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
         }
     }
 }
