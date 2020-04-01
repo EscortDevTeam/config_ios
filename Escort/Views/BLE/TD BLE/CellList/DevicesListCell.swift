@@ -43,7 +43,7 @@ class DevicesListCell: UITableViewCell {
         coverView.layer.cornerRadius = 5
         self.contentView.addSubview(coverView)
         self.coverView = coverView
-//        
+//
 //        let separetor = UIView(frame: CGRect(x: screenWidth/2-1, y: 5, width: 2, height: 52))
 //        separetor.backgroundColor = UIColor(rgb: 0x959595)
 //        self.contentView.addSubview(separetor)
@@ -137,4 +137,3 @@ class DevicesListCell: UITableViewCell {
         }
     }
 }
-

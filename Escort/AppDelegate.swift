@@ -150,7 +150,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     // Print message ID.
     if let messageID = userInfo["aps"] {
       print("Message ID: \(messageID)")
-        print("Message ID3: \(userInfo["9"])")
+//        print("Message ID3: \(userInfo["9"])")
 
     }
 
