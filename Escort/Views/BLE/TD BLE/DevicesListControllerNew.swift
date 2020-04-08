@@ -370,6 +370,7 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                     reload = 0
                 }
             }
+            timer.invalidate()
         }
         if reload == 2{
             for characteristic in service.characteristics! {

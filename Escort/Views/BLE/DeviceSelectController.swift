@@ -191,6 +191,11 @@ import RxTheme
         view.addSubview(backView)
         
         self.activityIndicator.stopAnimating()
+        
+        backView.addTapGesture{
+            self.generator.impactOccurred()
+            self.navigationController?.popViewController(animated: true)
+        }
 //        let hamburgerPlace = UIView()
 //        var yHamb = screenHeight/22
 //        if screenWidth == 414 {
@@ -216,11 +221,6 @@ import RxTheme
 //            viewController.transitioningDelegate = self
 //            self.present(viewController, animated: true)
 //        }
-        
-        backView.addTapGesture{
-            self.generator.impactOccurred()
-            self.navigationController?.popViewController(animated: true)
-        }
         
         let cellHeight = 180
         let containerTD = UIView(frame: CGRect(x: 0, y: headerHeight, width: screenWidth/2, height: CGFloat(cellHeight)))
@@ -271,7 +271,12 @@ import RxTheme
         containerTL.addTapGesture {
             print("TL")
             self.generator.impactOccurred()
-            self.navigationController?.pushViewController(DevicesTLListController(), animated: true)
+//            self.navigationController?.pushViewController(DevicesTLListController(), animated: true)
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let newViewController = storyBoard.instantiateViewController(withIdentifier: "DFUViewController") as! DFUViewController
+            newViewController.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(newViewController, animated: true)
+//            self.present(newViewController, animated: true, completion: nil)
         }
         
         let containerDU = UIView(frame: CGRect(x: Int(screenWidth/2), y: Int(headerHeight)+Int(cellHeight), width: Int(screenWidth/2), height: Int(cellHeight)))

@@ -87,7 +87,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // [END register_for_notifications]
     return true
   }
-
+    //MARK: - ZIPFile
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
+        let rootViewController = self.window!.rootViewController as! UINavigationController
+        
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let dfuViewController = mainStoryboard.instantiateViewController(withIdentifier: "DFUViewController") as! DFUViewController
+        print(url)
+        let alert = UIAlertController(title: "\(url.lastPathComponent)", message: "Архив загружен в приложение", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            rootViewController.pushViewController(dfuViewController, animated: true)
+        }))
+        rootViewController.pushViewController(dfuViewController, animated: true)
+        dfuViewController.onFileImported(withURL: url)
+        return true
+    }
+    
   // [START receive_message]
   func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
     // If you are receiving a notification message while your app is in the background,

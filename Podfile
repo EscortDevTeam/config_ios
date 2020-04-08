@@ -15,5 +15,6 @@ target 'Escort' do
 	pod 'lottie-ios'
 	pod 'Firebase/Analytics'
 	pod 'Firebase/Messaging'  
+	pod 'iOSDFULibrary'
 
 end

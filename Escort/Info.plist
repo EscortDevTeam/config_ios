@@ -27,9 +27,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
-	<true/>
+	<false/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Это позволит приложению "$(PRODUCT_NAME)" находить аксессуары и подключаться к ним по Bluetooth. Это приложение также сможет использовать Bluetooth, чтобы знать Вы поблизости</string>
+	<string>Это позволит приложению &quot;$(PRODUCT_NAME)&quot; находить аксессуары и подключаться к ним по Bluetooth. Это приложение также сможет использовать Bluetooth, чтобы знать Вы поблизости</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>$(PRODUCT_NAME) bluetooth use.</string>
 	<key>NSCameraUsageDescription</key>
@@ -60,5 +60,69 @@
 	<false/>
 	<key>locationManager.requestWhenInUseAuthorization()</key>
 	<string>функция геолокации</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Distribution Packet (ZIP)</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>icon-hex</string>
+				<string>icon-hex@2x</string>
+			</array>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.archive</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>nRF5x Hex</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>icon-hex</string>
+				<string>icon-hex@2x</string>
+			</array>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.intel.hex</string>
+			</array>
+		</dict>
+	</array>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.archive</string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>com.intel.hex</string>
+			<key>UTTypeDescription</key>
+			<string>Intel Hex File</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://www.interlog.com/~speff/usefulinfo/Hexfrmt.pdf</string>
+			<key>UTTypeSize320IconFile</key>
+			<string>icon-dfu-320</string>
+			<key>UTTypeSize64IconFile</key>
+			<string>icon-dfu-64</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>hex</string>
+			</dict>
+		</dict>
+	</array>
+	<key>UISupportsDocumentBrowser</key>
+	<false/>
 </dict>
 </plist>

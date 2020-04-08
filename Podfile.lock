@@ -83,6 +83,8 @@ PODS:
   - ImageSlideshow (1.8.4):
     - ImageSlideshow/Core (= 1.8.4)
   - ImageSlideshow/Core (1.8.4)
+  - iOSDFULibrary (4.7.0):
+    - ZIPFoundation (= 0.9.11)
   - lottie-ios (3.1.5)
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
@@ -110,12 +112,14 @@ PODS:
   - YPImagePicker (4.2.0):
     - PryntTrimmerView (~> 4.0.0)
     - SteviaLayout (~> 4.7.3)
+  - ZIPFoundation (0.9.11)
 
 DEPENDENCIES:
   - Charts
   - Firebase/Analytics
   - Firebase/Messaging
   - ImageSlideshow (from `https://github.com/FirstZverev/ImageSlideshow`)
+  - iOSDFULibrary
   - lottie-ios
   - RxTheme
   - SwiftChart
@@ -139,6 +143,7 @@ SPEC REPOS:
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
     - GoogleUtilities
+    - iOSDFULibrary
     - lottie-ios
     - nanopb
     - PromisesObjC
@@ -153,6 +158,7 @@ SPEC REPOS:
     - SwiftLint
     - TPPDF
     - YPImagePicker
+    - ZIPFoundation
 
 EXTERNAL SOURCES:
   ImageSlideshow:
@@ -185,6 +191,7 @@ SPEC CHECKSUMS:
   GoogleDataTransportCCTSupport: 32f75fbe904c82772fcbb6b6bd4525bfb6f2a862
   GoogleUtilities: 06eb53bb579efe7099152735900dd04bf09e7275
   ImageSlideshow: 31fc12d0b3c585f98399c7f4a4393db5b53d622a
+  iOSDFULibrary: 73be274cbebeb0a7d8caaa96eb596869132dc58f
   lottie-ios: 32bf84389337d86fbc8b12266e88452e0abf1dee
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
@@ -200,7 +207,8 @@ SPEC CHECKSUMS:
   TPPDF: 775e9780261879da1af7c802f9e4bf7feb877677
   UIDrawer: 1bfbc152fee69f6809a41508000cf1b9bd4b1738
   YPImagePicker: accf310f9526641a84372c0ecf943547d9b1e52c
+  ZIPFoundation: b1f0de4eed33e74a676f76e12559ab6b75990197
 
-PODFILE CHECKSUM: 1208daba8c93094d70dd4fbb35a762507d75acfc
+PODFILE CHECKSUM: 7549dcf60d9f25184154aaaeb8b213e7a2976bb0
 
 COCOAPODS: 1.8.4

@@ -718,7 +718,7 @@ class DeviceBleSettingsAddController: UIViewController {
                     self.view.addSubview(self.viewAlpha)
                     self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
                     self.view.isUserInteractionEnabled = false
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 20.0) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                         self.view.isUserInteractionEnabled = true
                         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
                         self.viewAlpha.removeFromSuperview()
@@ -728,10 +728,10 @@ class DeviceBleSettingsAddController: UIViewController {
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                                 switch action.style{
                                 case .default:
-                                    print("default")
-                                    reloadBack = 1
-                                    self.navigationController?.popViewController(animated: true)
-                                    
+                                    nameDevice = ""
+                                    temp = nil
+                                    let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
+                                    self.navigationController?.popToViewController(vc!, animated: true)
                                 case .cancel:
                                     print("cancel")
                                     
@@ -744,12 +744,14 @@ class DeviceBleSettingsAddController: UIViewController {
                                 }}))
                             self.present(alert, animated: true, completion: nil)
                         } else {
-                            let alert = UIAlertController(title: "Warning".localized(code), message: "Failed to reload".localized(code), preferredStyle: .alert)
+                            let alert = UIAlertController(title: "Success".localized(code), message: "Reloading...".localized(code), preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                                 switch action.style{
                                 case .default:
-                                    print("default")
-                                    errorWRN = false
+                                    nameDevice = ""
+                                    temp = nil
+                                    let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
+                                    self.navigationController?.popToViewController(vc!, animated: true)
                                 case .cancel:
                                     print("cancel")
                                     

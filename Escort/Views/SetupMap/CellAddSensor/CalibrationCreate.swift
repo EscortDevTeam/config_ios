@@ -191,12 +191,6 @@ class CalibrationCreate: UIViewController, UIScrollViewDelegate {
         levelLabel.font = UIFont(name:"FuturaPT-Light", size: 18.0)
         return levelLabel
     }()
-    fileprivate lazy var idlLabel: UILabel = {
-        let idlLabel = UILabel(frame: CGRect(x: 45, y: 50, width: 150, height: 19))
-        idlLabel.text = "\(id)"
-        idlLabel.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
-        return idlLabel
-    }()
 
     fileprivate lazy var stepNumberlLabel: UILabel = {
         let stepNumberlLabel = UILabel(frame: CGRect(x: screenWidth-45, y: 17, width: 35, height: 19))
@@ -413,7 +407,6 @@ class CalibrationCreate: UIViewController, UIScrollViewDelegate {
             tempLabel.theme.textColor = themed{ $0.navigationTintColor }
             nameNumberLabel.theme.textColor = themed{ $0.navigationTintColor }
             levelLabel.theme.textColor = themed{ $0.navigationTintColor }
-            idlLabel.theme.textColor = themed{ $0.navigationTintColor }
             stepLabel.theme.textColor = themed{ $0.navigationTintColor }
             stabLabel.theme.textColor = themed{ $0.navigationTintColor }
             stabToplivoLabel.theme.textColor = themed{ $0.navigationTintColor }
@@ -435,7 +428,6 @@ class CalibrationCreate: UIViewController, UIScrollViewDelegate {
             levelLabel1.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             stabLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             stepLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
-            idlLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             levelLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             nameNumberLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             tempLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
@@ -560,22 +552,9 @@ extension CalibrationCreate: UITableViewDataSource {
         if section == 0 {
             headerView.frame = CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 76)
         
-//            headerView.addSubview(tempLabel)
             nameNumberLabel.text = "\(nameDevice)"
-
-//            headerView.addSubview(nameNumberLabel)
-            
-//            headerView.addSubview(levelLabel)
-            idlLabel.text = "\(id)"
-
-            headerView.addSubview(idlLabel)
-//            stabLabel.text = "Initial tank volume".localized(code) + ": \(String(describing: items.last!))"
-//            if sliv == true {
             headerView.addSubview(stabLabel)
             headerView.addSubview(stabToplivoLabel)
-//            } else {
-//                stabLabel.removeFromSuperview()
-//            }
             
             stepNumberlLabel.text = "\(stepTar)"
 
