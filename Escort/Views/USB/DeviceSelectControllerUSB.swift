@@ -67,12 +67,12 @@ class DeviceSelectControllerUSB: UIViewController {
                 case .right:
                 if rightCount == 0 {
                     print("Right")
-                    let popUpVC = UIStoryboard(name: "MainSelf", bundle: nil).instantiateViewController(withIdentifier: "popUpVCid") as! PopupViewController // 1
-                    self.addChild(popUpVC) // 2
-                    popUpVC.view.frame = self.view.frame  // 3
-                    self.view.addSubview(popUpVC.view) // 4
-                    popUpVC.didMove(toParent: self) // 5
-                    rightCount += 1
+//                    let popUpVC = UIStoryboard(name: "MainSelf", bundle: nil).instantiateViewController(withIdentifier: "popUpVCid") as! PopupViewController // 1
+//                    self.addChild(popUpVC) // 2
+//                    popUpVC.view.frame = self.view.frame  // 3
+//                    self.view.addSubview(popUpVC.view) // 4
+//                    popUpVC.didMove(toParent: self) // 5
+//                    rightCount += 1
                 }
                 default: break
                 }
@@ -105,14 +105,13 @@ class DeviceSelectControllerUSB: UIViewController {
 //            view.addSubview(hamburgerPlace)
         
                 
-            hamburgerPlace.addTapGesture {
-            let popUpVC = UIStoryboard(name: "MenuSelf", bundle: nil).instantiateViewController(withIdentifier: "popUpVCid") as! PopupTwoVC // 1
-            self.addChild(popUpVC) // 2
-            popUpVC.view.frame = self.view.frame  // 3
-            self.view.addSubview(popUpVC.view) // 4
-            popUpVC.didMove(toParent: self) // 5
-            print("Успешно")
-        }
+//            hamburgerPlace.addTapGesture {
+//            self.addChild(popUpVC) // 2
+//            popUpVC.view.frame = self.view.frame  // 3
+//            self.view.addSubview(popUpVC.view) // 4
+//            popUpVC.didMove(toParent: self) // 5
+//            print("Успешно")
+//        }
         
         backView!.addTapGesture{
             self.navigationController?.popViewController(animated: true)

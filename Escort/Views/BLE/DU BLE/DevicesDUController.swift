@@ -24,7 +24,6 @@ class DevicesDUController: UIViewController, CBCentralManagerDelegate, CBPeriphe
     var refreshControl = UIRefreshControl()
     var attributedTitle = NSAttributedString()
     let attributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-    let popUpVCNext = UIStoryboard(name: "MainSelf", bundle: nil).instantiateViewController(withIdentifier: "popUpVCid") as! PopupViewController // 1
     var peripherals = [CBPeripheral]()
     var peripheralsSearch = [CBPeripheral]()
     var manager:CBCentralManager? = nil

@@ -94,12 +94,12 @@ PODS:
   - PromisesObjC (1.2.8)
   - Protobuf (3.11.4)
   - PryntTrimmerView (4.0.0)
-  - RxCocoa (5.0.1):
+  - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
-  - RxRelay (5.0.1):
+  - RxRelay (5.1.1):
     - RxSwift (~> 5)
-  - RxSwift (5.0.1)
+  - RxSwift (5.1.1)
   - RxTheme (4.0.0):
     - RxCocoa (~> 5.0)
     - RxSwift (~> 5.0)
@@ -121,6 +121,7 @@ DEPENDENCIES:
   - ImageSlideshow (from `https://github.com/FirstZverev/ImageSlideshow`)
   - iOSDFULibrary
   - lottie-ios
+  - RxSwift
   - RxTheme
   - SwiftChart
   - TPPDF
@@ -197,9 +198,9 @@ SPEC CHECKSUMS:
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
   PryntTrimmerView: 67e67573ffd4c073f1308effa66aefd0cfa667a0
-  RxCocoa: e741b9749968e8a143e2b787f1dfbff2b63d0a5c
-  RxRelay: 89d54507f4fd4d969e6ec1d4bd7f3673640b4640
-  RxSwift: e2dc62b366a3adf6a0be44ba9f405efd4c94e0c4
+  RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
+  RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
+  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   RxTheme: 0b642f47c7d197a803c6b9c083964188c34f7ddb
   SteviaLayout: c2ecdcff57d44e38fd2f65e54ad52aeae28ca0c4
   SwiftChart: ba767a678d568a5ee22d419e146a0582865e1aff
@@ -209,6 +210,6 @@ SPEC CHECKSUMS:
   YPImagePicker: accf310f9526641a84372c0ecf943547d9b1e52c
   ZIPFoundation: b1f0de4eed33e74a676f76e12559ab6b75990197
 
-PODFILE CHECKSUM: 7549dcf60d9f25184154aaaeb8b213e7a2976bb0
+PODFILE CHECKSUM: 4bc197371ae6987df5ba928a55631d22961c54a7
 
 COCOAPODS: 1.8.4

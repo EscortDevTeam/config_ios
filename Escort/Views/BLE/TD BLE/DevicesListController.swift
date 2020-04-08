@@ -11,7 +11,7 @@ import CoreBluetooth
 import UIDrawer
 
 
-class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, SecondVCDelegate {
+class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     func secondVC_BackClicked(data: String) {
         viewShow()
@@ -21,7 +21,6 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
     var refreshControl = UIRefreshControl()
     var attributedTitle = NSAttributedString()
     let attributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-    let popUpVCNext = UIStoryboard(name: "MainSelf", bundle: nil).instantiateViewController(withIdentifier: "popUpVCid") as! PopupViewController // 1
     var peripherals = [CBPeripheral]()
     var manager:CBCentralManager? = nil
     let DeviceBLEC = DeviceBleController()
@@ -521,7 +520,6 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         refreshControl.attributedTitle = attributedTitle
         refreshControl.tintColor = .white
         refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControl.Event.valueChanged)
-        popUpVCNext.delegate = self
         if tr != 0{
             viewShow()
             tr += 1
@@ -655,13 +653,6 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         view.addSubview(hamburger)
         view.addSubview(hamburgerPlace)
         
-        
-        hamburgerPlace.addTapGesture {
-            let viewController = MenuControllerDontLanguage()
-            viewController.modalPresentationStyle = .custom
-            viewController.transitioningDelegate = self
-            self.present(viewController, animated: true)
-        }
         searchBar.searchBarStyle = .minimal
         searchBar.showsCancelButton = false
         searchBar.tintColor = .white

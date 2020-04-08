@@ -11,7 +11,7 @@ import UIDrawer
 import MobileCoreServices
 import UIDrawer
 
-class TarirovkaStartViewControllet: UIViewController, SecondVCDelegate {
+class TarirovkaStartViewControllet: UIViewController {
     func secondVC_BackClicked(data: String) {
         viewShow()
     }

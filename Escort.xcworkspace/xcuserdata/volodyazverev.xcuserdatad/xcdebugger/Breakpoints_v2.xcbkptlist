@@ -166,8 +166,8 @@
             timestampString = "0"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "505"
-            endingLineNumber = "505"
+            startingLineNumber = "504"
+            endingLineNumber = "504"
             landmarkName = "refresh(sender:)"
             landmarkType = "7">
          </BreakpointContent>

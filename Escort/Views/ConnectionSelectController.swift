@@ -16,11 +16,8 @@ class ConnectionSelectController: UIViewController, UIImagePickerControllerDeleg
 
     let notifications = Notifications()
     
-    let popUpVC = UIStoryboard(name: "MenuSelf", bundle: nil).instantiateViewController(withIdentifier: "popUpVCid") as! PopupTwoVC
     var timer = Timer()
     let generator = UIImpactFeedbackGenerator(style: .light)
-    
-    var menuVC: ContainerViewController!
     
     let document = PDFDocument(format: .a4)
     
