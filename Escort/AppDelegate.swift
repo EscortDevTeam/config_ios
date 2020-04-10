@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let navgiationController = UINavigationController()
     navgiationController.navigationBar.isHidden = true
+    UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.red]
     //        navgiationController.interactivePopGestureRecognizer?.isEnabled = true
     
     let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")

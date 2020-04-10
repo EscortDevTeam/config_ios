@@ -8,21 +8,23 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
+        <!--Navigation Controller Bar-->
         <scene sceneID="pSy-9x-vIO">
             <objects>
-                <navigationController id="Hny-NS-jQJ" sceneMemberID="viewController">
+                <navigationController id="Hny-NS-jQJ" customClass="NavigationControllerBar" customModule="Escort" customModuleProvider="target" sceneMemberID="viewController">
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" largeTitles="YES" id="Fkr-iC-usf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="108"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" red="0.0" green="0.66274509800000003" blue="0.80784313730000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="barTintColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" red="0.12156862745098039" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="0.0" green="0.66274509800000003" blue="0.80784313730000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
                         <textAttributes key="largeTitleTextAttributes">
-                            <color key="textColor" red="0.0" green="0.66274509800000003" blue="0.80784313730000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <connections>
@@ -33,14 +35,11 @@
             </objects>
             <point key="canvasLocation" x="3522" y="-638"/>
         </scene>
-        <!--Select File-->
+        <!--Tab Bar Controller-->
         <scene sceneID="Vfi-z7-eRq">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="L0D-OD-TAe" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tabBarController definesPresentationContext="YES" id="Var-3P-b4Q" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" title="Select File" id="rw1-Fh-kAX">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="cmF-5H-4Is"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="rw1-Fh-kAX"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="nOx-37-ouk">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -57,6 +56,7 @@
                         <segue destination="e4O-61-x4z" kind="relationship" relationship="viewControllers" id="8td-vB-qs6"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L0D-OD-TAe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4281" y="-638"/>
         </scene>
@@ -70,7 +70,10 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="K5o-Xe-J0y">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="703"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.1215686275" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="separatorColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="separatorInset" minX="15" minY="0.0" maxX="50" maxY="0.0"/>
+                                <color key="sectionIndexBackgroundColor" red="0.1215686275" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="YZp-Rx-MHY" userLabel="Footer">
                                     <rect key="frame" x="0.0" y="100" width="414" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -88,7 +91,7 @@
                                                     <rect key="frame" x="20" y="0.0" width="374" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -102,24 +105,21 @@
                                 </connections>
                             </tableView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jta-p9-kg7">
-                                <rect key="frame" x="153" y="299.5" width="108" height="104"/>
+                                <rect key="frame" x="107" y="299.5" width="200" height="104"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No files found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYt-fH-VsL">
-                                        <rect key="frame" x="0.0" y="83" width="108" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Не найдено файлов" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYt-fH-VsL">
+                                        <rect key="frame" x="21" y="41.5" width="158.5" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="folderEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="UZ4-eG-e6K" userLabel="Empty folder icon">
-                                        <rect key="frame" x="21" y="11" width="64" height="64"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="108" id="g1e-Tu-5eT"/>
+                                    <constraint firstAttribute="width" constant="200" id="g1e-Tu-5eT"/>
+                                    <constraint firstItem="AYt-fH-VsL" firstAttribute="centerY" secondItem="jta-p9-kg7" secondAttribute="centerY" id="gqh-b7-aS6"/>
                                     <constraint firstAttribute="height" constant="104" id="smG-aQ-pFB"/>
+                                    <constraint firstItem="AYt-fH-VsL" firstAttribute="centerX" secondItem="jta-p9-kg7" secondAttribute="centerX" id="v3q-JC-iRe"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -204,7 +204,6 @@
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                         <state key="normal" title="Выбрать файл">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <state key="disabled">
                                             <color key="titleColor" red="0.66666668650000005" green="0.67058825489999996" blue="0.68627452850000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -264,10 +263,11 @@
                                 <subviews>
                                     <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xFX-Pd-2Kx">
                                         <rect key="frame" x="0.0" y="67" width="374" height="2"/>
-                                        <color key="tintColor" red="0.0" green="0.61176472900000001" blue="0.87058824300000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="0.90980392160000001" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="2" id="NNG-LN-bdt"/>
                                         </constraints>
+                                        <color key="progressTintColor" red="0.90980392160000001" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </progressView>
                                     <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rBU-n3-9CL">
                                         <rect key="frame" x="20" y="41" width="334" height="21"/>
@@ -275,6 +275,7 @@
                                             <constraint firstAttribute="height" constant="21" id="lb4-Wi-G9N"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Progress Label&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="VGp-Vx-1lK">
@@ -283,6 +284,7 @@
                                             <constraint firstAttribute="height" constant="21" id="qIM-1u-Rpj"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QGw-bh-faI">
@@ -292,7 +294,7 @@
                                             <constraint firstAttribute="height" constant="30" id="tkk-5b-tRp"/>
                                         </constraints>
                                         <state key="normal" title="Обновить прошивку">
-                                            <color key="titleColor" red="0.0" green="0.46666666670000001" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="0.90980392160000001" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <state key="disabled">
@@ -369,7 +371,7 @@
             </objects>
             <point key="canvasLocation" x="2530.4000000000001" y="-637.33133433283365"/>
         </scene>
-        <!--Select Device-->
+        <!--Выберите устройство-->
         <scene sceneID="1Yv-Xu-Vl9">
             <objects>
                 <viewController id="svA-Pf-qWG" customClass="ScannerViewController" customModule="Escort" customModuleProvider="target" sceneMemberID="viewController">
@@ -379,9 +381,9 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="YyZ-6c-Qoe">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="786"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.1215686275" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="2pf-Rv-rGM" userLabel="Footer">
-                                    <rect key="frame" x="0.0" y="143.5" width="414" height="0.0"/>
+                                    <rect key="frame" x="0.0" y="123.5" width="414" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </view>
@@ -396,8 +398,9 @@
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xRF-2B-MqT">
                                                     <rect key="frame" x="65" y="0.0" width="329" height="50"/>
                                                     <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" red="0.1215686275" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="Signal_3" id="H6o-Ov-LeY">
@@ -405,28 +408,29 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
+                                            <color key="backgroundColor" red="0.1215686275" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F4Z-BU-znN" userLabel="Empty View">
-                                <rect key="frame" x="139.5" y="350" width="135" height="86"/>
+                                <rect key="frame" x="107" y="350" width="200" height="86"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No devices found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ort-rF-AVS">
-                                        <rect key="frame" x="0.0" y="65" width="135" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Не найдено устройств для обнволение прошивки" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ort-rF-AVS">
+                                        <rect key="frame" x="0.0" y="12.5" width="200" height="61"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="hwZ-Vz-gFP"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="scanning" translatesAutoresizingMaskIntoConstraints="NO" id="2aE-BH-SEl" userLabel="Bluetooth Icon">
-                                        <rect key="frame" x="35" y="0.0" width="64" height="64"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="135" id="D6B-ey-vYy"/>
+                                    <constraint firstItem="ort-rF-AVS" firstAttribute="centerX" secondItem="F4Z-BU-znN" secondAttribute="centerX" id="0Qu-co-wmh"/>
+                                    <constraint firstAttribute="width" constant="200" id="D6B-ey-vYy"/>
+                                    <constraint firstItem="ort-rF-AVS" firstAttribute="centerY" secondItem="F4Z-BU-znN" secondAttribute="centerY" id="KdA-T5-ghg"/>
                                     <constraint firstAttribute="height" constant="86" id="PeK-01-4dh"/>
                                 </constraints>
                             </view>
@@ -442,8 +446,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yrS-dE-qXi"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Select Device" id="KpN-2I-J4M">
+                    <navigationItem key="navigationItem" title="Выберите устройство" largeTitleDisplayMode="never" id="KpN-2I-J4M">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="LrX-bP-DtE">
+                            <color key="tintColor" red="0.90980392160000001" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="cancelButtonTapped:" destination="svA-Pf-qWG" id="tM5-e5-quF"/>
                             </connections>
@@ -467,12 +472,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IfK-zV-x5C">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="685"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="734"/>
+                                <color key="backgroundColor" red="0.1215686275" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="separatorColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="separatorInset" minX="15" minY="0.0" maxX="50" maxY="0.0"/>
+                                <color key="sectionIndexBackgroundColor" red="0.1215686275" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="qj4-MC-pX1" userLabel="Footer">
                                     <rect key="frame" x="0.0" y="100" width="414" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FolderFilesCell" textLabel="vf4-9f-oeO" style="IBUITableViewCellStyleDefault" id="obX-j5-HX8">
@@ -486,12 +494,12 @@
                                                     <rect key="frame" x="20" y="0.0" width="374" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.1215686275" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -500,46 +508,32 @@
                                 </connections>
                             </tableView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c7E-Hc-8q6" userLabel="Empty view">
-                                <rect key="frame" x="131" y="315" width="152" height="104"/>
+                                <rect key="frame" x="107" y="315" width="200" height="104"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="This folder is empty" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eTK-El-KM3">
-                                        <rect key="frame" x="0.0" y="83" width="152" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пусто, добавте архив" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eTK-El-KM3">
+                                        <rect key="frame" x="14" y="41.5" width="172" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="folderEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="jkc-iO-ugf" userLabel="Empty folder icon">
-                                        <rect key="frame" x="45" y="11" width="64" height="64"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="152" id="Yap-DE-7fi"/>
+                                    <constraint firstItem="eTK-El-KM3" firstAttribute="centerY" secondItem="c7E-Hc-8q6" secondAttribute="centerY" id="Jgj-UR-va1"/>
+                                    <constraint firstAttribute="width" constant="200" id="Yap-DE-7fi"/>
+                                    <constraint firstItem="eTK-El-KM3" firstAttribute="centerX" secondItem="c7E-Hc-8q6" secondAttribute="centerX" id="diy-Wl-Fgc"/>
                                     <constraint firstAttribute="height" constant="104" id="lKW-p8-QZs"/>
                                 </constraints>
                             </view>
-                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eXC-MF-NP7">
-                                <rect key="frame" x="0.0" y="685" width="414" height="49"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="49" id="K1r-0K-dqG"/>
-                                </constraints>
-                                <items/>
-                            </tabBar>
                         </subviews>
-                        <color key="backgroundColor" red="0.96067994830000003" green="0.96084433790000001" blue="0.96066969629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="IfK-zV-x5C" firstAttribute="top" secondItem="WxD-qV-qQg" secondAttribute="top" id="52k-jD-Mxh"/>
-                            <constraint firstItem="eXC-MF-NP7" firstAttribute="leading" secondItem="WxD-qV-qQg" secondAttribute="leading" id="81w-0I-7rX"/>
                             <constraint firstItem="WxD-qV-qQg" firstAttribute="trailing" secondItem="IfK-zV-x5C" secondAttribute="trailing" id="Tc6-6P-LZW"/>
-                            <constraint firstItem="WxD-qV-qQg" firstAttribute="bottom" secondItem="IfK-zV-x5C" secondAttribute="bottom" constant="49" id="UFH-QT-DqU"/>
+                            <constraint firstAttribute="bottom" secondItem="IfK-zV-x5C" secondAttribute="bottom" id="UFH-QT-DqU"/>
                             <constraint firstItem="c7E-Hc-8q6" firstAttribute="centerY" secondItem="pGL-ck-HOM" secondAttribute="centerY" id="Yil-HD-Hwz"/>
-                            <constraint firstItem="WxD-qV-qQg" firstAttribute="bottom" secondItem="eXC-MF-NP7" secondAttribute="bottom" id="arH-C2-z5D"/>
                             <constraint firstItem="c7E-Hc-8q6" firstAttribute="centerX" secondItem="WxD-qV-qQg" secondAttribute="centerX" id="fAv-ka-skU"/>
                             <constraint firstItem="IfK-zV-x5C" firstAttribute="leading" secondItem="WxD-qV-qQg" secondAttribute="leading" id="fwV-1D-eXm"/>
-                            <constraint firstItem="WxD-qV-qQg" firstAttribute="trailing" secondItem="eXC-MF-NP7" secondAttribute="trailing" id="gW6-qd-kzz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WxD-qV-qQg"/>
                     </view>
@@ -1019,13 +1013,13 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" largeTitles="YES" id="FIk-te-FZJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="108"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" red="0.0" green="0.66274509800000003" blue="0.80784313730000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="barTintColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="0.90980392160000001" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.1215686275" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="0.0" green="0.66274509800000003" blue="0.80784313730000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.90980392160000001" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
                         <textAttributes key="largeTitleTextAttributes">
-                            <color key="textColor" red="0.0" green="0.66274509800000003" blue="0.80784313730000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.90980392160000001" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1044,11 +1038,9 @@
         <image name="email_1" width="128" height="128"/>
         <image name="email_2" width="128" height="128"/>
         <image name="email_3" width="128" height="128"/>
-        <image name="folderEmpty" width="128" height="128"/>
         <image name="ic_info" width="128" height="128"/>
         <image name="itunes_1" width="128" height="128"/>
         <image name="itunes_2" width="128" height="128"/>
-        <image name="scanning" width="128" height="128"/>
         <image name="toolbar_shadow" width="128" height="128"/>
         <image name="userIcon" width="128" height="128"/>
     </resources>

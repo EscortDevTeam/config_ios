@@ -120,9 +120,24 @@ import RxTheme
     fileprivate lazy var labelTL: UILabel = {
         let labelTL = UILabel()
         labelTL.textColor = UIColor(rgb: 0x272727)
-        labelTL.frame = CGRect(x: 0, y: 0, width: 100, height: 30)
+        labelTL.frame = CGRect(x: 0, y: 0, width: 150, height: 30)
         labelTL.textAlignment = .center
         labelTL.text = "TL BLE"
+        labelTL.font = UIFont(name:"FuturaPT-Light", size: 24.0)
+        return labelTL
+    }()
+    fileprivate lazy var imageUpdateDFU: UIImageView = {
+        let imageTL = UIImageView(image: #imageLiteral(resourceName: "updateView"))
+        imageTL.image = imageTL.image!.withRenderingMode(.alwaysTemplate)
+        imageTL.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
+        return imageTL
+    }()
+    fileprivate lazy var labelUpdateDFU: UILabel = {
+        let labelTL = UILabel()
+        labelTL.textColor = UIColor(rgb: 0x272727)
+        labelTL.frame = CGRect(x: 0, y: 0, width: 170, height: 30)
+        labelTL.textAlignment = .center
+        labelTL.text = "ОБНОВЛЕНИЕ"
         labelTL.font = UIFont(name:"FuturaPT-Light", size: 24.0)
         return labelTL
     }()
@@ -271,12 +286,7 @@ import RxTheme
         containerTL.addTapGesture {
             print("TL")
             self.generator.impactOccurred()
-//            self.navigationController?.pushViewController(DevicesTLListController(), animated: true)
-            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let newViewController = storyBoard.instantiateViewController(withIdentifier: "DFUViewController") as! DFUViewController
-            newViewController.modalPresentationStyle = .fullScreen
-            self.navigationController?.pushViewController(newViewController, animated: true)
-//            self.present(newViewController, animated: true, completion: nil)
+            self.navigationController?.pushViewController(DevicesTLListController(), animated: true)
         }
         
         let containerDU = UIView(frame: CGRect(x: Int(screenWidth/2), y: Int(headerHeight)+Int(cellHeight), width: Int(screenWidth/2), height: Int(cellHeight)))
@@ -298,6 +308,27 @@ import RxTheme
         let separatorTwo = UIView(frame: CGRect(x: 15, y: Int(Float(headerHeight)+Float(cellHeight*2)), width: Int(screenWidth-30), height: 2))
         separatorTwo.backgroundColor = UIColor(named: "SeperatorColor")
         view.addSubview(separatorTwo)
+        
+        let updateView = UIView(frame: CGRect(x: 0, y: Int(headerHeight)+Int(cellHeight*2), width: Int(screenWidth/2), height: Int(cellHeight)))
+        imageUpdateDFU.center.x = view.center.x/2
+        imageUpdateDFU.center.y = containerTL.bounds.height/2 - 20
+        updateView.addSubview(imageUpdateDFU)
+        labelUpdateDFU.center.x = view.center.x/2
+        
+        labelUpdateDFU.center.y = containerTL.bounds.height/2 + 50
+        updateView.addSubview(labelUpdateDFU)
+//        view.addSubview(updateView)
+        
+        updateView.addTapGesture {
+            self.generator.impactOccurred()
+
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let newViewController = storyBoard.instantiateViewController(withIdentifier: "DFUViewController") as! DFUViewController
+            newViewController.modalPresentationStyle = .fullScreen
+            let nav = self.navigationController
+            nav?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.red]
+            nav?.pushViewController(newViewController, animated: true)
+        }
     }
     
     fileprivate func setupTheme() {
@@ -316,6 +347,8 @@ import RxTheme
             imageDU.theme.tintColor = themed{ $0.navigationTintColor }
             labelDU.theme.textColor = themed{ $0.navigationTintColor }
             backView.theme.tintColor = themed{ $0.navigationTintColor }
+            imageUpdateDFU.theme.tintColor = themed{ $0.navigationTintColor }
+            labelUpdateDFU.theme.textColor = themed{ $0.navigationTintColor }
         } else {
             view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
             themeBackView.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
@@ -331,7 +364,9 @@ import RxTheme
             imageDU.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             labelDU.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             backView.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
-            
+            imageUpdateDFU.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            labelUpdateDFU.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+
         }
     }
  }

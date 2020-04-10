@@ -47,6 +47,13 @@ class FolderFilesViewController: UIViewController, UITableViewDataSource, UITabl
             print(error)
         }
         self.ensureDirectoryNotEmpty()
+        
+        let label = UILabel()
+        label.text = "Архивы"
+        label.textColor = .red
+        label.font = UIFont(name:"FuturaPT-Medium", size: 25.0)
+        label.sizeToFit()
+        navigationItem.titleView = label
     }
 
     //MARK: - UITableViewDataSource
@@ -77,6 +84,7 @@ class FolderFilesViewController: UIViewController, UITableViewDataSource, UITabl
         
         if aFilePath == selectedPath {
             aCell.accessoryType = .checkmark
+            aCell.tintColor = UIColor.red
         } else {
             aCell.accessoryType = .none
         }

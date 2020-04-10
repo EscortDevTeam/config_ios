@@ -66,7 +66,6 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
     }()
     fileprivate lazy var MainLabel: UILabel = {
         let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy - (iphone5s ? 10 : 0), width: Int(screenWidth-24), height: 40))
-        text.text = "Type of bluetooth sensor".localized(code)
         text.textColor = UIColor(rgb: 0x272727)
         text.font = UIFont(name:"BankGothicBT-Medium", size: (iphone5s ? 17.0 : 19.0))
         return text
@@ -96,7 +95,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
         super.viewDidLoad()
         view.addSubview(themeBackView3)
 
-        MainLabel.text = "DFU MODE".localized(code)
+        MainLabel.text = "Режим обновления".localized(code)
         view.addSubview(MainLabel)
         view.addSubview(backView)
                 
@@ -126,7 +125,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
         if self.isMovingFromParent && dfuController != nil {
             let aborted = dfuController?.abort()
             if aborted! == false {
-                logWith(.application, message: "Aborting DFU process failed")
+                logWith(.application, message: "Процесс обновления прерван")
             }
         }
     }
@@ -198,7 +197,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
         } else {
             selectedFirmware = nil
             selectedFileURL  = nil
-            DFUConstantsUtility.showAlert(message: "Seleted file is not supported", from: self)
+            DFUConstantsUtility.showAlert(message: "Выбранный файл не поддерживается", from: self)
         }
         self.updateUploadButtonState()
     }
@@ -223,7 +222,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
             self.didSelectFirmwareType(.softdeviceBootloader)
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (anAction) in
+        let cancelAction = UIAlertAction(title: "Отменить", style: .cancel) { (anAction) in
             DispatchQueue.main.async {
                 self.selectedFileURL = nil
                 self.updateUploadButtonState()
@@ -251,7 +250,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
             firmwarePartAlert.addAction(choiceAction)
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (anAction) in
+        let cancelAction = UIAlertAction(title: "Отменить", style: .cancel) { (anAction) in
             DispatchQueue.main.async {
                 self.selectedFirmware = nil
                 self.selectedFileURL = nil
@@ -277,13 +276,13 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
         if selectedFirmware != nil && selectedFirmware?.fileName != nil {
             fileName.text = selectedFirmware?.fileName
             let content = try? Data(contentsOf: selectedFileURL!)
-            fileSize.text = String(format: "%d bytes", (content?.count)!)
+            fileSize.text = String(format: "%d" + "байтов", (content?.count)!)
             DispatchQueue.main.async {
 //                self.fileType.text = self.firmwareTypeToString(aFileType)
             }
         } else {
             selectedFileURL = nil
-            DFUConstantsUtility.showAlert(message: "Selected file is not supported", from: self)
+            DFUConstantsUtility.showAlert(message: "Выбранный файл не поддерживается", from: self)
         }
         DispatchQueue.main.async {
             self.progressLabel.text = nil
@@ -338,27 +337,27 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
     func dfuStateDidChange(to state: DFUState) {
         switch state {
         case .connecting:
-            uploadStatus.text = "Connecting..."
+            uploadStatus.text = "Подключение..."
         case .starting:
-            uploadStatus.text = "Starting DFU..."
+            uploadStatus.text = "Подготовка DFU..."
         case .enablingDfuMode:
             uploadStatus.text = "Enabling DFU Bootloader..."
         case .uploading:
-            uploadStatus.text = "Uploading..."
+            uploadStatus.text = "Загрузка..."
         case .validating:
-            uploadStatus.text = "Validating..."
+            uploadStatus.text = "Проверка..."
         case .disconnecting:
-            uploadStatus.text = "Disconnecting..."
+            uploadStatus.text = "Отключение..."
         case .completed:
-            DFUConstantsUtility.showAlert(message: "Upload complete", from: self)
+            DFUConstantsUtility.showAlert(message: "Загрузка успешна", from: self)
             if DFUConstantsUtility.isApplicationStateInactiveOrBackgrounded() {
-                DFUConstantsUtility.showBackgroundNotification(message: "Upload complete")
+                DFUConstantsUtility.showBackgroundNotification(message: "Загрузка успешна")
             }
             self.clearUI()
         case .aborted:
-            DFUConstantsUtility.showAlert(message: "Upload aborted", from: self)
+            DFUConstantsUtility.showAlert(message: "Загрузка прервана", from: self)
             if DFUConstantsUtility.isApplicationStateInactiveOrBackgrounded(){
-                DFUConstantsUtility.showBackgroundNotification(message: "Upload aborted")
+                DFUConstantsUtility.showBackgroundNotification(message: "Загрузка прервана")
             }
             self.clearUI()
         }
@@ -370,7 +369,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
         }
         clearUI()
         DispatchQueue.main.async {
-            self.progressLabel.text = "Error: \(message)"
+            self.progressLabel.text = "Ошибка: \(message)"
             self.progressLabel.isHidden = false
         }
     }
@@ -388,9 +387,11 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
                 let aNavigationController = segue.destination as? UINavigationController
                 let scannerViewController = aNavigationController?.children.first as? ScannerViewController
                 scannerViewController?.delegate = self
+                
             } else if segue.identifier == "FileSegue" {
                 let aNavigationController = segue.destination as? UINavigationController
                 let barViewController = aNavigationController?.children.first as? UITabBarController
+//                barViewController?.title = "1000"
 //                let appFilecsVC = barViewController?.viewControllers?.last as? AppFilesViewController
 //                appFilecsVC?.fileDelegate = self
                 let userFilesVC = barViewController?.viewControllers?.first as? UserFilesViewController
@@ -418,12 +419,12 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
         // but it will pause just before seding the data.
         dfuController?.pause()
         
-        let alert = UIAlertController(title: "Warning", message: "Are you sure you want to abort?", preferredStyle: .alert)
-        let abort = UIAlertAction(title: "Abort", style: .destructive, handler: { (anAction) in
+        let alert = UIAlertController(title: "Внимание", message: "Хотите завершить?", preferredStyle: .alert)
+        let abort = UIAlertAction(title: "Завершить", style: .destructive, handler: { (anAction) in
             _ = self.dfuController?.abort()
             alert.dismiss(animated: true, completion: nil)
         })
-        let cancel = UIAlertAction(title: "Cancel", style: .default, handler: { (anAction) in
+        let cancel = UIAlertAction(title: "Отмена", style: .default, handler: { (anAction) in
             self.dfuController?.resume()
             alert.dismiss(animated: true, completion: nil)
         })
@@ -449,7 +450,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
 
     @objc func applicationDidEnterBackgroundCallback() {
         if dfuController != nil {
-            DFUConstantsUtility.showBackgroundNotification(message: "Uploading firmware...")
+            DFUConstantsUtility.showBackgroundNotification(message: "Загрузка fireware...")
         }
     }
 
@@ -476,7 +477,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
             self.dfuController          = nil
             self.selectedPeripheral     = nil
             
-            self.deviceName.text        = "DEFAULT DFU"
+            self.deviceName.text        = "DFU устройство"
             self.uploadStatus.text      = nil
             self.uploadStatus.isHidden  = true
             self.progress.progress      = 0.0
@@ -484,7 +485,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
             self.progressLabel.text     = nil
             self.progressLabel.isHidden = true
             
-            self.uploadButton.setTitle("Upload", for: .normal)
+            self.uploadButton.setTitle("Обновить прошивку", for: .normal)
             self.updateUploadButtonState()
             self.enableOtherButtons()
             self.removeObservers()
@@ -510,7 +511,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
         initiator.progressDelegate = self
         initiator.enableUnsafeExperimentalButtonlessServiceInSecureDfu = true
         dfuController = initiator.with(firmware: selectedFirmware!).start(target: selectedPeripheral!)
-        uploadButton.setTitle("Cancel", for: .normal)
+        uploadButton.setTitle("Отменить", for: .normal)
         uploadButton.isEnabled = true
     }
     

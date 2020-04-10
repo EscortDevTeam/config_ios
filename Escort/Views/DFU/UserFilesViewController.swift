@@ -36,6 +36,13 @@ class UserFilesViewController: UIViewController, FilePreselectionDelegate, UITab
         tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.doneButtonTapped))
         tabBarController?.navigationItem.leftBarButtonItem  = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelButtonTapped))
         tabBarController?.tabBar.isHidden = true
+        self.navigationController?.navigationBar.tintColor = .red
+        let label = UILabel()
+        label.text = "Выберите архив"
+        label.textColor = .red
+        label.font = UIFont(name:"FuturaPT-Medium", size: 25.0)
+//        label.sizeToFit()
+        tabBarController?.navigationItem.titleView = label
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -106,7 +113,9 @@ class UserFilesViewController: UIViewController, FilePreselectionDelegate, UITab
         let fileManager = FileManager.default
         if fileManager.fileExists(atPath: filePath.relativePath, isDirectory: &isDirectory) {
             if isDirectory.boolValue {
+                let chevron = UIImage(named: "arrowTableView")
                 aCell.accessoryType = .disclosureIndicator
+                aCell.accessoryView = UIImageView(image: chevron!)
                 if fileName.lowercased() == "inbox" {
                     aCell.textLabel?.text = "Сохраненные прошивки"
                     aCell.imageView?.image = UIImage(named: "ic_email")
@@ -126,6 +135,7 @@ class UserFilesViewController: UIViewController, FilePreselectionDelegate, UITab
 
         if filePath == selectedPath {
             aCell.accessoryType = .checkmark
+            aCell.tintColor = UIColor.red
         }
         return aCell;
     }

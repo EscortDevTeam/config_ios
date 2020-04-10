@@ -129,10 +129,20 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
         devicesTable.delegate = self
         devicesTable.dataSource = self
         
-        let activityIndicatorView              = UIActivityIndicatorView(style: .gray)
+        let activityIndicatorView = UIActivityIndicatorView(style: .gray)
         activityIndicatorView.hidesWhenStopped = true
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicatorView)
+        navigationController?.navigationBar.tintColor = .red
         
+        let label = UILabel()
+        label.text = "Выберите датчик"
+        label.textColor = .red
+        label.font = UIFont(name:"FuturaPT-Medium", size: 25.0)
+        label.sizeToFit()
+        navigationItem.titleView = label
+
+//        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+
         activityIndicatorView.startAnimating()
         
         let centralQueue = DispatchQueue(label: "no.nordicsemi.nRFToolBox", attributes: [])

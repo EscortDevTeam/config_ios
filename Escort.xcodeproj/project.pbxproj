@@ -119,6 +119,7 @@
 		B5B8F561236C15D70072EEFB /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B8F560236C15D70072EEFB /* LocalizedString.swift */; };
 		B5D424EE23916B3000F7EBB4 /* RateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D424ED23916B3000F7EBB4 /* RateManager.swift */; };
 		B5D978B6243E5A63008F23C7 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D978B5243E5A63008F23C7 /* MenuController.swift */; };
+		B5D978BC243F0A75008F23C7 /* NavigationControllerBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D978BB243F0A75008F23C7 /* NavigationControllerBar.swift */; };
 		B5F698C523A768C2001DC6D1 /* DevicesListControllerNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F698C423A768C2001DC6D1 /* DevicesListControllerNew.swift */; };
 		B5F698C923A78A40001DC6D1 /* DevicesListCellMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F698C823A78A40001DC6D1 /* DevicesListCellMain.swift */; };
 		C41730A722C8B04700177C54 /* main.png in Resources */ = {isa = PBXBuildFile; fileRef = C41730A622C8B04600177C54 /* main.png */; };
@@ -309,6 +310,7 @@
 		B5B8F560236C15D70072EEFB /* LocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedString.swift; sourceTree = "<group>"; };
 		B5D424ED23916B3000F7EBB4 /* RateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateManager.swift; sourceTree = "<group>"; };
 		B5D978B5243E5A63008F23C7 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
+		B5D978BB243F0A75008F23C7 /* NavigationControllerBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerBar.swift; sourceTree = "<group>"; };
 		B5F698C423A768C2001DC6D1 /* DevicesListControllerNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesListControllerNew.swift; sourceTree = "<group>"; };
 		B5F698C823A78A40001DC6D1 /* DevicesListCellMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesListCellMain.swift; sourceTree = "<group>"; };
 		C41730A622C8B04600177C54 /* main.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main.png; sourceTree = "<group>"; };
@@ -470,6 +472,7 @@
 				B52AB2EA243C5694007BFCB7 /* UserFilesViewController.swift */,
 				B52AB2EC243C56EA007BFCB7 /* FolderFilesViewController.swift */,
 				B52AB2D9243C5477007BFCB7 /* BaseViewController.swift */,
+				B5D978BB243F0A75008F23C7 /* NavigationControllerBar.swift */,
 				B51D552F243C59D3009BDA00 /* Storyboard */,
 				B52AB2F0243C571A007BFCB7 /* Protocols */,
 				B52AB2DF243C5568007BFCB7 /* Utilities */,
@@ -1148,6 +1151,7 @@
 				B5676FD723F51D31003182D7 /* MapCellNumberTC.swift in Sources */,
 				B5676FD523F4041A003182D7 /* AddSensorCellFive.swift in Sources */,
 				B5AC88742383CFC300FACEAE /* DeviceBLETLSettings.swift in Sources */,
+				B5D978BC243F0A75008F23C7 /* NavigationControllerBar.swift in Sources */,
 				B58F7037238BAF9300DA99B9 /* TarirovkaStartViewControllet.swift in Sources */,
 				B52AB2EB243C5694007BFCB7 /* UserFilesViewController.swift in Sources */,
 				C424A93A22D77392008E154F /* DeviceUsbSettingsAddController.swift in Sources */,
