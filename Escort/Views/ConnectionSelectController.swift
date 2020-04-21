@@ -182,7 +182,7 @@ class ConnectionSelectController: UIViewController, UIImagePickerControllerDeleg
         v2.addSubview(btImage2)
         v2.addSubview(btTitle2)
         v2.frame = CGRect(x:0, y: Int(headerHeight) + cellHeight, width: Int(screenWidth), height: cellHeight)
-        v2.addTarget(self, action: #selector(onButtonClick(_:)), for: UIControl.Event.touchUpInside)
+//        v2.addTarget(self, action: #selector(onButtonClick(_:)), for: UIControl.Event.touchUpInside)
         v2.alpha = 0.5
         view.addSubview(v1)
         view.addSubview(v2)

@@ -374,7 +374,10 @@
 
 " and " = " and ";
 
+"Calibrate without fuel" = "Calibrate without fuel";
 
 "Available only in Russian" = "Available only in Russian";
 
 "Are you sure you want to make changes?" = "Are you sure you want to make changes?";
+
+"Calibrate" = "Calibrate";

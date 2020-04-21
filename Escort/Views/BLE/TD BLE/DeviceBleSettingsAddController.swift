@@ -8,7 +8,9 @@
 
 import UIKit
 import UIDrawer
-
+protocol DfuModeDelegate: class {
+    func dfuModeBack()
+}
 class DeviceBleSettingsAddController: UIViewController {
     let viewAlpha = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
     var input1 = UITextField()
@@ -23,6 +25,8 @@ class DeviceBleSettingsAddController: UIViewController {
     let secondTextFieldSecond = UITextField()
     let validatePasswordSecond = UILabel()
     var saveActionSecond = UIAlertAction()
+    
+    weak var delegate: DfuModeDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -723,53 +727,11 @@ class DeviceBleSettingsAddController: UIViewController {
                         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
                         self.viewAlpha.removeFromSuperview()
                         self.activityIndicator.stopAnimating()
-                        if errorWRN == false {
-                            let alert = UIAlertController(title: "Success".localized(code), message: "Reloading...".localized(code), preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                                switch action.style{
-                                case .default:
-                                    nameDevice = ""
-                                    temp = nil
-                                    let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
-                                    self.navigationController?.popToViewController(vc!, animated: true)
-                                        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                                        let newViewController = storyBoard.instantiateViewController(withIdentifier: "DFUViewController") as! DFUViewController
-                                        newViewController.modalPresentationStyle = .fullScreen
-                                        self.navigationController?.pushViewController(newViewController, animated: true)
-                                case .cancel:
-                                    print("cancel")
-                                    
-                                case .destructive:
-                                    print("destructive")
-                                    
-                                    
-                                @unknown default:
-                                    fatalError()
-                                }}))
-                            self.present(alert, animated: true, completion: nil)
-                        } else {
-                            let alert = UIAlertController(title: "Success".localized(code), message: "Reloading...".localized(code), preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                                switch action.style{
-                                case .default:
-                                    nameDevice = ""
-                                    temp = nil
-                                    let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
-                                    self.navigationController?.popToViewController(vc!, animated: true)
-                                    let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                                    let newViewController = storyBoard.instantiateViewController(withIdentifier: "DFUViewController") as! DFUViewController
-                                    newViewController.modalPresentationStyle = .fullScreen
-                                    self.navigationController?.pushViewController(newViewController, animated: true)
-                                case .cancel:
-                                    print("cancel")
-                                    
-                                case .destructive:
-                                    print("destructive")
-                                @unknown default:
-                                    fatalError()
-                                }}))
-                            self.present(alert, animated: true, completion: nil)
-                        }
+                        nameDevice = ""
+                        temp = nil
+                        checkUpdate = "Update"
+                        let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
+                        self.navigationController?.popToViewController(vc!, animated: true)
                     }
                 } else {
                     let alert = UIAlertController(title: "Warning".localized(code), message: "Enter password to continue".localized(code), preferredStyle: .alert)

@@ -44,6 +44,7 @@ var countNot = 0
 var passNotif = 0
 var passwordSuccess = false
 var temp : String?
+var checkUpdate: String?
 var temperKoef = 0
 var passwordHave = false
 var warning = false

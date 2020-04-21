@@ -142,7 +142,7 @@ class DeviceBleSettingsController: UIViewController {
     
     fileprivate lazy var btnAutoText: UILabel =  {
         let btnAutoText = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        btnAutoText.text = "Откалибровать".localized(code)
+        btnAutoText.text = "Calibrate".localized(code)
         btnAutoText.textColor = .white
         btnAutoText.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
         btnAutoText.textAlignment = .center
@@ -191,7 +191,7 @@ class DeviceBleSettingsController: UIViewController {
     }()
     fileprivate lazy var autoCalibLabel: UILabel = {
         let termoLabel = UILabel(frame: CGRect(x: 30, y: Int(headerHeight) + 65*7, width: Int(screenWidth/2 + 70), height: 20))
-        termoLabel.text = "Калибровка без топлива".localized(code)
+        termoLabel.text = "Calibrate without fuel".localized(code)
         return termoLabel
     }()
     
@@ -698,7 +698,7 @@ class DeviceBleSettingsController: UIViewController {
                             self.viewAlpha.removeFromSuperview()
                             self.viewLoad.isHidden = false
                             self.viewLoadTwo.isHidden = false
-                            let alert = UIAlertController(title: "Value changed – calibration is done successfully".localized(code), message: "Устройство успешно откалибровалось".localized(code), preferredStyle: .alert)
+                            let alert = UIAlertController(title: "Success".localized(code), message: "Value changed – calibration is done successfully".localized(code), preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                                 switch action.style{
                                 case .default:
@@ -768,7 +768,7 @@ class DeviceBleSettingsController: UIViewController {
                         self.viewAlpha.removeFromSuperview()
                         self.viewLoad.isHidden = false
                         self.viewLoadTwo.isHidden = false
-                        let alert = UIAlertController(title: "Value changed – calibration is done successfully".localized(code), message: "Устройство успешно откалибровалось".localized(code), preferredStyle: .alert)
+                        let alert = UIAlertController(title: "Success".localized(code), message: "Value changed – calibration is done successfully".localized(code), preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                             switch action.style{
                             case .default:

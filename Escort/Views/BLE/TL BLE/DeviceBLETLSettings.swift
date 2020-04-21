@@ -134,7 +134,7 @@ class DeviceBLETLSettings: UIViewController {
         btn4.layer.cornerRadius = 22
         
         let btn4Text = UILabel(frame: CGRect(x: x, y: y, width: Int(screenWidth-60), height: 44))
-        btn4Text.text = "Reloading TL-BLE".localized(code)
+        btn4Text.text = "Обновление прошивки".localized(code)
         btn4Text.textColor = .white
         btn4Text.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
         btn4Text.textAlignment = .center
@@ -152,62 +152,34 @@ class DeviceBLETLSettings: UIViewController {
                     self.view.addSubview(self.viewAlpha)
                     self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
                     self.view.isUserInteractionEnabled = false
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 20.0) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                         self.view.isUserInteractionEnabled = true
                         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
                         self.viewAlpha.removeFromSuperview()
                         self.activityIndicator.stopAnimating()
-                        if errorWRN == false {
-                            let alert = UIAlertController(title: "Success".localized(code), message: "Reloading...".localized(code), preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                                switch action.style{
-                                case .default:
-                                    print("default")
-                                    reloadBack = 1
-                                    self.navigationController?.popViewController(animated: true)
-                                    
-                                case .cancel:
-                                    print("cancel")
-                                    
-                                case .destructive:
-                                    print("destructive")
-                                    
-                                    
-                                @unknown default:
-                                    fatalError()
-                                }}))
-                            self.present(alert, animated: true, completion: nil)
-                        } else {
-                            let alert = UIAlertController(title: "Warning".localized(code), message: "Failed to reload".localized(code), preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                                switch action.style{
-                                case .default:
-                                    print("default")
-                                    errorWRN = false
-                                case .cancel:
-                                    print("cancel")
-                                case .destructive:
-                                    print("destructive")
-                                @unknown default:
-                                    fatalError()
-                                }}))
-                            self.present(alert, animated: true, completion: nil)
-                        }
+                        nameDevice = ""
+                        temp = nil
+                        checkUpdate = "Update"
+                        let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
+                        self.navigationController?.popToViewController(vc!, animated: true)
                     }
                 } else {
-                    let alert = UIAlertController(title: "Warning".localized(code), message: "Enter password to continue".localized(code), preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                        switch action.style{
-                        case .default:
-                            print("default")
-                        case .cancel:
-                            print("cancel")
-                        case .destructive:
-                            print("destructive")
-                        @unknown default:
-                            fatalError()
-                        }}))
-                    self.present(alert, animated: true, completion: nil)
+                    self.activityIndicator.startAnimating()
+                    self.viewAlpha.addSubview(self.activityIndicator)
+                    self.view.addSubview(self.viewAlpha)
+                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                    self.view.isUserInteractionEnabled = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                        self.view.isUserInteractionEnabled = true
+                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                        self.viewAlpha.removeFromSuperview()
+                        self.activityIndicator.stopAnimating()
+                        nameDevice = ""
+                        temp = nil
+                        checkUpdate = "Update"
+                        let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
+                        self.navigationController?.popToViewController(vc!, animated: true)
+                    }
                 }
             } else {
                 self.activityIndicator.startAnimating()
@@ -215,48 +187,16 @@ class DeviceBLETLSettings: UIViewController {
                 self.view.addSubview(self.viewAlpha)
                 self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
                 self.view.isUserInteractionEnabled = false
-                DispatchQueue.main.asyncAfter(deadline: .now() + 20.0) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                     self.view.isUserInteractionEnabled = true
                     self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
                     self.viewAlpha.removeFromSuperview()
                     self.activityIndicator.stopAnimating()
-                    if errorWRN == false {
-                        let alert = UIAlertController(title: "Success".localized(code), message: "Reloading...".localized(code), preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                            switch action.style{
-                            case .default:
-                                print("default")
-                                reloadBack = 1
-                                self.navigationController?.popViewController(animated: true)
-                                
-                            case .cancel:
-                                print("cancel")
-                                
-                            case .destructive:
-                                print("destructive")
-                                
-                                
-                            @unknown default:
-                                fatalError()
-                            }}))
-                        self.present(alert, animated: true, completion: nil)
-                    } else {
-                        let alert = UIAlertController(title: "Warning".localized(code), message: "Failed to reload".localized(code), preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                            switch action.style{
-                            case .default:
-                                print("default")
-                                errorWRN = false
-                            case .cancel:
-                                print("cancel")
-                                
-                            case .destructive:
-                                print("destructive")
-                            @unknown default:
-                                fatalError()
-                            }}))
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                    nameDevice = ""
+                    temp = nil
+                    checkUpdate = "Update"
+                    let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
+                    self.navigationController?.popToViewController(vc!, animated: true)
                 }
             }
         }

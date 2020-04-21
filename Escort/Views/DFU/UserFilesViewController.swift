@@ -17,12 +17,14 @@ class UserFilesViewController: UIViewController, FilePreselectionDelegate, UITab
     var documentsDirectoryPath : String?
     
     //MARK: - View Outlets
+    @IBOutlet weak var labelInfo: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyView: UIView!
 
     //MARK: - UIViewController methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         documentsDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first
         files = [URL]()
         let fileManager = FileManager.default
@@ -43,6 +45,8 @@ class UserFilesViewController: UIViewController, FilePreselectionDelegate, UITab
         label.font = UIFont(name:"FuturaPT-Medium", size: 25.0)
 //        label.sizeToFit()
         tabBarController?.navigationItem.titleView = label
+
+        setupTheme()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -103,17 +107,17 @@ class UserFilesViewController: UIViewController, FilePreselectionDelegate, UITab
 
         // Configure the cell...
         let filePath = files[indexPath.row]
-        print("LOLOLO: \(filePath)")
         let fileName = filePath.lastPathComponent
         
         aCell.textLabel?.text = fileName
+        aCell.textLabel?.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
         aCell.accessoryType = .none
         
         var isDirectory : ObjCBool = false
         let fileManager = FileManager.default
         if fileManager.fileExists(atPath: filePath.relativePath, isDirectory: &isDirectory) {
             if isDirectory.boolValue {
-                let chevron = UIImage(named: "arrowTableView")
+                let chevron = UIImage(named: isNight ? "arrowTableView" : "tableArrowBlack")
                 aCell.accessoryType = .disclosureIndicator
                 aCell.accessoryView = UIImageView(image: chevron!)
                 if fileName.lowercased() == "inbox" {
@@ -210,5 +214,20 @@ class UserFilesViewController: UIViewController, FilePreselectionDelegate, UITab
             }
         }
     }
-
+    fileprivate func setupTheme() {
+        if #available(iOS 13.0, *) {
+            view.theme.backgroundColor = themed { $0.backgroundColor }
+            tableView.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            emptyView.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            tableView.separatorColor = UIColor(rgb: isNight ? 0xFFFFFF :
+                0x1F1F1F)
+            labelInfo.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+        } else {
+            view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
+            tableView.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+            emptyView.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+            tableView.separatorColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            labelInfo.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+        }
+    }
 }

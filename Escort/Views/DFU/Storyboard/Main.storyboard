@@ -18,7 +18,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="108"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" red="0.12156862745098039" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -137,6 +136,7 @@
                     <tabBarItem key="tabBarItem" title="User Files" image="userIcon" id="ieR-QN-p4f"/>
                     <connections>
                         <outlet property="emptyView" destination="jta-p9-kg7" id="IHL-e8-zeh"/>
+                        <outlet property="labelInfo" destination="AYt-fH-VsL" id="iU3-9H-lOz"/>
                         <outlet property="tableView" destination="K5o-Xe-J0y" id="FO9-5b-IBq"/>
                         <segue destination="2Md-Fk-9Pe" kind="show" identifier="OpenFolder" id="x66-a4-oVa"/>
                         <segue destination="DMF-GQ-mt3" kind="show" identifier="OpenTutorial" id="kzp-Nq-2dN"/>
@@ -358,6 +358,8 @@
                         <outlet property="deviceName" destination="6II-9a-QhB" id="fKU-bL-QIt"/>
                         <outlet property="fileName" destination="K4I-cF-9Cw" id="Prg-Rg-iVh"/>
                         <outlet property="fileSize" destination="TYQ-zL-Pca" id="WbT-G1-Muu"/>
+                        <outlet property="labelName" destination="Oga-As-TT0" id="sFB-ZD-Z1U"/>
+                        <outlet property="labelSize" destination="7jF-Ys-2Mt" id="Ybl-43-nFG"/>
                         <outlet property="progress" destination="xFX-Pd-2Kx" id="r2I-bj-1Ad"/>
                         <outlet property="progressLabel" destination="VGp-Vx-1lK" id="nBw-FU-Wv3"/>
                         <outlet property="selectFileButton" destination="FlJ-rf-aXb" id="g5a-pR-qEM"/>
@@ -381,7 +383,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="YyZ-6c-Qoe">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="786"/>
-                                <color key="backgroundColor" red="0.1215686275" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="2pf-Rv-rGM" userLabel="Footer">
                                     <rect key="frame" x="0.0" y="123.5" width="414" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -398,7 +400,7 @@
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xRF-2B-MqT">
                                                     <rect key="frame" x="65" y="0.0" width="329" height="50"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <color key="backgroundColor" red="0.1215686275" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -408,15 +410,16 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.1215686275" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F4Z-BU-znN" userLabel="Empty View">
                                 <rect key="frame" x="107" y="350" width="200" height="86"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Не найдено устройств для обнволение прошивки" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ort-rF-AVS">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Не найдено устройств для обновление прошивки" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ort-rF-AVS">
                                         <rect key="frame" x="0.0" y="12.5" width="200" height="61"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="hwZ-Vz-gFP"/>
@@ -457,6 +460,7 @@
                     <connections>
                         <outlet property="devicesTable" destination="YyZ-6c-Qoe" id="C7L-Fo-XHQ"/>
                         <outlet property="emptyView" destination="F4Z-BU-znN" id="eST-d4-LSK"/>
+                        <outlet property="labelInfo" destination="ort-rF-AVS" id="ZhM-WM-hIO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gk8-9U-7wP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -499,7 +503,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.1215686275" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -546,12 +550,13 @@
                     </navigationItem>
                     <connections>
                         <outlet property="emptyView" destination="c7E-Hc-8q6" id="PMA-j1-PWP"/>
+                        <outlet property="labelInfo" destination="eTK-El-KM3" id="N6J-s8-gXd"/>
                         <outlet property="tableView" destination="IfK-zV-x5C" id="V1y-le-1pd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6cb-fu-VGt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6106" y="-638"/>
+            <point key="canvasLocation" x="6105.7971014492759" y="-638.16964285714278"/>
         </scene>
         <!--How to create Distribution packet (ZIP)?-->
         <scene sceneID="fWZ-ZX-x2g">
@@ -1004,17 +1009,16 @@
             </objects>
             <point key="canvasLocation" x="6089" y="1510"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation Controller Bar-->
         <scene sceneID="T4O-YS-og5">
             <objects>
-                <navigationController id="eHe-r0-Ihg" sceneMemberID="viewController">
+                <navigationController id="eHe-r0-Ihg" customClass="NavigationControllerBar" customModule="Escort" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" largeTitles="YES" id="FIk-te-FZJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="108"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.90980392160000001" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="barTintColor" red="0.1215686275" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" red="0.90980392160000001" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>

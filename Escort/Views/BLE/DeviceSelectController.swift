@@ -12,11 +12,23 @@ import UIDrawer
 import RxSwift
 import RxTheme
 
- class DeviceSelectController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate {
+ class DeviceSelectController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, DfuModeDelegate {
+    func dfuModeBack() {
+        print("update")
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let newViewController = storyBoard.instantiateViewController(withIdentifier: "DFUViewController") as! DFUViewController
+        newViewController.modalPresentationStyle = .fullScreen
+        let nav = self.navigationController
+        nav?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.red]
+        nav?.pushViewController(newViewController, animated: true)
+    }
+    
     var manager:CBCentralManager? = nil
     var peripherals = [CBPeripheral]()
     let generator = UIImpactFeedbackGenerator(style: .light)
 
+    var deviceBLE: DeviceBleSettingsAddController?
+    
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if central.state == CBManagerState.poweredOn {
             print("ON Bluetooth.")
@@ -38,13 +50,17 @@ import RxTheme
         //        RateManager.showRatesController()
     }
     override func viewWillAppear(_ animated: Bool) {
+        if checkUpdate == "Update" {
+            checkUpdate = nil
+            self.dfuModeBack()
+        }
+        deviceBLE?.delegate = self
         super.viewWillAppear(true)
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
     override func viewDidAppear(_ animated: Bool) {
         QRCODE = ""
     }
-    
     fileprivate lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
         v.removeFromSuperview()

@@ -21,7 +21,8 @@ class FolderFilesViewController: UIViewController, UITableViewDataSource, UITabl
     //MARK: - View Outlets
     @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var tableView: UITableView!
-
+    @IBOutlet weak var labelInfo: UILabel!
+    
     //MARK: - View Actions
     @IBAction func doneButtonTapped(_ sender: AnyObject) {
         doneButtonTappedEventHandler()
@@ -35,6 +36,7 @@ class FolderFilesViewController: UIViewController, UITableViewDataSource, UITabl
         } else {
             self.navigationItem.title = "Files"
         }
+        setupTheme()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,6 +74,7 @@ class FolderFilesViewController: UIViewController, UITableViewDataSource, UITabl
         
         //Configuring the cell
         aCell.textLabel?.text = fileName
+        aCell.textLabel?.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
         if fileName?.lowercased().contains(".hex") != false {
             aCell.imageView?.image = UIImage(named: "ic_file")
         } else if fileName?.lowercased().contains(".bin") != false {
@@ -141,6 +144,21 @@ class FolderFilesViewController: UIViewController, UITableViewDataSource, UITabl
         // Go back to DFUViewController
         dismiss(animated: true) {
             self.fileDelegate?.onFileSelected(withURL: self.selectedPath!)
+        }
+    }
+    fileprivate func setupTheme() {
+        if #available(iOS 13.0, *) {
+            view.theme.backgroundColor = themed { $0.backgroundColor }
+            tableView.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            emptyView.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            tableView.separatorColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            labelInfo.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+        } else {
+            view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
+            tableView.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+            emptyView.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+            tableView.separatorColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            labelInfo.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
         }
     }
 }

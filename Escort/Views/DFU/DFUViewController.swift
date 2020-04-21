@@ -24,6 +24,8 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
     //MARK: - UIViewController Outlets
     
     //    @IBOutlet weak var dfuLibraryVersionLabel: UILabel!
+    @IBOutlet weak var labelName: UILabel!
+    @IBOutlet weak var labelSize: UILabel!
     @IBOutlet weak var fileName: UILabel!
     @IBOutlet weak var fileSize: UILabel!
     //    @IBOutlet weak var fileType: UILabel!
@@ -45,7 +47,10 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var uploadPane: UIView! {
         didSet {
-            self.uploadPane.layer.cornerRadius = 10
+            uploadPane.layer.shadowRadius = 3.0
+            uploadPane.layer.shadowOpacity = 0.2
+            uploadPane.layer.cornerRadius = 10
+            uploadPane.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
         }
     }
     
@@ -53,7 +58,10 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
     @IBOutlet weak var progress: UIProgressView!
     @IBOutlet weak var viewAction: UIView! {
         didSet {
-            self.viewAction.layer.cornerRadius = 10
+            viewAction.layer.shadowRadius = 3.0
+            viewAction.layer.shadowOpacity = 0.2
+            viewAction.layer.cornerRadius = 10
+            viewAction.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
         }
     }
     fileprivate lazy var themeBackView3: UIView = {
@@ -521,12 +529,29 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
             themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
             MainLabel.theme.textColor = themed{ $0.navigationTintColor }
             backView.theme.tintColor = themed{ $0.navigationTintColor }
+            viewAction.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xF7F7F7)
+            uploadPane.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xF7F7F7)
+            deviceName.theme.textColor = themed{ $0.navigationTintColor }
+            fileName.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            fileSize.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            labelName.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            labelSize.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            uploadStatus.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            progressLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
         } else {
             view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
             themeBackView3.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
             MainLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             backView.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
-            
+            viewAction.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xF7F7F7)
+            uploadPane.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xF7F7F7)
+            deviceName.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            fileName.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            fileSize.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            labelName.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            labelSize.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            uploadStatus.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            progressLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
         }
     }
 }

@@ -47,7 +47,8 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
     @IBAction func cancelButtonTapped(_ sender: AnyObject) {
         self.dismiss(animated: true, completion: nil)
     }
-
+    @IBOutlet weak var labelInfo: UILabel!
+    
     @objc func timerFire() {
         if peripherals.count > 0 {
             emptyView.isHidden = true
@@ -147,6 +148,7 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
         
         let centralQueue = DispatchQueue(label: "no.nordicsemi.nRFToolBox", attributes: [])
         bluetoothManager = CBCentralManager(delegate: self, queue: centralQueue)
+        setupTheme()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -169,6 +171,7 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
         //Update cell content
         let scannedPeripheral = peripherals[indexPath.row]
         aCell.textLabel?.text = scannedPeripheral.name()
+        aCell.textLabel?.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
         if scannedPeripheral.isConnected == true {
             aCell.imageView!.image = UIImage(named: "Connected")
         } else {
@@ -213,7 +216,7 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
         // Scanner uses other queue to send events. We must edit UI in the main queue
         DispatchQueue.main.async {
             var sensor = ScannedPeripheral(withPeripheral: peripheral, andRSSI: RSSI.int32Value, andIsConnected: false)
-            if sensor.name() == "TD_UPDATE" {
+            if sensor.name() == "TD_UPDATE" || sensor.name() == "TL_UPDATE" || sensor.name() == "TL_UPDATE_N" || sensor.name() == "DU_UPDATE" || sensor.name() == "DU_UPDATE_N"{
                 if let index = self.peripherals.firstIndex(of: sensor) {
                     sensor = self.peripherals[index]
                     sensor.RSSI = RSSI.int32Value
@@ -221,6 +224,21 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
                     self.peripherals.append(sensor)
                 }
             }
+        }
+    }
+    fileprivate func setupTheme() {
+        if #available(iOS 13.0, *) {
+            view.theme.backgroundColor = themed { $0.backgroundColor }
+            devicesTable.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            emptyView.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            devicesTable.separatorColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            labelInfo.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+        } else {
+            view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
+            devicesTable.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+            emptyView.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+            devicesTable.separatorColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            labelInfo.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
         }
     }
 }
