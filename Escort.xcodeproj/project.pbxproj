@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0E5855854DC64BD63AAC5F22 /* Pods_Escort.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F29C1232DA3D8330C04D85A4 /* Pods_Escort.framework */; };
+		60ABF6CB5DF35E56DB45F7B7 /* Pods_Escort.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC5D301B54767DFC3BCDA08A /* Pods_Escort.framework */; };
 		B503C8712303F78E004F248F /* closeMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = B503C8702303F78E004F248F /* closeMenu.png */; };
 		B503C8752304000C004F248F /* Hamburger.png in Resources */ = {isa = PBXBuildFile; fileRef = B503C8742304000C004F248F /* Hamburger.png */; };
 		B503C87723042E21004F248F /* DeviceSelectControllerUSB.swift in Sources */ = {isa = PBXBuildFile; fileRef = B503C87623042E21004F248F /* DeviceSelectControllerUSB.swift */; };
@@ -45,6 +45,7 @@
 		B536F43823AD151A0007C93C /* MainVCNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B536F43723AD15190007C93C /* MainVCNavController.swift */; };
 		B537B21623E821E800520263 /* DeviceDUPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = B537B21523E821E800520263 /* DeviceDUPassword.swift */; };
 		B537B21823E8299000520263 /* DevicaDUSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B537B21723E8299000520263 /* DevicaDUSettings.swift */; };
+		B5441EC4248123CE001D5598 /* animation_светлая тема.json in Resources */ = {isa = PBXBuildFile; fileRef = B5441EC3248123CE001D5598 /* animation_светлая тема.json */; };
 		B546385D23714AF60073C447 /* SettingAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B546385C23714AF60073C447 /* SettingAppController.swift */; };
 		B546385E23718C940073C447 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B546386023718C940073C447 /* Localizable.strings */; };
 		B549894723AB71EA00B164BB /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B549894623AB71EA00B164BB /* Theme.swift */; };
@@ -189,8 +190,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0FFA35FB875CA4FA7B4CF910 /* Pods-Escort.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Escort.release.xcconfig"; path = "Target Support Files/Pods-Escort/Pods-Escort.release.xcconfig"; sourceTree = "<group>"; };
-		60BFBC651237E48C8A4B170D /* Pods-Escort.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Escort.debug.xcconfig"; path = "Target Support Files/Pods-Escort/Pods-Escort.debug.xcconfig"; sourceTree = "<group>"; };
+		9D582E748E4A954FF4B2901B /* Pods-Escort.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Escort.release.xcconfig"; path = "Target Support Files/Pods-Escort/Pods-Escort.release.xcconfig"; sourceTree = "<group>"; };
+		A522D6402CE0F690CF75553E /* Pods-Escort.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Escort.debug.xcconfig"; path = "Target Support Files/Pods-Escort/Pods-Escort.debug.xcconfig"; sourceTree = "<group>"; };
 		B503C8702303F78E004F248F /* closeMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = closeMenu.png; sourceTree = "<group>"; };
 		B503C8742304000C004F248F /* Hamburger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Hamburger.png; sourceTree = "<group>"; };
 		B503C87623042E21004F248F /* DeviceSelectControllerUSB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSelectControllerUSB.swift; sourceTree = "<group>"; };
@@ -228,6 +229,7 @@
 		B536F43723AD15190007C93C /* MainVCNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVCNavController.swift; sourceTree = "<group>"; };
 		B537B21523E821E800520263 /* DeviceDUPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDUPassword.swift; sourceTree = "<group>"; };
 		B537B21723E8299000520263 /* DevicaDUSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicaDUSettings.swift; sourceTree = "<group>"; };
+		B5441EC3248123CE001D5598 /* animation_светлая тема.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "animation_светлая тема.json"; sourceTree = "<group>"; };
 		B546385C23714AF60073C447 /* SettingAppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAppController.swift; sourceTree = "<group>"; };
 		B546385F23718C940073C447 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B546386123718CCE0073C447 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -379,7 +381,7 @@
 		C491783622C8A94E0006106E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C491783B22C8A94E0006106E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C491784322C8A9F30006106E /* StartScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenModel.swift; sourceTree = "<group>"; };
-		F29C1232DA3D8330C04D85A4 /* Pods_Escort.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Escort.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC5D301B54767DFC3BCDA08A /* Pods_Escort.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Escort.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -388,7 +390,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B574930D22EED58900DE9371 /* CoreBluetooth.framework in Frameworks */,
-				0E5855854DC64BD63AAC5F22 /* Pods_Escort.framework in Frameworks */,
+				60ABF6CB5DF35E56DB45F7B7 /* Pods_Escort.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,8 +400,8 @@
 		61CB9C2ED9A772DDB69AC708 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				60BFBC651237E48C8A4B170D /* Pods-Escort.debug.xcconfig */,
-				0FFA35FB875CA4FA7B4CF910 /* Pods-Escort.release.xcconfig */,
+				A522D6402CE0F690CF75553E /* Pods-Escort.debug.xcconfig */,
+				9D582E748E4A954FF4B2901B /* Pods-Escort.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -545,6 +547,7 @@
 				B5676FB023F14E72003182D7 /* du_ble_white_1.json */,
 				B5676FAF23F14E71003182D7 /* du_ble_white_2.json */,
 				B5676FAE23F14E71003182D7 /* du-ble_black_1.json */,
+				B5441EC3248123CE001D5598 /* animation_светлая тема.json */,
 			);
 			path = "DU BLE";
 			sourceTree = "<group>";
@@ -603,7 +606,7 @@
 			isa = PBXGroup;
 			children = (
 				B574930C22EED58900DE9371 /* CoreBluetooth.framework */,
-				F29C1232DA3D8330C04D85A4 /* Pods_Escort.framework */,
+				CC5D301B54767DFC3BCDA08A /* Pods_Escort.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -860,6 +863,7 @@
 				61CB9C2ED9A772DDB69AC708 /* Pods */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		C491782D22C8A94D0006106E /* Products */ = {
 			isa = PBXGroup;
@@ -899,11 +903,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C491783E22C8A94E0006106E /* Build configuration list for PBXNativeTarget "Escort" */;
 			buildPhases = (
-				B6187432D76E82494E773EC2 /* [CP] Check Pods Manifest.lock */,
+				E2CD142E862DCB365780A65C /* [CP] Check Pods Manifest.lock */,
 				C491782822C8A94D0006106E /* Sources */,
 				C491782922C8A94D0006106E /* Frameworks */,
 				C491782A22C8A94D0006106E /* Resources */,
-				66615BFD6E6914B9D1457613 /* [CP] Embed Pods Frameworks */,
+				65B4161F63F78757E4C69948 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -964,6 +968,7 @@
 				C41730C522CA552100177C54 /* english.png in Resources */,
 				C41730F222CB9AF200177C54 /* back.png in Resources */,
 				C41730BD22C8D72900177C54 /* Bank Gothic_Medium.otf in Resources */,
+				B5441EC4248123CE001D5598 /* animation_светлая тема.json in Resources */,
 				C41730BE22C8D72900177C54 /* Futura PT_Light.otf in Resources */,
 				C424A91E22D7332D008E154F /* du-180-hide.png in Resources */,
 				C41730DB22CB55A400177C54 /* spain.png in Resources */,
@@ -1024,7 +1029,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		66615BFD6E6914B9D1457613 /* [CP] Embed Pods Frameworks */ = {
+		65B4161F63F78757E4C69948 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1041,7 +1046,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Escort/Pods-Escort-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B6187432D76E82494E773EC2 /* [CP] Check Pods Manifest.lock */ = {
+		E2CD142E862DCB365780A65C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1337,14 +1342,14 @@
 		};
 		C491783F22C8A94E0006106E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 60BFBC651237E48C8A4B170D /* Pods-Escort.debug.xcconfig */;
+			baseConfigurationReference = A522D6402CE0F690CF75553E /* Pods-Escort.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Escort/Escort.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 49436C2U7G;
 				INFOPLIST_FILE = Escort/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1352,7 +1357,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.18;
+				MARKETING_VERSION = 1.0.21;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.fmeter.escortconnect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Push Development Profile";
@@ -1363,14 +1368,14 @@
 		};
 		C491784022C8A94E0006106E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0FFA35FB875CA4FA7B4CF910 /* Pods-Escort.release.xcconfig */;
+			baseConfigurationReference = 9D582E748E4A954FF4B2901B /* Pods-Escort.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Escort/Escort.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 49436C2U7G;
 				INFOPLIST_FILE = Escort/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1378,7 +1383,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.18;
+				MARKETING_VERSION = 1.0.21;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.fmeter.escortconnect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Push Development Profile";

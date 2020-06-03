@@ -12,7 +12,7 @@ target 'Escort' do
 	pod 'RxTheme'
 	pod 'YPImagePicker'
 	pod 'ImageSlideshow', :git => 'https://github.com/FirstZverev/ImageSlideshow'
-	pod 'TPPDF'
+	pod 'TPPDF', '1.5.4'
 	pod 'lottie-ios'
 	pod 'Firebase/Analytics'
 	pod 'Firebase/Messaging'  

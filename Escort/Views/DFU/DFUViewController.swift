@@ -21,9 +21,18 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
     var selectedFileURL    : URL?
     var isImportingFile = false
     
+    fileprivate lazy var bgImage: UIImageView = {
+        let img = UIImageView(image: UIImage(named: "bg-figures.png")!)
+        img.frame = CGRect(x: 0, y: screenHeight-260, width: 201, height: 207)
+        img.alpha = 0.3
+        return img
+    }()
     //MARK: - UIViewController Outlets
     
     //    @IBOutlet weak var dfuLibraryVersionLabel: UILabel!
+    @IBOutlet weak var fileNaming: UILabel!
+    @IBOutlet weak var deviceNaming: UILabel!
+    @IBOutlet weak var labelDevice: UILabel!
     @IBOutlet weak var labelName: UILabel!
     @IBOutlet weak var labelSize: UILabel!
     @IBOutlet weak var fileName: UILabel!
@@ -54,7 +63,12 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
         }
     }
     
-    @IBOutlet weak var uploadButton: UIButton!
+    @IBOutlet weak var uploadButton: UIButton!{
+        didSet {
+            self.uploadButton.backgroundColor = UIColor(rgb: 0xE80000)
+            self.uploadButton.layer.cornerRadius = 20
+        }
+    }
     @IBOutlet weak var progress: UIProgressView!
     @IBOutlet weak var viewAction: UIView! {
         didSet {
@@ -106,7 +120,8 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
         MainLabel.text = "Режим обновления".localized(code)
         view.addSubview(MainLabel)
         view.addSubview(backView)
-                
+        view.addSubview(bgImage)
+
         backView.addTapGesture{
             self.navigationController?.popViewController(animated: true)
             self.dismiss(animated: true)
@@ -493,7 +508,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
             self.progressLabel.text     = nil
             self.progressLabel.isHidden = true
             
-            self.uploadButton.setTitle("Обновить прошивку", for: .normal)
+            self.uploadButton.setTitle("Начать обновление прошивки", for: .normal)
             self.updateUploadButtonState()
             self.enableOtherButtons()
             self.removeObservers()
@@ -535,6 +550,9 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
             fileName.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             fileSize.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             labelName.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            labelDevice.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            deviceNaming.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            fileNaming.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             labelSize.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             uploadStatus.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             progressLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
@@ -549,6 +567,9 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
             fileName.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             fileSize.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             labelName.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            labelDevice.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            deviceNaming.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            fileNaming.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             labelSize.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             uploadStatus.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             progressLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)

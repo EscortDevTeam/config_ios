@@ -1,49 +1,50 @@
 PODS:
-  - Charts (3.4.0):
-    - Charts/Core (= 3.4.0)
-  - Charts/Core (3.4.0)
-  - Firebase/Analytics (6.19.0):
+  - Charts (3.5.0):
+    - Charts/Core (= 3.5.0)
+  - Charts/Core (3.5.0)
+  - Firebase/Analytics (6.26.0):
     - Firebase/Core
-  - Firebase/Core (6.19.0):
+  - Firebase/Core (6.26.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 6.3.1)
-  - Firebase/CoreOnly (6.19.0):
-    - FirebaseCore (= 6.6.4)
-  - Firebase/Messaging (6.19.0):
+    - FirebaseAnalytics (= 6.6.0)
+  - Firebase/CoreOnly (6.26.0):
+    - FirebaseCore (= 6.7.2)
+  - Firebase/Messaging (6.26.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (~> 4.3.0)
-  - FirebaseAnalytics (6.3.1):
-    - FirebaseCore (~> 6.6)
-    - FirebaseInstallations (~> 1.1)
-    - GoogleAppMeasurement (= 6.3.1)
+    - FirebaseMessaging (~> 4.4.1)
+  - FirebaseAnalytics (6.6.0):
+    - FirebaseCore (~> 6.7)
+    - FirebaseInstallations (~> 1.3)
+    - GoogleAppMeasurement (= 6.6.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
     - GoogleUtilities/Network (~> 6.0)
     - "GoogleUtilities/NSData+zlib (~> 6.0)"
-    - nanopb (= 0.3.9011)
+    - nanopb (~> 1.30905.0)
   - FirebaseAnalyticsInterop (1.5.0)
-  - FirebaseCore (6.6.4):
-    - FirebaseCoreDiagnostics (~> 1.2)
+  - FirebaseCore (6.7.2):
+    - FirebaseCoreDiagnostics (~> 1.3)
     - FirebaseCoreDiagnosticsInterop (~> 1.2)
     - GoogleUtilities/Environment (~> 6.5)
     - GoogleUtilities/Logger (~> 6.5)
-  - FirebaseCoreDiagnostics (1.2.2):
+  - FirebaseCoreDiagnostics (1.3.0):
     - FirebaseCoreDiagnosticsInterop (~> 1.2)
-    - GoogleDataTransportCCTSupport (~> 2.0)
+    - GoogleDataTransportCCTSupport (~> 3.1)
     - GoogleUtilities/Environment (~> 6.5)
     - GoogleUtilities/Logger (~> 6.5)
-    - nanopb (~> 0.3.901)
+    - nanopb (~> 1.30905.0)
   - FirebaseCoreDiagnosticsInterop (1.2.0)
-  - FirebaseInstallations (1.1.0):
+  - FirebaseInstallations (1.3.0):
     - FirebaseCore (~> 6.6)
-    - GoogleUtilities/UserDefaults (~> 6.5)
+    - GoogleUtilities/Environment (~> 6.6)
+    - GoogleUtilities/UserDefaults (~> 6.6)
     - PromisesObjC (~> 1.2)
-  - FirebaseInstanceID (4.3.2):
+  - FirebaseInstanceID (4.3.4):
     - FirebaseCore (~> 6.6)
     - FirebaseInstallations (~> 1.0)
     - GoogleUtilities/Environment (~> 6.5)
     - GoogleUtilities/UserDefaults (~> 6.5)
-  - FirebaseMessaging (4.3.0):
+  - FirebaseMessaging (4.4.1):
     - FirebaseAnalyticsInterop (~> 1.5)
     - FirebaseCore (~> 6.6)
     - FirebaseInstanceID (~> 4.3)
@@ -52,47 +53,48 @@ PODS:
     - GoogleUtilities/Reachability (~> 6.5)
     - GoogleUtilities/UserDefaults (~> 6.5)
     - Protobuf (>= 3.9.2, ~> 3.9)
-  - GoogleAppMeasurement (6.3.1):
+  - GoogleAppMeasurement (6.6.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
     - GoogleUtilities/Network (~> 6.0)
     - "GoogleUtilities/NSData+zlib (~> 6.0)"
-    - nanopb (= 0.3.9011)
-  - GoogleDataTransport (5.0.0)
-  - GoogleDataTransportCCTSupport (2.0.0):
-    - GoogleDataTransport (~> 5.0)
-    - nanopb (~> 0.3.901)
-  - GoogleUtilities/AppDelegateSwizzler (6.5.1):
+    - nanopb (~> 1.30905.0)
+  - GoogleDataTransport (6.2.1)
+  - GoogleDataTransportCCTSupport (3.1.0):
+    - GoogleDataTransport (~> 6.1)
+    - nanopb (~> 1.30905.0)
+  - GoogleUtilities/AppDelegateSwizzler (6.6.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (6.5.1)
-  - GoogleUtilities/Logger (6.5.1):
+  - GoogleUtilities/Environment (6.6.0):
+    - PromisesObjC (~> 1.2)
+  - GoogleUtilities/Logger (6.6.0):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (6.5.1):
+  - GoogleUtilities/MethodSwizzler (6.6.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (6.5.1):
+  - GoogleUtilities/Network (6.6.0):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (6.5.1)"
-  - GoogleUtilities/Reachability (6.5.1):
+  - "GoogleUtilities/NSData+zlib (6.6.0)"
+  - GoogleUtilities/Reachability (6.6.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (6.5.1):
+  - GoogleUtilities/UserDefaults (6.6.0):
     - GoogleUtilities/Logger
   - ImageSlideshow (1.8.4):
     - ImageSlideshow/Core (= 1.8.4)
   - ImageSlideshow/Core (1.8.4)
-  - iOSDFULibrary (4.7.0):
+  - iOSDFULibrary (4.7.2):
     - ZIPFoundation (= 0.9.11)
-  - lottie-ios (3.1.5)
-  - nanopb (0.3.9011):
-    - nanopb/decode (= 0.3.9011)
-    - nanopb/encode (= 0.3.9011)
-  - nanopb/decode (0.3.9011)
-  - nanopb/encode (0.3.9011)
+  - lottie-ios (3.1.8)
+  - nanopb (1.30905.0):
+    - nanopb/decode (= 1.30905.0)
+    - nanopb/encode (= 1.30905.0)
+  - nanopb/decode (1.30905.0)
+  - nanopb/encode (1.30905.0)
   - PromisesObjC (1.2.8)
-  - Protobuf (3.11.4)
+  - Protobuf (3.12.0)
   - PryntTrimmerView (4.0.0)
   - RxCocoa (5.1.1):
     - RxRelay (~> 5)
@@ -100,16 +102,16 @@ PODS:
   - RxRelay (5.1.1):
     - RxSwift (~> 5)
   - RxSwift (5.1.1)
-  - RxTheme (4.0.0):
+  - RxTheme (4.1.0):
     - RxCocoa (~> 5.0)
     - RxSwift (~> 5.0)
   - SteviaLayout (4.7.3)
   - SwiftChart (1.0.1)
-  - SwiftLint (0.38.2)
+  - SwiftLint (0.39.2)
   - TPPDF (1.5.4):
     - SwiftLint
   - UIDrawer (1.0)
-  - YPImagePicker (4.2.0):
+  - YPImagePicker (4.2.1):
     - PryntTrimmerView (~> 4.0.0)
     - SteviaLayout (~> 4.7.3)
   - ZIPFoundation (0.9.11)
@@ -124,7 +126,7 @@ DEPENDENCIES:
   - RxSwift
   - RxTheme
   - SwiftChart
-  - TPPDF
+  - TPPDF (= 1.5.4)
   - UIDrawer (from `https://github.com/Que20/UIDrawer.git`, tag `1.0`)
   - YPImagePicker
 
@@ -177,39 +179,39 @@ CHECKOUT OPTIONS:
     :tag: '1.0'
 
 SPEC CHECKSUMS:
-  Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
-  Firebase: d55ddb0e0bb3207166cddc028647833d8a1b5b6f
-  FirebaseAnalytics: 572e467f3d977825266e8ccd52674aa3e6f47eac
+  Charts: 40a08591df1f8ad5c223ddedfb1a06da92f24f7c
+  Firebase: 7cf5f9c67f03cb3b606d1d6535286e1080e57eb6
+  FirebaseAnalytics: 96634d356482d4f3af8fe459a0ebf19a99c71b75
   FirebaseAnalyticsInterop: 3f86269c38ae41f47afeb43ebf32a001f58fcdae
-  FirebaseCore: ed0a24c758a57c2b88c5efa8e6a8195e868af589
-  FirebaseCoreDiagnostics: e9b4cd8ba60dee0f2d13347332e4b7898cca5b61
+  FirebaseCore: f42e5e5f382cdcf6b617ed737bf6c871a6947b17
+  FirebaseCoreDiagnostics: 4a773a47bd83bbd5a9b1ccf1ce7caa8b2d535e67
   FirebaseCoreDiagnosticsInterop: 296e2c5f5314500a850ad0b83e9e7c10b011a850
-  FirebaseInstallations: 575cd32f2aec0feeb0e44f5d0110a09e5e60b47b
-  FirebaseInstanceID: 7ee0d6777013bb952f377b41965bf132b6a075be
-  FirebaseMessaging: 4ec33842d36b3319e062e51fb8b35a74f726950d
-  GoogleAppMeasurement: c29d405ff76e18551b5d158eaba6753fda8c7542
-  GoogleDataTransport: a857c6a002d201b524dd4bc2ed7e7355ed07e785
-  GoogleDataTransportCCTSupport: 32f75fbe904c82772fcbb6b6bd4525bfb6f2a862
-  GoogleUtilities: 06eb53bb579efe7099152735900dd04bf09e7275
+  FirebaseInstallations: 6f5f680e65dc374397a483c32d1799ba822a395b
+  FirebaseInstanceID: cef67c4967c7cecb56ea65d8acbb4834825c587b
+  FirebaseMessaging: 29543feb343b09546ab3aa04d008ee8595b43c44
+  GoogleAppMeasurement: 67458367830514fb20fd9e233496f1eef9d90185
+  GoogleDataTransport: 9a8a16f79feffc7f42096743de2a7c4815e84020
+  GoogleDataTransportCCTSupport: d70a561f7d236af529fee598835caad5e25f6d3d
+  GoogleUtilities: 39530bc0ad980530298e9c4af8549e991fd033b1
   ImageSlideshow: 31fc12d0b3c585f98399c7f4a4393db5b53d622a
-  iOSDFULibrary: 73be274cbebeb0a7d8caaa96eb596869132dc58f
-  lottie-ios: 32bf84389337d86fbc8b12266e88452e0abf1dee
-  nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
+  iOSDFULibrary: 213608bf93ace7f9d6582453a9498ec384642f97
+  lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
+  nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
-  Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
+  Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
   PryntTrimmerView: 67e67573ffd4c073f1308effa66aefd0cfa667a0
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
-  RxTheme: 0b642f47c7d197a803c6b9c083964188c34f7ddb
+  RxTheme: b4958908f859afe93ce12aaeba37456f369b18bb
   SteviaLayout: c2ecdcff57d44e38fd2f65e54ad52aeae28ca0c4
   SwiftChart: ba767a678d568a5ee22d419e146a0582865e1aff
-  SwiftLint: 8f5d2f903e1c9bcbc832fd16771e80a263ac6cbb
+  SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
   TPPDF: 775e9780261879da1af7c802f9e4bf7feb877677
   UIDrawer: 1bfbc152fee69f6809a41508000cf1b9bd4b1738
-  YPImagePicker: accf310f9526641a84372c0ecf943547d9b1e52c
+  YPImagePicker: 3b88ca0c50134af2856c48c481572c98a8b8b65b
   ZIPFoundation: b1f0de4eed33e74a676f76e12559ab6b75990197
 
-PODFILE CHECKSUM: 4bc197371ae6987df5ba928a55631d22961c54a7
+PODFILE CHECKSUM: 951317e2c569bebdff9ea6c0148d7493e1139d60
 
 COCOAPODS: 1.8.4

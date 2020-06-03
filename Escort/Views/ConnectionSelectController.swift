@@ -36,10 +36,6 @@ class ConnectionSelectController: UIViewController, UIImagePickerControllerDeleg
         super.viewDidLoad()
 
         viewShow()
-        let text = "Some text!"
-        let spacing: CGFloat = 10.0
-        let textElement = PDFSimpleText(text: text, spacing: spacing)
-        document.add(textObject: textElement)
         setupTheme()
 //        print("\(screenWidth) and \(screenHeight)")
     }

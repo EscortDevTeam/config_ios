@@ -20,11 +20,18 @@ class UserFilesViewController: UIViewController, FilePreselectionDelegate, UITab
     @IBOutlet weak var labelInfo: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyView: UIView!
-
+    
+    fileprivate lazy var bgImage: UIImageView = {
+        let img = UIImageView(image: UIImage(named: "bg-figures.png")!)
+        img.frame = CGRect(x: 0, y: screenHeight-260, width: 201, height: 207)
+        img.alpha = 0.3
+        return img
+    }()
+    
     //MARK: - UIViewController methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.addSubview(bgImage)
         documentsDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first
         files = [URL]()
         let fileManager = FileManager.default

@@ -472,8 +472,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
         central: CBCentralManager,
         didDisconnectPeripheral peripheral: CBPeripheral,
         error: NSError?) {
-        scanBLEDevices()
-        
+        scanBLEDevices()        
     }
     
     

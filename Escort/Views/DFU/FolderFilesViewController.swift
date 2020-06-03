@@ -27,10 +27,18 @@ class FolderFilesViewController: UIViewController, UITableViewDataSource, UITabl
     @IBAction func doneButtonTapped(_ sender: AnyObject) {
         doneButtonTappedEventHandler()
     }
-
+    
+    fileprivate lazy var bgImage: UIImageView = {
+        let img = UIImageView(image: UIImage(named: "bg-figures.png")!)
+        img.frame = CGRect(x: 0, y: screenHeight-260, width: 201, height: 207)
+        img.alpha = 0.3
+        return img
+    }()
+    
     //MARK: - UIViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(bgImage)
         if directoryName != nil {
             self.navigationItem.title = directoryName!
         } else {

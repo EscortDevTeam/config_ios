@@ -61,6 +61,13 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
         super.init(coder: aDecoder)
     }
     
+    fileprivate lazy var bgImage: UIImageView = {
+        let img = UIImageView(image: UIImage(named: "bg-figures.png")!)
+        img.frame = CGRect(x: 0, y: screenHeight-260, width: 201, height: 207)
+        img.alpha = 0.3
+        return img
+    }()
+    
     func getRSSIImage(RSSI anRSSIValue: Int32) -> UIImage {
         var image: UIImage
         

@@ -56,8 +56,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //                isNight = false
         //            }
     }
-    
-    navgiationController.pushViewController(StartScreenController(), animated: true)
+    let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+    let newViewController = storyBoard.instantiateViewController(withIdentifier: "DFUViewController") as! DFUViewController
+    newViewController.modalPresentationStyle = .fullScreen
+//    let nav = self.navigationController
+//    nav?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.red]
+//    nav?.pushViewController(newViewController, animated: true)
+    navgiationController.pushViewController(StartAppMenuController(), animated: true)
     window = UIWindow(frame: UIScreen.main.bounds)
     window?.rootViewController = navgiationController
     window?.makeKeyAndVisible()
