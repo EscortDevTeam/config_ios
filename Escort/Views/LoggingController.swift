@@ -26,7 +26,7 @@ class LoggingController: UIViewController, UINavigationControllerDelegate {
         createLabelHoursOrDays(label: labelHours, name: "часов", centerX: 2)
         
         view.addSubview(stack)
-        
+        getButton.addTarget(self, action: #selector(onButtonClick(_:)), for: UIControl.Event.touchUpInside)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -42,6 +42,22 @@ class LoggingController: UIViewController, UINavigationControllerDelegate {
     override func viewDidDisappear(_ animated: Bool) {
 
     }
+    
+    @objc private func onButtonClick(_ sender: UIButton) {
+        reload = 11
+        print("reload: \(reload)")
+    }
+    
+    lazy var getButton: UIButton = {
+        let getButton = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: screenWidth / 2, height: 50)))
+        getButton.setTitle("Выдать всё", for: .normal)
+        getButton.tintColor = .white
+        getButton.layer.cornerRadius = 20
+        getButton.backgroundColor = UIColor(rgb: 0xE80000)
+        getButton.titleLabel?.font = UIFont(name:"FuturaPT-Medium", size: 20)!
+       return getButton
+    }()
+    
     lazy var backView: UIImageView = {
         let backView = UIImageView()
         backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40) - (iphone5s ? 10 : 0), width: 50, height: 40)

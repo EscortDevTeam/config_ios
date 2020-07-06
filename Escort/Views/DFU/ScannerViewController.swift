@@ -143,7 +143,7 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
         navigationController?.navigationBar.tintColor = .red
         
         let label = UILabel()
-        label.text = "Выберите датчик"
+        label.text = "Select sensor".localized(code)
         label.textColor = .red
         label.font = UIFont(name:"FuturaPT-Medium", size: 25.0)
         label.sizeToFit()

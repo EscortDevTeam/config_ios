@@ -134,7 +134,7 @@ class DeviceBLETLSettings: UIViewController {
         btn4.layer.cornerRadius = 22
         
         let btn4Text = UILabel(frame: CGRect(x: x, y: y, width: Int(screenWidth-60), height: 44))
-        btn4Text.text = "Обновление прошивки".localized(code)
+        btn4Text.text = "FW update".localized(code)
         btn4Text.textColor = .white
         btn4Text.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
         btn4Text.textAlignment = .center

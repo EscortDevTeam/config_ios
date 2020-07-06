@@ -32,6 +32,10 @@ extension LoggingController {
         picker.center.x = screenWidth / 2
         picker.center.y = screenHeight / 3
         view.addSubview(picker)
+        getButton.center.x = screenWidth / 2
+        getButton.center.y = screenHeight - 100
+        view.addSubview(getButton)
+
     }
     
     func createLabelHoursOrDays(label: UILabel,name: String, centerX: CGFloat) {

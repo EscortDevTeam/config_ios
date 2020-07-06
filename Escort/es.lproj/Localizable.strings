@@ -385,3 +385,37 @@
 "Available only in Russian" = "Disponible aún solo en ruso";
 
 "Calibrate" = "Calibrar";
+
+//MARK: - Update FW start
+"FW update" = "Actualización de FW";
+"Update canceled" = "Actualización cancelada";
+"File type not supported" = "Tipo de archivo incompatible";
+"Cancel" = "Cancelar";
+"Connecting..." = "Conectando...";
+"DFU processing..." = "Procesando DFU...";
+"Loading..." = "Cargando...";
+"Checking..." = "Verificando...";
+"Disconnecting..." = "Desconectando...";
+"Loading successful" = "Carga exitosa";
+"Loading canceled" = "Carga cancelada";
+"Error" = "Error";
+"Finish?" = "Quiere Ud finalizar?";
+"Finish" = "Finalizar";
+"DFU device" = "Dispositivo DFU";
+"Start FW update" = "Actualizar FW";
+"Select sensor" = "Seleccionar sensor";
+"Select file" = "Seleccionar archivo";
+"Saved FW files" = "Nombre de archivo:";
+"Files" = "Archivos";
+"File name:" = "Nombre de archivo:";
+"File" = "Archivo";
+"File size:" = "Nombre de archivo:";
+"Device" = "Dispositivo";
+"Device name:" = "Nombre de dispositivo:";
+"Select file" = "Seleccionar archivo";
+"Select sensor" = "Seleccionar sensor";
+"FW file" = "Archivo de FW";
+"Find device" = "Buscar dispositivo";
+"MAC Address" = "MAC Address";
+"Updating..." = "Actualizando...";
+//MARK: - Update FW finish

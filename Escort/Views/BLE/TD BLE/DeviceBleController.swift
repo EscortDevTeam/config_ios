@@ -526,7 +526,9 @@ class DeviceBleController: UIViewController {
         
         cellHelp.addTapGesture {
             if temp != nil {
-                self.navigationController?.pushViewController(TarirovkaStartViewControllet(), animated: true)
+                //                self.navigationController?.pushViewController(TarirovkaStartViewControllet(), animated: true)
+                self.navigationController?.pushViewController(LoggingController(), animated: true)
+                
             } else {
                 self.showToast(message: "Not connected to the sensor".localized(code), seconds: 1.0)
             }

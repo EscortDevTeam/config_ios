@@ -42,7 +42,7 @@ class FolderFilesViewController: UIViewController, UITableViewDataSource, UITabl
         if directoryName != nil {
             self.navigationItem.title = directoryName!
         } else {
-            self.navigationItem.title = "Files"
+            self.navigationItem.title = "Files".localized(code)
         }
         setupTheme()
     }
@@ -59,7 +59,7 @@ class FolderFilesViewController: UIViewController, UITableViewDataSource, UITabl
         self.ensureDirectoryNotEmpty()
         
         let label = UILabel()
-        label.text = "Архивы"
+        label.text = "Files".localized(code)
         label.textColor = .red
         label.font = UIFont(name:"FuturaPT-Medium", size: 25.0)
         label.sizeToFit()

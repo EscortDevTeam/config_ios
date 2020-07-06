@@ -380,3 +380,37 @@
 "Calibrate without fuel" = "Калибровать без топлива";
 
 "Calibrate" = "Откалибровать";
+
+//MARK: - Update FW start
+"FW update" = "Режим обновления";
+"Update canceled" = "Процесс обновления прерван";
+"File type not supported" = "Выбранный файл не поддерживается";
+"Cancel" = "Отменить";
+"Connecting..." = "Подключение...";
+"DFU processing..." = "Подготовка DFU...";
+"Loading..." = "Загрузка...";
+"Checking..." = "Проверка...";
+"Disconnecting..." = "Отключение...";
+"Loading successful" = "Успешная загрузка";
+"Loading canceled" = "Загрузка прервана";
+"Error" = "Ошибка";
+"Finish?" = "Хотите завершить?";
+"Finish" = "Завершить";
+"DFU device" = "DFU устройство";
+"Start FW update" = "Начать обновление прошивки";
+"Select sensor" = "Выберите датчик";
+"Select file" = "Выберите архив";
+"Saved FW files" = "Сохраненные прошивки";
+"Files" = "Архивы";
+"File name:" = "Имя файла:";
+"File" = "Файл";
+"File size:" = "Размер файла:";
+"Device" = "Устройство";
+"Device name:" = "Имя устройства:";
+"Select file" = "Выбрать файл";
+"Select sensor" = "Выбрать датчик";
+"FW file" = "Файл прошивки";
+"Find device" = "Найти устройство";
+"MAC Address" = "MAC Адрес";
+"Updating..." = "Идет обновление";
+//MARK: - Update FW finish

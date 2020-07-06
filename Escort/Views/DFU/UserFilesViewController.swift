@@ -47,7 +47,7 @@ class UserFilesViewController: UIViewController, FilePreselectionDelegate, UITab
         tabBarController?.tabBar.isHidden = true
         self.navigationController?.navigationBar.tintColor = .red
         let label = UILabel()
-        label.text = "Выберите архив"
+        label.text = "Select file".localized(code)
         label.textColor = .red
         label.font = UIFont(name:"FuturaPT-Medium", size: 25.0)
 //        label.sizeToFit()
@@ -128,7 +128,7 @@ class UserFilesViewController: UIViewController, FilePreselectionDelegate, UITab
                 aCell.accessoryType = .disclosureIndicator
                 aCell.accessoryView = UIImageView(image: chevron!)
                 if fileName.lowercased() == "inbox" {
-                    aCell.textLabel?.text = "Сохраненные прошивки"
+                    aCell.textLabel?.text = "Saved FW files".localized(code)
                     aCell.imageView?.image = UIImage(named: "ic_email")
                 } else {
                     aCell.imageView?.image = UIImage(named: "ic_folder")

@@ -30,17 +30,38 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
     //MARK: - UIViewController Outlets
     
     //    @IBOutlet weak var dfuLibraryVersionLabel: UILabel!
-    @IBOutlet weak var fileNaming: UILabel!
-    @IBOutlet weak var deviceNaming: UILabel!
-    @IBOutlet weak var labelDevice: UILabel!
-    @IBOutlet weak var labelName: UILabel!
-    @IBOutlet weak var labelSize: UILabel!
+    @IBOutlet weak var fileNaming: UILabel! {
+        didSet{
+            fileNaming.text = "File".localized(code)
+        }
+    }
+    @IBOutlet weak var deviceNaming: UILabel! {
+           didSet{
+               deviceNaming.text = "Device".localized(code)
+           }
+       }
+    @IBOutlet weak var labelDevice: UILabel! {
+           didSet{
+               labelDevice.text = "Device name:".localized(code)
+           }
+       }
+    @IBOutlet weak var labelName: UILabel! {
+           didSet{
+               labelName.text = "File name:".localized(code)
+           }
+       }
+    @IBOutlet weak var labelSize: UILabel! {
+           didSet{
+               labelSize.text = "File size:".localized(code)
+           }
+       }
     @IBOutlet weak var fileName: UILabel!
     @IBOutlet weak var fileSize: UILabel!
     //    @IBOutlet weak var fileType: UILabel!
     @IBOutlet weak var deviceName: UILabel!
     @IBOutlet weak var selectFileButton: UIButton! {
         didSet {
+            selectFileButton.setTitle("Select file".localized(code), for: .normal)
             self.selectFileButton.backgroundColor = UIColor(rgb: 0xE80000)
             self.selectFileButton.layer.cornerRadius = 20
         }
@@ -49,6 +70,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
     //    @IBOutlet weak var verticalLabel: UILabel!
     @IBOutlet weak var connectButton: UIButton!{
         didSet {
+            connectButton.setTitle("Select sensor".localized(code), for: .normal)
             self.connectButton.backgroundColor = UIColor(rgb: 0xE80000)
             self.connectButton.layer.cornerRadius = 20
         }
@@ -65,6 +87,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
     
     @IBOutlet weak var uploadButton: UIButton!{
         didSet {
+            uploadButton.setTitle("Start FW update".localized(code), for: .normal)
             self.uploadButton.backgroundColor = UIColor(rgb: 0xE80000)
             self.uploadButton.layer.cornerRadius = 20
         }
@@ -117,7 +140,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
         super.viewDidLoad()
         view.addSubview(themeBackView3)
 
-        MainLabel.text = "Режим обновления".localized(code)
+        MainLabel.text = "FW update".localized(code)
         view.addSubview(MainLabel)
         view.addSubview(backView)
         view.addSubview(bgImage)
@@ -148,7 +171,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
         if self.isMovingFromParent && dfuController != nil {
             let aborted = dfuController?.abort()
             if aborted! == false {
-                logWith(.application, message: "Процесс обновления прерван")
+                logWith(.application, message: "Update canceled".localized(code))
             }
         }
     }
@@ -220,7 +243,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
         } else {
             selectedFirmware = nil
             selectedFileURL  = nil
-            DFUConstantsUtility.showAlert(message: "Выбранный файл не поддерживается", from: self)
+            DFUConstantsUtility.showAlert(message: "File type not supported".localized(code), from: self)
         }
         self.updateUploadButtonState()
     }
@@ -245,7 +268,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
             self.didSelectFirmwareType(.softdeviceBootloader)
         }
         
-        let cancelAction = UIAlertAction(title: "Отменить", style: .cancel) { (anAction) in
+        let cancelAction = UIAlertAction(title: "Cancel".localized(code), style: .cancel) { (anAction) in
             DispatchQueue.main.async {
                 self.selectedFileURL = nil
                 self.updateUploadButtonState()
@@ -273,7 +296,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
             firmwarePartAlert.addAction(choiceAction)
         }
         
-        let cancelAction = UIAlertAction(title: "Отменить", style: .cancel) { (anAction) in
+        let cancelAction = UIAlertAction(title: "Cancel".localized(code), style: .cancel) { (anAction) in
             DispatchQueue.main.async {
                 self.selectedFirmware = nil
                 self.selectedFileURL = nil
@@ -360,27 +383,27 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
     func dfuStateDidChange(to state: DFUState) {
         switch state {
         case .connecting:
-            uploadStatus.text = "Подключение..."
+            uploadStatus.text = "Connecting...".localized(code)
         case .starting:
-            uploadStatus.text = "Подготовка DFU..."
+            uploadStatus.text = "DFU processing...".localized(code)
         case .enablingDfuMode:
-            uploadStatus.text = "Enabling DFU Bootloader..."
+            uploadStatus.text = "Enabling DFU Bootloader...".localized(code)
         case .uploading:
-            uploadStatus.text = "Загрузка..."
+            uploadStatus.text = "Loading...".localized(code)
         case .validating:
-            uploadStatus.text = "Проверка..."
+            uploadStatus.text = "Checking...".localized(code)
         case .disconnecting:
-            uploadStatus.text = "Отключение..."
+            uploadStatus.text = "Disconnecting...".localized(code)
         case .completed:
-            DFUConstantsUtility.showAlert(message: "Загрузка успешна", from: self)
+            DFUConstantsUtility.showAlert(message: "Loading successful".localized(code), from: self)
             if DFUConstantsUtility.isApplicationStateInactiveOrBackgrounded() {
-                DFUConstantsUtility.showBackgroundNotification(message: "Загрузка успешна")
+                DFUConstantsUtility.showBackgroundNotification(message: "Loading successful".localized(code))
             }
             self.clearUI()
         case .aborted:
-            DFUConstantsUtility.showAlert(message: "Загрузка прервана", from: self)
+            DFUConstantsUtility.showAlert(message: "Loading canceled".localized(code), from: self)
             if DFUConstantsUtility.isApplicationStateInactiveOrBackgrounded(){
-                DFUConstantsUtility.showBackgroundNotification(message: "Загрузка прервана")
+                DFUConstantsUtility.showBackgroundNotification(message: "Loading canceled".localized(code))
             }
             self.clearUI()
         }
@@ -392,7 +415,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
         }
         clearUI()
         DispatchQueue.main.async {
-            self.progressLabel.text = "Ошибка: \(message)"
+            self.progressLabel.text = "Error".localized(code) + ": \(message)"
             self.progressLabel.isHidden = false
         }
     }
@@ -442,12 +465,12 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
         // but it will pause just before seding the data.
         dfuController?.pause()
         
-        let alert = UIAlertController(title: "Внимание", message: "Хотите завершить?", preferredStyle: .alert)
-        let abort = UIAlertAction(title: "Завершить", style: .destructive, handler: { (anAction) in
+        let alert = UIAlertController(title: "Warning".localized(code), message: "Finish?".localized(code), preferredStyle: .alert)
+        let abort = UIAlertAction(title: "Finish".localized(code), style: .destructive, handler: { (anAction) in
             _ = self.dfuController?.abort()
             alert.dismiss(animated: true, completion: nil)
         })
-        let cancel = UIAlertAction(title: "Отмена", style: .default, handler: { (anAction) in
+        let cancel = UIAlertAction(title: "Cancel".localized(code), style: .default, handler: { (anAction) in
             self.dfuController?.resume()
             alert.dismiss(animated: true, completion: nil)
         })
@@ -473,7 +496,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
 
     @objc func applicationDidEnterBackgroundCallback() {
         if dfuController != nil {
-            DFUConstantsUtility.showBackgroundNotification(message: "Загрузка fireware...")
+            DFUConstantsUtility.showBackgroundNotification(message: "Download".localized(code) + " fireware...")
         }
     }
 
@@ -500,7 +523,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
             self.dfuController          = nil
             self.selectedPeripheral     = nil
             
-            self.deviceName.text        = "DFU устройство"
+            self.deviceName.text        = "DFU device".localized(code)
             self.uploadStatus.text      = nil
             self.uploadStatus.isHidden  = true
             self.progress.progress      = 0.0
@@ -508,7 +531,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
             self.progressLabel.text     = nil
             self.progressLabel.isHidden = true
             
-            self.uploadButton.setTitle("Начать обновление прошивки", for: .normal)
+            self.uploadButton.setTitle("Start FW update".localized(code), for: .normal)
             self.updateUploadButtonState()
             self.enableOtherButtons()
             self.removeObservers()
@@ -534,7 +557,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
         initiator.progressDelegate = self
         initiator.enableUnsafeExperimentalButtonlessServiceInSecureDfu = true
         dfuController = initiator.with(firmware: selectedFirmware!).start(target: selectedPeripheral!)
-        uploadButton.setTitle("Отменить", for: .normal)
+        uploadButton.setTitle("Cancel".localized(code), for: .normal)
         uploadButton.isEnabled = true
     }
     

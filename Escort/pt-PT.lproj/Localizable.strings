@@ -381,3 +381,35 @@
 "Are you sure you want to make changes?" = "Are you sure you want to make changes?";
 
 "Calibrate" = "Calibrate";
+
+"FW update" = "FW update";
+"Update canceled" = "Update canceled";
+"File type not supported" = "File type not supported";
+"Cancel" = "Cancel";
+"Connecting..." = "Connecting...";
+"DFU processing..." = "DFU processing";
+"Loading..." = "Loading...";
+"Checking..." = "Checking...";
+"Disconnecting..." = "Disconnecting...";
+"Loading successful" = "Loading successful";
+"Loading canceled" = "Loading canceled";
+"Error" = "Error";
+"Finish?" = "Finish?";
+"Finish" = "Finish";
+"DFU device" = "DFU device";
+"Start FW update" = "Start FW update";
+"Select sensor" = "Select sensor";
+"Select file" = "Select file";
+"Saved FW files" = "Saved FW files";
+"Files" = "Files";
+"File name:" = "File name:";
+"File" = "File";
+"File size:" = "File size:";
+"Device" = "Device";
+"Device name:" = "Device name:";
+"Select file" = "Select file";
+"Select sensor" = "Select sensor";
+"FW file" = "FW file";
+"Find device" = "Find device";
+"MAC Address" = "MAC Address";
+"Updating..." = "Updating...";

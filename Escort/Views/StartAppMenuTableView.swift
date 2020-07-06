@@ -62,7 +62,7 @@ extension StartAppMenuController: UITableViewDelegate, UITableViewDataSource {
             cell.mainSettingsLabel.textColor = UIColor(rgb: isNight ? 0x000000 : 0xFFFFFF)
             cell.mainSettings.image = isNight ? #imageLiteral(resourceName: "шьфпурвы") : #imageLiteral(resourceName: "Group 41")
             cell.addTapGesture {
-                self.navigationController?.pushViewController(ConnectionSelectController(), animated: true)
+                self.navigationController?.pushViewController(DeviceSelectController(), animated: true)
             }
             return cell
         } else if indexPath.row == 1 {

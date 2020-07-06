@@ -34,4 +34,4 @@ let startScreens: [StartScreen] = [
 
 ]
 
-let mainScreen = StartScreen(image: "main.png", x: 0, y: 0, width: 0, height: 0, color: nil)
+//let mainScreen = StartScreen(image: "main.png", x: 0, y: 0, width: 0, height: 0, color: nil)

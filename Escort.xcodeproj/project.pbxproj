@@ -123,7 +123,6 @@
 		B5D978BC243F0A75008F23C7 /* NavigationControllerBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D978BB243F0A75008F23C7 /* NavigationControllerBar.swift */; };
 		B5F698C523A768C2001DC6D1 /* DevicesListControllerNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F698C423A768C2001DC6D1 /* DevicesListControllerNew.swift */; };
 		B5F698C923A78A40001DC6D1 /* DevicesListCellMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F698C823A78A40001DC6D1 /* DevicesListCellMain.swift */; };
-		C41730A722C8B04700177C54 /* main.png in Resources */ = {isa = PBXBuildFile; fileRef = C41730A622C8B04600177C54 /* main.png */; };
 		C41730B122C8C6CA00177C54 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = C41730AD22C8C6CA00177C54 /* 2.png */; };
 		C41730B222C8C6CA00177C54 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = C41730AE22C8C6CA00177C54 /* 1.png */; };
 		C41730B322C8C6CA00177C54 /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = C41730AF22C8C6CA00177C54 /* 3.png */; };
@@ -236,6 +235,7 @@
 		B546386223718EC80073C447 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B546386323718EE40073C447 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		B549894623AB71EA00B164BB /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		B54A482D2488F6BD00214B62 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B54B5AE923E7ECA300B1CDD9 /* DevicesDUController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesDUController.swift; sourceTree = "<group>"; };
 		B54B5AEB23E7EF3B00B1CDD9 /* DeviceDUBleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDUBleController.swift; sourceTree = "<group>"; };
 		B54FD85D23DDF77800875B91 /* MapCellOneMore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCellOneMore.swift; sourceTree = "<group>"; };
@@ -315,7 +315,6 @@
 		B5D978BB243F0A75008F23C7 /* NavigationControllerBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerBar.swift; sourceTree = "<group>"; };
 		B5F698C423A768C2001DC6D1 /* DevicesListControllerNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesListControllerNew.swift; sourceTree = "<group>"; };
 		B5F698C823A78A40001DC6D1 /* DevicesListCellMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesListCellMain.swift; sourceTree = "<group>"; };
-		C41730A622C8B04600177C54 /* main.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main.png; sourceTree = "<group>"; };
 		C41730AD22C8C6CA00177C54 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
 		C41730AE22C8C6CA00177C54 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		C41730AF22C8C6CA00177C54 /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
@@ -379,7 +378,6 @@
 		C491782F22C8A94D0006106E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C491783122C8A94D0006106E /* StartScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenController.swift; sourceTree = "<group>"; };
 		C491783622C8A94E0006106E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C491783B22C8A94E0006106E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C491784322C8A9F30006106E /* StartScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenModel.swift; sourceTree = "<group>"; };
 		CC5D301B54767DFC3BCDA08A /* Pods_Escort.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Escort.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -703,7 +701,6 @@
 				C41730AD22C8C6CA00177C54 /* 2.png */,
 				C41730AF22C8C6CA00177C54 /* 3.png */,
 				C41730B022C8C6CA00177C54 /* 4.png */,
-				C41730A622C8B04600177C54 /* main.png */,
 			);
 			path = StartScreens;
 			sourceTree = "<group>";
@@ -748,8 +745,8 @@
 				C41730C922CA55DD00177C54 /* LanguageSelectController.swift */,
 				C41730DE22CB880A00177C54 /* ConnectionSelectController.swift */,
 				B5A4CA3C242B371F0071E6E6 /* LoggingController.swift */,
-				B52AB2D8243C546C007BFCB7 /* DFU */,
 				B5A4CA3E242B37F60071E6E6 /* LoggingView.swift */,
+				B52AB2D8243C546C007BFCB7 /* DFU */,
 				B5891E2423ED66CF00509749 /* PDF.swift */,
 				B56E98F523B62178002B292A /* ImagePicker.swift */,
 				B525FD9023EABB370094FDE7 /* TabGesController.swift */,
@@ -886,9 +883,9 @@
 				C491782F22C8A94D0006106E /* AppDelegate.swift */,
 				B580F0A42420CD9C00FE66A8 /* Notifications.swift */,
 				B5D424ED23916B3000F7EBB4 /* RateManager.swift */,
+				B54A482D2488F6BD00214B62 /* Info.plist */,
 				C491783622C8A94E0006106E /* Assets.xcassets */,
 				B580F0A72420E8EA00FE66A8 /* GoogleService-Info.plist */,
-				C491783B22C8A94E0006106E /* Info.plist */,
 				B582CCFD23758A150012E232 /* InfoPlist.strings */,
 				B546386023718C940073C447 /* Localizable.strings */,
 				B5B8F560236C15D70072EEFB /* LocalizedString.swift */,
@@ -1012,7 +1009,6 @@
 				B582CCFB23758A150012E232 /* InfoPlist.strings in Resources */,
 				C41730B622C8C6DA00177C54 /* logo.png in Resources */,
 				C424A90722D61C29008E154F /* question.png in Resources */,
-				C41730A722C8B04700177C54 /* main.png in Resources */,
 				B52989332306AE1F007D2DE3 /* Battary.png in Resources */,
 				B5AC887D2383E21200FACEAE /* Path.png in Resources */,
 				B5AC88792383E1FE00FACEAE /* Path-3.png in Resources */,
@@ -1357,7 +1353,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.21;
+				MARKETING_VERSION = 1.0.31;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.fmeter.escortconnect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Push Development Profile";
@@ -1383,7 +1379,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.21;
+				MARKETING_VERSION = 1.0.31;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.fmeter.escortconnect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Push Development Profile";

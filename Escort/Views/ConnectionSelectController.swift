@@ -165,6 +165,7 @@ class ConnectionSelectController: UIViewController, UIImagePickerControllerDeleg
             IsBLE = true
             self.generator.impactOccurred()
             self.navigationController?.pushViewController(DeviceSelectController(), animated: true)
+
         }
         
         view.addSubview(separator)
