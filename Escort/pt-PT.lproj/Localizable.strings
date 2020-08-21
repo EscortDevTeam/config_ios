@@ -201,6 +201,8 @@
 
 "Close" = "Close";
 
+"Close?" = "Close?";
+
 "Yes" = "Yes";
 "No" = "No";
 "The file will be saved in the application \"Files\", in the folder \"Escort\"" = "The file will be saved in the application \"Files\", in the folder \"Escort\"";
@@ -322,7 +324,7 @@
 
 "Transportation" = "Transportation";
 
-"Angel control" = "Angel control";
+"Angle control" = "Angle control";
 
 "Horizontal rotation control" = "Horizontal rotation control";
 

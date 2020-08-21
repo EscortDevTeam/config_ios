@@ -196,6 +196,8 @@
 
 "Close" = "Cerca";
 
+"Close?" = "Cerca?";
+
 "Yes" = "Sí";
 
 "No" = "No";
@@ -326,7 +328,7 @@
 
 "Transportation" = "Inoperacional";
 
-"Angel control" = "Control de ángulo";
+"Angle control" = "Control de ángulo";
 
 "Horizontal rotation control" = "Control de rotación horizontal";
 

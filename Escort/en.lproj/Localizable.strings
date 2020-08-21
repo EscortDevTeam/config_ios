@@ -185,6 +185,8 @@
 
 "Close" = "Close";
 
+"Close?" = "Close?";
+
 "Wrong password" = "Wrong password";
 
 "Enter" = "Enter";
@@ -327,7 +329,7 @@
 
 "Transportation" = "Transportation";
 
-"Angel control" = "Angel control";
+"Angle control" = "Angle control";
 
 "Horizontal rotation control" = "Horizontal rotation control";
 

@@ -26,7 +26,7 @@ class DevicaDUSettings: UIViewController {
     let validatePasswordSecond = UILabel()
     var saveActionSecond = UIAlertAction()
     
-    let ArrayMode: [String] = ["Transportation".localized(code),"Horizontal rotation control".localized(code),"Vertical rotation control".localized(code),"Angel control".localized(code),"Bucket".localized(code),"Plow".localized(code)]
+    let ArrayMode: [String] = ["Transportation".localized(code),"Horizontal rotation control".localized(code),"Vertical rotation control".localized(code),"Angle control".localized(code),"Bucket".localized(code),"Plow".localized(code)]
     
     let ArrayModeImage: [UIImage] = [#imageLiteral(resourceName: "транспорт") ,#imageLiteral(resourceName: "контроль угла") ,#imageLiteral(resourceName: "контроль угла") ,#imageLiteral(resourceName: "контроль угла") ,#imageLiteral(resourceName: "ковш"), #imageLiteral(resourceName: "отвал")]
     let ArrayModeImageBlack: [UIImage] = [#imageLiteral(resourceName: "транспорт-black") ,#imageLiteral(resourceName: "контроль угла") ,#imageLiteral(resourceName: "контроль угла") ,#imageLiteral(resourceName: "контроль угла-black") , #imageLiteral(resourceName: "ковш-black"), #imageLiteral(resourceName: "Отвал-black")]

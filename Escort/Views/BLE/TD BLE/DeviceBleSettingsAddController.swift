@@ -714,24 +714,83 @@ class DeviceBleSettingsAddController: UIViewController {
         
         
         btn4Text.addTapGesture {
-            reload = 1
             if passwordHave == true {
                 if passwordSuccess == true {
-                    self.activityIndicator.startAnimating()
-                    self.viewAlpha.addSubview(self.activityIndicator)
-                    self.view.addSubview(self.viewAlpha)
-                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-                    self.view.isUserInteractionEnabled = false
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                        self.view.isUserInteractionEnabled = true
-                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                        self.viewAlpha.removeFromSuperview()
-                        self.activityIndicator.stopAnimating()
-                        nameDevice = ""
-                        temp = nil
-                        checkUpdate = "Update"
-                        let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
-                        self.navigationController?.popToViewController(vc!, animated: true)
+                    if cheackVersionDevice(version: versionDevice) {
+                    let alert = UIAlertController(title: "Сохранить данные черного ящика, прежде чем обновлять?".localized(code), message: "Если обновить прошивку, Вы потеряете данные черного ящика".localized(code), preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Сохранить данные", style: .default, handler: { action in
+                        switch action.style{
+                        case .default:
+                            print("Сохранить данные")
+                            self.navigationController?.pushViewController(LoggingController(), animated: true)
+                        case .cancel:
+                            print("cancel")
+                        case .destructive:
+                            print("destructive")
+                        @unknown default:
+                            fatalError()
+                        }}))
+                    alert.addAction(UIAlertAction(title: "Удалить и обновить", style: .destructive, handler: { action in
+                        switch action.style{
+                        case .default:
+                            print("default")
+                        case .cancel:
+                            print("cancel")
+                            
+                        case .destructive:
+                            reload = 1
+                            print("123")
+                            self.activityIndicator.startAnimating()
+                            self.viewAlpha.addSubview(self.activityIndicator)
+                            self.view.addSubview(self.viewAlpha)
+                            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                            self.view.isUserInteractionEnabled = false
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                                self.view.isUserInteractionEnabled = true
+                                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                                self.viewAlpha.removeFromSuperview()
+                                self.activityIndicator.stopAnimating()
+                                nameDevice = ""
+                                temp = nil
+                                checkUpdate = "Update"
+                                let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
+                                self.navigationController?.popToViewController(vc!, animated: true)
+                            }
+                        @unknown default:
+                            fatalError()
+                        }}))
+                    alert.addAction(UIAlertAction(title: "Отменить", style: .cancel, handler: { action in
+                        switch action.style{
+                        case .default:
+                            print("Отменить")
+                        case .cancel:
+                            print("cancel")
+                            
+                        case .destructive:
+                            print("destructive")
+                        @unknown default:
+                            fatalError()
+                        }}))
+                    self.present(alert, animated: true, completion: nil)
+                    } else {
+                        reload = 1
+                        print("123")
+                        self.activityIndicator.startAnimating()
+                        self.viewAlpha.addSubview(self.activityIndicator)
+                        self.view.addSubview(self.viewAlpha)
+                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                        self.view.isUserInteractionEnabled = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                            self.view.isUserInteractionEnabled = true
+                            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                            self.viewAlpha.removeFromSuperview()
+                            self.activityIndicator.stopAnimating()
+                            nameDevice = ""
+                            temp = nil
+                            checkUpdate = "Update"
+                            let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
+                            self.navigationController?.popToViewController(vc!, animated: true)
+                        }
                     }
                 } else {
                     let alert = UIAlertController(title: "Warning".localized(code), message: "Enter password to continue".localized(code), preferredStyle: .alert)

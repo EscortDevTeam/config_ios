@@ -6,7 +6,7 @@ target 'Escort' do
   use_frameworks!
 
 	pod 'UIDrawer', :git => 'https://github.com/Que20/UIDrawer.git', :tag => '1.0'
-	pod 'Charts'
+	pod 'Charts', :git => 'https://github.com/danielgindi/Charts.git', :branch => '4.0.0'
 	pod "SwiftChart"
 	pod 'RxSwift'
 	pod 'RxTheme'
@@ -17,5 +17,7 @@ target 'Escort' do
 	pod 'Firebase/Analytics'
 	pod 'Firebase/Messaging'  
 	pod 'iOSDFULibrary'
+	pod 'NVActivityIndicatorView'
+
 
 end

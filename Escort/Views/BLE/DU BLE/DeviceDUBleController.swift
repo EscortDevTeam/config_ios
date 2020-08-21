@@ -939,7 +939,7 @@ class DeviceDUBleController: UIViewController {
             actualMode = 2
         }
         if modeLabel == "6" {
-            mode = "Angel control".localized(code)
+            mode = "Angle control".localized(code)
             if modeS == "0" {
                 modeS = "Inactive".localized(code)
             }

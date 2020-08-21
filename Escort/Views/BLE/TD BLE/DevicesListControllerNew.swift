@@ -23,7 +23,12 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
 
     let viewAlpha = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
     let searchBar = UISearchBar(frame: CGRect(x: 0, y: headerHeight + (iphone5s ? 10 : 0), width: screenWidth, height: 35))
-    var refreshControl = UIRefreshControl()
+    var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
+        return refreshControl
+    }()
+    var tr = "0"
     var attributedTitle = NSAttributedString()
     let attributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     var peripherals = [CBPeripheral]()
@@ -125,12 +130,12 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                                     let versionCounter = manufacturerData[7]
                                     let string7 = "\(String(format: "%02X", versionCounter))"
                                     print(string7) //->000D
-                                    let result7 = UInt16(strtoul("0x\(string7)", nil, 16)) //весрия
-                                    var abn7: String = String(result7)
-                                    abn7.insert(".", at: abn7.index(abn7.startIndex, offsetBy: 1))
-                                    abn7.insert(".", at: abn7.index(abn7.startIndex, offsetBy: 3))
-                                    print(abn7)
-                                    adveFW.insert(String(abn7), at: 0)
+//                                    let result7 = UInt16(strtoul("0x\(string7)", nil, 16)) //весрия
+//                                    var abn7: String = String(result7)
+//                                    abn7.insert(".", at: abn7.index(abn7.startIndex, offsetBy: 1))
+//                                    abn7.insert(".", at: abn7.index(abn7.startIndex, offsetBy: 3))
+//                                    print(abn7)
+//                                    adveFW.insert(String(abn7), at: 0)
                                 } else {
                                     adveLvl.insert("...", at: 0)
                                     adveVat.insert("...", at: 0)
@@ -218,6 +223,7 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                             zeroTwo = 0
                             zero = 0
                             countNot = 0
+                            versionDevice = 0
                             self.manager?.connect(peripheral, options: nil)
                             self.view.isUserInteractionEnabled = false
                             self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
@@ -256,32 +262,63 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
             }
             if peripheral.state == CBPeripheralState.disconnected {
                 print("disconnectedP")
-                if warning == true{
-                    timer.invalidate()
-                    self.dismiss(animated: true, completion: nil)
-                    self.dismiss(animated: true, completion: nil)
-                } else {
+                if cheakStartLogging == false {
                     timer.invalidate()
                     self.dismiss(animated: true, completion: nil)
                     self.dismiss(animated: true, completion: nil)
                     let alert = UIAlertController(title: "Warning".localized(code), message: "Connection is lost.".localized(code), preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                        switch action.style{
-                        case .default:
-                            print("default")
-                            self.dismiss(animated: true, completion: nil)
-                            self.dismiss(animated: true, completion: nil)
-                            let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
-                            self.navigationController?.popToViewController(vc!, animated: true)
-                            self.view.subviews.forEach({ $0.removeFromSuperview() })
-//                            self.navigationController?.popViewController(animated: true)
-                        case .cancel:
-                            print("cancel")
-                        case .destructive:
-                            print("destructive")
-                        @unknown default:
-                            fatalError()
-                        }}))
+                                                    switch action.style{
+                                                    case .default:
+                                                        print("default")
+                                                        self.dismiss(animated: true, completion: nil)
+                                                        self.dismiss(animated: true, completion: nil)
+                                                        let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
+                                                        self.navigationController?.popToViewController(vc!, animated: true)
+                                                        self.view.subviews.forEach({ $0.removeFromSuperview() })
+                                                    //                            self.navigationController?.popViewController(animated: true)
+                                                    case .cancel:
+                                                        print("cancel")
+                                                    case .destructive:
+                                                        print("destructive")
+                                                    @unknown default:
+                                                        fatalError()
+                                                    }}))
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    timer.invalidate()
+                    self.dismiss(animated: true, completion: nil)
+                    self.dismiss(animated: true, completion: nil)
+                    let alert = UIAlertController(title: "Warning".localized(code), message: "Connection is lost.".localized(code) + " Хотите сохранить скачанные данные?", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { action in
+                                                    switch action.style{
+                                                    case .default:
+                                                        print("default")
+                                                        self.navigationController?.pushViewController(GrafficsViewController(), animated: true)
+                                                    case .cancel:
+                                                        print("cancel")
+                                                    case .destructive:
+                                                        print("destructive")
+                                                    @unknown default:
+                                                        fatalError()
+                                                    }}))
+                    alert.addAction(UIAlertAction(title: "Нет", style: .destructive, handler: { action in
+                                                    switch action.style{
+                                                    case .default:
+                                                        print("default")
+                                                    case .cancel:
+                                                        print("cancel")
+                                                    case .destructive:
+                                                        print("destructive")
+                                                        self.dismiss(animated: true, completion: nil)
+                                                        self.dismiss(animated: true, completion: nil)
+                                                        let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
+                                                        self.navigationController?.popToViewController(vc!, animated: true)
+                                                        self.view.subviews.forEach({ $0.removeFromSuperview() })
+                                                    @unknown default:
+                                                        fatalError()
+                                                    }}))
+                    
                     self.present(alert, animated: true, completion: nil)
                 }
                 warning = false
@@ -302,6 +339,7 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         
         let valueAll = "GA\r"
+        let valueLogReload = "SM,LM:1:1,"
         let valueReload = "PR,PW:1:\(mainPassword)"
         let FullReload = "SH,PW:1:"
         let NothingReload = "SL,PW:1:"
@@ -318,10 +356,16 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
         let passInstall = "SP,PN:1:\(mainPassword)\r"
         let enterPass = "SP,PN:1:\(mainPassword),"
         let r = "\r"
-        let blackBox = "GL,LL:1:30,"
-        
+        let blackBox = "GL,LL:1:\(blocks),"
+        let stopBlackBox = "GS,"
+        let date = NSDate()
+        let timestamp = date.timeIntervalSince1970
+        let blackBoxTimeUnix = "ST,TS:1:\(timestamp),"
+
+
         let dataAll = withUnsafeBytes(of: valueAll) { Data($0) }
         let dataReload = Data(valueReload.utf8)
+        let dataValueLogReload = Data(valueLogReload.utf8)
         let dataFullReload = Data(FullReload.utf8)
         let dataNothingReload = Data(NothingReload.utf8)
         let dataSdVal = withUnsafeBytes(of: sdVal) { Data($0) }
@@ -338,6 +382,8 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
         let dataR = Data(r.utf8)
         let dataReloadFN = Data(ReloadFN.utf8)
         let dataBlackBox = Data(blackBox.utf8)
+        let dataStopBlackBox = Data(stopBlackBox.utf8)
+        let dataBlackBoxTimeUnix = Data(blackBoxTimeUnix.utf8)
 
         for characteristic in service.characteristics! {
             if characteristic.properties.contains(.notify) {
@@ -351,7 +397,6 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                     print("Свойство \(characteristic.uuid): .write")
                     stringAll = ""
                     peripheral.writeValue(dataAll, for: characteristic, type: .withResponse)
-                    reload = -1
                 }
             }
         }
@@ -371,7 +416,10 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                 if characteristic.properties.contains(.write) {
                     print("Свойство \(characteristic.uuid): .write")
                     stringAll = ""
-                    peripheral.writeValue(dataReload, for: characteristic, type: .withResponse)
+                    peripheral.writeValue(dataValueLogReload, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataSdParamYet, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataR, for: characteristic, type: .withResponse)
+                    peripheral.writeValue(dataReload, for: characteristic, type: .withoutResponse)
                     peripheral.writeValue(dataR, for: characteristic, type: .withResponse)
                     reload = 0
                 }
@@ -446,10 +494,50 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                 if characteristic.properties.contains(.write) {
                     print("Свойство \(characteristic.uuid): .write")
                     stringAll = ""
+                    lvlBlackBox.removeAll()
+                    timeBlackBox.removeAll()
                     peripheral.writeValue(dataBlackBox, for: characteristic, type: .withoutResponse)
                     peripheral.writeValue(dataSdParamYet, for: characteristic, type: .withoutResponse)
                     peripheral.writeValue(dataR, for: characteristic, type: .withResponse)
 //                    peripheral.writeValue(dataReloadFN, for: characteristic, type: .withResponse)
+                    reload = -1
+                }
+            }
+        }
+        if reload == 12{
+            for characteristic in service.characteristics! {
+                if characteristic.properties.contains(.write) {
+                    print("Свойство \(characteristic.uuid): .write")
+                    stringAll = ""
+                    peripheral.writeValue(dataStopBlackBox, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataSdParamYet, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataR, for: characteristic, type: .withResponse)
+                    reload = -1
+                }
+            }
+        }
+        if reload == 13{
+            for characteristic in service.characteristics! {
+                if characteristic.properties.contains(.write) {
+                    print("Свойство \(characteristic.uuid): .write")
+                    stringAll = ""
+                    lvlBlackBox.removeAll()
+                    timeBlackBox.removeAll()
+                    peripheral.writeValue(dataValueLogReload, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataSdParamYet, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataR, for: characteristic, type: .withResponse)
+                    reload = -1
+                }
+            }
+        }
+        if reload == 14 {
+            for characteristic in service.characteristics! {
+                if characteristic.properties.contains(.write) {
+                    print("Свойство \(characteristic.uuid): .write")
+                    stringAll = ""
+                    peripheral.writeValue(dataBlackBoxTimeUnix, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataSdParamYet, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataR, for: characteristic, type: .withResponse)
                     reload = -1
                 }
             }
@@ -512,7 +600,7 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
     let string: String = ""
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         peripheral.readRSSI()
-        print("READ: \(characteristic)")
+//        print("READ: \(characteristic)")
         let rxData = characteristic.value
         if let rxData = rxData {
             let numberOfBytes = rxData.count
@@ -520,9 +608,39 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
             (rxData as NSData).getBytes(&rxByteArray, length: numberOfBytes)
             let string = String(data: Data(rxByteArray), encoding: .utf8)
             stringAll = stringAll + string!
+            print(stringAll)
+            let resultBlack = stringAll.components(separatedBy: ["\r"])
+            for index in resultBlack {
+                let resultBlackString = index.components(separatedBy: [":",","])
+                if resultBlackString.contains("L") {
+                    let indexOfPerson = resultBlackString.firstIndex{$0 == "L"}
+                    let packet: Int = Int(resultBlackString[indexOfPerson! + 1]) ?? 0
+                    if resultBlackString.count == 35 {
+                        if timeBlackBox.count <= packet - 1{
+                            timeBlackBox.append([])
+                            let time = resultBlackString[indexOfPerson! + 3]
+                            timeBlackBox[packet-1].append(unixTimeToDate(unixTime: String(time)))
+                            var timeInt = Int(time) ?? 0
+                            guard resultBlackString.count >= 7 else {return}
+                            for _ in 0...resultBlackString.count - 7 {
+                                timeInt = timeInt - 120
+                                let timeAll = unixTimeToDate(unixTime: String(timeInt))
+                                timeBlackBox[packet-1].insert(timeAll, at: 0)
+                            }
+                        }
+                        if lvlBlackBox.count <= packet - 1 {
+                            lvlBlackBox.append([])
+                            for i in 4...resultBlackString.count - 2 {
+                                let indexOfPersonInt = resultBlackString[indexOfPerson! + i]
+                                lvlBlackBox[packet - 1].append(indexOfPersonInt)
+                            }
+                        }
+                    }
+                }
+            }
             let result = stringAll.components(separatedBy: [":",",","\r"])
             if result.count >= 0 {
-                print(result)
+//                print(result)
                 if result.contains("SE") {
                     let indexOfPerson = result.firstIndex{$0 == "SE"}
                     print(indexOfPerson!)
@@ -597,6 +715,8 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                 if result.contains("VV") {
                     let indexOfPerson = result.firstIndex{$0 == "VV"}
                     VV = "\(result[indexOfPerson! + 2])"
+                    guard let versionDeviceCheck = Int(VV) else {return}
+                    versionDevice = versionDeviceCheck
                     VV.insert(".", at: VV.index(VV.startIndex, offsetBy: 1))
                     VV.insert(".", at: VV.index(VV.startIndex, offsetBy: 3))
                 }
@@ -613,6 +733,32 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                             }
                         }
                     }
+                }
+                if result.contains("TR") {
+                    let indexOfPerson = result.firstIndex{$0 == "TR"}
+                    tr = "\(result[indexOfPerson! + 2])"
+                }
+                deleteChek = false
+                if result.contains("SMO") {
+                    deleteChek = true
+                }
+                if result.contains("SR") {
+                    let indexOfPerson = result.firstIndex{$0 == "SR"}
+                    if result[indexOfPerson! + 2] == "0" {
+                        countPackets = "-1"
+                    } else {
+                        countPackets = "\(result[indexOfPerson! + 2])"
+                    }
+                }
+                if result.contains("L") {
+                    let indexOfPerson = result.lastIndex{$0 == "L"}
+                    guard let indexOfPersonInt = Double(result[indexOfPerson! + 1]),
+                          let countPacketsInts = Double(countPackets),
+                          indexOfPersonInt != 0,
+                          countPacketsInts != 0 else {return}
+                    countPacket = "\(Int(indexOfPersonInt))"
+                    let intResult: Int = Int(100 / (countPacketsInts / indexOfPersonInt))
+                    inverst = "\(intResult)"
                 }
             }
         }
@@ -704,6 +850,7 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
         self.tableView.register(DevicesListCellMain.self, forCellReuseIdentifier: "DevicesListCellMain")
         self.tableView.register(DevicesListCell.self, forCellReuseIdentifier: "DevicesListCell")
         tableView.separatorStyle = .none
+        tableView.refreshControl = refreshControl
         setupTheme()
     }
     
@@ -735,26 +882,34 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
         }
 
     }
-    
-    var tr = 0
     var container2 = UIView(frame: CGRect(x: 20, y: 50, width: Int(screenWidth-40), height: 70))
     @objc func refresh(sender:AnyObject) {
-        RSSIMainArray = []
-        peripheralName = []
-        scanBLEDevices()
-        activityIndicator.startAnimating()
-        self.view.addSubview(viewAlpha)
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                self.viewAlpha.removeFromSuperview()
-                self.activityIndicator.stopAnimating()
-            }
-//            self.mainPartShow()
-            
+        searchBar.text = ""
+        mainPassword = ""
+        timer.invalidate()
+        self.searchBar.endEditing(true)
+        peripherals.removeAll()
+        RSSIMainArray.removeAll()
+        rrsiPink = 0
+        manager?.stopScan()
+        tableViewData.removeAll()
+        tableViewData.append(cellData(opened: false, title: "123", sectionData: ["123"]))
+        tableViewData.insert(cellData(opened: false, title: "1234", sectionData: ["1234"]), at: 0)
+        RSSIMainArray.append("2")
+        RSSIMainArray.insert("1", at: 0)
+        searchList.removeAll()
+        searching = false
+        searchBar.text = ""
+        peripheralName.removeAll()
+        mainPassword = ""
+        if hidednCell == false {
+            tableView.reloadData()
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+        scanBLEDevices()
+        rightCount = 0
+        self.view.isUserInteractionEnabled = true
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             self.refreshControl.endRefreshing()
         }
     }
@@ -783,7 +938,6 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
         }
         scanBLEDevices()
         rightCount = 0
-
     }
     
     func scanBLEDevices() {
@@ -1011,6 +1165,7 @@ extension DevicesListControllerNew: UITableViewDataSource {
                         zeroTwo = 0
                         zero = 0
                         countNot = 0
+                        versionDevice = 0
                         if !self.searching {
                             self.stringAll = ""
                             if indexPath.section > rrsiPink {
@@ -1058,6 +1213,7 @@ extension DevicesListControllerNew: UITableViewDataSource {
                     print("\(index!)")
                     if self.searching {
                         self.stringAll = ""
+                        versionDevice = 0
                         self.manager?.connect(self.peripherals[index!], options: nil)
                     }
                     self.view.isUserInteractionEnabled = false

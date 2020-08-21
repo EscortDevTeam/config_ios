@@ -8,15 +8,39 @@
 
 import Foundation
 import UIKit
+import NVActivityIndicatorView
+import WebKit
+
+var fileURLBlackBox: URL?
 
 class LoggingController: UIViewController, UINavigationControllerDelegate {
     
+    let webView = WKWebView()
     let generator = UIImpactFeedbackGenerator(style: .light)
     let picker = UIPickerView()
     let labelDays = UILabel()
     let labelHours = UILabel()
     let stack = UIStackView()
+    var days = 0
+    var hours = 0
+    var timer = Timer()
     
+    let viewAlpha = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
+    var input1 = UITextField()
+    var input2 = UITextField()
+    
+    let firstTextField = UITextField()
+    let secondTextField = UITextField()
+    let validatePassword = UILabel()
+    var saveAction = UIAlertAction()
+    
+    let firstTextFieldSecond = UITextField()
+    let secondTextFieldSecond = UITextField()
+    let validatePasswordSecond = UILabel()
+    var saveActionSecond = UIAlertAction()
+    var searchTextViewPortraitWidthConstraint: NSLayoutConstraint?
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         viewShow()
@@ -24,38 +48,319 @@ class LoggingController: UIViewController, UINavigationControllerDelegate {
         registgerPickerView()
         createLabelHoursOrDays(label: labelDays, name: "дней", centerX: 1)
         createLabelHoursOrDays(label: labelHours, name: "часов", centerX: 2)
-        
+        showPassword()
         view.addSubview(stack)
-        getButton.addTarget(self, action: #selector(onButtonClick(_:)), for: UIControl.Event.touchUpInside)
+        
+    }
+    func cancelTap() {
+        deleteLogger()
     }
 
+    fileprivate func doneDowload() {
+        cancelButton.setTitle("Сохранить полученные данные", for: .normal)
+        cancelButton.titleLabel?.numberOfLines = 0
+        cancelButton.titleLabel?.font = UIFont(name:"FuturaPT-Medium", size: 16)!
+        cancelButton.removeTarget(nil, action: nil, for: .allEvents)
+        cancelButton.addTarget(self, action: #selector(self.saveData(_ :)), for: UIControl.Event.touchUpInside)
+        
+        viewLogger.addSubview(cancelLabel)
+        
+        cancelLabel.centerXAnchor.constraint(equalTo: viewLogger.centerXAnchor).isActive = true
+        cancelLabel.bottomAnchor.constraint(equalTo: cancelButton.topAnchor, constant: -5).isActive = true
+        cancelLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        cancelLabel.widthAnchor.constraint(equalToConstant: screenWidth - 70).isActive = true
+        
+        interestLabel.text = "Загрузка завершена на \(inverst)%\nТеперь необходимо обработать полученные данные"
+        interestLabel.font = UIFont(name:"FuturaPT-Light", size: 20)
+        interestLabel.numberOfLines = 0
+        interestLabel.widthAnchor.constraint(equalToConstant: screenWidth - 70).isActive = true
+        
+        indicatorView.alpha = 0.0
+
+        timer.invalidate()
+    }
+    
+    func timerStart() {
+        timer =  Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (timer) in
+            self.interestLabel.text = "\(inverst)%"
+            self.blocksLabel.text = "\(countPacket) блоков из \(countPackets)"
+            if inverst == "100" {
+                self.doneDowload()
+            }
+            if countPackets == "-1" {
+                self.deleteLogger()
+                let alert = UIAlertController(title: "Warning".localized(code), message: "Черный ящик пуст", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                                                switch action.style{
+                                                case .default:
+                                                    print("OK")
+                                                case .cancel:
+                                                    print("cancel")
+                                                case .destructive:
+                                                    print("destructive")
+                                                @unknown default:
+                                                    fatalError()
+                                                }}))
+                self.present(alert, animated: true)
+                timer.invalidate()
+            }
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        print("interactivePopGestureRecognizer")
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        picker.selectRow(6, inComponent: 0, animated: true)
-        picker.selectRow(16, inComponent: 1, animated: true)
+        days = Int.random(in: 0...30)
+        hours = Int.random(in: 0...24)
+        picker.selectRow(days, inComponent: 0, animated: true)
+        picker.selectRow(hours, inComponent: 1, animated: true)
+        pickerView(picker, didSelectRow: days, inComponent: 0)
+        pickerView(picker, didSelectRow: hours, inComponent: 1)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        timer.invalidate()
+    }
 
+    @objc private func onButtonClick(_ sender: UIButton) {
+        cheakStartLogging = true
+        timeBlackBox.removeAll()
+        lvlBlackBox.removeAll()
+        reload = 11
+        inverst = "0"
+        print("reload: \(reload) and blocks \(blocks)")
+        createLogger()
+    }
+    
+    @objc private func getAllButtonClick(_ sender: UIButton) {
+        cheakStartLogging = true
+        timeBlackBox.removeAll()
+        lvlBlackBox.removeAll()
+        blocks = 720
+        reload = 11
+        inverst = "0"
+        print("reload all: \(reload) and blocks \(blocks)")
+        createLogger()
+    }
+    
+    @objc private func DeleteButtonClick(_ sender: UIButton) {
+        let alert = UIAlertController(title: "Удалить?".localized(code), message: "Вы точно хотите удалить все данные с черного ящика?".localized(code), preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "No".localized(code), style: .default, handler: { _ in
+            //Cancel Action
+        }))
+        alert.addAction(UIAlertAction(title: "Yes".localized(code),
+                                      style: .destructive,
+                                      handler: {(_: UIAlertAction!) in
+                                        timeBlackBox.removeAll()
+                                        lvlBlackBox.removeAll()
+                                        reload = 13
+                                        inverst = "0"
+                                        self.deleteCheck()
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    @objc func stopButtonClick(_ sender: UIButton) {
+        pickerView(picker, didSelectRow: days, inComponent: 0)
+        pickerView(picker, didSelectRow: hours, inComponent: 1)
+        reload = 12
+        doneDowload()
+        print("delete: \(reload)")
+    }
+    
+    @objc private func saveData(_ sender: UIButton) {
+        navigationController?.pushViewController(GrafficsViewController(), animated: true)
+        print("save all: \(reload)")
+        let file = "Черный ящик №\(nameDevice).csv"
+        var contents = ""
+        for i in 0...timeBlackBox.count - 1 {
+            for j in (0...timeBlackBox[i].count - 1).reversed() {
+                contents = contents + "\(timeBlackBox[i][j]), \(lvlBlackBox[i][j])\n"
+            }
+        }
+        let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        
+        let fileURL = dir.appendingPathComponent(file)
+        fileURLBlackBox = fileURL
+        var filesToShare = [Any]()
+//        webView.frame =  CGRect(x: 0, y: headerHeight-10, width: screenWidth, height: screenHeight-(headerHeight-10))
+//        view.addSubview(webView)
+        do {
+//                            try FileManager.default.createDirectory(at: fileURL, withIntermediateDirectories: true, attributes: nil)
+            try contents.write(to: fileURL, atomically: false, encoding: .utf8)
+            filesToShare.append(fileURL)
+            
+//            let activityViewController = UIActivityViewController(activityItems: filesToShare, applicationActivities: nil)
+//            self.present(activityViewController, animated: true, completion: nil)
+        }
+        catch {
+            print("Error: \(error)")
+            self.showToast(message: "Error".localized(code), seconds: 1.0)
+
+        }
+        programSetCell()
         
     }
-    override func viewDidDisappear(_ animated: Bool) {
-
+    fileprivate func programSetCell() {
+        cheakDate.removeAll()
+        cheakDateAgain.removeAll()
+        indexDate.removeAll()
+        for i in 0...timeBlackBox.count - 1 {
+            let index = timeBlackBox[i].first!.dropLast(9)
+            cheakDateAgain.append(String(index))
+            if !cheakDate.contains(cheakDateAgain[i]) {
+                cheakDate.append(cheakDateAgain[i])
+                indexDate.append(i)
+            }
+        }
+        print(cheakDate)
+    }
+    func deleteCheck() {
+        self.activityIndicator.startAnimating()
+        self.viewAlpha.addSubview(self.activityIndicator)
+        self.view.addSubview(self.viewAlpha)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        self.view.isUserInteractionEnabled = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+            self.view.isUserInteractionEnabled = true
+            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+            self.viewAlpha.removeFromSuperview()
+            self.input1.removeFromSuperview()
+            self.input2.removeFromSuperview()
+            if deleteChek == true {
+                let alert = UIAlertController(title: "Success".localized(code), message: "Данные успешно удалены".localized(code), preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    switch action.style{
+                    case .default:
+                        print("OK")
+                    case .cancel:
+                        print("cancel")
+                    case .destructive:
+                        print("destructive")
+                    @unknown default:
+                        fatalError()
+                    }}))
+                self.present(alert, animated: true, completion: nil)
+            } else {
+                let alert = UIAlertController(title: "Warning".localized(code), message: "Error".localized(code), preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    switch action.style{
+                    case .default:
+                        print("OK")
+                    case .cancel:
+                        print("cancel")
+                    case .destructive:
+                        print("destructive")
+                    @unknown default:
+                        fatalError()
+                    }}))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
     }
     
-    @objc private func onButtonClick(_ sender: UIButton) {
-        reload = 11
-        print("reload: \(reload)")
-    }
+    lazy var viewLogger: UIView = {
+       let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor(rgb: 0x747474)
+        view.layer.cornerRadius = 10
+
+        return view
+    }()
+    lazy var viewAlphaLogger: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
+        view.backgroundColor = UIColor(rgb: 0x181818).withAlphaComponent(0.8)
+        return view
+    }()
+    
+    lazy var indicatorView: NVActivityIndicatorView = {
+        let view = NVActivityIndicatorView(frame: .zero, type: .circleStrokeSpin, color: UIColor(rgb: 0x00D196))
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var blocksLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.text = "0 блоков из 0"
+        label.textAlignment = .right
+        label.font = UIFont(name:"FuturaPT-Light", size: 14)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var interestLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.text = "0%"
+        label.textAlignment = .center
+        label.font = UIFont(name:"FuturaPT-Medium", size: 35)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var cancelLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .red
+        label.text = "Отмена"
+        label.textAlignment = .center
+        label.font = UIFont(name:"FuturaPT-Medium", size: 20)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     lazy var getButton: UIButton = {
-        let getButton = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: screenWidth / 2, height: 50)))
-        getButton.setTitle("Выдать всё", for: .normal)
-        getButton.tintColor = .white
-        getButton.layer.cornerRadius = 20
-        getButton.backgroundColor = UIColor(rgb: 0xE80000)
-        getButton.titleLabel?.font = UIFont(name:"FuturaPT-Medium", size: 20)!
-       return getButton
+        let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: .zero, height: 50)))
+        button.setTitle("Выдать", for: .normal)
+        button.tintColor = .white
+        button.layer.cornerRadius = 20
+        button.backgroundColor = UIColor(rgb: 0xE80000)
+        button.titleLabel?.font = UIFont(name:"FuturaPT-Medium", size: 20)!
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(onButtonClick(_:)), for: UIControl.Event.touchUpInside)
+       return button
+    }()
+    
+    lazy var getAllButton: UIButton = {
+        let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: .zero, height: 50)))
+        button.setTitle("Выдать всё", for: .normal)
+        button.tintColor = .white
+        button.layer.cornerRadius = 20
+        button.backgroundColor = UIColor(rgb: 0xE80000)
+        button.titleLabel?.font = UIFont(name:"FuturaPT-Medium", size: 20)!
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(getAllButtonClick(_:)), for: UIControl.Event.touchUpInside)
+
+       return button
+    }()
+    
+    lazy var cancelButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Стоп", for: .normal)
+        button.tintColor = .white
+        button.layer.cornerRadius = 20
+        button.backgroundColor = UIColor(rgb: 0x00A778)
+        button.titleLabel?.font = UIFont(name:"FuturaPT-Medium", size: 20)!
+        button.titleLabel?.textAlignment = .center
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(stopButtonClick(_:)), for: UIControl.Event.touchUpInside)
+       return button
+    }()
+    
+    lazy var deleteAllButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Удалить всё", for: .normal)
+        button.tintColor = .white
+        button.layer.cornerRadius = 20
+        button.backgroundColor = UIColor(rgb: 0xE80000)
+        button.titleLabel?.font = UIFont(name:"FuturaPT-Medium", size: 20)!
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(DeleteButtonClick(_:)), for: UIControl.Event.touchUpInside)
+       return button
     }()
     
     lazy var backView: UIImageView = {
@@ -119,7 +424,7 @@ extension LoggingController: UIPickerViewDataSource, UIPickerViewDelegate {
         if component == 0 {
             return "\(row)"
         } else {
-            return "\(row + 1)"
+            return "\(row)"
         }
     }
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
@@ -135,7 +440,7 @@ extension LoggingController: UIPickerViewDataSource, UIPickerViewDelegate {
             label?.textAlignment = .center
             return label!
         case 1:
-            label?.text = "\(row + 1)"
+            label?.text = "\(row)"
             label?.font = UIFont(name:"FuturaPT-Light", size: 45)
             label?.textAlignment = .center
             return label!
@@ -158,17 +463,64 @@ extension LoggingController: UIPickerViewDataSource, UIPickerViewDelegate {
             default:
                 print("default")
             }
+            days = row
+            blocks = days * 24 + hours
+            if blocks >= 720 {
+                blocks = 720
+            }
+            if hours == 0 && days == 0 {
+                picker.selectRow(1, inComponent: 1, animated: true)
+                hours = 1
+                blocks = days * 24 + hours
+            } else if days == 30 && hours != 0 {
+                picker.selectRow(0, inComponent: 1, animated: true)
+                hours = 0
+                blocks = days * 24 + hours
+            }
         } else {
             switch row {
-            case 4...19:
+            case 5...20:
                 labelHours.text = "часов"
-            case 0,20:
+            case 1,21:
                 labelHours.text = "час"
-            case 1...4,21...23:
+            case 2...5,22...24:
                 labelHours.text = "часа"
             default:
                 print("default")
             }
+            hours = row
+            blocks = days * 24 + hours
+            if blocks >= 720 {
+                blocks = 720
+            }
+            if hours == 0 && days == 0 {
+                picker.selectRow(1, inComponent: 1, animated: true)
+                hours = 1
+                blocks = days * 24 + hours
+            } else if days == 30 && hours != 0 {
+                picker.selectRow(0, inComponent: 1, animated: true)
+                hours = 0
+                blocks = days * 24 + hours
+            }
+        }
+    }
+}
+extension LoggingController:  URLSessionDownloadDelegate {
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        print("downloadLocation:", location)
+        // create destination URL with the original pdf name
+        guard let url = downloadTask.originalRequest?.url else { return }
+        let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let destinationURL = documentsPath.appendingPathComponent(url.lastPathComponent)
+        // delete original copy
+        try? FileManager.default.removeItem(at: destinationURL)
+        // copy from temp to Document
+        do {
+            try FileManager.default.copyItem(at: location, to: destinationURL)
+            print(destinationURL)
+//            self.pdfURL = destinationURL
+        } catch let error {
+            print("Copy Error: \(error.localizedDescription)")
         }
     }
 }

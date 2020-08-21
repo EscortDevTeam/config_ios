@@ -1,7 +1,7 @@
 PODS:
-  - Charts (3.5.0):
-    - Charts/Core (= 3.5.0)
-  - Charts/Core (3.5.0)
+  - Charts (3.2.1):
+    - Charts/Core (= 3.2.1)
+  - Charts/Core (3.2.1)
   - Firebase/Analytics (6.26.0):
     - Firebase/Core
   - Firebase/Core (6.26.0):
@@ -93,6 +93,9 @@ PODS:
     - nanopb/encode (= 1.30905.0)
   - nanopb/decode (1.30905.0)
   - nanopb/encode (1.30905.0)
+  - NVActivityIndicatorView (5.0.0):
+    - NVActivityIndicatorView/Base (= 5.0.0)
+  - NVActivityIndicatorView/Base (5.0.0)
   - PromisesObjC (1.2.8)
   - Protobuf (3.12.0)
   - PryntTrimmerView (4.0.0)
@@ -117,12 +120,13 @@ PODS:
   - ZIPFoundation (0.9.11)
 
 DEPENDENCIES:
-  - Charts
+  - Charts (from `https://github.com/danielgindi/Charts.git`, branch `4.0.0`)
   - Firebase/Analytics
   - Firebase/Messaging
   - ImageSlideshow (from `https://github.com/FirstZverev/ImageSlideshow`)
   - iOSDFULibrary
   - lottie-ios
+  - NVActivityIndicatorView
   - RxSwift
   - RxTheme
   - SwiftChart
@@ -132,7 +136,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - Charts
     - Firebase
     - FirebaseAnalytics
     - FirebaseAnalyticsInterop
@@ -149,6 +152,7 @@ SPEC REPOS:
     - iOSDFULibrary
     - lottie-ios
     - nanopb
+    - NVActivityIndicatorView
     - PromisesObjC
     - Protobuf
     - PryntTrimmerView
@@ -164,6 +168,9 @@ SPEC REPOS:
     - ZIPFoundation
 
 EXTERNAL SOURCES:
+  Charts:
+    :branch: 4.0.0
+    :git: https://github.com/danielgindi/Charts.git
   ImageSlideshow:
     :git: https://github.com/FirstZverev/ImageSlideshow
   UIDrawer:
@@ -171,6 +178,9 @@ EXTERNAL SOURCES:
     :tag: '1.0'
 
 CHECKOUT OPTIONS:
+  Charts:
+    :commit: 4b2332765e61c6ce78ac7892266784532962a39b
+    :git: https://github.com/danielgindi/Charts.git
   ImageSlideshow:
     :commit: 778491fb39fa5d17900e891d156d12a46d443cff
     :git: https://github.com/FirstZverev/ImageSlideshow
@@ -179,7 +189,7 @@ CHECKOUT OPTIONS:
     :tag: '1.0'
 
 SPEC CHECKSUMS:
-  Charts: 40a08591df1f8ad5c223ddedfb1a06da92f24f7c
+  Charts: 5d168be9c09f00333e0e99475fc02545143e42d3
   Firebase: 7cf5f9c67f03cb3b606d1d6535286e1080e57eb6
   FirebaseAnalytics: 96634d356482d4f3af8fe459a0ebf19a99c71b75
   FirebaseAnalyticsInterop: 3f86269c38ae41f47afeb43ebf32a001f58fcdae
@@ -197,6 +207,7 @@ SPEC CHECKSUMS:
   iOSDFULibrary: 213608bf93ace7f9d6582453a9498ec384642f97
   lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
+  NVActivityIndicatorView: f109ed069924ac1b4adbc1ae9cfaeac0be1d6c2c
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
   PryntTrimmerView: 67e67573ffd4c073f1308effa66aefd0cfa667a0
@@ -212,6 +223,6 @@ SPEC CHECKSUMS:
   YPImagePicker: 3b88ca0c50134af2856c48c481572c98a8b8b65b
   ZIPFoundation: b1f0de4eed33e74a676f76e12559ab6b75990197
 
-PODFILE CHECKSUM: 951317e2c569bebdff9ea6c0148d7493e1139d60
+PODFILE CHECKSUM: 88376fa9e40effc4e69feb4b7799a19026608797
 
 COCOAPODS: 1.8.4

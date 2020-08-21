@@ -239,6 +239,7 @@ extension TarirovkaStartViewControllet: UIDocumentPickerDelegate {
         guard let selectedFileURL = urls.first else {
             return
         }
+        
         sandboxFileURLPath = selectedFileURL.absoluteURL
 //        print(sandboxFileURLPath!.path.dropLast(Int((sandboxFileURLPath?.path.count)!)+3))
 //        print(sandboxFileURLPath)

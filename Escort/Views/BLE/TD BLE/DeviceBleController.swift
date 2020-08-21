@@ -11,7 +11,10 @@ import UIDrawer
 import RxSwift
 import RxTheme
 
-class DeviceBleController: UIViewController {
+protocol MainDelegate: class {
+    func buttonT()
+}
+class DeviceBleController: UIViewController, MainDelegate {
     
     let viewAlpha = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
     var attributedTitle = NSAttributedString()
@@ -19,10 +22,15 @@ class DeviceBleController: UIViewController {
     var timer = Timer()
     var count = 0
     var timerTrue = 0
-    
+    let generator = UIImpactFeedbackGenerator(style: .light)
+    let viewController = MenuControllerTD()
+    let menuImagePlace = UIImageView(frame: CGRect(x: Int(screenWidth-21*2), y: dIy + dy + (hasNotch ? dIPrusy+30 : 40) - (iphone5s ? 10 : 0), width: 40, height: 40))
+
     var refreshControl = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
+        menuImage.alpha = 0.0
+        viewController.delegate = self
         viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         viewShow()
         setupTheme()
@@ -64,6 +72,12 @@ class DeviceBleController: UIViewController {
             }
         }
     }
+    
+    func buttonT() {
+        print("Password ENTER")
+        self.navigationController?.pushViewController(LoggingController(), animated: true)
+    }
+    
     @objc func timerAction(){
         repeatData()
         count += 1
@@ -198,6 +212,14 @@ class DeviceBleController: UIViewController {
         copyView.frame = CGRect(x: Int(screenWidth/2+53) - (iphone5s ? 20 : 0), y: Int(screenHeight / 1.67) + (hasNotch ? 50 : 90), width: 13, height: 16)
         return copyView
     }()
+    fileprivate lazy var menuImage: UIImageView = {
+        let menuImage = UIImageView(frame: CGRect(x: Int(screenWidth-21), y: dIy + dy + (hasNotch ? dIPrusy+35 : 45) - (iphone5s ? 10 : 0), width: 6, height: 24))
+        menuImage.image = #imageLiteral(resourceName: "Group 12")
+        menuImage.alpha = 0.0
+        menuImage.image = menuImage.image!.withRenderingMode(.alwaysTemplate)
+
+        return menuImage
+    }()
 
     private func textLineCreate(title: String, text: String, x: Int, y: Int) -> UIView {
         let v = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth-160), height: 20))
@@ -328,6 +350,8 @@ class DeviceBleController: UIViewController {
         warning = true
     }
     override func viewWillAppear(_ animated: Bool) {
+        cheakStartLogging = false
+        reload = 0
         warning = false
         viewAlpha.addSubview(activityIndicator)
         view.addSubview(viewAlpha)
@@ -361,7 +385,7 @@ class DeviceBleController: UIViewController {
         
         self.activityIndicator.stopAnimating()
     
-        self.view.isUserInteractionEnabled = true
+        view.isUserInteractionEnabled = true
         
         backView.addTapGesture{
             self.timerTrue = 0
@@ -371,6 +395,10 @@ class DeviceBleController: UIViewController {
             temp = nil
             self.navigationController?.popViewController(animated: true)
         }
+        menuImagePlace.addTapGesture {
+            self.transitionSettingsApp()
+        }
+        
         view.addSubview(bgImage)
         view.addSubview(sensorImage)
         view.addSubview(bgImageBattary)
@@ -527,7 +555,7 @@ class DeviceBleController: UIViewController {
         cellHelp.addTapGesture {
             if temp != nil {
                 //                self.navigationController?.pushViewController(TarirovkaStartViewControllet(), animated: true)
-                self.navigationController?.pushViewController(LoggingController(), animated: true)
+                self.navigationController?.pushViewController(TarirovkaStartViewControllet(), animated: true)
                 
             } else {
                 self.showToast(message: "Not connected to the sensor".localized(code), seconds: 1.0)
@@ -662,6 +690,17 @@ class DeviceBleController: UIViewController {
 //        }
 //        statusName.frame.origin = CGPoint(x: 30, y: y)
 //        y = Int(screenHeight / 1.67) + 100 + (hasNotch ? 30 : 40)
+        if menuImage.alpha == 0.0 {
+            if cheackVersionDevice(version: versionDevice) {
+                menuImage.alpha = 1.0
+                view.addSubview(menuImage)
+                view.addSubview(menuImagePlace)
+            } else {
+                menuImage.alpha = 0.0
+                menuImage.removeFromSuperview()
+                menuImagePlace.removeFromSuperview()
+            }
+        }
     }
     fileprivate func setupTheme() {
         if #available(iOS 13.0, *) {
@@ -691,6 +730,7 @@ class DeviceBleController: UIViewController {
             bgImageBattary3.theme.backgroundColor = themed{ $0.navigationTintColor }
             cellSettingSeparetorTwo.theme.backgroundColor = themed{ $0.navigationTintColor }
             cellSettingSeparetor.theme.backgroundColor = themed{ $0.navigationTintColor }
+            menuImage.theme.tintColor = themed{ $0.navigationTintColor }
         } else {
             view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
             themeBackView3.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
@@ -718,8 +758,14 @@ class DeviceBleController: UIViewController {
             cellSettingSeparetorTwo.backgroundColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             cellSettingSeparetor.backgroundColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             footer.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+            menuImage.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
         }
-
+    }
+    fileprivate func transitionSettingsApp() {
+        self.generator.impactOccurred()
+        viewController.modalPresentationStyle = .custom
+        viewController.transitioningDelegate = self
+        self.present(viewController, animated: true)
     }
 }
 

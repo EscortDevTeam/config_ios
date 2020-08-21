@@ -193,6 +193,8 @@
 
 "Close" = "Закрыть";
 
+"Close?" = "Закрыть?";
+
 "Yes" = "Да";
 
 "No" = "Нет";
@@ -325,7 +327,7 @@
 
 "Are you sure you want to make changes?" = "Вы уверены, что хотите внести изменения?";
 
-"Angel control" = "Контроль угла";
+"Angle control" = "Контроль угла";
 
 "Horizontal rotation control" = "Контроль горизонтального вращения";
 

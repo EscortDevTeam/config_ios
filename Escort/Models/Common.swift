@@ -61,6 +61,8 @@ var QRCODE = ""
 var level = ""
 var id = ""
 var VV: String = ""
+var versionDevice: Int = 0
+var cheakStartLogging = false
 var vatt: String = ""
 var checkQR = false
 var checkPopQR = false
@@ -89,7 +91,13 @@ let dy: Int = screenWidth == 320 ? 0 : 10
 let dIy: Int = screenWidth == 375 ? -15 : 0
 let dIPrusy: Int = screenWidth == 414 ? -12 : 0
 var checkToChangeLanguage = 0
-
+var inverst = "0"
+var countPacket = "0"
+var countPackets = "0"
+var deleteChek = false
+var indexDate: [Int] = []
+var cheakDate: [String] = []
+var cheakDateAgain: [String] = []
 
 var numberOfRowPreLast = 2
 var numberOfRowLvlTopPreLast = 1
@@ -110,6 +118,11 @@ var referenceMapMain = ""
 var referenceMapInfo = ""
 
 var dopText = ""
+
+var blocks = 0
+
+var lvlBlackBox: [[String]] = [[]]
+var timeBlackBox: [[String]] = [[]]
 
 
 
@@ -259,3 +272,23 @@ func localized(_ lang:String) ->String {
 
     return NSLocalizedString(self, tableName: nil, bundle: bundle!, value: "", comment: "")
 }}
+
+func unixTimeToDate(unixTime: String) -> String {
+    let unixTimeInt: Int = Int(unixTime) ?? 0
+    let date = Date(timeIntervalSince1970: TimeInterval(unixTimeInt))
+    let dateFormatter = DateFormatter()
+    dateFormatter.timeStyle = DateFormatter.Style.medium //Set time style
+    dateFormatter.dateStyle = DateFormatter.Style.short //Set date style
+    dateFormatter.timeZone = .current
+    dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+    let localDate = dateFormatter.string(from: date)
+    return localDate
+}
+
+func cheackVersionDevice(version: Int) -> Bool {
+    if version >= 129 && version < 255 {
+        return true
+    } else {
+        return false
+    }
+}
