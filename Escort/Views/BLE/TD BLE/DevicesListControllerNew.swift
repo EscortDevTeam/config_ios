@@ -76,12 +76,12 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         let key = "kCBAdvDataServiceUUIDs"
-        print("advertisementData: \(advertisementData)")
+//        print("advertisementData: \(advertisementData)")
         if peripheral.name != nil {
             let nameDevicesOps = peripheral.name!.components(separatedBy: ["_"])
             if nameDevicesOps[0] == "TD" && nameDevicesOps[1] != "UPDATE" {
                 if QRCODE == "" {
-                    print("advertisementData[kCBAdvDataManufacturerData]): \(kCBAdvDataManufacturerData)")
+//                    print("advertisementData[kCBAdvDataManufacturerData]): \(kCBAdvDataManufacturerData)")
                     let abc = advertisementData[key] as? [CBUUID]
                     guard let uniqueID = abc?.first?.uuidString else { return }
                     _ = uniqueID.components(separatedBy: ["-"])
@@ -91,117 +91,116 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                             let orderNumberInt  = orderNum?.intValue
                             if -71 < orderNumberInt! {
                                 rrsiPink = rrsiPink + 1
-                                print("rrsiPink:\(rrsiPink) \(orderNumberInt!)")
+//                                print("rrsiPink:\(rrsiPink) \(orderNumberInt!)")
                                 peripherals.insert(peripheral, at: 0)
                                 peripheralName.insert(peripheral.name!, at: 0)
                                 tableViewData.insert(cellData(opened: false, title: "\(peripheral.name!)", sectionData: ["\(peripheral.name!)"]), at: 1)
-                                print("RSSIName: \(peripheral.name!) and  RSSI: \(RSSI)")
+//                                print("RSSIName: \(peripheral.name!) and  RSSI: \(RSSI)")
                                 RSSIMainArray.insert("\(RSSI)", at: 1)
-                                if let manufacturerData = advertisementData["kCBAdvDataManufacturerData"] as? Data {
-                                    assert(manufacturerData.count >= 7)
-                                    let nodeID = manufacturerData[2]
-                                    print(String(format: "%02X", nodeID)) //->FE
-                                    
-                                    let state = UInt16(manufacturerData[3]) + UInt16(manufacturerData[4]) << 8
-                                    let string34 = "\(String(format: "%04X", state))"
-                                    print(string34) //->000D
-                                    let result34 = UInt16(strtoul("0x\(string34)", nil, 16)) //уровень
-                                    print(result34) //->000D
-                                    adveLvl.insert(String(result34), at: 0)
-                                    //c6f - is the sensor tag battery voltage
-                                    //Constructing 2-byte data as big endian (as shown in the Java code)
-                                    let batteryVoltage = UInt16(manufacturerData[5])
-                                    let string5 = "\(String(format: "%02X", batteryVoltage))"
-                                     print(string5) //->000D
-                                    let result5 = UInt16(strtoul("0x\(string5)", nil, 16)) //напряжение
-                                    var abn: String = String(result5)
-                                    abn.insert(".", at: abn.index(abn.startIndex, offsetBy: 1))
-                                    print(abn) //->000D
-                                    adveVat.insert(abn, at: 0)
-
-                                    //32- is the BLE packet counter.
-                                    let packetCounter = manufacturerData[6]
-                                    let string6 = "\(String(format: "%02X", packetCounter))"
-                                    print(string6) //->000D
-                                    let result6 = UInt16(strtoul("0x\(string6)", nil, 16)) //температура
-                                    print(result6)
-                                    adveTemp.insert(String(result6), at: 0)
-                                    
-                                    let versionCounter = manufacturerData[7]
-                                    let string7 = "\(String(format: "%02X", versionCounter))"
-                                    print(string7) //->000D
+//                                if let manufacturerData = advertisementData["kCBAdvDataManufacturerData"] as? Data {
+//                                    assert(manufacturerData.count >= 7)
+//                                    let nodeID = manufacturerData[2]
+//                                    print(String(format: "%02X", nodeID)) //->FE
+//
+//                                    let state = UInt16(manufacturerData[3]) + UInt16(manufacturerData[4]) << 8
+//                                    let string34 = "\(String(format: "%04X", state))"
+//                                    print(string34) //->000D
+//                                    let result34 = UInt16(strtoul("0x\(string34)", nil, 16)) //уровень
+//                                    print(result34) //->000D
+//                                    adveLvl.insert(String(result34), at: 0)
+//                                    //c6f - is the sensor tag battery voltage
+//                                    //Constructing 2-byte data as big endian (as shown in the Java code)
+//                                    let batteryVoltage = UInt16(manufacturerData[5])
+//                                    let string5 = "\(String(format: "%02X", batteryVoltage))"
+//                                     print(string5) //->000D
+//                                    let result5 = UInt16(strtoul("0x\(string5)", nil, 16)) //напряжение
+//                                    var abn: String = String(result5)
+//                                    abn.insert(".", at: abn.index(abn.startIndex, offsetBy: 1))
+//                                    print(abn) //->000D
+//                                    adveVat.insert(abn, at: 0)
+//
+//                                    //32- is the BLE packet counter.
+//                                    let packetCounter = manufacturerData[6]
+//                                    let string6 = "\(String(format: "%02X", packetCounter))"
+//                                    print(string6) //->000D
+//                                    let result6 = UInt16(strtoul("0x\(string6)", nil, 16)) //температура
+//                                    print(result6)
+//                                    adveTemp.insert(String(result6), at: 0)
+//
+//                                    let versionCounter = manufacturerData[7]
+//                                    let string7 = "\(String(format: "%02X", versionCounter))"
+//                                    print(string7) //->000D
+////                                    let result7 = UInt16(strtoul("0x\(string7)", nil, 16)) //весрия
+////                                    var abn7: String = String(result7)
+////                                    abn7.insert(".", at: abn7.index(abn7.startIndex, offsetBy: 1))
+////                                    abn7.insert(".", at: abn7.index(abn7.startIndex, offsetBy: 3))
+////                                    print(abn7)
+////                                    adveFW.insert(String(abn7), at: 0)
+//                                } else {
+//                                    adveLvl.insert("...", at: 0)
+//                                    adveVat.insert("...", at: 0)
+//                                    adveTemp.insert("...", at: 0)
+//                                    adveFW.insert("...", at: 0)
+//                                }
+                            } else {
+                                peripherals.append(peripheral)
+                                peripheralName.append(peripheral.name!)
+//                                print("RSSIName: \(peripheral.name!) and  RSSI: \(RSSI)")
+                                tableViewData.append(cellData(opened: false, title: "\(peripheral.name!)", sectionData: ["\(peripheral.name!)"]))
+                                RSSIMainArray.append("\(RSSI)")
+//                                if let manufacturerData = advertisementData["kCBAdvDataManufacturerData"] as? Data {
+//                                    assert(manufacturerData.count >= 7)
+//                                    let nodeID = manufacturerData[2]
+//                                    print(String(format: "%02X", nodeID)) //->FE
+//
+//                                    let state = UInt16(manufacturerData[3]) + UInt16(manufacturerData[4]) << 8
+//                                    let string34 = "\(String(format: "%04X", state))"
+//                                    print(string34) //->000D
+//                                    let result34 = UInt16(strtoul("0x\(string34)", nil, 16)) //уровень
+//                                    print(result34) //->000D
+//                                    adveLvl.append(String(result34))
+//                                    //c6f - is the sensor tag battery voltage
+//                                    //Constructing 2-byte data as big endian (as shown in the Java code)
+//                                    let batteryVoltage = UInt16(manufacturerData[5])
+//                                    let string5 = "\(String(format: "%02X", batteryVoltage))"
+//                                     print(string5) //->000D
+//                                    let result5 = UInt16(strtoul("0x\(string5)", nil, 16)) //напряжение
+//                                    var abn: String = String(result5)
+//                                    abn.insert(".", at: abn.index(abn.startIndex, offsetBy: 1))
+//                                    print(abn) //->000D
+//                                    adveVat.append(abn)
+//
+//                                    //32- is the BLE packet counter.
+//                                    let packetCounter = manufacturerData[6]
+//                                    let string6 = "\(String(format: "%02X", packetCounter))"
+//                                    print(string6) //->000D
+//                                    let result6 = UInt16(strtoul("0x\(string6)", nil, 16)) //температура
+//                                    print(result6)
+//                                    adveTemp.append(String(result6))
+//
+//                                    let versionCounter = manufacturerData[7]
+//                                    let string7 = "\(String(format: "%02X", versionCounter))"
+//                                    print(string7) //->000D
 //                                    let result7 = UInt16(strtoul("0x\(string7)", nil, 16)) //весрия
 //                                    var abn7: String = String(result7)
 //                                    abn7.insert(".", at: abn7.index(abn7.startIndex, offsetBy: 1))
 //                                    abn7.insert(".", at: abn7.index(abn7.startIndex, offsetBy: 3))
 //                                    print(abn7)
-//                                    adveFW.insert(String(abn7), at: 0)
-                                } else {
-                                    adveLvl.insert("...", at: 0)
-                                    adveVat.insert("...", at: 0)
-                                    adveTemp.insert("...", at: 0)
-                                    adveFW.insert("...", at: 0)
-                                }
-
-                            } else {
-                                peripherals.append(peripheral)
-                                peripheralName.append(peripheral.name!)
-                                print("RSSIName: \(peripheral.name!) and  RSSI: \(RSSI)")
-                                tableViewData.append(cellData(opened: false, title: "\(peripheral.name!)", sectionData: ["\(peripheral.name!)"]))
-                                RSSIMainArray.append("\(RSSI)")
-                                if let manufacturerData = advertisementData["kCBAdvDataManufacturerData"] as? Data {
-                                    assert(manufacturerData.count >= 7)
-                                    let nodeID = manufacturerData[2]
-                                    print(String(format: "%02X", nodeID)) //->FE
-                                    
-                                    let state = UInt16(manufacturerData[3]) + UInt16(manufacturerData[4]) << 8
-                                    let string34 = "\(String(format: "%04X", state))"
-                                    print(string34) //->000D
-                                    let result34 = UInt16(strtoul("0x\(string34)", nil, 16)) //уровень
-                                    print(result34) //->000D
-                                    adveLvl.append(String(result34))
-                                    //c6f - is the sensor tag battery voltage
-                                    //Constructing 2-byte data as big endian (as shown in the Java code)
-                                    let batteryVoltage = UInt16(manufacturerData[5])
-                                    let string5 = "\(String(format: "%02X", batteryVoltage))"
-                                     print(string5) //->000D
-                                    let result5 = UInt16(strtoul("0x\(string5)", nil, 16)) //напряжение
-                                    var abn: String = String(result5)
-                                    abn.insert(".", at: abn.index(abn.startIndex, offsetBy: 1))
-                                    print(abn) //->000D
-                                    adveVat.append(abn)
-
-                                    //32- is the BLE packet counter.
-                                    let packetCounter = manufacturerData[6]
-                                    let string6 = "\(String(format: "%02X", packetCounter))"
-                                    print(string6) //->000D
-                                    let result6 = UInt16(strtoul("0x\(string6)", nil, 16)) //температура
-                                    print(result6)
-                                    adveTemp.append(String(result6))
-                                    
-                                    let versionCounter = manufacturerData[7]
-                                    let string7 = "\(String(format: "%02X", versionCounter))"
-                                    print(string7) //->000D
-                                    let result7 = UInt16(strtoul("0x\(string7)", nil, 16)) //весрия
-                                    var abn7: String = String(result7)
-                                    abn7.insert(".", at: abn7.index(abn7.startIndex, offsetBy: 1))
-                                    abn7.insert(".", at: abn7.index(abn7.startIndex, offsetBy: 3))
-                                    print(abn7)
-                                    adveFW.append(String(abn7))
-
-                                } else {
-                                    adveLvl.append("...")
-                                    adveVat.append("...")
-                                    adveTemp.append("...")
-                                    adveFW.append("...")
-                                }
+//                                    adveFW.append(String(abn7))
+//
+//                                } else {
+//                                    adveLvl.append("...")
+//                                    adveVat.append("...")
+//                                    adveTemp.append("...")
+//                                    adveFW.append("...")
+//                                }
                             }
                             tableView.reloadData()
 
                         }
                     } else {
                         if RSSI != 127{
-                            print("Снова RSSIName: \(peripheral.name!) and  RSSI: \(RSSI)")
+//                            print("Снова RSSIName: \(peripheral.name!) and  RSSI: \(RSSI)")
                             if let i = peripherals.firstIndex(of: peripheral) {
                                 RSSIMainArray[i] = "\(RSSI)"
                             }
@@ -216,7 +215,7 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                     if(!peripherals.contains(peripheral)) {
                         if peripheral.name! == "TD_\(QRCODE)" {
                             nameDevice = ""
-                            print("YEEEES \(peripheral.name!)")
+//                            print("YEEEES \(peripheral.name!)")
                             temp = nil
                             self.activityIndicator.startAnimating()
                             self.view.addSubview(self.viewAlpha)
@@ -608,7 +607,7 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
             (rxData as NSData).getBytes(&rxByteArray, length: numberOfBytes)
             let string = String(data: Data(rxByteArray), encoding: .utf8)
             stringAll = stringAll + string!
-            print(stringAll)
+//            print(stringAll)
             let resultBlack = stringAll.components(separatedBy: ["\r"])
             for index in resultBlack {
                 let resultBlackString = index.components(separatedBy: [":",","])
@@ -709,6 +708,7 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                 if result.contains("WRN") {
                     passNotif = 1
                     passwordSuccess = false
+                    errorWRN = true
                     print("WRN 1")
                     
                 }
@@ -719,9 +719,6 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                     versionDevice = versionDeviceCheck
                     VV.insert(".", at: VV.index(VV.startIndex, offsetBy: 1))
                     VV.insert(".", at: VV.index(VV.startIndex, offsetBy: 3))
-                }
-                if result.contains("WRN") {
-                    errorWRN = true
                 }
                 if result.contains("WM") {
                     let indexOfPerson = result.firstIndex{$0 == "WM"}
@@ -741,6 +738,10 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                 deleteChek = false
                 if result.contains("SMO") {
                     deleteChek = true
+                }
+                sinhTime = false
+                if result.contains("ATO") {
+                    sinhTime = true
                 }
                 if result.contains("SR") {
                     let indexOfPerson = result.firstIndex{$0 == "SR"}
@@ -1112,7 +1113,6 @@ extension DevicesListControllerNew: UITableViewDelegate {
 
 extension DevicesListControllerNew: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print(indexPath)
         hidednCell = false
         if indexPath.row == 0 {
             if !searching {
@@ -1205,12 +1205,12 @@ extension DevicesListControllerNew: UITableViewDataSource {
                     zeroTwo = 0
                     zero = 0
                     countNot = 0
-                    print(self.searchList)
-                    print("indexPath.section: \(indexPath.section)")
-
-                    print(self.searchList[indexPath.section])
+//                    print(self.searchList)
+//                    print("indexPath.section: \(indexPath.section)")
+//
+//                    print(self.searchList[indexPath.section])
                     let index = peripheralName.firstIndex(of: "\(self.searchList[indexPath.section])")
-                    print("\(index!)")
+//                    print("\(index!)")
                     if self.searching {
                         self.stringAll = ""
                         versionDevice = 0

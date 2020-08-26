@@ -14,12 +14,12 @@ extension LoggingController {
     func viewShow() {
         view.addSubview(themeBackView3)
         viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        MainLabel.text = "Логирование".localized(code)
+        MainLabel.text = "Black box".localized(code)
         
         view.addSubview(MainLabel)
         view.addSubview(backView)
         backView.addTapGesture{
-            let alert = UIAlertController(title: "Close?".localized(code), message: "Вы точно хотите завершить логирование?".localized(code), preferredStyle: .alert)
+            let alert = UIAlertController(title: "Close?".localized(code), message: "Are you sure you want to stop downloading the data from the black box?".localized(code), preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "No".localized(code), style: .default, handler: { _ in
                 //Cancel Action
@@ -84,7 +84,7 @@ extension LoggingController {
         
         viewAlphaLogger.removeFromSuperview()
         
-        cancelButton.setTitle("Стоп", for: .normal)
+        cancelButton.setTitle("Stop".localized(code), for: .normal)
         cancelButton.removeTarget(nil, action: nil, for: .allEvents)
         cancelButton.addTarget(self, action: #selector(stopButtonClick(_:)), for: UIControl.Event.touchUpInside)
         cancelButton.removeFromSuperview()
@@ -140,7 +140,7 @@ extension LoggingController {
         viewLogger.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         viewLogger.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
         viewLogger.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30).isActive = true
-        viewLogger.bottomAnchor.constraint(equalTo: cancelButton.bottomAnchor, constant: 20).isActive = true
+        viewLogger.bottomAnchor.constraint(equalTo: cancelButton.bottomAnchor, constant: 50).isActive = true
         viewLogger.topAnchor.constraint(equalTo: indicatorView.topAnchor, constant: -20).isActive = true
 
 

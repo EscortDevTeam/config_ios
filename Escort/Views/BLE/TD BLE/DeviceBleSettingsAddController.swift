@@ -759,7 +759,7 @@ class DeviceBleSettingsAddController: UIViewController {
                         @unknown default:
                             fatalError()
                         }}))
-                    alert.addAction(UIAlertAction(title: "Отменить", style: .cancel, handler: { action in
+                        alert.addAction(UIAlertAction(title: "Cancel".localized(code), style: .cancel, handler: { action in
                         switch action.style{
                         case .default:
                             print("Отменить")
@@ -856,6 +856,69 @@ class DeviceBleSettingsAddController: UIViewController {
                 }
             }
         }
+        
+        y = y + deltaY
+
+        let btn5 = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth-60), height: 44))
+        btn5.backgroundColor = UIColor(rgb: 0xCF2121)
+        btn5.layer.cornerRadius = 22
+        
+        let btn5Text = UILabel(frame: CGRect(x: x, y: y, width: Int(screenWidth-60), height: 44))
+        btn5Text.text = "Синхронизировать время".localized(code)
+        btn5Text.textColor = .white
+        btn5Text.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
+        btn5Text.textAlignment = .center
+        
+        if cheackVersionDevice(version: versionDevice) {
+            scrollView.addSubview(btn5)
+            scrollView.addSubview(btn5Text)
+        } else {
+            btn5.removeFromSuperview()
+            btn5Text.removeFromSuperview()
+        }
+        btn5.addTapGesture {
+            reload = 14
+            self.activityIndicator.startAnimating()
+            self.viewAlpha.addSubview(self.activityIndicator)
+            self.view.addSubview(self.viewAlpha)
+            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+            self.view.isUserInteractionEnabled = false
+            DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
+                self.view.isUserInteractionEnabled = true
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+                self.viewAlpha.removeFromSuperview()
+                if sinhTime == true {
+                    let alert = UIAlertController(title: "Success".localized(code), message: "Синхронизация прошла успешно".localized(code), preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                        switch action.style{
+                        case .default:
+                            print("default")
+                        case .cancel:
+                            print("cancel")
+                        case .destructive:
+                            print("destructive")
+                        @unknown default:
+                            fatalError()
+                        }}))
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    let alert = UIAlertController(title: "Warning".localized(code), message: "Не удалось синхронизировать".localized(code), preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                        switch action.style{
+                        case .default:
+                            print("default")
+                        case .cancel:
+                            print("cancel")
+                        case .destructive:
+                            print("destructive")
+                        @unknown default:
+                            fatalError()
+                        }}))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
+        
         
         let alertController = UIAlertController(title: "Set password".localized(code), message: "", preferredStyle: UIAlertController.Style.alert)
         let labelLits = UILabel(frame: CGRect(x: 25, y: 40, width: 200, height: 30))
@@ -1153,7 +1216,7 @@ class DeviceBleSettingsAddController: UIViewController {
     @objc func textFieldDidChangeSecond(_ textField: UITextField) {
         if let IntVal: Int = Int(textField.text!) {
             if IntVal == 0 {
-                validatePasswordSecond.text = "Пароль \"0\" не может быть использован"
+                validatePasswordSecond.text = "/0/ password can't be used".localized(code)
                 validatePasswordSecond.textColor = UIColor(rgb: 0xCF2121)
                 self.saveActionSecond.isEnabled = false
             } else {
@@ -1166,7 +1229,7 @@ class DeviceBleSettingsAddController: UIViewController {
                 validatePasswordSecond.text = ""
             } else {
                 self.saveActionSecond.isEnabled = false
-                validatePasswordSecond.text = "Пароль может содержать только цифры"
+                validatePasswordSecond.text = "Only numbers are allowed for password".localized(code)
                 validatePasswordSecond.textColor = UIColor(rgb: 0xCF2121)
             }
         }
@@ -1179,7 +1242,7 @@ class DeviceBleSettingsAddController: UIViewController {
         
         if let IntVal: Int = Int(textField.text!) {
             if IntVal == 0 {
-                validatePassword.text = "Пароль \"0\" не может быть использован"
+                validatePassword.text = "/0/ password can't be used".localized(code)
                 validatePassword.textColor = UIColor(rgb: 0xCF2121)
                 self.saveAction.isEnabled = false
             } else {
@@ -1208,7 +1271,7 @@ class DeviceBleSettingsAddController: UIViewController {
                 validatePassword.text = ""
             } else {
                 self.saveActionSecond.isEnabled = false
-                validatePassword.text = "Пароль может содержать только цифры"
+                validatePassword.text = "Only numbers are allowed for password".localized(code)
                 validatePassword.textColor = UIColor(rgb: 0xCF2121)
             }
         }

@@ -143,7 +143,7 @@
 
 "Initial tank volume" = "Initial tank volume";
 
-"Step" = "Step";
+"Step" = "Portion";
 
 "Enter file name" = "Enter file name";
 
@@ -417,3 +417,35 @@
 "Updating..." = "Updating...";
 //MARK: - Update FW finish
 
+//MARK: - BlackBox start
+"Black box" = "Black box";
+"Delete?" = "Delete?";
+"Are you sure you want to delete all records?" = "Are you sure you want to delete all records?";
+"Black box is emptied" = "Black box is emptied";
+"Loading is complete " = "Loading is complete ";
+"Processing of the downloaded data is required" = "Processing of the downloaded data is required";
+"Save the received data" = "Save the received data";
+"day" = "days";
+"day_1" = "day";
+"days" = "days";
+"hour" = "hours";
+"hour_1" = "hour";
+"hours" = "hours";
+"Failure to load the data from black box" = "Failure to load the data from black box";
+"Data has been deleted" = "Data has been deleted";
+"Failure to delete the data" = "Failure to delete the data";
+"Show" = "Download data";
+"Show all" = "Download all";
+"Stop" = "Stop";
+"Delete all" = "Delete all";
+"Are you sure you want to stop downloading the data from the black box?" = "Are you sure you want to stop downloading the data from the black box?";
+"Loading data from black box" = "Loading data from black box";
+"Save the black box data before updating FW?" = "Save the black box data before updating FW?";
+"If you update the FW, the black box data will be lost" = "If you update the FW, the black box data will be lost";
+"Save data" = "Save data";
+"Delete and update" = "Delete and update";
+"Synchronize time" = "Synchronize time";
+"Synchronization is complete" = "Synchronization is complete";
+"Synchronization failed" = "Synchronization failed";
+"Graph сhart" = "Graph сhart";
+//MARK: - BlackBox finish

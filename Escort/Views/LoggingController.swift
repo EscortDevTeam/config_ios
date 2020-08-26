@@ -46,8 +46,8 @@ class LoggingController: UIViewController, UINavigationControllerDelegate {
         viewShow()
         setupTheme()
         registgerPickerView()
-        createLabelHoursOrDays(label: labelDays, name: "дней", centerX: 1)
-        createLabelHoursOrDays(label: labelHours, name: "часов", centerX: 2)
+        createLabelHoursOrDays(label: labelDays, name: "days".localized(code), centerX: 1)
+        createLabelHoursOrDays(label: labelHours, name: "hours".localized(code), centerX: 2)
         showPassword()
         view.addSubview(stack)
         
@@ -57,7 +57,7 @@ class LoggingController: UIViewController, UINavigationControllerDelegate {
     }
 
     fileprivate func doneDowload() {
-        cancelButton.setTitle("Сохранить полученные данные", for: .normal)
+        cancelButton.setTitle("Save the received data".localized(code), for: .normal)
         cancelButton.titleLabel?.numberOfLines = 0
         cancelButton.titleLabel?.font = UIFont(name:"FuturaPT-Medium", size: 16)!
         cancelButton.removeTarget(nil, action: nil, for: .allEvents)
@@ -66,11 +66,11 @@ class LoggingController: UIViewController, UINavigationControllerDelegate {
         viewLogger.addSubview(cancelLabel)
         
         cancelLabel.centerXAnchor.constraint(equalTo: viewLogger.centerXAnchor).isActive = true
-        cancelLabel.bottomAnchor.constraint(equalTo: cancelButton.topAnchor, constant: -5).isActive = true
+        cancelLabel.topAnchor.constraint(equalTo: cancelButton.bottomAnchor, constant: 10).isActive = true
         cancelLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         cancelLabel.widthAnchor.constraint(equalToConstant: screenWidth - 70).isActive = true
         
-        interestLabel.text = "Загрузка завершена на \(inverst)%\nТеперь необходимо обработать полученные данные"
+        interestLabel.text = "Loading is complete ".localized(code) + "\(inverst)%\n" + "Processing of the downloaded data is required".localized(code)
         interestLabel.font = UIFont(name:"FuturaPT-Light", size: 20)
         interestLabel.numberOfLines = 0
         interestLabel.widthAnchor.constraint(equalToConstant: screenWidth - 70).isActive = true
@@ -83,13 +83,13 @@ class LoggingController: UIViewController, UINavigationControllerDelegate {
     func timerStart() {
         timer =  Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (timer) in
             self.interestLabel.text = "\(inverst)%"
-            self.blocksLabel.text = "\(countPacket) блоков из \(countPackets)"
+            self.blocksLabel.text = "\(countPacket) / \(countPackets)"
             if inverst == "100" {
                 self.doneDowload()
             }
             if countPackets == "-1" {
                 self.deleteLogger()
-                let alert = UIAlertController(title: "Warning".localized(code), message: "Черный ящик пуст", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Warning".localized(code), message: "Black box is emptied".localized(code), preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                                                 switch action.style{
                                                 case .default:
@@ -148,7 +148,7 @@ class LoggingController: UIViewController, UINavigationControllerDelegate {
     }
     
     @objc private func DeleteButtonClick(_ sender: UIButton) {
-        let alert = UIAlertController(title: "Удалить?".localized(code), message: "Вы точно хотите удалить все данные с черного ящика?".localized(code), preferredStyle: .alert)
+        let alert = UIAlertController(title: "Delete?".localized(code), message: "Are you sure you want to delete all records?".localized(code), preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "No".localized(code), style: .default, handler: { _ in
             //Cancel Action
@@ -173,37 +173,40 @@ class LoggingController: UIViewController, UINavigationControllerDelegate {
     }
     
     @objc private func saveData(_ sender: UIButton) {
-        navigationController?.pushViewController(GrafficsViewController(), animated: true)
-        print("save all: \(reload)")
-        let file = "Черный ящик №\(nameDevice).csv"
-        var contents = ""
-        for i in 0...timeBlackBox.count - 1 {
-            for j in (0...timeBlackBox[i].count - 1).reversed() {
-                contents = contents + "\(timeBlackBox[i][j]), \(lvlBlackBox[i][j])\n"
+        if timeBlackBox.count != 0 {
+            navigationController?.pushViewController(GrafficsViewController(), animated: true)
+            programSetCell()
+            print("save all: \(reload)")
+            let file = "Black box".localized(code) + " №\(nameDevice) \(cheakDate[0]).csv"
+            var contents = ""
+            for i in 0...timeBlackBox.count - 1 {
+                for j in (0...timeBlackBox[i].count - 1).reversed() {
+                    contents = contents + "\(timeBlackBox[i][j]), \(lvlBlackBox[i][j])\n"
+                }
             }
-        }
-        let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        
-        let fileURL = dir.appendingPathComponent(file)
-        fileURLBlackBox = fileURL
-        var filesToShare = [Any]()
-//        webView.frame =  CGRect(x: 0, y: headerHeight-10, width: screenWidth, height: screenHeight-(headerHeight-10))
-//        view.addSubview(webView)
-        do {
-//                            try FileManager.default.createDirectory(at: fileURL, withIntermediateDirectories: true, attributes: nil)
-            try contents.write(to: fileURL, atomically: false, encoding: .utf8)
-            filesToShare.append(fileURL)
+            let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
             
-//            let activityViewController = UIActivityViewController(activityItems: filesToShare, applicationActivities: nil)
-//            self.present(activityViewController, animated: true, completion: nil)
+            let fileURL = dir.appendingPathComponent(file)
+            fileURLBlackBox = fileURL
+            var filesToShare = [Any]()
+            //        webView.frame =  CGRect(x: 0, y: headerHeight-10, width: screenWidth, height: screenHeight-(headerHeight-10))
+            //        view.addSubview(webView)
+            do {
+                //                            try FileManager.default.createDirectory(at: fileURL, withIntermediateDirectories: true, attributes: nil)
+                try contents.write(to: fileURL, atomically: false, encoding: .utf8)
+                filesToShare.append(fileURL)
+                
+                //            let activityViewController = UIActivityViewController(activityItems: filesToShare, applicationActivities: nil)
+                //            self.present(activityViewController, animated: true, completion: nil)
+            }
+            catch {
+                print("Error: \(error)")
+                self.showToast(message: "Error".localized(code), seconds: 1.0)
+                
+            }
+        } else {
+            showToast(message: "Failure to load the data from black box".localized(code), seconds: 1.0)
         }
-        catch {
-            print("Error: \(error)")
-            self.showToast(message: "Error".localized(code), seconds: 1.0)
-
-        }
-        programSetCell()
-        
     }
     fileprivate func programSetCell() {
         cheakDate.removeAll()
@@ -232,7 +235,7 @@ class LoggingController: UIViewController, UINavigationControllerDelegate {
             self.input1.removeFromSuperview()
             self.input2.removeFromSuperview()
             if deleteChek == true {
-                let alert = UIAlertController(title: "Success".localized(code), message: "Данные успешно удалены".localized(code), preferredStyle: .alert)
+                let alert = UIAlertController(title: "Success".localized(code), message: "Data has been deleted".localized(code), preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                     switch action.style{
                     case .default:
@@ -246,7 +249,7 @@ class LoggingController: UIViewController, UINavigationControllerDelegate {
                     }}))
                 self.present(alert, animated: true, completion: nil)
             } else {
-                let alert = UIAlertController(title: "Warning".localized(code), message: "Error".localized(code), preferredStyle: .alert)
+                let alert = UIAlertController(title: "Warning".localized(code), message: "Failure to delete the data".localized(code), preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                     switch action.style{
                     case .default:
@@ -286,7 +289,7 @@ class LoggingController: UIViewController, UINavigationControllerDelegate {
     lazy var blocksLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.text = "0 блоков из 0"
+        label.text = "0 / 0"
         label.textAlignment = .right
         label.font = UIFont(name:"FuturaPT-Light", size: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -306,7 +309,7 @@ class LoggingController: UIViewController, UINavigationControllerDelegate {
     lazy var cancelLabel: UILabel = {
         let label = UILabel()
         label.textColor = .red
-        label.text = "Отмена"
+        label.text = "Cancel".localized(code)
         label.textAlignment = .center
         label.font = UIFont(name:"FuturaPT-Medium", size: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -315,7 +318,7 @@ class LoggingController: UIViewController, UINavigationControllerDelegate {
     
     lazy var getButton: UIButton = {
         let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: .zero, height: 50)))
-        button.setTitle("Выдать", for: .normal)
+        button.setTitle("Show".localized(code), for: .normal)
         button.tintColor = .white
         button.layer.cornerRadius = 20
         button.backgroundColor = UIColor(rgb: 0xE80000)
@@ -327,7 +330,7 @@ class LoggingController: UIViewController, UINavigationControllerDelegate {
     
     lazy var getAllButton: UIButton = {
         let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: .zero, height: 50)))
-        button.setTitle("Выдать всё", for: .normal)
+        button.setTitle("Show all".localized(code), for: .normal)
         button.tintColor = .white
         button.layer.cornerRadius = 20
         button.backgroundColor = UIColor(rgb: 0xE80000)
@@ -340,7 +343,7 @@ class LoggingController: UIViewController, UINavigationControllerDelegate {
     
     lazy var cancelButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Стоп", for: .normal)
+        button.setTitle("Stop".localized(code), for: .normal)
         button.tintColor = .white
         button.layer.cornerRadius = 20
         button.backgroundColor = UIColor(rgb: 0x00A778)
@@ -353,7 +356,7 @@ class LoggingController: UIViewController, UINavigationControllerDelegate {
     
     lazy var deleteAllButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Удалить всё", for: .normal)
+        button.setTitle("Delete all".localized(code), for: .normal)
         button.tintColor = .white
         button.layer.cornerRadius = 20
         button.backgroundColor = UIColor(rgb: 0xE80000)
@@ -455,11 +458,11 @@ extension LoggingController: UIPickerViewDataSource, UIPickerViewDelegate {
         if component == 0 {
             switch row {
             case 0,5...20,25...30:
-                labelDays.text = "дней"
+                labelDays.text = "days".localized(code)
             case 1,21:
-                labelDays.text = "день"
+                labelDays.text = "day_1".localized(code)
             case 2...4,22...24:
-                labelDays.text = "дня"
+                labelDays.text = "day".localized(code)
             default:
                 print("default")
             }
@@ -480,11 +483,11 @@ extension LoggingController: UIPickerViewDataSource, UIPickerViewDelegate {
         } else {
             switch row {
             case 5...20:
-                labelHours.text = "часов"
+                labelHours.text = "hours".localized(code)
             case 1,21:
-                labelHours.text = "час"
+                labelHours.text = "hour_1".localized(code)
             case 2...5,22...24:
-                labelHours.text = "часа"
+                labelHours.text = "hour".localized(code)
             default:
                 print("default")
             }

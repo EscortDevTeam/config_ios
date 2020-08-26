@@ -95,6 +95,8 @@ var inverst = "0"
 var countPacket = "0"
 var countPackets = "0"
 var deleteChek = false
+var sinhTime = false
+
 var indexDate: [Int] = []
 var cheakDate: [String] = []
 var cheakDateAgain: [String] = []

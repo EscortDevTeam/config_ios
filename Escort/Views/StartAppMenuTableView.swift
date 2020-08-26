@@ -155,8 +155,8 @@ extension StartAppMenuController: UITableViewDelegate, UITableViewDataSource {
             }
         }))
 
-        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: { (_) in
-            print("Назад")
+        alert.addAction(UIAlertAction(title: "Cancel".localized(code), style: .cancel, handler: { (_) in
+
         }))
         
         self.present(alert, animated: true)

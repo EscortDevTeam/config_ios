@@ -916,7 +916,7 @@
 				C491782822C8A94D0006106E /* Sources */,
 				C491782922C8A94D0006106E /* Frameworks */,
 				C491782A22C8A94D0006106E /* Resources */,
-				D28777F5F42686462E70C4F9 /* [CP] Embed Pods Frameworks */,
+				8EC9AA569F055D8B7200482E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1037,7 +1037,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		D28777F5F42686462E70C4F9 /* [CP] Embed Pods Frameworks */ = {
+		8EC9AA569F055D8B7200482E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1361,7 +1361,7 @@
 				CODE_SIGN_ENTITLEMENTS = Escort/Escort.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 49436C2U7G;
 				INFOPLIST_FILE = Escort/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1369,10 +1369,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.31;
+				MARKETING_VERSION = 1.0.32;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.fmeter.escortconnect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Push Development Profile";
+				PROVISIONING_PROFILE_SPECIFIER = "Push Profile";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1387,7 +1387,7 @@
 				CODE_SIGN_ENTITLEMENTS = Escort/Escort.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 49436C2U7G;
 				INFOPLIST_FILE = Escort/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1395,10 +1395,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.31;
+				MARKETING_VERSION = 1.0.32;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.fmeter.escortconnect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Push Development Profile";
+				PROVISIONING_PROFILE_SPECIFIER = "Push Profile";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

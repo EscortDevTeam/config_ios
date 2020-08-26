@@ -241,6 +241,13 @@ extension LoggingController {
                             switch action.style{
                             case .default:
                                 print("OK")
+                                mainPassword = ""
+                                if passwordHave == false {
+                                    self.present(alertController, animated: true)
+                                } else {
+                                    self.present(alertControllerSecond, animated: true)
+                                    
+                                }
                             case .cancel:
                                 print("cancel")
                             case .destructive:
@@ -294,7 +301,7 @@ extension LoggingController {
     @objc func textFieldDidChangeSecond(_ textField: UITextField) {
         if let IntVal: Int = Int(textField.text!) {
             if IntVal == 0 {
-                validatePasswordSecond.text = "Пароль \"0\" не может быть использован"
+                validatePasswordSecond.text = "/0/ password can't be used".localized(code)
                 validatePasswordSecond.textColor = UIColor(rgb: 0xCF2121)
                 self.saveActionSecond.isEnabled = false
             } else {
@@ -307,7 +314,7 @@ extension LoggingController {
                 validatePasswordSecond.text = ""
             } else {
                 self.saveActionSecond.isEnabled = false
-                validatePasswordSecond.text = "Пароль может содержать только цифры"
+                validatePasswordSecond.text = "Only numbers are allowed for password".localized(code)
                 validatePasswordSecond.textColor = UIColor(rgb: 0xCF2121)
             }
         }
@@ -320,7 +327,7 @@ extension LoggingController {
         
         if let IntVal: Int = Int(textField.text!) {
             if IntVal == 0 {
-                validatePassword.text = "Пароль \"0\" не может быть использован"
+                validatePassword.text = "/0/ password can't be used".localized(code)
                 validatePassword.textColor = UIColor(rgb: 0xCF2121)
                 self.saveAction.isEnabled = false
             } else {
@@ -349,7 +356,7 @@ extension LoggingController {
                 validatePassword.text = ""
             } else {
                 self.saveActionSecond.isEnabled = false
-                validatePassword.text = "Пароль может содержать только цифры"
+                validatePassword.text = "Only numbers are allowed for password".localized(code)
                 validatePassword.textColor = UIColor(rgb: 0xCF2121)
             }
         }

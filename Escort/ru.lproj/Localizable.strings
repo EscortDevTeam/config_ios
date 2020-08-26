@@ -416,3 +416,36 @@
 "MAC Address" = "MAC Адрес";
 "Updating..." = "Идет обновление";
 //MARK: - Update FW finish
+
+//MARK: - BlackBox start
+"Black box" = "Черный ящик";
+"Delete?" = "Удалить?";
+"Are you sure you want to delete all records?" = "Вы точно хотите удалить все данные с черного ящика?";
+"Black box is emptied" = "Черный ящик пуст";
+"Loading is complete " = "Загрузка завершена на ";
+"Processing of the downloaded data is required" = "Теперь необходимо обработать полученные данные";
+"Save the received data" = "Сохранить полученные данные";
+"day" = "дня";
+"day_1" = "день";
+"days" = "дней";
+"hour" = "часа";
+"hour_1" = "час";
+"hours" = "часов";
+"Failure to load the data from black box" = "Данные не выгруженны";
+"Data has been deleted" = "Данные успешно удалены";
+"Failure to delete the data" = "Не удалось удалить данные";
+"Show" = "Выдать";
+"Show all" = "Выдать всё";
+"Stop" = "Стоп";
+"Delete all" = "Удалить всё";
+"Are you sure you want to stop downloading the data from the black box?" = "Вы точно хотите завершить логирование?";
+"Loading data from black box" = "Логирование";
+"Save the black box data before updating FW?" = "Сохранить данные черного ящика, прежде чем обновлять?";
+"If you update the FW, the black box data will be lost" = "Если обновить прошивку, Вы потеряете данные черного ящика";
+"Save data" = "Сохранить данные";
+"Delete and update" = "Удалить и обновить";
+"Synchronize time" = "Синхронизировать время";
+"Synchronization is complete" = "Синхронизация прошла успешно";
+"Synchronization failed" = "Не удалось синхронизировать";
+"Graph сhart" = "График";
+//MARK: - BlackBox finish

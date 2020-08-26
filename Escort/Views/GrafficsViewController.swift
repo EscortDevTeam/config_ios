@@ -48,7 +48,8 @@ class GrafficsViewController: UIViewController {
         
         let leftAxis = chart.leftAxis
         leftAxis.labelTextColor = .white
-        leftAxis.axisMaximum = 4095
+        let lvlBlackBoxInt = lvlBlackBox[0].map{Int($0)!}
+        leftAxis.axisMaximum = Double(lvlBlackBoxInt.max()! + 10)
         leftAxis.axisMinimum = 0
         leftAxis.drawGridLinesEnabled = true
         leftAxis.granularityEnabled = true
@@ -89,9 +90,9 @@ class GrafficsViewController: UIViewController {
     lazy var saveLabel: UILabel = {
         let text = UILabel()
         text.translatesAutoresizingMaskIntoConstraints = false
-        text.text = "сохранить".localized(code)
+        text.text = "Save".localized(code)
         text.textColor = UIColor(rgb: 0xFFFFFF)
-        text.textAlignment = .left
+        text.textAlignment = .center
         text.font = UIFont(name:"FuturaPT-Medium", size: 20)
         return text
     }()
@@ -107,9 +108,9 @@ class GrafficsViewController: UIViewController {
     lazy var shareLabel: UILabel = {
         let text = UILabel()
         text.translatesAutoresizingMaskIntoConstraints = false
-        text.text = "поделиться".localized(code)
+        text.text = "Share".localized(code)
         text.textColor = UIColor(rgb: 0xFFFFFF)
-        text.textAlignment = .right
+        text.textAlignment = .center
         text.font = UIFont(name:"FuturaPT-Medium", size: 20)
         return text
     }()
@@ -149,7 +150,7 @@ class GrafficsViewController: UIViewController {
         view.addSubview(themeBackView3)
         view.addSubview(alphaView)
         
-        MainLabel.text = "График".localized(code)
+        MainLabel.text = "Graph сhart".localized(code)
         
         view.addSubview(MainLabel)
         view.addSubview(backView)
@@ -175,16 +176,22 @@ class GrafficsViewController: UIViewController {
 //                lineChartView.data!.notifyDataChanged()
 //            }
 //            print("1")
-            saveTap()
+            self.saveTap()
+        }
+        saveLabel.addTapGesture {
+            self.saveTap()
         }
         shareView.addTapGesture { [self] in
-            shareTap()
+            self.shareTap()
+        }
+        shareLabel.addTapGesture {
+            self.shareTap()
         }
 
     }
     
     func saveTap() {
-        let file = "Черный ящик №\(nameDevice) \(cheakDate[0]).csv"
+        let file = "Black box".localized(code) + " №\(nameDevice) \(cheakDate[0]).csv"
         var contents = ""
         for i in 0...timeBlackBox.count - 1 {
             for j in (0...timeBlackBox[i].count - 1).reversed() {
@@ -207,7 +214,7 @@ class GrafficsViewController: UIViewController {
         }
     }
     func shareTap() {
-        let file = "Черный ящик №\(nameDevice).csv"
+        let file = "Black box".localized(code) + " №\(nameDevice) \(cheakDate[0]).csv"
         var contents = ""
         for i in 0...timeBlackBox.count - 1 {
             for j in (0...timeBlackBox[i].count - 1).reversed() {
@@ -253,7 +260,8 @@ class GrafficsViewController: UIViewController {
         lineChartView.topAnchor.constraint(equalTo: themeBackView3.bottomAnchor, constant: 10).isActive = true
         lineChartView.bottomAnchor.constraint(equalTo: collectionView.topAnchor, constant: -20).isActive = true
 
-        saveLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
+//        saveLabel.leadingAnchor.constraint(equalTo: saveView.leadingAnchor).isActive = true
+        saveLabel.centerXAnchor.constraint(equalTo: saveView.centerXAnchor).isActive = true
         saveLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30).isActive = true
         saveLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
         saveLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
@@ -269,7 +277,8 @@ class GrafficsViewController: UIViewController {
         shareView.widthAnchor.constraint(equalToConstant: 35).isActive = true
         shareView.heightAnchor.constraint(equalToConstant: 35).isActive = true
 
-        shareLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
+//        shareLabel.trailingAnchor.constraint(equalTo: shareView.trailingAnchor).isActive = true
+        shareLabel.centerXAnchor.constraint(equalTo: shareView.centerXAnchor).isActive = true
         shareLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30).isActive = true
         shareLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
         shareLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
@@ -338,17 +347,17 @@ extension GrafficsViewController: UICollectionViewDelegate, UICollectionViewData
             yValues2.append(ChartDataEntry(x: Double(i), y: Double(lvlBlackBox[indexPath.row][i]) ?? 0))
         }
         DispatchQueue.main.async { [self] in
-            set1 = LineChartDataSet(values: yValues2, label: cheakDate[indexPath.row])
-            set1.mode = .linear
-            set1.drawCirclesEnabled = false
-            set1.lineWidth = 3
-            set1.drawHorizontalHighlightIndicatorEnabled = false
-            set1.drawVerticalHighlightIndicatorEnabled = false
-            set1.setColor(UIColor(rgb: 0x00A778), alpha: 1.0)
-            setData()
+            self.set1 = LineChartDataSet(values: self.yValues2, label: cheakDate[indexPath.row])
+            self.set1.mode = .linear
+            self.set1.drawCirclesEnabled = false
+            self.set1.lineWidth = 3
+            self.set1.drawHorizontalHighlightIndicatorEnabled = false
+            self.set1.drawVerticalHighlightIndicatorEnabled = false
+            self.set1.setColor(UIColor(rgb: 0x00A778), alpha: 1.0)
+            self.setData()
             let lvlBlackBoxInt = lvlBlackBox[indexPath.row].map{Int($0)!}
-            lineChartView.leftAxis.axisMaximum = Double(lvlBlackBoxInt.max()! + 10)
-            lineChartView.animate(xAxisDuration: 1)
+            self.lineChartView.leftAxis.axisMaximum = Double(lvlBlackBoxInt.max()! + 10)
+            self.lineChartView.animate(xAxisDuration: 1)
 //                lineChartView.data? = data
 //                lineChartView.data!.notifyDataChanged()
         }

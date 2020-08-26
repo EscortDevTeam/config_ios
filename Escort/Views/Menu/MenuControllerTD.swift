@@ -47,7 +47,7 @@ class MenuControllerTD: UIViewController {
         let aboutApp3 = UILabel(frame: CGRect(x: 0, y: 70, width: 300, height: 45))
         aboutApp3.center.x = view.center.x
         aboutApp3.textAlignment = .center
-        aboutApp3.text = "Логирование".localized(code)
+        aboutApp3.text = "Black box".localized(code)
         aboutApp3.font = UIFont(name:"FuturaPT-Light", size: 36.0)
         aboutApp3.textColor = .white
         return aboutApp3

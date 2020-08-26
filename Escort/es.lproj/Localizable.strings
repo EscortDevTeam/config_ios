@@ -144,7 +144,7 @@
 
 "Initial tank volume" = "Volumen inicial del tanque";
 
-"Step" = "Paso";
+"Step" = "Porción";
 
 "Enter file name" = "Ingrese el nombre del archivo";
 
@@ -421,3 +421,36 @@
 "MAC Address" = "MAC Address";
 "Updating..." = "Actualizando...";
 //MARK: - Update FW finish
+
+//MARK: - BlackBox start
+"Black box" = "Caja negra";
+"Delete?" = "¿Eliminar?";
+"Are you sure you want to delete all records?" = "¿Está seguro que quiere eliminar todos los registros de caja negra?";
+"Black box is emptied" = "Caja negra está vacía";
+"Loading is complete " = "Carga realizada ";
+"Processing of the downloaded data is required" = "La app necesita procesar los datos descargados";
+"Save the received data" = "Guardar los datos recibidos";
+"day" = "días";
+"day_1" = "día";
+"days" = "días";
+"hour" = "horas";
+"hour_1" = "hora";
+"hours" = "horas";
+"Failure to load the data from black box" = "Fallo: datos no se han descargado de caja negra";
+"Data has been deleted" = "Datos se han eliminado";
+"Failure to delete the data" = "Fallo: los datos no se han eliminado";
+"Show" = "Descargar datos";
+"Show all" = "Descargar todo";
+"Stop" = "Cancelar";
+"Delete all" = "Eliminar todo";
+"Are you sure you want to stop downloading the data from the black box?" = "¿Está seguro que quiere cancelar la descarga de datos de caja negra?";
+"Loading data from black box" = "Descargando datos de caja negra";
+"Save the black box data before updating FW?" = "¿Guardar los datos de caja negra antes de actualización de FW?";
+"If you update the FW, the black box data will be lost" = "Si usted actualiza el FW los datos de caja negra se van a perder";
+"Save data" = "Guardar datos";
+"Delete and update" = "Eliminar y actualizar";
+"Synchronize time" = "Sincronizar tiempo";
+"Synchronization is complete" = "Sincronización se finalizó";
+"Synchronization failed" = "Sincronización falló";
+"Graph сhart" = "Gráfica";
+//MARK: - BlackBox finish
