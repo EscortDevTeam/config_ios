@@ -316,6 +316,16 @@ class LoggingController: UIViewController, UINavigationControllerDelegate {
         return label
     }()
     
+    lazy var DownloadDataForLastLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = isNight ? UIColor.white : UIColor.black
+        label.text = "Download data for the last".localized(code)
+        label.textAlignment = .center
+        label.font = UIFont(name:"FuturaPT-Medium", size: 22)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     lazy var getButton: UIButton = {
         let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: .zero, height: 50)))
         button.setTitle("Show".localized(code), for: .normal)

@@ -18,7 +18,7 @@
 		B510837F230196D60086C462 /* strela2.png in Resources */ = {isa = PBXBuildFile; fileRef = B510837E230196D50086C462 /* strela2.png */; };
 		B51286472396803C00148E82 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = B51286462396803C00148E82 /* loading.json */; };
 		B51D5531243C59E5009BDA00 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B51D5530243C59E5009BDA00 /* Main.storyboard */; };
-		B520E02A24D2A80500B0495C /* GrafficsDaysCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B520E02924D2A80500B0495C /* GrafficsDaysCell.swift */; };
+		B520E02A24D2A80500B0495C /* DateValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B520E02924D2A80500B0495C /* DateValueFormatter.swift */; };
 		B525FD9123EABB370094FDE7 /* TabGesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525FD9023EABB370094FDE7 /* TabGesController.swift */; };
 		B525FD9323EBE2480094FDE7 /* SetupMapLoadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525FD9223EBE2480094FDE7 /* SetupMapLoadView.swift */; };
 		B525FD9523EBEC9B0094FDE7 /* MapTrackOneCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525FD9423EBEC9B0094FDE7 /* MapTrackOneCell.swift */; };
@@ -205,7 +205,7 @@
 		B510837E230196D50086C462 /* strela2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = strela2.png; sourceTree = "<group>"; };
 		B51286462396803C00148E82 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		B51D5530243C59E5009BDA00 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		B520E02924D2A80500B0495C /* GrafficsDaysCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrafficsDaysCell.swift; sourceTree = "<group>"; };
+		B520E02924D2A80500B0495C /* DateValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateValueFormatter.swift; sourceTree = "<group>"; };
 		B525FD9023EABB370094FDE7 /* TabGesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabGesController.swift; sourceTree = "<group>"; };
 		B525FD9223EBE2480094FDE7 /* SetupMapLoadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupMapLoadView.swift; sourceTree = "<group>"; };
 		B525FD9423EBEC9B0094FDE7 /* MapTrackOneCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTrackOneCell.swift; sourceTree = "<group>"; };
@@ -757,7 +757,7 @@
 				B5A4CA3E242B37F60071E6E6 /* LoggingView.swift */,
 				B582437A24B5FC2B003D8283 /* LoggingCheckPassword.swift */,
 				B55E635924BC8D7D00092392 /* GrafficsViewController.swift */,
-				B520E02924D2A80500B0495C /* GrafficsDaysCell.swift */,
+				B520E02924D2A80500B0495C /* DateValueFormatter.swift */,
 				B52AB2D8243C546C007BFCB7 /* DFU */,
 				B5891E2423ED66CF00509749 /* PDF.swift */,
 				B56E98F523B62178002B292A /* ImagePicker.swift */,
@@ -916,7 +916,7 @@
 				C491782822C8A94D0006106E /* Sources */,
 				C491782922C8A94D0006106E /* Frameworks */,
 				C491782A22C8A94D0006106E /* Resources */,
-				8EC9AA569F055D8B7200482E /* [CP] Embed Pods Frameworks */,
+				627959526F555E868C3D8C3B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1037,7 +1037,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		8EC9AA569F055D8B7200482E /* [CP] Embed Pods Frameworks */ = {
+		627959526F555E868C3D8C3B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1178,7 +1178,7 @@
 				B537B21623E821E800520263 /* DeviceDUPassword.swift in Sources */,
 				B5A4CA3F242B37F60071E6E6 /* LoggingView.swift in Sources */,
 				B549894723AB71EA00B164BB /* Theme.swift in Sources */,
-				B520E02A24D2A80500B0495C /* GrafficsDaysCell.swift in Sources */,
+				B520E02A24D2A80500B0495C /* DateValueFormatter.swift in Sources */,
 				B52AB2EF243C570C007BFCB7 /* FilePreselectionDelegate.swift in Sources */,
 				C491783222C8A94D0006106E /* StartScreenController.swift in Sources */,
 				B59AFFBD2391075B00C0DAF0 /* QRScannerView.swift in Sources */,
@@ -1361,7 +1361,7 @@
 				CODE_SIGN_ENTITLEMENTS = Escort/Escort.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 49436C2U7G;
 				INFOPLIST_FILE = Escort/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1387,7 +1387,7 @@
 				CODE_SIGN_ENTITLEMENTS = Escort/Escort.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 49436C2U7G;
 				INFOPLIST_FILE = Escort/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;

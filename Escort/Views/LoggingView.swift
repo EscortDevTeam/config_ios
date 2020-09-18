@@ -47,6 +47,12 @@ extension LoggingController {
         picker.center.y = screenHeight / 3
         view.addSubview(picker)
         
+        view.addSubview(DownloadDataForLastLabel)
+        DownloadDataForLastLabel.bottomAnchor.constraint(equalTo: picker.topAnchor, constant: 20).isActive = true
+        DownloadDataForLastLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        DownloadDataForLastLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+
+
         view.addSubview(deleteAllButton)
         deleteAllButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
         deleteAllButton.heightAnchor.constraint(equalToConstant: 50).isActive = true

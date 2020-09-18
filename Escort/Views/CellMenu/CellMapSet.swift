@@ -67,8 +67,8 @@ class CellMapSet: UITableViewCell {
         labelBeta.textColor = UIColor(rgb: 0x005CDF)
         labelBeta.text = "βETA"
         labelBeta.textAlignment = .center
-        ui.addSubview(labelBeta)
-        self.contentView.addSubview(ui)
+//        ui.addSubview(labelBeta)
+//        self.contentView.addSubview(ui)
         self.labelBeta = labelBeta
         
         setupTheme()

@@ -42,9 +42,13 @@ class GrafficsViewController: UIViewController {
         let xAxis = chart.xAxis
         xAxis.labelFont = .systemFont(ofSize: 11)
         xAxis.labelTextColor = .white
-        xAxis.drawAxisLineEnabled = false
         xAxis.labelPosition = .bottom
-        xAxis.enabled = false
+        xAxis.labelCount = 3
+        let xValuesFormatter = DateFormatter()
+            xValuesFormatter.dateFormat = "dd-MM-yy HH:mm"
+        let xValuesNumberFormatter = ChartXAxisFormatter(referenceTimeInterval: 1, dateFormatter: xValuesFormatter, referenceTimeInterval2: timeBlackBox[0])
+        xAxis.valueFormatter = xValuesNumberFormatter
+        
         
         let leftAxis = chart.leftAxis
         leftAxis.labelTextColor = .white
@@ -135,10 +139,29 @@ class GrafficsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        registerCell()
         yValues2.removeAll()
-        for i in 0...lvlBlackBox[0].count - 1 {
-            yValues2.append(ChartDataEntry(x: Double(i), y: Double(lvlBlackBox[0][i]) ?? 0))
+        var axisMaximum = 0
+        var countX = 0
+        for j in 0...lvlBlackBox.count - 1 {
+            for i in 0...lvlBlackBox[j].count - 1 {
+                yValues2.append(ChartDataEntry(x: Double(timeBlackBox[j][i]) ?? 0, y: Double(lvlBlackBox[j][i]) ?? 0))
+//                print(countX)
+                if Int(lvlBlackBox[j][i]) ?? 0 > axisMaximum {
+                    axisMaximum = Int(lvlBlackBox[j][i]) ?? 0
+                }
+                countX += 1
+            }
+        }
+        DispatchQueue.main.async { [self] in
+            self.set1 = LineChartDataSet(values: self.yValues2, label: "----")
+            self.set1.mode = .linear
+            self.set1.drawCirclesEnabled = false
+            self.set1.lineWidth = 3
+//            self.set1.drawHorizontalHighlightIndicatorEnabled = false
+//            self.set1.drawVerticalHighlightIndicatorEnabled = false
+            self.set1.setColor(UIColor(rgb: 0x00A778), alpha: 1.0)
+            self.lineChartView.leftAxis.axisMaximum = Double(axisMaximum + 10)
+            self.lineChartView.animate(xAxisDuration: 1)
         }
         let someDate = Date()
 
@@ -248,17 +271,11 @@ class GrafficsViewController: UIViewController {
         view.addSubview(saveView)
         view.addSubview(shareView)
         view.addSubview(lineChartView)
-        view.addSubview(collectionView)
-
-        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant:  20).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: saveView.topAnchor, constant: -20).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         lineChartView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant:  20).isActive = true
         lineChartView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         lineChartView.topAnchor.constraint(equalTo: themeBackView3.bottomAnchor, constant: 10).isActive = true
-        lineChartView.bottomAnchor.constraint(equalTo: collectionView.topAnchor, constant: -20).isActive = true
+        lineChartView.bottomAnchor.constraint(equalTo: saveView.topAnchor, constant: -20).isActive = true
 
 //        saveLabel.leadingAnchor.constraint(equalTo: saveView.leadingAnchor).isActive = true
         saveLabel.centerXAnchor.constraint(equalTo: saveView.centerXAnchor).isActive = true
@@ -292,9 +309,20 @@ class GrafficsViewController: UIViewController {
     ]
     
     func setData() {
-        data = LineChartData(dataSet: set1)
-        data.setDrawValues(false)
-        lineChartView.data = data
+        DispatchQueue.main.async { [self] in
+            self.set1 = LineChartDataSet(values: self.yValues2, label: "Level")
+            self.set1.mode = .linear
+            self.set1.drawCirclesEnabled = false
+            self.set1.lineWidth = 3
+            self.set1.drawHorizontalHighlightIndicatorEnabled = false
+            self.set1.drawVerticalHighlightIndicatorEnabled = false
+            self.set1.setColor(UIColor(rgb: 0x00A778), alpha: 1.0)
+            data = LineChartData(dataSet: set1)
+            data.setDrawValues(false)
+            lineChartView.data = data
+            lineChartView.animate(xAxisDuration: 1)
+        }
+        
     }
     
     func setupTheme() {
@@ -310,56 +338,5 @@ class GrafficsViewController: UIViewController {
             backView.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
         }
     }
-    
-    func registerCell() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(GrafficsDaysCell.self, forCellWithReuseIdentifier: "GrafficsDaysCell")
-    }
 }
 
-extension GrafficsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GrafficsDaysCell", for: indexPath) as! GrafficsDaysCell
-//        for i in 0...cheakDate.count {
-//            if timeBlackBox[indexPath.row].first! != cheakDate[i] {
-        cell.textLabel.text = cheakDate[indexPath.row]
-//                cheakDate.append(timeBlackBox[indexPath.row].first!)
-//                collectionView.reloadData()
-//            }
-//        }
-        return cell
-    }
-    
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cheakDate.count
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: CGFloat(80), height: CGFloat(50))
-    }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedIndex = indexPath
-        yValues2.removeAll()
-        for i in 0...lvlBlackBox[indexPath.row].count - 1 {
-            yValues2.append(ChartDataEntry(x: Double(i), y: Double(lvlBlackBox[indexPath.row][i]) ?? 0))
-        }
-        DispatchQueue.main.async { [self] in
-            self.set1 = LineChartDataSet(values: self.yValues2, label: cheakDate[indexPath.row])
-            self.set1.mode = .linear
-            self.set1.drawCirclesEnabled = false
-            self.set1.lineWidth = 3
-            self.set1.drawHorizontalHighlightIndicatorEnabled = false
-            self.set1.drawVerticalHighlightIndicatorEnabled = false
-            self.set1.setColor(UIColor(rgb: 0x00A778), alpha: 1.0)
-            self.setData()
-            let lvlBlackBoxInt = lvlBlackBox[indexPath.row].map{Int($0)!}
-            self.lineChartView.leftAxis.axisMaximum = Double(lvlBlackBoxInt.max()! + 10)
-            self.lineChartView.animate(xAxisDuration: 1)
-//                lineChartView.data? = data
-//                lineChartView.data!.notifyDataChanged()
-        }
-    }
-}
