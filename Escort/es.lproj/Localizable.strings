@@ -453,4 +453,12 @@
 "Synchronization is complete" = "Sincronización se finalizó";
 "Synchronization failed" = "Sincronización falló";
 "Graph сhart" = "Gráfica";
+"Download data for the last" = "Descargar datos de los últimos";
 //MARK: - BlackBox finish
+
+"Data encryption" = "Cifrado de datos";
+"Once this option is active, all data sent by the sensor will be encrypted. Attention! The receiving unit (GPS tracker or BLE-RS485 adapter) has to support data encryption to be able to decrypt and interprete the sensor´s data." = "Al activarse el cifrado de datos, todos los datos del sensor estarán cifrados. ¡Ojo! El dispositivo recibidor (equipo GPS o adaptador BLE-RS485) tiene que ser capaz de descifrar los datos del sensor.";
+"Data encryption is on" = "Cifrado de datos activado";
+"Data encryption is off" = "Cifrado de datos desactivado";
+"Unable to activate data encryption" = "Cifrado de datos no se ha activado";
+"Unable to deactivate data encryption" = "Cifrado de datos no se ha desactivado";

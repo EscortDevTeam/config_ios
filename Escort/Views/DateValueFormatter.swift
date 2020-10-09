@@ -36,9 +36,8 @@ class ChartXAxisFormatter: NSObject, AxisValueFormatter {
         if value < 0 {
             return ""
         } else {
-            return dateFormat.format(timeBlackBox[value])
+            return ""
         }
     }
 
-    }
 }

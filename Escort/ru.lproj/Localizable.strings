@@ -448,4 +448,12 @@
 "Synchronization is complete" = "Синхронизация прошла успешно";
 "Synchronization failed" = "Не удалось синхронизировать";
 "Graph сhart" = "График";
+"Download data for the last" = "Выгрузить за последние";
 //MARK: - BlackBox finish
+
+"Data encryption" = "Шифрование передаваемых данных";
+"Once this option is active, all data sent by the sensor will be encrypted. Attention! The receiving unit (GPS tracker or BLE-RS485 adapter) has to support data encryption to be able to decrypt and interprete the sensor´s data." = "Эта функция включает шифрование передаваемых датчиком данных. Обратите внимание, что приемное устройство (навигационный терминал, или приёмник BLE-RS485) так же должно поддерживать эту функцию. Иначе принятые данные будут некорректными.";
+"Data encryption is on" = "Шифрование данных включено";
+"Data encryption is off" = "Шифрование данных выключено";
+"Unable to activate data encryption" = "Не удалось включить шифрование данных";
+"Unable to deactivate data encryption" = "Не удалось выключить шифрование данных";

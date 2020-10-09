@@ -168,8 +168,16 @@ class LoggingController: UIViewController, UINavigationControllerDelegate {
         pickerView(picker, didSelectRow: days, inComponent: 0)
         pickerView(picker, didSelectRow: hours, inComponent: 1)
         reload = 12
-        doneDowload()
-        print("delete: \(reload)")
+        activityIndicator.startAnimating()
+        viewAlpha.addSubview(activityIndicator)
+        view.addSubview(viewAlpha)
+        view.isUserInteractionEnabled = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [self] in
+            self.view.isUserInteractionEnabled = true
+            self.viewAlpha.removeFromSuperview()
+            doneDowload()
+            print("delete: \(reload)")
+        }
     }
     
     @objc private func saveData(_ sender: UIButton) {

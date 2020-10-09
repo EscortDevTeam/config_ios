@@ -642,56 +642,65 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
 //                print(result)
                 if result.contains("SE") {
                     let indexOfPerson = result.firstIndex{$0 == "SE"}
-                    print(indexOfPerson!)
-                    nameDevice = "\(result[indexOfPerson! + 2])"
-                    nameDeviceT = "\(result[indexOfPerson! + 2])"
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        nameDevice = "\(result[indexOfPerson! + 2])"
+                        nameDeviceT = "\(result[indexOfPerson! + 2])"
+                    }
                 }
                 if result.contains("UT") {
                     let indexOfPerson = result.firstIndex{$0 == "UT"}
-                    temp = "\(result[indexOfPerson! + 2])"
-                    if let tempInt = Int(temp ?? "-1") {
-                        if tempInt >= 0 {
-                            temperKoef = 6
-                        } else {
-                            temperKoef = 11
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        temp = "\(result[indexOfPerson! + 2])"
+                        if let tempInt = Int(temp ?? "-1") {
+                            if tempInt >= 0 {
+                                temperKoef = 6
+                            } else {
+                                temperKoef = 11
+                            }
                         }
                     }
                 }
                 if result.contains("UL") {
                     let indexOfPerson = result.firstIndex{$0 == "UL"}
-                    level = "\(result[indexOfPerson! + 2])"
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        level = "\(result[indexOfPerson! + 2])"
+                    }
                 }
                 if result.contains("VB") {
                     let indexOfPerson = result.firstIndex{$0 == "VB"}
-                    vatt = "\(result[indexOfPerson! + 2])"
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        vatt = "\(result[indexOfPerson! + 2])"
+                    }
                 }
                 if result.contains("UD") {
                     let indexOfPerson = result.firstIndex{$0 == "UD"}
                     print(indexOfPerson!)
                     if indexOfPerson! + 2 <= result.count-1 {
-                    id = "\(result[indexOfPerson! + 2])"
+                        id = "\(result[indexOfPerson! + 2])"
                     }
                 }
                 if result.contains("LK") {
                     let indexOfPerson = result.firstIndex{$0 == "LK"}
-                    print(indexOfPerson!)
-                    nothing = "\(result[indexOfPerson! + 2])"
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        nothing = "\(result[indexOfPerson! + 2])"
+                    }
                 }
                 if result.contains("HK") {
                     let indexOfPerson = result.firstIndex{$0 == "HK"}
-                    print(indexOfPerson!)
-                    print(warning)
-                    full = "\(result[indexOfPerson! + 2])"
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        full = "\(result[indexOfPerson! + 2])"
+                    }
                 }
                 if result.contains("US") {
                     let indexOfPerson = result.firstIndex{$0 == "US"}
-                    print(indexOfPerson!)
-                    cnt = "\(result[indexOfPerson! + 2])"
-                    if iter == false {
-                        cnt1 = result[indexOfPerson! + 2]
-                        iter = true
-                    } else {
-                        cnt2 = result[indexOfPerson! + 2]
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        cnt = "\(result[indexOfPerson! + 2])"
+                        if iter == false {
+                            cnt1 = result[indexOfPerson! + 2]
+                            iter = true
+                        } else {
+                            cnt2 = result[indexOfPerson! + 2]
+                        }
                     }
                 }
                 if result.contains("APO") {
@@ -714,15 +723,17 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                 }
                 if result.contains("VV") {
                     let indexOfPerson = result.firstIndex{$0 == "VV"}
-                    VV = "\(result[indexOfPerson! + 2])"
-                    guard let versionDeviceCheck = Int(VV) else {return}
-                    versionDevice = versionDeviceCheck
-                    VV.insert(".", at: VV.index(VV.startIndex, offsetBy: 1))
-                    VV.insert(".", at: VV.index(VV.startIndex, offsetBy: 3))
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        VV = "\(result[indexOfPerson! + 2])"
+                        guard let versionDeviceCheck = Int(VV) else {return}
+                        versionDevice = versionDeviceCheck
+                        VV.insert(".", at: VV.index(VV.startIndex, offsetBy: 1))
+                        VV.insert(".", at: VV.index(VV.startIndex, offsetBy: 3))
+                    }
                 }
                 if result.contains("WM") {
                     let indexOfPerson = result.firstIndex{$0 == "WM"}
-                    if result.count >= indexOfPerson!+2{
+                    if indexOfPerson! + 2 <= result.count - 1 {
                         if indexOfPerson! + 2 <= result.count-1 {
                             wmMax = "\(result[indexOfPerson! + 2])"
                             if let wmMaxUINt = Int(wmMax) {
@@ -733,7 +744,9 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                 }
                 if result.contains("TR") {
                     let indexOfPerson = result.firstIndex{$0 == "TR"}
-                    tr = "\(result[indexOfPerson! + 2])"
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        tr = "\(result[indexOfPerson! + 2])"
+                    }
                 }
                 deleteChek = false
                 if result.contains("SMO") {
@@ -745,21 +758,25 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                 }
                 if result.contains("SR") {
                     let indexOfPerson = result.firstIndex{$0 == "SR"}
-                    if result[indexOfPerson! + 2] == "0" {
-                        countPackets = "-1"
-                    } else {
-                        countPackets = "\(result[indexOfPerson! + 2])"
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        if result[indexOfPerson! + 2] == "0" {
+                            countPackets = "-1"
+                        } else {
+                            countPackets = "\(result[indexOfPerson! + 2])"
+                        }
                     }
                 }
                 if result.contains("L") {
                     let indexOfPerson = result.lastIndex{$0 == "L"}
-                    guard let indexOfPersonInt = Double(result[indexOfPerson! + 1]),
-                          let countPacketsInts = Double(countPackets),
-                          indexOfPersonInt != 0,
-                          countPacketsInts != 0 else {return}
-                    countPacket = "\(Int(indexOfPersonInt))"
-                    let intResult: Int = Int(100 / (countPacketsInts / indexOfPersonInt))
-                    inverst = "\(intResult)"
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        guard let indexOfPersonInt = Double(result[indexOfPerson! + 1]),
+                              let countPacketsInts = Double(countPackets),
+                              indexOfPersonInt != 0,
+                              countPacketsInts != 0 else {return}
+                        countPacket = "\(Int(indexOfPersonInt))"
+                        let intResult: Int = Int(100 / (countPacketsInts / indexOfPersonInt))
+                        inverst = "\(intResult)"
+                    }
                 }
             }
         }
@@ -918,7 +935,7 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
         searchBar.text = ""
         mainPassword = ""
         timer.invalidate()
-        self.searchBar.endEditing(true)
+        self.view.endEditing(true)
         self.view.isUserInteractionEnabled = true
         peripherals.removeAll()
         RSSIMainArray.removeAll()

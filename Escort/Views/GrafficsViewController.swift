@@ -42,19 +42,28 @@ class GrafficsViewController: UIViewController {
         let xAxis = chart.xAxis
         xAxis.labelFont = .systemFont(ofSize: 11)
         xAxis.labelTextColor = .white
+//        xAxis.labelPosition = .bottom
+//        xAxis.labelCount = 3
+//        let xValuesFormatter = DateFormatter()
+//            xValuesFormatter.dateFormat = "dd-MM-yy HH:mm"
+//        let xValuesNumberFormatter = ChartXAxisFormatter(referenceTimeInterval: 1, dateFormatter: xValuesFormatter, referenceTimeInterval2: timeBlackBox[0])
+//        xAxis.valueFormatter = xValuesNumberFormatter
+        xAxis.drawAxisLineEnabled = false
         xAxis.labelPosition = .bottom
-        xAxis.labelCount = 3
-        let xValuesFormatter = DateFormatter()
-            xValuesFormatter.dateFormat = "dd-MM-yy HH:mm"
-        let xValuesNumberFormatter = ChartXAxisFormatter(referenceTimeInterval: 1, dateFormatter: xValuesFormatter, referenceTimeInterval2: timeBlackBox[0])
-        xAxis.valueFormatter = xValuesNumberFormatter
-        
+        xAxis.enabled = false
         
         let leftAxis = chart.leftAxis
         leftAxis.labelTextColor = .white
-        let lvlBlackBoxInt = lvlBlackBox[0].map{Int($0)!}
+        var lvlBlackBoxInt: [Int] = []
+        for i in 0...lvlBlackBox.count - 1 {
+            lvlBlackBoxInt.append(contentsOf: lvlBlackBox[i].map{Int($0)!})
+        }
         leftAxis.axisMaximum = Double(lvlBlackBoxInt.max()! + 10)
-        leftAxis.axisMinimum = 0
+        if lvlBlackBoxInt.min()! - 10 > 0 {
+            leftAxis.axisMinimum = Double(lvlBlackBoxInt.min()! - 10)
+        } else {
+            leftAxis.axisMinimum = 0
+        }
         leftAxis.drawGridLinesEnabled = true
         leftAxis.granularityEnabled = true
         
@@ -144,7 +153,7 @@ class GrafficsViewController: UIViewController {
         var countX = 0
         for j in 0...lvlBlackBox.count - 1 {
             for i in 0...lvlBlackBox[j].count - 1 {
-                yValues2.append(ChartDataEntry(x: Double(timeBlackBox[j][i]) ?? 0, y: Double(lvlBlackBox[j][i]) ?? 0))
+                yValues2.append(ChartDataEntry(x: Double(countX) , y: Double(lvlBlackBox[j][i]) ?? 0))
 //                print(countX)
                 if Int(lvlBlackBox[j][i]) ?? 0 > axisMaximum {
                     axisMaximum = Int(lvlBlackBox[j][i]) ?? 0
@@ -152,17 +161,18 @@ class GrafficsViewController: UIViewController {
                 countX += 1
             }
         }
-        DispatchQueue.main.async { [self] in
-            self.set1 = LineChartDataSet(values: self.yValues2, label: "----")
-            self.set1.mode = .linear
-            self.set1.drawCirclesEnabled = false
-            self.set1.lineWidth = 3
-//            self.set1.drawHorizontalHighlightIndicatorEnabled = false
-//            self.set1.drawVerticalHighlightIndicatorEnabled = false
-            self.set1.setColor(UIColor(rgb: 0x00A778), alpha: 1.0)
-            self.lineChartView.leftAxis.axisMaximum = Double(axisMaximum + 10)
-            self.lineChartView.animate(xAxisDuration: 1)
-        }
+//
+//        DispatchQueue.main.async { [self] in
+//            self.set1 = LineChartDataSet(values: self.yValues2, label: "----")
+//            self.set1.mode = .linear
+//            self.set1.drawCirclesEnabled = false
+//            self.set1.lineWidth = 3
+////            self.set1.drawHorizontalHighlightIndicatorEnabled = false
+////            self.set1.drawVerticalHighlightIndicatorEnabled = false
+//            self.set1.setColor(UIColor(rgb: 0x00A778), alpha: 1.0)
+//            self.lineChartView.leftAxis.axisMaximum = Double(axisMaximum + 10)
+//            self.lineChartView.animate(xAxisDuration: 1)
+//        }
         let someDate = Date()
 
         // convert Date to TimeInterval (typealias for Double)
