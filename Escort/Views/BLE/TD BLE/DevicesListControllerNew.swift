@@ -17,6 +17,9 @@ struct cellData {
     var title = String()
     var sectionData = [String()]
 }
+
+var a : CBPeripheral!
+
 var rrsiPink = 0
 var kCBAdvDataManufacturerData = ""
 class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate {
@@ -336,11 +339,12 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
         }
     }
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-        
+        a = peripheral
         let valueAll = "GA\r"
         let valueLogReload = "SM,LM:1:1,"
         let valueReload = "PR,PW:1:\(mainPassword)"
         let FullReload = "SH,PW:1:"
+        let shifr = "SX,EM:1:\(shifrOn),"
         let NothingReload = "SL,PW:1:"
         let ReloadFN = "\(mainPassword)\r"
         let sdVal = "SD,HK:1:1024\r"
@@ -383,6 +387,7 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
         let dataBlackBox = Data(blackBox.utf8)
         let dataStopBlackBox = Data(stopBlackBox.utf8)
         let dataBlackBoxTimeUnix = Data(blackBoxTimeUnix.utf8)
+        let dataShifr = Data(shifr.utf8)
 
         for characteristic in service.characteristics! {
             if characteristic.properties.contains(.notify) {
@@ -541,6 +546,18 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                 }
             }
         }
+        if reload == 15 {
+            for characteristic in service.characteristics! {
+                if characteristic.properties.contains(.write) {
+                    print("Свойство \(characteristic.uuid): .write")
+                    stringAll = ""
+                    peripheral.writeValue(dataShifr, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataSdParamYet, for: characteristic, type: .withoutResponse)
+                    peripheral.writeValue(dataR, for: characteristic, type: .withResponse)
+                    reload = -1
+                }
+            }
+        }
         if reload == 6{
             for characteristic in service.characteristics! {
                 if characteristic.properties.contains(.write) {
@@ -607,7 +624,7 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
             (rxData as NSData).getBytes(&rxByteArray, length: numberOfBytes)
             let string = String(data: Data(rxByteArray), encoding: .utf8)
             stringAll = stringAll + string!
-//            print(stringAll)
+            print(stringAll)
             let resultBlack = stringAll.components(separatedBy: ["\r"])
             for index in resultBlack {
                 let resultBlackString = index.components(separatedBy: [":",","])
@@ -748,6 +765,12 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                         tr = "\(result[indexOfPerson! + 2])"
                     }
                 }
+                if result.contains("EM") {
+                    let indexOfPerson = result.firstIndex{$0 == "EM"}
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        shifrOn = "\(result[indexOfPerson! + 2])"
+                    }
+                }
                 deleteChek = false
                 if result.contains("SMO") {
                     deleteChek = true
@@ -755,6 +778,10 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                 sinhTime = false
                 if result.contains("ATO") {
                     sinhTime = true
+                }
+                shifrYes = false
+                if result.contains("SEO") {
+                    shifrYes = true
                 }
                 if result.contains("SR") {
                     let indexOfPerson = result.firstIndex{$0 == "SR"}
@@ -932,6 +959,9 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
         }
     }
     override func viewDidAppear(_ animated: Bool) {
+        if a != nil {
+            manager?.cancelPeripheralConnection(a)
+        }
         searchBar.text = ""
         mainPassword = ""
         timer.invalidate()

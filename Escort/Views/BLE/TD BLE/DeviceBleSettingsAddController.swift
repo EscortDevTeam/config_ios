@@ -15,7 +15,8 @@ class DeviceBleSettingsAddController: UIViewController {
     let viewAlpha = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
     var input1 = UITextField()
     var input2 = UITextField()
-    
+    let shifrSwitch = UISwitch()
+
     let firstTextField = UITextField()
     let secondTextField = UITextField()
     let validatePassword = UILabel()
@@ -34,6 +35,11 @@ class DeviceBleSettingsAddController: UIViewController {
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        if shifrOn == "1" {
+            shifrSwitch.isOn = true
+        } else {
+            shifrSwitch.isOn = false
+        }
         viewShow()
         setupTheme()
     }
@@ -50,6 +56,12 @@ class DeviceBleSettingsAddController: UIViewController {
         let v = UIScrollView()
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
+    }()
+    
+    fileprivate lazy var shifrLabel: UILabel = {
+        let termoLabel = UILabel()
+        termoLabel.text = "Data encryption".localized(code)
+        return termoLabel
     }()
     
     private func textLineCreate(title: String, text: String, x: Int, y: Int, prefix: String) -> UIView {
@@ -141,7 +153,7 @@ class DeviceBleSettingsAddController: UIViewController {
     }()
     
     fileprivate lazy var lblSettings: UILabel = {
-        let lblSettings = UILabel(frame: CGRect(x: 30, y: 255, width: Int(screenWidth), height: 22))
+        let lblSettings = UILabel()
         lblSettings.text = "Manual configuration input".localized(code)
         lblSettings.font = UIFont(name:"FuturaPT-Medium", size: 20.0)
         return lblSettings
@@ -232,7 +244,7 @@ class DeviceBleSettingsAddController: UIViewController {
         scrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
 
-        scrollView.contentSize = CGSize(width: Int(screenWidth), height: Int(screenHeight))
+        scrollView.contentSize = CGSize(width: Int(screenWidth), height: Int(screenHeight + 150))
         var y = 20
         let x = 30, deltaY = 65, deltaYLite = 20
         
@@ -503,11 +515,46 @@ class DeviceBleSettingsAddController: UIViewController {
         let separator = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth/2 + 40), height: 1))
         separator.backgroundColor = UIColor(rgb: 0xCF2121)
         scrollView.addSubview(separator)
-
-        
-        
+        if cheackVersionDevice(version: versionDevice) {
+            y = y + deltaYLite
+            
+            shifrLabel.frame = CGRect(x: x, y: y, width: 300, height: 30)
+            
+            scrollView.addSubview(shifrLabel)
+            
+            shifrSwitch.frame = CGRect(x: Int(screenWidth / 2 + 110) - (iphone5s ? 10 : 0), y: y, width: 30, height: 20)
+            shifrSwitch.thumbTintColor = .lightGray
+            shifrSwitch.onTintColor = UIColor(rgb: 0xCF2121)
+            
+            scrollView.addSubview(shifrSwitch)
+            
+            let viewTermoSwitch = UIView(frame: CGRect(x: Int(screenWidth / 2 + 110) - (iphone5s ? 10 : 0), y: y - 3, width: 60, height: 40))
+            viewTermoSwitch.backgroundColor = .clear
+            scrollView.addSubview(viewTermoSwitch)
+            
+            viewTermoSwitch.addTapGesture {
+                let alert = UIAlertController(title: "Warning".localized(code), message: "Are you sure you want to make changes?".localized(code), preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "No".localized(code), style: .default, handler: { _ in
+                    //Cancel Action
+                }))
+                alert.addAction(UIAlertAction(title: "Yes".localized(code),
+                                              style: .destructive,
+                                              handler: {(_: UIAlertAction!) in
+                                                self.changeTermoSwitch()
+                                              }))
+                self.present(alert, animated: true, completion: nil)
+            }
+            
+            y = y + deltaY
+            
+            let separator2 = UIView(frame: CGRect(x: x, y: y, width: Int(screenWidth/2 + 40), height: 1))
+            separator2.backgroundColor = UIColor(rgb: 0xCF2121)
+            scrollView.addSubview(separator2)
+        }
         y = y + deltaYLite
         
+        lblSettings.frame =  CGRect(x: x, y: y, width: Int(screenWidth), height: 22)
         scrollView.addSubview(lblSettings)
         
         y = y + deltaY
@@ -864,7 +911,7 @@ class DeviceBleSettingsAddController: UIViewController {
         btn5.layer.cornerRadius = 22
         
         let btn5Text = UILabel(frame: CGRect(x: x, y: y, width: Int(screenWidth-60), height: 44))
-        btn5Text.text = "Синхронизировать время".localized(code)
+        btn5Text.text = "Synchronize time".localized(code)
         btn5Text.textColor = .white
         btn5Text.font = UIFont(name:"FuturaPT-Medium", size: 16.0)
         btn5Text.textAlignment = .center
@@ -888,7 +935,7 @@ class DeviceBleSettingsAddController: UIViewController {
                 self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
                 self.viewAlpha.removeFromSuperview()
                 if sinhTime == true {
-                    let alert = UIAlertController(title: "Success".localized(code), message: "Синхронизация прошла успешно".localized(code), preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Success".localized(code), message: "Synchronization is complete".localized(code), preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                         switch action.style{
                         case .default:
@@ -902,7 +949,7 @@ class DeviceBleSettingsAddController: UIViewController {
                         }}))
                     self.present(alert, animated: true, completion: nil)
                 } else {
-                    let alert = UIAlertController(title: "Warning".localized(code), message: "Не удалось синхронизировать".localized(code), preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Warning".localized(code), message: "Synchronization failed".localized(code), preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                         switch action.style{
                         case .default:
@@ -1212,7 +1259,70 @@ class DeviceBleSettingsAddController: UIViewController {
             }
         }
     }
-    
+    fileprivate func changeTermoSwitch() {
+        reload = 15
+        if shifrSwitch.isOn == true {
+            shifrOn = "0"
+        } else {
+            shifrOn = "1"
+        }
+        self.activityIndicator.startAnimating()
+        self.viewAlpha.addSubview(self.activityIndicator)
+        self.view.addSubview(self.viewAlpha)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        self.view.isUserInteractionEnabled = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
+            self.view.isUserInteractionEnabled = true
+            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+            self.viewAlpha.removeFromSuperview()
+            if shifrYes == true {
+                if shifrOn == "1" {
+                let alert = UIAlertController(title: "Success".localized(code), message: "Data encryption is on".localized(code), preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    switch action.style{
+                    case .default:
+                        self.shifrSwitch.isOn = true
+                    case .cancel:
+                        print("cancel")
+                    case .destructive:
+                        print("destructive")
+                    @unknown default:
+                        fatalError()
+                    }}))
+                self.present(alert, animated: true, completion: nil)
+                } else {
+                    let alert = UIAlertController(title: "Success".localized(code), message: "Data encryption is off".localized(code), preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                        switch action.style {
+                        case .default:
+                            self.shifrSwitch.isOn = false
+                        case .cancel:
+                            print("cancel")
+                        case .destructive:
+                            print("destructive")
+                        @unknown default:
+                            fatalError()
+                        }}))
+                    self.present(alert, animated: true, completion: nil)
+
+                }
+            } else {
+                let alert = UIAlertController(title: "Warning".localized(code), message: "Unable to activate data encryption".localized(code), preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    switch action.style{
+                    case .default:
+                        print("default")
+                    case .cancel:
+                        print("cancel")
+                    case .destructive:
+                        print("destructive")
+                    @unknown default:
+                        fatalError()
+                    }}))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
     @objc func textFieldDidChangeSecond(_ textField: UITextField) {
         if let IntVal: Int = Int(textField.text!) {
             if IntVal == 0 {
@@ -1294,6 +1404,8 @@ class DeviceBleSettingsAddController: UIViewController {
             lblTitle2.theme.textColor = themed{ $0.navigationTintColor }
             lblPrefix1.theme.textColor = themed{ $0.navigationTintColor }
             lblTitle1.theme.textColor = themed{ $0.navigationTintColor }
+            shifrLabel.theme.textColor = themed{ $0.navigationTintColor }
+
         } else {
             view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
             themeBackView3.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
@@ -1308,7 +1420,9 @@ class DeviceBleSettingsAddController: UIViewController {
             lblPrefix2.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             lblTitle2.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             lblPrefix1.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
-            lblTitle1.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)        }
+            lblTitle1.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            shifrLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+        }
     }
     
     fileprivate func toolBar() -> UIToolbar {

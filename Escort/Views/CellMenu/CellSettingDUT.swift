@@ -12,6 +12,7 @@ class CellSettingDUT: UITableViewCell {
 
     weak var mainSettings: UIImageView!
     weak var mainSettingsLabel: UILabel!
+    weak var versionLabel: UILabel!
     weak var labelSettingDut: UILabel!
     weak var labelSettingDutInfo: UILabel!
 
@@ -46,7 +47,16 @@ class CellSettingDUT: UITableViewCell {
         mainSettingsLabel.center.x = screenWidth/2
         self.contentView.addSubview(mainSettingsLabel)
         self.mainSettingsLabel = mainSettingsLabel
-
+        
+        let versionLabel = UILabel()
+        versionLabel.frame = CGRect(x: 0, y: 20, width: screenWidth-10, height: 30)
+        versionLabel.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
+        versionLabel.textColor = .white
+        versionLabel.textAlignment = .right
+        versionLabel.center.x = screenWidth/2
+        self.contentView.addSubview(versionLabel)
+        self.versionLabel = versionLabel
+        
         let labelSettingDut = UILabel()
         labelSettingDut.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
         labelSettingDut.frame = CGRect(x: 17, y: screenWidth/1.415*0.55, width: screenWidth/2, height: 30)

@@ -17,6 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   let gcmMessageIDKey = "gcm.message_id"
 
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        print("next")
+    }
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
@@ -59,7 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
     let newViewController = storyBoard.instantiateViewController(withIdentifier: "DFUViewController") as! DFUViewController
     newViewController.modalPresentationStyle = .fullScreen
-    navgiationController.pushViewController(StartAppMenuController(), animated: true)
+    navgiationController.pushViewController(StartScreenController(), animated: true)
     window = UIWindow(frame: UIScreen.main.bounds)
     window?.rootViewController = navgiationController
     window?.makeKeyAndVisible()
@@ -101,8 +104,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
             rootViewController.pushViewController(dfuViewController, animated: true)
         }))
-        rootViewController.pushViewController(dfuViewController, animated: true)
-        dfuViewController.onFileImported(withURL: url)
+        if urlFile != nil {
+            rootViewController.pushViewController(dfuViewController, animated: true)
+            print("url: \(url)")
+            dfuViewController.onFileImported(withURL: url)
+        }
+        urlFile = url
         return true
     }
     

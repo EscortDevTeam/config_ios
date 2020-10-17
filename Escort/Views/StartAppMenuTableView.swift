@@ -55,11 +55,17 @@ extension StartAppMenuController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CellSettingDUT", for: indexPath) as! CellSettingDUT
             cell.backgroundColor = .black
             cell.mainSettingsLabel.text = "Menu".localized(code)
+            let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+            if let version = appVersion {
+                cell.versionLabel.text = "v. \(version)"
+            }
             cell.labelSettingDut.text = "Sensor settings".localized(code)
             cell.labelSettingDutInfo.text = "Escort Configurator".localized(code)
             cell.labelSettingDut.textColor = UIColor(rgb: 0xFF0000)
             cell.labelSettingDutInfo.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x0C005A)
             cell.mainSettingsLabel.textColor = UIColor(rgb: isNight ? 0x000000 : 0xFFFFFF)
+            cell.versionLabel.textColor = UIColor(rgb: isNight ? 0x000000 : 0xFFFFFF)
+
             cell.mainSettings.image = isNight ? #imageLiteral(resourceName: "шьфпурвы") : #imageLiteral(resourceName: "Group 41")
             cell.addTapGesture {
                 self.navigationController?.pushViewController(DeviceSelectController(), animated: true)

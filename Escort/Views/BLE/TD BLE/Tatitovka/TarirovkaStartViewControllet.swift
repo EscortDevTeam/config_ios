@@ -15,8 +15,6 @@ class TarirovkaStartViewControllet: UIViewController {
     func secondVC_BackClicked(data: String) {
         viewShow()
     }
-    let DeviceSelectCUSB = DeviceSelectControllerUSB()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true

@@ -199,7 +199,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
 //        fileType.text = nil
 
         let fileNameExtension = aFileURL.pathExtension.lowercased()
-        
+        print("fileNameExtension: \(fileNameExtension) \(aFileURL)")
         if fileNameExtension == "zip" {
             selectedFirmware = DFUFirmware(urlToZipFile: aFileURL)
             var appPresent         = false
@@ -328,7 +328,7 @@ class DFUViewController: BaseViewController, ScannerDelegate, FileSelectionDeleg
             }
         } else {
             selectedFileURL = nil
-            DFUConstantsUtility.showAlert(message: "Выбранный файл не поддерживается", from: self)
+            DFUConstantsUtility.showAlert(message: "File type not supported".localized(code), from: self)
         }
         DispatchQueue.main.async {
             self.progressLabel.text = nil

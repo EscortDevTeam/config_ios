@@ -96,7 +96,8 @@ var countPacket = "0"
 var countPackets = "0"
 var deleteChek = false
 var sinhTime = false
-
+var shifrYes = false
+var shifrOn = ""
 var indexDate: [Int] = []
 var cheakDate: [String] = []
 var cheakDateAgain: [String] = []
@@ -126,7 +127,7 @@ var blocks = 0
 var lvlBlackBox: [[String]] = [[]]
 var timeBlackBox: [[String]] = [[]]
 
-
+var urlFile: URL?
 
 func headerSet(title: String) -> UIView {
     return headerSet(title: title, showBack: false).0

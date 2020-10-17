@@ -11,7 +11,6 @@ import UIKit
 class StartScreenController: UIViewController {
     
     var a1 = ""
-    let LanguageVC = LanguageSelectController()
     let ConnectionSelectC = StartAppMenuController()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,11 +65,20 @@ class StartScreenController: UIViewController {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         
     }
+    fileprivate func moveOpenFile() {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let dfuViewController = mainStoryboard.instantiateViewController(withIdentifier: "DFUViewController") as! DFUViewController
+        self.navigationController?.pushViewController(dfuViewController, animated: true)
+        dfuViewController.onFileImported(withURL: urlFile!)
+    }
+    
     private func viewShow() {
-        print(screenWidth)
         view.backgroundColor = .white
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            self.move()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [self] in
+            move()
+            if urlFile != nil {
+                moveOpenFile()
+            }
         }
         view.addSubview(backImage)
         if image.image != "4" && image.image != "5" {

@@ -300,7 +300,7 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
         }
     }
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-        
+        a = peripheral
         let valueAll = "GA\r"
         let valueReload = "PR,PW:1:\(mainPassword)"
         let FullReload = "SH,PW:1:"
@@ -724,6 +724,9 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
         }
     }
     override func viewDidAppear(_ animated: Bool) {
+        if a != nil {
+            manager?.cancelPeripheralConnection(a)
+        }
         searchBar.text = ""
         mainPassword = ""
         timer.invalidate()
