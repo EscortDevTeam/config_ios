@@ -156,7 +156,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   // the FCM registration token.
   func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
     print("APNs token retrieved: \(deviceToken)")
-
     // With swizzling disabled you must set the APNs token here.
     // Messaging.messaging().apnsToken = deviceToken
   }
@@ -205,11 +204,11 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
 
 extension AppDelegate : MessagingDelegate {
   // [START refresh_token]
-  func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
     print("Firebase registration token: \(fcmToken)")
-    Messaging.messaging().shouldEstablishDirectChannel = true
+//    Messaging.messaging().shouldEstablishDirectChannel = true
 
-    let dataDict:[String: String] = ["token": fcmToken]
+    let dataDict:[String: String] = ["token": fcmToken!]
     NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
     // TODO: If necessary send token to application server.
     // Note: This callback is fired at each app startup and whenever a new token is generated.
@@ -219,8 +218,8 @@ extension AppDelegate : MessagingDelegate {
   // Receive data messages on iOS 10+ directly from FCM (bypassing APNs) when the app is in the foreground.
   // To enable direct data messages, you can set Messaging.messaging().shouldEstablishDirectChannel to true.
     
-  func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
-    print("Received data message: \(remoteMessage.appData)")
-  }
+//  func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+//    print("Received data message: \(remoteMessage.appData)")
+//  }
   // [END ios_10_data_message]
 }

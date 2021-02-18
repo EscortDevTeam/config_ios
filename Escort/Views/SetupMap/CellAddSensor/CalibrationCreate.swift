@@ -298,7 +298,7 @@ class CalibrationCreate: UIViewController, UIScrollViewDelegate {
             let file = "Тарировка \(openSensorNumber) датчика.csv"
             var contents = ""
             for i in 0...self.items.count-1 {
-                contents = contents + "\(self.items[i]), \(self.levelnumber[i])\n"
+                contents = contents + "\(self.levelnumber[i]), \(self.items[i])\n"
             }
             let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
             
@@ -370,7 +370,7 @@ class CalibrationCreate: UIViewController, UIScrollViewDelegate {
             let file = "Тарировка \(openSensorNumber) датчика.csv"
             var contents = ""
             for i in 0...self.items.count-1 {
-                contents = contents + "\(self.items[i]), \(self.levelnumber[i])\n"
+                contents = contents + "\(self.levelnumber[i]), \(self.items[i])\n"
             }
             let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
             
@@ -465,7 +465,7 @@ extension CalibrationCreate: UITableViewDataSource {
                 let file = "Тарировка \(openSensorNumber) датчика.csv"
                 var contents = ""
                 for i in 0...self.items.count-1 {
-                    contents = contents + "\(self.items[i]), \(self.levelnumber[i])\n"
+                    contents = contents + "\(self.levelnumber[i]), \(self.items[i])\n"
                 }
                 let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
 

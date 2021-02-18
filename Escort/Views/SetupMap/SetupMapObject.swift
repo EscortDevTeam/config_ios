@@ -148,7 +148,6 @@ class SetupMap: UIViewController {
     lazy var hamburger: UIImageView = {
         let hamburger = UIImageView(image: #imageLiteral(resourceName: "exit_SetMap"))
         hamburger.image = hamburger.image!.withRenderingMode(.alwaysTemplate)
-
         return hamburger
     }()
     lazy var statusBarRedThree: UIView =  {

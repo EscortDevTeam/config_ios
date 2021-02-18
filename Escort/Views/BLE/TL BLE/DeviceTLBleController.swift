@@ -53,7 +53,7 @@ class DeviceTLBleController: UIViewController {
             if countNot == 0 {
                 if passNotif == 1 {
                     passwordHave = true
-                    self.showToast(message: "Sensor is not password-protected".localized(code), seconds: 3.0)
+                    self.showToast(message: "Sensor is password-protected".localized(code), seconds: 3.0)
                 } else {
                     passwordHave = false
                 }
@@ -421,7 +421,7 @@ class DeviceTLBleController: UIViewController {
         let footerCellWidth = Int(screenWidth/2), footerCellHeight = 90
         
         let cellSetting = UIView(frame: CGRect(x: 0, y: 0, width: footerCellWidth, height: footerCellHeight))
-        let cellSettingIcon = UIImageView(image: UIImage(named: "settings.png")!)
+        let cellSettingIcon = UIImageView(image: UIImage(named: isNight ? "settings" : "settings-black")!)
         cellSettingIcon.frame = CGRect(x: 0, y: 0, width: 47, height: 47)
         cellSettingIcon.center = CGPoint(x: cellSetting.frame.size.width / 2, y: cellSetting.frame.size.height / 2 - 15)
 
@@ -434,7 +434,7 @@ class DeviceTLBleController: UIViewController {
         }
 
         let cellHelp = UIView(frame: CGRect(x: footerCellWidth, y: 0, width: footerCellWidth, height: footerCellHeight))
-        let cellHelpIcon = UIImageView(image: UIImage(named: "help.png")!)
+        let cellHelpIcon = UIImageView(image: UIImage(named: isNight ? "boxquestion-white" : "boxquestion-black")!)
         cellHelpIcon.frame = CGRect(x: 1, y: 0, width: 47, height: 47)
         cellHelpIcon.center = CGPoint(x: cellHelp.frame.size.width / 2, y: cellHelp.frame.size.height / 2 - 15)
         cellHelp.addSubview(cellHelpIcon)

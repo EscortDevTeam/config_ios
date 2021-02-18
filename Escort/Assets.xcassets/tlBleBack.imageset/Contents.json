@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "tl_Монтажная область 1xhdpi 2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "tl_Монтажная область 1xxhdpi 2.png",
+      "filename" : "NewTL.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "tl_Монтажная область 1xxxhdpi 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

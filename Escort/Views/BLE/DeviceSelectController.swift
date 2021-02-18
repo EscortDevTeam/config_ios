@@ -283,7 +283,9 @@ import RxTheme
             self.generator.impactOccurred()
             let storyboard = UIStoryboard(name: "StoryboardScanner", bundle: nil)
             let homeViewController = storyboard.instantiateViewController(withIdentifier: "StoryboardScanner")
-            self.navigationController?.pushViewController(homeViewController, animated: true)        }
+            self.navigationController?.pushViewController(homeViewController, animated: true)
+            
+        }
         
         let separator = UIView(frame: CGRect(x: 15, y: Int(Float(headerHeight)+Float(cellHeight)), width: Int(screenWidth-30), height: 2))
         separator.backgroundColor = UIColor(named: "SeperatorColor")
@@ -391,3 +393,5 @@ import RxTheme
         return DrawerPresentationController(presentedViewController: presented, presenting: presenting, blurEffectStyle: isNight ? .light : .dark)
     }
  }
+
+ 

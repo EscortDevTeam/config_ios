@@ -21,7 +21,7 @@ class DFUConstantsUtility: NSObject {
         DispatchQueue.main.async {
             let alertView = UIAlertController(title: "DFU", message: aMessage, preferredStyle: .alert)
             alertView.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { alert -> Void in
-                viewController.navigationController?.popViewController(animated: true)
+//                viewController.navigationController?.popViewController(animated: true)
             }))
             viewController.present(alertView, animated: true)
         }

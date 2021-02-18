@@ -119,12 +119,12 @@ class Notifications: NSObject, UNUserNotificationCenterDelegate {
 }
 
 extension Notifications: MessagingDelegate {
-    public func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-        print("Firebase reg: \(fcmToken)\n")
+    public func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        print("Firebase reg: \(fcmToken!)\n")
         
     }
-    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
-        print(messaging)
-    }
+//    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+//        print(messaging)
+//    }
     
 }

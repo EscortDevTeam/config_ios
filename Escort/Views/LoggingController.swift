@@ -15,7 +15,6 @@ var fileURLBlackBox: URL?
 
 class LoggingController: UIViewController, UINavigationControllerDelegate {
     
-    let webView = WKWebView()
     let generator = UIImpactFeedbackGenerator(style: .light)
     let picker = UIPickerView()
     let labelDays = UILabel()
@@ -197,15 +196,9 @@ class LoggingController: UIViewController, UINavigationControllerDelegate {
             let fileURL = dir.appendingPathComponent(file)
             fileURLBlackBox = fileURL
             var filesToShare = [Any]()
-            //        webView.frame =  CGRect(x: 0, y: headerHeight-10, width: screenWidth, height: screenHeight-(headerHeight-10))
-            //        view.addSubview(webView)
             do {
-                //                            try FileManager.default.createDirectory(at: fileURL, withIntermediateDirectories: true, attributes: nil)
                 try contents.write(to: fileURL, atomically: false, encoding: .utf8)
                 filesToShare.append(fileURL)
-                
-                //            let activityViewController = UIActivityViewController(activityItems: filesToShare, applicationActivities: nil)
-                //            self.present(activityViewController, animated: true, completion: nil)
             }
             catch {
                 print("Error: \(error)")

@@ -12,14 +12,12 @@ class StartAppMenuController: UIViewController {
     
     var tableView: UITableView!
     let generator = UIImpactFeedbackGenerator(style: .light)
-    var timer = Timer()
     var isFirstApp = true
+    let deviceNewSelectVC = DeviceNewSelectController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.isUserInteractionEnabled = false
         registerTableView()
-        downArrow()
         setupTheme()
     }
     func tableViewScrollToBottom(animated: Bool) {
@@ -38,27 +36,27 @@ class StartAppMenuController: UIViewController {
             self.isFirstApp = false
         }
     }
-    override func viewWillAppear(_ animated: Bool) {
-        tableViewScrollToBottom(animated: true)
-    }
+    
     override func viewDidAppear(_ animated: Bool) {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         tableView.reloadData()
-        timer =  Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (timer) in
-            if checkToChangeLanguage == 1 {
-                self.tableView.reloadData()
-                checkToChangeLanguage = 0
-            }
-        }
     }
-    override func viewDidDisappear(_ animated: Bool) {
-        timer.invalidate()
-        
+
+    var gradientLayer: CAGradientLayer = {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.locations = [0.5, 0.35]
+       return gradientLayer
+    }()
+    func createGradientLayer() {
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [isNight ? UIColor(rgb: 0x1F2222).cgColor : UIColor(rgb: 0xEDF0F4).cgColor, isNight ? UIColor(rgb: 0x535352).cgColor : UIColor(rgb: 0xEDF0F4).cgColor]
+     
     }
-    
     override func loadView() {
         super.loadView()
-        view.backgroundColor = UIColor(rgb: 0x005CDF)
+        createGradientLayer()
+        self.view.layer.addSublayer(gradientLayer)
+        view.backgroundColor = UIColor(rgb: 0x1F2222)
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
@@ -75,9 +73,7 @@ class StartAppMenuController: UIViewController {
         self.tableView = tableView
         
     }
-        fileprivate func downArrow() {
-            print(1)
-        }
+    
     func setupTheme() {
 //        view.theme.backgroundColor = themed { $0.backgroundColor }
 //        btTitle1.theme.textColor = themed{ $0.navigationTintColor }

@@ -271,9 +271,9 @@ extension TarirovkaStartViewControllet: UIDocumentPickerDelegate {
                             sliv = false
                         }
                     }
-                    itemsT.append("\(rom[0])")
-                    levelnumberT.append("\(a[0])")
-                    print("items: \(rom[0])" + " levelnumber: \(a[0])")
+                    levelnumberT.append("\(rom[0])")
+                    itemsT.append("\(a[0])")
+                    print("items: \(a[0])" + " levelnumber: \(rom[0])")
                 }
                 tarNew = false
                 let nameSave = selectedFileURL.path

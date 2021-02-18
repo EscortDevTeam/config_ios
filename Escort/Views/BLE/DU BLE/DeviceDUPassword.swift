@@ -502,7 +502,7 @@ class DeviceDUPassword: UIViewController {
                         nameDevice = ""
                         temp = nil
                         checkUpdate = "Update"
-                        let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
+                        let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceNewSelectController}).first
                         self.navigationController?.popToViewController(vc!, animated: true)
                     }
                 } else {
@@ -534,7 +534,7 @@ class DeviceDUPassword: UIViewController {
                     nameDevice = ""
                     temp = nil
                     checkUpdate = "Update"
-                    let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
+                    let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceNewSelectController}).first
                     self.navigationController?.popToViewController(vc!, animated: true)
                 }
             }

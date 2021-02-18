@@ -64,7 +64,7 @@ class DeviceBleController: UIViewController, MainDelegate {
             if countNot == 0 {
                 if passNotif == 1 {
                     passwordHave = true
-                    self.showToast(message: "Sensor is not password-protected".localized(code), seconds: 3.0)
+                    self.showToast(message: "Sensor is password-protected".localized(code), seconds: 3.0)
                 } else {
                     passwordHave = false
                 }
@@ -508,7 +508,7 @@ class DeviceBleController: UIViewController, MainDelegate {
         let footerCellWidth = Int(screenWidth/3), footerCellHeight = 90
         
         let cellSetting = UIView(frame: CGRect(x: 0, y: 0, width: footerCellWidth, height: footerCellHeight))
-        let cellSettingIcon = UIImageView(image: UIImage(named: "settings.png")!)
+        let cellSettingIcon = UIImageView(image: UIImage(named: isNight ? "settings" : "settings-black")!)
         cellSettingIcon.frame = CGRect(x: 0, y: 0, width: 47, height: 47)
         cellSettingIcon.center = CGPoint(x: cellSetting.frame.size.width / 2, y: cellSetting.frame.size.height / 2 - 15)
         cellSetting.addSubview(cellSettingIcon)
@@ -525,7 +525,7 @@ class DeviceBleController: UIViewController, MainDelegate {
         }
         
         let cellSettingAdd = UIView(frame: CGRect(x: footerCellWidth, y: 0, width: footerCellWidth, height: footerCellHeight))
-        let cellSettingAddIcon = UIImageView(image: UIImage(named: "settings-add.png")!)
+        let cellSettingAddIcon = UIImageView(image: UIImage(named: isNight ? "settings-add" : "settings-add-black")!)
         cellSettingAddIcon.frame = CGRect(x: 0, y: 0, width: 47, height: 47)
         cellSettingAddIcon.center = CGPoint(x: cellSettingAdd.frame.size.width / 2, y: cellSettingAdd.frame.size.height / 2 - 15)
         cellSettingAdd.addSubview(cellSettingAddIcon)
@@ -543,7 +543,7 @@ class DeviceBleController: UIViewController, MainDelegate {
         }
         
         let cellHelp = UIView(frame: CGRect(x: footerCellWidth*2, y: 0, width: footerCellWidth, height: footerCellHeight))
-        let cellHelpIcon = UIImageView(image: UIImage(named: "tarirovka")!)
+        let cellHelpIcon = UIImageView(image: UIImage(named: isNight ? "tarirovka" : "tar-black")!)
         cellHelpIcon.frame = CGRect(x: 0, y: 0, width: 32, height: 47)
         cellHelpIcon.center = CGPoint(x: cellHelp.frame.size.width / 2, y: cellHelp.frame.size.height / 2 - 15)
         cellHelp.addSubview(cellHelpIcon)

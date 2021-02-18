@@ -223,7 +223,7 @@ class ScannerViewController: UIViewController, CBCentralManagerDelegate, UITable
         // Scanner uses other queue to send events. We must edit UI in the main queue
         DispatchQueue.main.async {
             var sensor = ScannedPeripheral(withPeripheral: peripheral, andRSSI: RSSI.int32Value, andIsConnected: false)
-            if sensor.name() == "TD_UPDATE" || sensor.name() == "TL_UPDATE" || sensor.name() == "TL_UPDATE_N" || sensor.name() == "DU_UPDATE" || sensor.name() == "DU_UPDATE_N"{
+            if sensor.name() == "TD_UPDATE" || sensor.name() == "TL_UPDATE" || sensor.name() == "TL_UPDATE_N" || sensor.name() == "DU_UPDATE" || sensor.name() == "DU_UPDATE_N" || sensor.name() == "TH_UPDATE"{
                 if let index = self.peripherals.firstIndex(of: sensor) {
                     sensor = self.peripherals[index]
                     sensor.RSSI = RSSI.int32Value

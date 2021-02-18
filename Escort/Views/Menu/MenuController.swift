@@ -13,6 +13,8 @@ import RxTheme
 
 class MenuController: UIViewController {
     
+    var delegate: ProtocolStartMenuDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewShow()
@@ -22,9 +24,7 @@ class MenuController: UIViewController {
         }
 
     }
-    override func viewWillAppear(_ animated: Bool) {
-        warning = false
-    }
+    
     fileprivate lazy var scrollView: UIScrollView = {
         let v = UIScrollView()
         v.translatesAutoresizingMaskIntoConstraints = false
@@ -53,7 +53,6 @@ class MenuController: UIViewController {
     }()
     
     @objc func didChangeThemeSwitchValue() {
-        checkToChangeLanguage = 1
         if themeSwitch.isOn {
             if #available(iOS 13.0, *) {
                 themeService.switch(.dark)
@@ -65,6 +64,7 @@ class MenuController: UIViewController {
             UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
             themeSwitch.thumbTintColor = UIColor(rgb: 0x1F2222)
             themeSwitch.onTintColor = .gray
+            delegate?.buttonChangeThemeMode()
         } else {
             if #available(iOS 13.0, *) {
                 themeService.switch(.light)
@@ -76,6 +76,7 @@ class MenuController: UIViewController {
             isNight = false
             UserDefaults.standard.set(isNight, forKey: "isNight")
             themeSwitch.thumbTintColor = .gray
+            delegate?.buttonChangeThemeMode()
         }
     }
 
@@ -106,8 +107,6 @@ class MenuController: UIViewController {
     }()
     
     private func viewShow() {
-        warning = false
-
         view.backgroundColor = UIColor(rgb: 0x1F2222)
         
         view.addSubview(bgImage)
@@ -126,47 +125,41 @@ class MenuController: UIViewController {
         aboutAppView.addTapGesture {
             let alert = UIAlertController(title: "Language".localized(code), message: "", preferredStyle: .actionSheet)
             
-            alert.addAction(UIAlertAction(title: "РУССКИЙ", style: .default, handler: { (_) in
+            alert.addAction(UIAlertAction(title: "РУССКИЙ 🇷🇺", style: .default, handler: { (_) in
                 code = "ru"
                 UserDefaults.standard.set(code, forKey: "code")
                 self.aboutApp.text = "Language".localized(code)
                 self.textMain.text = "Menu".localized(code)
                 self.styleBackground.text = "Appearance".localized(code)
-                checkMenu = true
-                checkToChangeLanguage = 1
+                self.delegate?.buttonChangeThemeMode()
             }))
             
-            alert.addAction(UIAlertAction(title: "ENGLISH", style: .default, handler: { (_) in
+            alert.addAction(UIAlertAction(title: "ENGLISH 🇺🇸", style: .default, handler: { (_) in
                 code = "en"
                 UserDefaults.standard.set(code, forKey: "code")
                 self.aboutApp.text = "Language".localized(code)
                 self.textMain.text = "Menu".localized(code)
                 self.styleBackground.text = "Appearance".localized(code)
-                checkToChangeLanguage = 1
-
-                
-                checkMenu = true
+                self.delegate?.buttonChangeThemeMode()
             }))
-            
-            alert.addAction(UIAlertAction(title: "PORTUGUÊS", style: .default, handler: { (_) in
-                code = "pt-PT"
-                UserDefaults.standard.set(code, forKey: "code")
-                self.aboutApp.text = "Language".localized(code)
-                self.textMain.text = "Menu".localized(code)
-                self.styleBackground.text = "Appearance".localized(code)
-                checkToChangeLanguage = 1
-
-                checkMenu = true
-            }))
-            alert.addAction(UIAlertAction(title: "ESPAÑOl", style: .default, handler: { (_) in
+//            
+//            alert.addAction(UIAlertAction(title: "PORTUGUÊS 🇵🇹", style: .default, handler: { (_) in
+//                code = "pt-PT"
+//                UserDefaults.standard.set(code, forKey: "code")
+//                self.aboutApp.text = "Language".localized(code)
+//                self.textMain.text = "Menu".localized(code)
+//                self.styleBackground.text = "Appearance".localized(code)
+//                checkToChangeLanguage = 1
+//
+//                checkMenu = true
+//            }))
+            alert.addAction(UIAlertAction(title: "ESPAÑOl 🇪🇸", style: .default, handler: { (_) in
                 code = "es"
                 UserDefaults.standard.set(code, forKey: "code")
                 self.aboutApp.text = "Language".localized(code)
                 self.textMain.text = "Menu".localized(code)
                 self.styleBackground.text = "Appearance".localized(code)
-                checkToChangeLanguage = 1
-
-                checkMenu = true
+                self.delegate?.buttonChangeThemeMode()
             }))
             
             alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: { (_) in

@@ -9,28 +9,32 @@
 import UIKit
 import UIDrawer
 
-extension StartAppMenuController: UITableViewDelegate, UITableViewDataSource {
+extension StartAppMenuController: UITableViewDelegate, UITableViewDataSource, ProtocolStartMenuDelegate {
+    func buttonChangeThemeMode() {
+        createGradientLayer()
+        tableView.reloadData()
+    }
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return (screenWidth)/1.415
+            return screenWidth / 1.636
         } else if indexPath.row == 1 {
-            return (screenWidth+18)/2.092
+            return (screenWidth) / 2.25
         } else if indexPath.row == 2 {
-            return (screenWidth)/1.956
-        } else if indexPath.row == 3 {
-            return isNight ? (screenWidth)/2.011 : (screenWidth - 28)/2.011
+            return (screenWidth) / 2.25
         } else {
-            return (screenWidth)/2
+            return (screenWidth) / 2.57
         }
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 4
     }
     
     fileprivate func transitionSettingsApp() {
         self.generator.impactOccurred()
         let viewController = MenuController()
+        viewController.delegate = self
         viewController.modalPresentationStyle = .custom
         viewController.transitioningDelegate = self
         self.present(viewController, animated: true)
@@ -61,14 +65,15 @@ extension StartAppMenuController: UITableViewDelegate, UITableViewDataSource {
             }
             cell.labelSettingDut.text = "Sensor settings".localized(code)
             cell.labelSettingDutInfo.text = "Escort Configurator".localized(code)
-            cell.labelSettingDut.textColor = UIColor(rgb: 0xFF0000)
-            cell.labelSettingDutInfo.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x0C005A)
-            cell.mainSettingsLabel.textColor = UIColor(rgb: isNight ? 0x000000 : 0xFFFFFF)
-            cell.versionLabel.textColor = UIColor(rgb: isNight ? 0x000000 : 0xFFFFFF)
+            cell.labelSettingDut.textColor = UIColor(rgb: isNight ? 0xF1F1F1 : 0x3E4159)
+            cell.labelSettingDutInfo.textColor = UIColor(rgb: isNight ? 0xF1F1F1 : 0x3E4159)
+            cell.mainSettingsLabel.textColor = UIColor(rgb: isNight ? 0xF1F1F1 : 0x3E4159)
+            cell.versionLabel.textColor = UIColor(rgb: isNight ? 0xF1F1F1 : 0x3E4159)
 
             cell.mainSettings.image = isNight ? #imageLiteral(resourceName: "шьфпурвы") : #imageLiteral(resourceName: "Group 41")
             cell.addTapGesture {
-                self.navigationController?.pushViewController(DeviceSelectController(), animated: true)
+                self.generator.impactOccurred()
+                self.navigationController?.pushViewController(self.deviceNewSelectVC, animated: true)
             }
             return cell
         } else if indexPath.row == 1 {
@@ -76,34 +81,35 @@ extension StartAppMenuController: UITableViewDelegate, UITableViewDataSource {
             cell.backgroundColor = UIColor(rgb: 0x005CDF)
             cell.labelSettingDut.text = "Installation report".localized(code)
             cell.labelSettingDutInfo.text = "Installation is now much simpler!".localized(code)
-            cell.labelSettingDut.textColor = UIColor(rgb: 0xFF0000)
-            cell.labelSettingDutInfo.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x0C005A)
+            cell.labelSettingDut.textColor = UIColor(rgb: isNight ? 0xF1F1F1 : 0x3E4159)
+            cell.labelSettingDutInfo.textColor = UIColor(rgb: isNight ? 0xF1F1F1 : 0x3E4159)
             cell.mainSettings.image = isNight ? #imageLiteral(resourceName: "imagesthree") : #imageLiteral(resourceName: "Group 43")
             cell.addTapGesture {
                 self.transitionToMapSetAndCheckToLanguage()
             }
             return cell
-        } else if indexPath.row == 2 {
+        } else if indexPath.row == 5 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CellCalc", for: indexPath) as! CellCalc
             cell.backgroundColor = UIColor(rgb: 0x005CDF)
             cell.labelSettingDut.text = "Wealth Builder".localized(code)
             cell.labelSettingDutInfo.text = "Profitability Calculator".localized(code)
-            cell.labelSettingDut.textColor = UIColor(rgb: 0xFF0000)
-            cell.labelSettingDutInfo.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x0C005A)
+            cell.labelSettingDut.textColor = UIColor(rgb: isNight ? 0xF1F1F1 : 0x3E4159)
+            cell.labelSettingDutInfo.textColor = UIColor(rgb: isNight ? 0xF1F1F1 : 0x3E4159)
             cell.mainSettings.image = isNight ? #imageLiteral(resourceName: "Group 62") : #imageLiteral(resourceName: "Group 46")
             cell.addTapGesture {
                 self.showToast(message: "In development".localized(code), seconds: 1.0)
             }
             return cell
-        } else if indexPath.row == 3 {
+        } else if indexPath.row == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CellSupport", for: indexPath) as! CellSupport
             cell.backgroundColor = UIColor(rgb: 0x005CDF)
             cell.labelSettingDut.text = "Tech Support".localized(code)
             cell.labelSettingDutInfo.text = "Online 24/7".localized(code)
-            cell.labelSettingDut.textColor = UIColor(rgb: 0xFF0000)
-            cell.labelSettingDutInfo.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x0C005A)
+            cell.labelSettingDut.textColor = UIColor(rgb: isNight ? 0xF1F1F1 : 0x3E4159)
+            cell.labelSettingDutInfo.textColor = UIColor(rgb: isNight ? 0xF1F1F1 : 0x3E4159)
             cell.mainSettings.image = isNight ? #imageLiteral(resourceName: "Group 63") : #imageLiteral(resourceName: "Group 53")
             cell.addTapGesture {
+                self.generator.impactOccurred()
                 self.openSupportMenu()
             }
             return cell
@@ -111,7 +117,7 @@ extension StartAppMenuController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CellSettings", for: indexPath) as! CellSettings
             cell.backgroundColor = UIColor(rgb: 0x005CDF)
             cell.labelSettingDut.text = "App settings".localized(code)
-            cell.labelSettingDut.textColor = UIColor(rgb: 0xFF0000)
+            cell.labelSettingDut.textColor = UIColor(rgb: isNight ? 0xF1F1F1 : 0x3E4159)
             cell.mainSettings.image = isNight ? #imageLiteral(resourceName: "Group 64") : #imageLiteral(resourceName: "imagesqw")
             cell.addTapGesture {
                 self.transitionSettingsApp()

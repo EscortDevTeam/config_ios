@@ -45,9 +45,19 @@ class QRScannerViewController: UIViewController {
                                 let tdstring = pruf.dropFirst(tdstcount!-6)
                                 print(tdstring)
                                 hidednCell = true
-                                self.navigationController?.pushViewController(DevicesTLListController(), animated: true)
+                                let tlListDevicesVC = DevicesTLListController()
+                                tlListDevicesVC.isTL = true
+                                self.navigationController?.pushViewController(tlListDevicesVC, animated: true)
                                 QRCODE = String(tdstring)
-                            } else {
+                            } else if pruf.contains("https://www.fmeter.ru/TH/") {
+                                let tdstring = pruf.dropFirst(tdstcount!-6)
+                                print(tdstring)
+                                hidednCell = true
+                                let tlListDevicesVC = DevicesTLListController()
+                                tlListDevicesVC.isTL = false
+                                self.navigationController?.pushViewController(tlListDevicesVC, animated: true)
+                                QRCODE = String(tdstring)
+                            }  else {
                                 showToast(message: "QR-code не поддерживается", seconds: 2.0)
                                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
                                     self.scannerView.startScanning()

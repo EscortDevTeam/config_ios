@@ -35,7 +35,7 @@ class CellSettingDUT: UITableViewCell {
     func initialize() {
                 
         let mainSettings = UIImageView()
-        mainSettings.frame = CGRect(x: 0, y: 0, width: screenWidth, height: (screenWidth)/1.415)
+        mainSettings.frame = CGRect(x: 0, y: 0, width: screenWidth, height: (screenWidth)/1.636)
         self.contentView.addSubview(mainSettings)
         self.mainSettings = mainSettings
         
@@ -59,16 +59,16 @@ class CellSettingDUT: UITableViewCell {
         
         let labelSettingDut = UILabel()
         labelSettingDut.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
-        labelSettingDut.frame = CGRect(x: 17, y: screenWidth/1.415*0.55, width: screenWidth/2, height: 30)
-        labelSettingDut.textColor = UIColor(rgb: 0x0C005A)
+        labelSettingDut.frame = CGRect(x: 17, y: screenWidth/1.636*0.6, width: screenWidth/2, height: 30)
+        labelSettingDut.textColor = UIColor(rgb: 0xF1F1F1)
         labelSettingDut.textAlignment = .left
         self.contentView.addSubview(labelSettingDut)
         self.labelSettingDut = labelSettingDut
         
         let labelSettingDutInfo = UILabel()
         labelSettingDutInfo.font = UIFont(name:"FuturaPT-Light", size: 14.0)
-        labelSettingDutInfo.frame = CGRect(x: 17, y: screenWidth/1.415*0.65, width: screenWidth/2, height: 30)
-        labelSettingDutInfo.textColor = UIColor(rgb: 0x0C005A)
+        labelSettingDutInfo.frame = CGRect(x: 17, y: screenWidth/1.636*0.7, width: screenWidth/2, height: 30)
+        labelSettingDutInfo.textColor = UIColor(rgb: 0xF1F1F1)
         labelSettingDutInfo.numberOfLines = 0
         labelSettingDutInfo.textAlignment = .left
         self.contentView.addSubview(labelSettingDutInfo)
@@ -88,9 +88,9 @@ class CellSettingDUT: UITableViewCell {
             labelSettingDutInfo.theme.textColor = themed { $0.infoColor }
             mainSettingsLabel.theme.textColor = themed { $0.backgroundNavigationColor }
         } else {
-            labelSettingDut.textColor = UIColor(rgb: 0xFF0000)
-            labelSettingDutInfo.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x0C005A)
-            mainSettingsLabel.textColor = UIColor(rgb: isNight ? 0x000000 : 0xFFFFFF)
+            labelSettingDut.textColor = UIColor(rgb:  isNight ? 0xF1F1F1 : 0x3E4159)
+            labelSettingDutInfo.textColor = UIColor(rgb: isNight ? 0xF1F1F1 : 0x3E4159)
+            mainSettingsLabel.textColor = UIColor(rgb: isNight ? 0x000000 : 0xF1F1F1)
         }
 //        setupMapTableTextField.theme.textColor = themed { $0.navigationTintColor }
     }

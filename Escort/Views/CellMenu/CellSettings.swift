@@ -33,13 +33,13 @@ class CellSettings: UITableViewCell {
     func initialize() {
         
         let mainSettings = UIImageView()
-        mainSettings.frame = CGRect(x: 0, y: 0, width: screenWidth, height: (screenWidth)/2)
+        mainSettings.frame = CGRect(x: 0, y: 0, width: screenWidth, height: (screenWidth) / 2.57)
         self.contentView.addSubview(mainSettings)
         self.mainSettings = mainSettings
         
         let labelSettingDut = UILabel()
         labelSettingDut.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
-        labelSettingDut.frame = CGRect(x: 17, y: screenWidth/2 * (iphone5s ? 0.3 : 0.4), width: screenWidth/2, height: 60)
+        labelSettingDut.frame = CGRect(x: screenWidth/2 + 10, y: screenWidth / 2.57 * (iphone5s ? 0.2 : 0.3), width: screenWidth/2 - 50, height: 60)
         labelSettingDut.textColor = UIColor(rgb: 0x0C005A)
         labelSettingDut.textAlignment = .center
         labelSettingDut.numberOfLines = 0
@@ -48,7 +48,7 @@ class CellSettings: UITableViewCell {
         
         let labelSettingDutInfo = UILabel()
         labelSettingDutInfo.font = UIFont(name:"FuturaPT-Light", size: 14.0)
-        labelSettingDutInfo.frame = CGRect(x: 17, y: screenWidth/1.415*0.65, width: screenWidth/2, height: 30)
+        labelSettingDutInfo.frame = CGRect(x: screenWidth/2 + 10, y: screenWidth / 2.57*0.45, width: screenWidth / 2 - 50, height: 60)
         labelSettingDutInfo.textColor = UIColor(rgb: 0x0C005A)
         labelSettingDutInfo.numberOfLines = 0
         labelSettingDutInfo.textAlignment = .left

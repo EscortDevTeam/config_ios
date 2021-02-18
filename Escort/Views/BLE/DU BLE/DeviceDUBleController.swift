@@ -65,7 +65,7 @@ class DeviceDUBleController: UIViewController {
             if countNot == 0 {
                 if passNotif == 1 {
                     passwordHave = true
-                    self.showToast(message: "Sensor is not password-protected".localized(code), seconds: 3.0)
+                    self.showToast(message: "Sensor is password-protected".localized(code), seconds: 3.0)
                 } else {
                     passwordHave = false
                 }
@@ -839,7 +839,7 @@ class DeviceDUBleController: UIViewController {
         let footerCellWidth = Int(screenWidth/3), footerCellHeight = 90
         
         let cellSetting = UIView(frame: CGRect(x: 0, y: 0, width: footerCellWidth, height: footerCellHeight))
-        let cellSettingIcon = UIImageView(image: UIImage(named: "settings.png")!)
+        let cellSettingIcon = UIImageView(image: UIImage(named: isNight ? "settings" : "settings-black")!)
         cellSettingIcon.frame = CGRect(x: 0, y: 0, width: 47, height: 47)
         cellSettingIcon.center = CGPoint(x: cellSetting.frame.size.width / 2, y: cellSetting.frame.size.height / 2 - 15)
         cellSetting.addSubview(cellSettingIcon)
@@ -856,7 +856,7 @@ class DeviceDUBleController: UIViewController {
         }
         
         let cellSettingAdd = UIView(frame: CGRect(x: footerCellWidth, y: 0, width: footerCellWidth, height: footerCellHeight))
-        let cellSettingAddIcon = UIImageView(image: UIImage(named: "settings-add.png")!)
+        let cellSettingAddIcon = UIImageView(image: UIImage(named: isNight ? "settings-add" : "settings-add-black")!)
         cellSettingAddIcon.frame = CGRect(x: 0, y: 0, width: 47, height: 47)
         cellSettingAddIcon.center = CGPoint(x: cellSettingAdd.frame.size.width / 2, y: cellSettingAdd.frame.size.height / 2 - 15)
         cellSettingAdd.addSubview(cellSettingAddIcon)
@@ -874,7 +874,7 @@ class DeviceDUBleController: UIViewController {
         }
         
         let cellHelp = UIView(frame: CGRect(x: footerCellWidth*2, y: 0, width: footerCellWidth, height: footerCellHeight))
-        let cellHelpIcon = UIImageView(image: UIImage(named: "boxquestion")!)
+        let cellHelpIcon = UIImageView(image: UIImage(named: isNight ? "boxquestion-white" : "boxquestion-black")!)
         cellHelpIcon.frame = CGRect(x: 0, y: 0, width: 47, height: 47)
         cellHelpIcon.center = CGPoint(x: cellHelp.frame.size.width / 2, y: cellHelp.frame.size.height / 2 - 15)
         cellHelp.addSubview(cellHelpIcon)
@@ -912,7 +912,7 @@ class DeviceDUBleController: UIViewController {
             modeS = "Accelerometer is off".localized(code)
             actualMode = 0
         }
-        if modeLabel == "4" {
+        if modeLabel == "5" {
             mode = "Horizontal rotation control".localized(code)
             if modeS == "0" {
                 modeS = "Inactive".localized(code)
@@ -925,7 +925,7 @@ class DeviceDUBleController: UIViewController {
             }
             actualMode = 1
         }
-        if modeLabel == "5" {
+        if modeLabel == "4" {
             mode = "Vertical rotation control".localized(code)
             if modeS == "0" {
                 modeS = "Inactive".localized(code)

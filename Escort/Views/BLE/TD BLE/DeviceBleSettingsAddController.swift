@@ -764,8 +764,8 @@ class DeviceBleSettingsAddController: UIViewController {
             if passwordHave == true {
                 if passwordSuccess == true {
                     if cheackVersionDevice(version: versionDevice) {
-                    let alert = UIAlertController(title: "Сохранить данные черного ящика, прежде чем обновлять?".localized(code), message: "Если обновить прошивку, Вы потеряете данные черного ящика".localized(code), preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Сохранить данные", style: .default, handler: { action in
+                    let alert = UIAlertController(title: "Save the black box data before updating FW?".localized(code), message: "If you update the FW, the black box data will be lost".localized(code), preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Save data".localized(code), style: .default, handler: { action in
                         switch action.style{
                         case .default:
                             print("Сохранить данные")
@@ -777,7 +777,7 @@ class DeviceBleSettingsAddController: UIViewController {
                         @unknown default:
                             fatalError()
                         }}))
-                    alert.addAction(UIAlertAction(title: "Удалить и обновить", style: .destructive, handler: { action in
+                        alert.addAction(UIAlertAction(title: "Delete and update".localized(code), style: .destructive, handler: { action in
                         switch action.style{
                         case .default:
                             print("default")
@@ -800,7 +800,7 @@ class DeviceBleSettingsAddController: UIViewController {
                                 nameDevice = ""
                                 temp = nil
                                 checkUpdate = "Update"
-                                let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
+                                let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceNewSelectController}).first
                                 self.navigationController?.popToViewController(vc!, animated: true)
                             }
                         @unknown default:
@@ -835,7 +835,7 @@ class DeviceBleSettingsAddController: UIViewController {
                             nameDevice = ""
                             temp = nil
                             checkUpdate = "Update"
-                            let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
+                            let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceNewSelectController}).first
                             self.navigationController?.popToViewController(vc!, animated: true)
                         }
                     }

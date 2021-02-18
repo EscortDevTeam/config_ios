@@ -14,6 +14,9 @@ class DeviceBLETLSettings: UIViewController {
     let viewAlpha = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
     var input1 = UITextField()
     var input2 = UITextField()
+    var delegate: PasswordDelegate?
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.5)
@@ -145,60 +148,61 @@ class DeviceBLETLSettings: UIViewController {
         
         btn4Text.addTapGesture {
             reload = 1
-            if passwordHave == true {
-                if passwordSuccess == true {
-                    self.activityIndicator.startAnimating()
-                    self.viewAlpha.addSubview(self.activityIndicator)
-                    self.view.addSubview(self.viewAlpha)
-                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-                    self.view.isUserInteractionEnabled = false
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                        self.view.isUserInteractionEnabled = true
-                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                        self.viewAlpha.removeFromSuperview()
-                        self.activityIndicator.stopAnimating()
-                        nameDevice = ""
-                        temp = nil
-                        checkUpdate = "Update"
-                        let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
-                        self.navigationController?.popToViewController(vc!, animated: true)
-                    }
-                } else {
-                    self.activityIndicator.startAnimating()
-                    self.viewAlpha.addSubview(self.activityIndicator)
-                    self.view.addSubview(self.viewAlpha)
-                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-                    self.view.isUserInteractionEnabled = false
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                        self.view.isUserInteractionEnabled = true
-                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                        self.viewAlpha.removeFromSuperview()
-                        self.activityIndicator.stopAnimating()
-                        nameDevice = ""
-                        temp = nil
-                        checkUpdate = "Update"
-                        let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
-                        self.navigationController?.popToViewController(vc!, animated: true)
-                    }
-                }
-            } else {
-                self.activityIndicator.startAnimating()
-                self.viewAlpha.addSubview(self.activityIndicator)
-                self.view.addSubview(self.viewAlpha)
-                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-                self.view.isUserInteractionEnabled = false
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                    self.view.isUserInteractionEnabled = true
-                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-                    self.viewAlpha.removeFromSuperview()
-                    self.activityIndicator.stopAnimating()
-                    nameDevice = ""
-                    temp = nil
-                    checkUpdate = "Update"
-                    let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
-                    self.navigationController?.popToViewController(vc!, animated: true)
-                }
-            }
+            self.delegate?.buttonReloadDevice()
+//            if passwordHave == true {
+//                if passwordSuccess == true {
+//                    self.activityIndicator.startAnimating()
+//                    self.viewAlpha.addSubview(self.activityIndicator)
+//                    self.view.addSubview(self.viewAlpha)
+//                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+//                    self.view.isUserInteractionEnabled = false
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+//                        self.view.isUserInteractionEnabled = true
+//                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+//                        self.viewAlpha.removeFromSuperview()
+//                        self.activityIndicator.stopAnimating()
+//                        nameDevice = ""
+//                        temp = nil
+//                        checkUpdate = "Update"
+//                        let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceNewSelectController}).first
+//                        self.navigationController?.popToViewController(vc!, animated: true)
+//                    }
+//                } else {
+//                    self.activityIndicator.startAnimating()
+//                    self.viewAlpha.addSubview(self.activityIndicator)
+//                    self.view.addSubview(self.viewAlpha)
+//                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+//                    self.view.isUserInteractionEnabled = false
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+//                        self.view.isUserInteractionEnabled = true
+//                        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+//                        self.viewAlpha.removeFromSuperview()
+//                        self.activityIndicator.stopAnimating()
+//                        nameDevice = ""
+//                        temp = nil
+//                        checkUpdate = "Update"
+//                        let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceNewSelectController}).first
+//                        self.navigationController?.popToViewController(vc!, animated: true)
+//                    }
+//                }
+//            } else {
+//                self.activityIndicator.startAnimating()
+//                self.viewAlpha.addSubview(self.activityIndicator)
+//                self.view.addSubview(self.viewAlpha)
+//                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+//                self.view.isUserInteractionEnabled = false
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+//                    self.view.isUserInteractionEnabled = true
+//                    self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+//                    self.viewAlpha.removeFromSuperview()
+//                    self.activityIndicator.stopAnimating()
+//                    nameDevice = ""
+//                    temp = nil
+//                    checkUpdate = "Update"
+//                    let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceNewSelectController}).first
+//                    self.navigationController?.popToViewController(vc!, animated: true)
+//                }
+//            }
         }
     }
     fileprivate func setupTheme() {

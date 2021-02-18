@@ -74,7 +74,7 @@
 
 "Reference" = "Reference";
 
-"Sensor is not password-protected" = "Sensor is password-protected";
+"Sensor is password-protected" = "Sensor is password-protected";
 
 /* The connected state */
 "Connect" = "Connect";
@@ -252,7 +252,7 @@
 
 "Plow" = "Plow";
 
-"Delay value only 1 to 99" = "Delay value only 1 to 99";
+"Delay value only 1 to 65535" = "Delay value only 1 to 65535";
 
 "Mode is set successfully" = "Mode is set successfully";
 
@@ -457,3 +457,22 @@
 "Data encryption is off" = "Data encryption is off";
 "Unable to activate data encryption" = "Unable to activate data encryption";
 "Unable to deactivate data encryption" = "Unable to deactivate data encryption";
+
+"Temperature" = "Temperature";
+"Humidity" = "Humidity";
+"Luminosity" = "Luminosity";
+"Magnetic field" = "Magnetic field";
+"Inactive" = "Inactive";
+"Active" = "Active";
+"Introduce password" = "Introduce password";
+"Send password" = "Send password";
+"Hall sensor triggering" = "Hall-effect sensor event notification";
+"Need to create a password" = "Set new password";
+"New password" = "New password";
+"Repeat new password" = "Repeat new password";
+"Default password is already set" = "Default password is already set";
+"Fuel level sensor" = "Fuel level sensor";
+"Tilt angle sensor" = "Tilt angle sensor";
+"Temperature and luminosity sensor" = "Temperature and luminosity sensor";
+"Temperature, humidity and magnetic field sensor" = "Temperature, humidity and magnetic field sensor";
+"Date" = "Date";

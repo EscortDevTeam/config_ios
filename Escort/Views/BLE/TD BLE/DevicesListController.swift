@@ -148,7 +148,7 @@ class DevicesListController: UIViewController, CBCentralManagerDelegate, CBPerip
                             print("default")
                             self.dismiss(animated: true, completion: nil)
                             self.dismiss(animated: true, completion: nil)
-                            let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
+                            let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceNewSelectController}).first
                             self.navigationController?.popToViewController(vc!, animated: true)
                             self.view.subviews.forEach({ $0.removeFromSuperview() })
 //                            self.navigationController?.popViewController(animated: true)

@@ -64,7 +64,7 @@
 
 "Wait" = "Подождать";
 
-"Sensor is not password-protected" = "На датчике установлен пароль";
+"Sensor is password-protected" = "На датчике установлен пароль";
 
 "Connect" = "Подключиться";
 
@@ -301,7 +301,7 @@
 
 "Plow" = "Отвал";
 
-"Delay value only 1 to 99" = "Значение задержки только от 1 до 99";
+"Delay value only 1 to 65535" = "Значение задержки только от 1 до 65535";
 
 "Mode is set successfully" = "Режим успешно установлен";
 
@@ -457,3 +457,23 @@
 "Data encryption is off" = "Шифрование данных выключено";
 "Unable to activate data encryption" = "Не удалось включить шифрование данных";
 "Unable to deactivate data encryption" = "Не удалось выключить шифрование данных";
+
+"Temperature" = "Температура";
+"Humidity" = "Влажность";
+"Luminosity" = "Освещенность";
+"Magnetic field" = "Магнитное поле";
+"Inactive" = "Неактивно";
+"Active" = "Активно";
+"Introduce password" = "Необходимо ввести пароль";
+"Send password" = "Отправить пароль";
+"Hall sensor triggering" = "Сработка датчика хола";
+"Need to create a password" = "Необходимо создать пароль";
+"Default password is already set" = "Установлен пароль по умолчанию";
+"Fuel level sensor" = "Датчик уровна топлива";
+"Tilt angle sensor" = "Датчик угла наклона";
+"Temperature and luminosity sensor" = "Датчик температуры и освещенности";
+"Temperature, humidity and magnetic field sensor" = "Датчик температуры, влажности и магнитного поля";
+"Date" = "Дата";
+"New password" = "Придумайте пароль";
+"Repeat new password" = "Повторите пароль";
+

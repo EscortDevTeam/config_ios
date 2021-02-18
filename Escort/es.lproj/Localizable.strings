@@ -76,7 +76,7 @@
 
 "Reference" = "Ayuda";
 
-"Sensor is not password-protected" = "Sensor está protegido por la contraseña";
+"Sensor is password-protected" = "Sensor está protegido por la contraseña";
 
 "Connect" = "Conectar";
 
@@ -306,7 +306,7 @@
 
 "Plow" = "Hoja";
 
-"Delay value only 1 to 99" = "Valor de retraso solo de 1 a 99";
+"Delay value only 1 to 65535" = "Valor de retraso solo de 1 a 65535";
 
 "Mode is set successfully" = "Modo se configuró correctamente";
 
@@ -462,3 +462,22 @@
 "Data encryption is off" = "Cifrado de datos desactivado";
 "Unable to activate data encryption" = "Cifrado de datos no se ha activado";
 "Unable to deactivate data encryption" = "Cifrado de datos no se ha desactivado";
+
+"Temperature" = "Temperatura";
+"Humidity" = "Humedad";
+"Luminosity" = "Luminosidad";
+"Magnetic field" = "Campo magnético";
+"Inactive" = "Inactivo";
+"Active" = "Activo";
+"Introduce password" = "Introduzca la contraseña";
+"Send password" = "Contraseña";
+"Hall sensor triggering" = "Estado de sensor de efecto Hall";
+"Need to create a password" = "Establecer nueva contraseña";
+"New password" = "Contraseña nueva";
+"Repeat new password" = "Repita la contraseña";
+"Default password is already set" = "Sensor ya posee contraseña de fábrica";
+"Fuel level sensor" = "Sensor de nivel de combustible";
+"Tilt angle sensor" = "Sensor de ángulo de inclinación";
+"Temperature and luminosity sensor" = "Sensor de temperatura y luminosidad";
+"Temperature, humidity and magnetic field sensor" = "Sensor de temperatura, humedad y campo magnético";
+"Date" = "Fecha";

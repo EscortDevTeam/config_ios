@@ -32,13 +32,13 @@ class CellSupport: UITableViewCell {
     func initialize() {
         
         let mainSettings = UIImageView()
-        mainSettings.frame = CGRect(x: 0, y: 0, width: screenWidth, height: (screenWidth)/2.011)
+        mainSettings.frame = CGRect(x: 0, y: 0, width: screenWidth, height: (screenWidth)/2.25)
         self.contentView.addSubview(mainSettings)
         self.mainSettings = mainSettings
         
         let labelSettingDut = UILabel()
         labelSettingDut.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
-        labelSettingDut.frame = CGRect(x: screenWidth/2 + 30, y: screenWidth/2.011*0.35, width: screenWidth/2, height: 30)
+        labelSettingDut.frame = CGRect(x: 17, y: screenWidth/2.25*0.35, width: screenWidth/2, height: 30)
         labelSettingDut.textColor = UIColor(rgb: 0x0C005A)
         labelSettingDut.textAlignment = .left
         self.contentView.addSubview(labelSettingDut)
@@ -46,7 +46,7 @@ class CellSupport: UITableViewCell {
         
         let labelSettingDutInfo = UILabel()
         labelSettingDutInfo.font = UIFont(name:"FuturaPT-Light", size: 14.0)
-        labelSettingDutInfo.frame = CGRect(x: screenWidth/2 + 30, y: screenWidth/2.011*0.5, width: screenWidth/2, height: 30)
+        labelSettingDutInfo.frame = CGRect(x: 17, y: screenWidth/2.25*0.5, width: screenWidth/2, height: 30)
         labelSettingDutInfo.textColor = UIColor(rgb: 0x0C005A)
         labelSettingDutInfo.numberOfLines = 0
         labelSettingDutInfo.textAlignment = .left

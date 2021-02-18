@@ -80,7 +80,7 @@
 
 "Reference" = "Ajuda";
 
-"Sensor is not password-protected" = "Sensor is password-protected";
+"Sensor is password-protected" = "Sensor is password-protected";
 
 "Connect" = "Conectar";
 
@@ -302,7 +302,7 @@
 
 "Plow" = "Plow";
 
-"Delay value only 1 to 99" = "Delay value only 1 to 99";
+"Delay value only 1 to 65535" = "Delay value only 1 to 65535";
 
 "Mode is set successfully" = "Mode is set successfully";
 
@@ -456,3 +456,5 @@
 "Data encryption is off" = "Data encryption is off";
 "Unable to activate data encryption" = "Unable to activate data encryption";
 "Unable to deactivate data encryption" = "Unable to deactivate data encryption";
+
+"Temperature" = "Temperature";

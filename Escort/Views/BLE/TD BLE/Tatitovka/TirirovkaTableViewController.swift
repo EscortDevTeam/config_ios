@@ -308,7 +308,7 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
                         let file = "\(textName).csv"
                         var contents = ""
                         for i in 0...self.items.count-1 {
-                            contents = contents + "\(self.items[i]), \(self.levelnumber[i])\n"
+                            contents = contents + "\(self.levelnumber[i]), \(self.items[i])\n"
                         }
                         let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
                         
@@ -337,7 +337,7 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
                     let file = "\(textName).csv"
                     var contents = ""
                     for i in 0...self.items.count-1 {
-                        contents = contents + "\(self.items[i]), \(self.levelnumber[i])\n"
+                        contents = contents + "\(self.levelnumber[i]), \(self.items[i])\n"
                     }
                     let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
                     let fileURL = dir.appendingPathComponent(file)
@@ -467,7 +467,7 @@ class TirirovkaTableViewController: UIViewController, UIScrollViewDelegate {
             let file = "\(textName).csv"
             var contents = ""
             for i in 0...self.items.count-1 {
-                contents = contents + "\(self.items[i]), \(self.levelnumber[i])\n"
+                contents = contents + "\(self.levelnumber[i]), \(self.items[i])\n"
             }
             let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
             
@@ -566,7 +566,7 @@ extension TirirovkaTableViewController: UITableViewDataSource {
                 let file = "\(textName).csv"
                 var contents = ""
                 for i in 0...self.items.count-1 {
-                    contents = contents + "\(self.items[i]), \(self.levelnumber[i])\n"
+                    contents = contents + "\(self.levelnumber[i]), \(self.items[i])\n"
                 }
                 let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
 

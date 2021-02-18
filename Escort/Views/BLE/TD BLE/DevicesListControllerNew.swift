@@ -275,7 +275,7 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                                                         print("default")
                                                         self.dismiss(animated: true, completion: nil)
                                                         self.dismiss(animated: true, completion: nil)
-                                                        let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
+                                                        let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceNewSelectController}).first
                                                         self.navigationController?.popToViewController(vc!, animated: true)
                                                         self.view.subviews.forEach({ $0.removeFromSuperview() })
                                                     //                            self.navigationController?.popViewController(animated: true)
@@ -314,7 +314,7 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
                                                         print("destructive")
                                                         self.dismiss(animated: true, completion: nil)
                                                         self.dismiss(animated: true, completion: nil)
-                                                        let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
+                                                        let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceNewSelectController}).first
                                                         self.navigationController?.popToViewController(vc!, animated: true)
                                                         self.view.subviews.forEach({ $0.removeFromSuperview() })
                                                     @unknown default:
@@ -617,8 +617,7 @@ class DevicesListControllerNew: UIViewController, CBCentralManagerDelegate, CBPe
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         peripheral.readRSSI()
 //        print("READ: \(characteristic)")
-        let rxData = characteristic.value
-        if let rxData = rxData {
+        if let rxData = characteristic.value {
             let numberOfBytes = rxData.count
             var rxByteArray = [UInt8](repeating: 0, count: numberOfBytes)
             (rxData as NSData).getBytes(&rxByteArray, length: numberOfBytes)
@@ -1185,6 +1184,7 @@ extension DevicesListControllerNew: UITableViewDataSource {
                     cell.titleLabel.text = tableViewData[indexPath.section].title
                     cell.titleLabel.font = UIFont(name: "FuturaPT-Light", size: 24)
                     cell.titleRSSI.text = "\(RSSIMainArray[indexPath.section]) dBm"
+                    cell.btnConnet.setTitle("Connect".localized(code), for: .normal)
                     cell.backgroundColor = .clear
                     cell.selectionStyle = .none
                     if indexPath.section == rrsiPink {

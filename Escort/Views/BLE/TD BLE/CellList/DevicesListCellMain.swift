@@ -15,7 +15,7 @@ class DevicesListCellMain: UITableViewCell {
     weak var levelLabel: UILabel!
     weak var separetor2: UIView!
     weak var separetor: UIView!
-    weak var btnConnet: UIView!
+    weak var btnConnet: UIButton!
     weak var titleRSSI: UILabel!
     weak var titleRSSIImage: UIImageView!
 
@@ -33,12 +33,12 @@ class DevicesListCellMain: UITableViewCell {
     
     func initialize() {
         
-        let separetor = UIView(frame: CGRect(x: 20, y: 71, width: screenWidth-40, height: 2))
+        let separetor = UIView(frame: CGRect(x: 20, y: 71, width: screenWidth-40, height: 1))
         separetor.backgroundColor = UIColor(rgb: 0x959595)
         self.contentView.addSubview(separetor)
         self.separetor = separetor
         
-        let separetor2 = UIView(frame: CGRect(x: 20, y: -2, width: screenWidth-40, height: 2))
+        let separetor2 = UIView(frame: CGRect(x: 20, y: -2, width: screenWidth-40, height: 1))
         separetor2.backgroundColor = UIColor(rgb: 0x959595)
         self.contentView.addSubview(separetor2)
         self.separetor2 = separetor2
@@ -54,23 +54,23 @@ class DevicesListCellMain: UITableViewCell {
         self.contentView.addSubview(titleRSSIImage)
         self.titleRSSIImage = titleRSSIImage
         
-        let btnConnet = UIView(frame: CGRect(x: Int(screenWidth-140-20), y: 12, width: 140, height: 44))
-        btnConnet.translatesAutoresizingMaskIntoConstraints = false
+        let btnConnet = UIButton(frame: CGRect(x: Int(screenWidth - 160), y: 12, width: 140, height: 44))
         btnConnet.backgroundColor = UIColor(rgb: 0xE80000)
         btnConnet.layer.cornerRadius = 22
-        let connect = UILabel(frame: CGRect(x: 0, y: 0, width: 140, height: 44))
-        connect.text = "Connect".localized(code)
-        connect.textColor = .white
-        connect.center.y = 22
-        connect.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
-        connect.textAlignment = .center
-        btnConnet.addSubview(connect)
+        btnConnet.layer.shadowColor = UIColor(rgb: 0xE80000).cgColor
+        btnConnet.layer.shadowRadius = 6.0
+        btnConnet.layer.shadowOpacity = 0.5
+        btnConnet.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+        btnConnet.setTitle("Подключиться", for: .normal)
+        btnConnet.titleLabel?.font = UIFont(name:"FuturaPT-Medium", size: 18.0)
+        btnConnet.setTitleColor(.white, for: .normal)
+        btnConnet.showsTouchWhenHighlighted = true
+        btnConnet.setTitleColor(UIColor(rgb: 0xE80000), for: .highlighted)
         self.contentView.addSubview(btnConnet)
         self.btnConnet = btnConnet
         
         let titleLabel = UILabel(frame: CGRect(x: 20, y: 0, width: screenWidth/2, height: 60))
         titleLabel.textAlignment = .left
-//        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = UIFont(name:"FuturaPT-Light", size: 24.0)
 
         self.contentView.addSubview(titleLabel)
@@ -82,16 +82,6 @@ class DevicesListCellMain: UITableViewCell {
         self.levelLabel = levelLabel
 
         NSLayoutConstraint.activate([
-//            self.contentView.topAnchor.constraint(equalTo: self.btnConnet.topAnchor),
-//            self.contentView.bottomAnchor.constraint(equalTo: self.btnConnet.bottomAnchor),
-//            self.contentView.leadingAnchor.constraint(equalTo: self.btnConnet.leadingAnchor),
-//            self.contentView.trailingAnchor.constraint(equalTo: self.btnConnet.trailingAnchor),
-            
-//            self.contentView.centerXAnchor.constraint(equalTo: self.titleLabel.centerXAnchor, constant: screenWidth/3.2),
-//            self.contentView.centerYAnchor.constraint(equalTo: self.titleLabel.centerYAnchor),
-            
-//            self.contentView.centerXAnchor.constraint(equalTo: self.btnConnet.centerXAnchor, constant: screenWidth/2),
-//            self.contentView.centerYAnchor.constraint(equalTo: self.btnConnet.centerYAnchor),
             
             self.contentView.centerXAnchor.constraint(equalTo: self.levelLabel.centerXAnchor, constant: -screenWidth/4),
             self.contentView.centerYAnchor.constraint(equalTo: self.levelLabel.centerYAnchor),

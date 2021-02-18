@@ -24,7 +24,7 @@ class GrafficsViewController: UIViewController {
     }()
     
     lazy var set1: LineChartDataSet = {
-        let set1 = LineChartDataSet(values: yValues2, label: cheakDate[0])
+        let set1 = LineChartDataSet(entries: yValues2, label: cheakDate[0])
         set1.mode = .linear
         set1.drawCirclesEnabled = false
         set1.lineWidth = 3
@@ -320,7 +320,7 @@ class GrafficsViewController: UIViewController {
     
     func setData() {
         DispatchQueue.main.async { [self] in
-            self.set1 = LineChartDataSet(values: self.yValues2, label: "Level")
+            self.set1 = LineChartDataSet(entries: self.yValues2, label: "Level")
             self.set1.mode = .linear
             self.set1.drawCirclesEnabled = false
             self.set1.lineWidth = 3

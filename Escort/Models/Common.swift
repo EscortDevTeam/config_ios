@@ -42,8 +42,11 @@ var wmMax = "0"
 var wmMaxInt = 0
 var countNot = 0
 var passNotif = 0
+var newPassword = true
 var passwordSuccess = false
 var temp : String?
+var countStringBlackBox: Int = 0
+var countPacketBlackBox: Int = 0
 var checkUpdate: String?
 var temperKoef = 0
 var passwordHave = false
@@ -56,19 +59,21 @@ var peripheralName: [String] = []
 var rightCount = 0
 var nameDevice = ""
 var nameDeviceT = ""
-var RSSIMain = "0"
+var RSSIMain = ""
 var QRCODE = ""
 var level = ""
+var pressure = ""
 var id = ""
 var VV: String = ""
 var versionDevice: Int = 0
 var cheakStartLogging = false
 var vatt: String = ""
+var lum: String = ""
+var magnetic: String = ""
 var checkQR = false
 var checkPopQR = false
 var stepTar = 0
 var startVTar = 0
-var checkMenu = false
 var itemsT: [String] = []
 var levelnumberT: [String] = []
 var itemsPdf: [String] = []
@@ -90,7 +95,6 @@ var hidednCell = false
 let dy: Int = screenWidth == 320 ? 0 : 10
 let dIy: Int = screenWidth == 375 ? -15 : 0
 let dIPrusy: Int = screenWidth == 414 ? -12 : 0
-var checkToChangeLanguage = 0
 var inverst = "0"
 var countPacket = "0"
 var countPackets = "0"
@@ -126,7 +130,7 @@ var blocks = 0
 
 var lvlBlackBox: [[String]] = [[]]
 var timeBlackBox: [[String]] = [[]]
-
+var blackBoxStart = false
 var urlFile: URL?
 
 func headerSet(title: String) -> UIView {
@@ -140,8 +144,6 @@ func headerSet(title: String, showBack: Bool) -> (UIView, UIView?) {
     let bg = UIImageView(image: UIImage(named: "header-bg.png")!)
     bg.frame = CGRect(x: 0, y: 0, width: screenWidth, height: headerHeight)
     v.addSubview(bg)
-    print(screenWidth)
-    print(screenHeight)
 
     let dy: Int = screenWidth == 320 ? 0 : 10
     let dIy: Int = screenWidth == 375 ? -15 : 0
@@ -187,7 +189,6 @@ func headerSetMenu(title: String, showBack: Bool) -> (UIView, UIView?) {
 }
 
 var hasNotch: Bool {
-    print(screenHeight)
     if screenHeight > 800 {
         return false
     }
@@ -268,7 +269,7 @@ extension String {
 }
 
 extension String {
-func localized(_ lang:String) ->String {
+func localized(_ lang: String) ->String {
 
     let path = Bundle.main.path(forResource: lang, ofType: "lproj")
     let bundle = Bundle(path: path!)

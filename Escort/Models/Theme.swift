@@ -31,11 +31,11 @@ protocol Theme {
 @available(iOS 13.0, *)
 struct LightTheme: Theme {
     
-    var infoColor: Color = #colorLiteral(red: 0.04705882353, green: 0, blue: 0.3529411765, alpha: 1)
+    var infoColor: Color = UIColor(rgb: 0x3E4159)
     
     
 //    var imageColorMenu: Color = #colorLiteral(red: 0.04705882353, green: 0, blue: 0.3529411765, alpha: 1)
-    var imageColorMenu: Color = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
+    var imageColorMenu: Color = UIColor(rgb: 0x3E4159)
 
     
     var navigationBarTitleTextAttr2: UIActivityIndicatorView.Style = .medium
@@ -56,7 +56,7 @@ struct DarkTheme: Theme {
     
     var infoColor: Color = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     
-    var imageColorMenu: Color = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
+    var imageColorMenu: Color = UIColor(rgb: 0xF1F1F1)
     
     var navigationBarTitleTextAttr2: UIActivityIndicatorView.Style = .large
 

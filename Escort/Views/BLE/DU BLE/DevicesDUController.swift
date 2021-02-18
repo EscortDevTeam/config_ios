@@ -267,7 +267,7 @@ class DevicesDUController: UIViewController, CBCentralManagerDelegate, CBPeriphe
                             print("default")
                             self.dismiss(animated: true, completion: nil)
                             self.dismiss(animated: true, completion: nil)
-                            let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceSelectController}).first
+                            let  vc =  self.navigationController?.viewControllers.filter({$0 is DeviceNewSelectController}).first
                             self.navigationController?.popToViewController(vc!, animated: true)
                             self.view.subviews.forEach({ $0.removeFromSuperview() })
 //                            self.navigationController?.popViewController(animated: true)
@@ -584,69 +584,93 @@ class DevicesDUController: UIViewController, CBCentralManagerDelegate, CBPeriphe
                 print(result)
                 if result.contains("SE") {
                     let indexOfPerson = result.firstIndex{$0 == "SE"}
-                    print(indexOfPerson!)
-                    nameDevice = "\(result[indexOfPerson! + 2])"
-                    nameDeviceT = "\(result[indexOfPerson! + 2])"
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        print(indexOfPerson!)
+                        nameDevice = "\(result[indexOfPerson! + 2])"
+                        nameDeviceT = "\(result[indexOfPerson! + 2])"
+                    }
                 }
                 if result.contains("UT") {
                     let indexOfPerson = result.firstIndex{$0 == "UT"}
-                    temp = "\(result[indexOfPerson! + 2])"
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        temp = "\(result[indexOfPerson! + 2])"
+                    }
                 }
                 if result.contains("UN") {
                     let indexOfPerson = result.firstIndex{$0 == "UN"}
-                    level = "\(result[indexOfPerson! + 2])"
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        level = "\(result[indexOfPerson! + 2])"
+                    }
                 }
                 if result.contains("VB") {
                     let indexOfPerson = result.firstIndex{$0 == "VB"}
-                    vatt = "\(result[indexOfPerson! + 2])"
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        vatt = "\(result[indexOfPerson! + 2])"
+                    }
                 }
                 if result.contains("UD") {
                     let indexOfPerson = result.firstIndex{$0 == "UD"}
-                    print(indexOfPerson!)
-                    if indexOfPerson! + 2 <= result.count-1 {
-                    id = "\(result[indexOfPerson! + 2])"
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        print(indexOfPerson!)
+                        if indexOfPerson! + 2 <= result.count-1 {
+                            id = "\(result[indexOfPerson! + 2])"
+                        }
                     }
                 }
                 if result.contains("LK") {
                     let indexOfPerson = result.firstIndex{$0 == "LK"}
-                    print(indexOfPerson!)
-                    valL = "\(result[indexOfPerson! + 2])"
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        print(indexOfPerson!)
+                        valL = "\(result[indexOfPerson! + 2])"
+                    }
                 }
                 if result.contains("WM") {
                     let indexOfPerson = result.firstIndex{$0 == "WM"}
-                    print(indexOfPerson!)
-                    modeLabel = "\(result[indexOfPerson! + 2])"
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        print(indexOfPerson!)
+                        modeLabel = "\(result[indexOfPerson! + 2])"
+                    }
                 }
                 if result.contains("UL") {
                     let indexOfPerson = result.firstIndex{$0 == "UL"}
-                    print(indexOfPerson!)
-                    modeS = "\(result[indexOfPerson! + 2])"
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        print(indexOfPerson!)
+                        modeS = "\(result[indexOfPerson! + 2])"
+                    }
                 }
                 if result.contains("HK") {
                     let indexOfPerson = result.firstIndex{$0 == "HK"}
-                    print(indexOfPerson!)
-                    print(warning)
-                    valH = "\(result[indexOfPerson! + 2])"
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        print(indexOfPerson!)
+                        print(warning)
+                        valH = "\(result[indexOfPerson! + 2])"
+                    }
                 }
                 if result.contains("TO") {
                     let indexOfPerson = result.firstIndex{$0 == "TO"}
-                    print(indexOfPerson!)
-                    zaderV = "\(result[indexOfPerson! + 2])"
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        print(indexOfPerson!)
+                        zaderV = "\(result[indexOfPerson! + 2])"
+                    }
                 }
                 if result.contains("TF") {
                     let indexOfPerson = result.firstIndex{$0 == "TF"}
-                    print(indexOfPerson!)
-                    zaderVi = "\(result[indexOfPerson! + 2])"
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        print(indexOfPerson!)
+                        zaderVi = "\(result[indexOfPerson! + 2])"
+                    }
                 }
                 if result.contains("US") {
                     let indexOfPerson = result.firstIndex{$0 == "US"}
-                    print(indexOfPerson!)
-                    cnt = "\(result[indexOfPerson! + 2])"
-                    if iter == false {
-                        cnt1 = result[indexOfPerson! + 2]
-                        iter = true
-                    } else {
-                        cnt2 = result[indexOfPerson! + 2]
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        print(indexOfPerson!)
+                        cnt = "\(result[indexOfPerson! + 2])"
+                        if iter == false {
+                            cnt1 = result[indexOfPerson! + 2]
+                            iter = true
+                        } else {
+                            cnt2 = result[indexOfPerson! + 2]
+                        }
                     }
                 }
                 if result.contains("APO") {
@@ -668,10 +692,12 @@ class DevicesDUController: UIViewController, CBCentralManagerDelegate, CBPeriphe
                 }
                 if result.contains("VV") {
                     let indexOfPerson = result.firstIndex{$0 == "VV"}
-                    VV = "\(result[indexOfPerson! + 2])"
-                    if VV.count >= 3 {
-                        VV.insert(".", at: VV.index(VV.startIndex, offsetBy: 1))
-                        VV.insert(".", at: VV.index(VV.startIndex, offsetBy: 3))
+                    if indexOfPerson! + 2 <= result.count - 1 {
+                        VV = "\(result[indexOfPerson! + 2])"
+                        if VV.count >= 3 {
+                            VV.insert(".", at: VV.index(VV.startIndex, offsetBy: 1))
+                            VV.insert(".", at: VV.index(VV.startIndex, offsetBy: 3))
+                        }
                     }
                 }
                 if result.contains("WRN") {
@@ -1062,6 +1088,7 @@ extension DevicesDUController: UITableViewDataSource {
                     cell.titleLabel.text = tableViewData[indexPath.section].title
                     cell.titleLabel.font = UIFont(name: "FuturaPT-Light", size: 24)
                     cell.titleRSSI.text = "\(RSSIMainArray[indexPath.section]) dBm"
+                    cell.btnConnet.setTitle("Connect".localized(code), for: .normal)
                     cell.backgroundColor = .clear
                     cell.selectionStyle = .none
                     if indexPath.section == rrsiPink {

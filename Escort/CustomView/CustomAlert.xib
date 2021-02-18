@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Futura PT_Medium.otf">
+            <string>FuturaPT-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iNX-P8-pjO" customClass="CustomAlert" customModule="Escort" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="356" height="261"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWG-aw-XOv">
+                    <rect key="frame" x="28" y="5.5" width="300" height="250"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="t3F-JO-OJX">
+                            <rect key="frame" x="50" y="11.5" width="200" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="hQr-KJ-dD2"/>
+                                <constraint firstAttribute="width" constant="200" id="jBr-Po-ipJ"/>
+                            </constraints>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="86k-NO-3nS">
+                            <rect key="frame" x="50" y="175" width="200" height="40"/>
+                            <color key="backgroundColor" red="0.90980392156862744" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="FYB-F5-wql"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="20"/>
+                            <state key="normal" title="Войти">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="ActionButton:" destination="iNX-P8-pjO" eventType="touchUpInside" id="IO7-dN-dRl"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Введите пароль" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HMM-g6-T7L">
+                            <rect key="frame" x="92" y="76.5" width="116.5" height="23.5"/>
+                            <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="18"/>
+                            <color key="textColor" systemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ввод пароля" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tUD-ps-sy3">
+                            <rect key="frame" x="15" y="115" width="270" height="40"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="UVO-8y-U7w"/>
+                            </constraints>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="light" returnKeyType="done" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                        </textField>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z1K-ES-OSI">
+                            <rect key="frame" x="260" y="10" width="30" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="30" id="0nQ-CB-BLl"/>
+                                <constraint firstAttribute="height" constant="30" id="aSy-Rc-Ea6"/>
+                            </constraints>
+                            <color key="tintColor" red="0.74509803919999995" green="0.2666666667" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="Button" image="closeMenu.png"/>
+                            <connections>
+                                <action selector="clouseButtonWithSender:" destination="iNX-P8-pjO" eventType="touchUpInside" id="Jzo-XK-MeJ"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="86k-NO-3nS" secondAttribute="trailing" constant="50" id="1Tg-FS-utb"/>
+                        <constraint firstItem="86k-NO-3nS" firstAttribute="leading" secondItem="xWG-aw-XOv" secondAttribute="leading" constant="50" id="2lh-P2-s05"/>
+                        <constraint firstItem="tUD-ps-sy3" firstAttribute="centerX" secondItem="xWG-aw-XOv" secondAttribute="centerX" id="3dz-XB-EA5"/>
+                        <constraint firstItem="tUD-ps-sy3" firstAttribute="centerY" secondItem="xWG-aw-XOv" secondAttribute="centerY" constant="10" id="Ffx-Hs-My2"/>
+                        <constraint firstAttribute="height" constant="250" id="Gqg-3O-6se"/>
+                        <constraint firstItem="86k-NO-3nS" firstAttribute="centerX" secondItem="xWG-aw-XOv" secondAttribute="centerX" id="Hsd-Le-arh"/>
+                        <constraint firstItem="HMM-g6-T7L" firstAttribute="top" secondItem="t3F-JO-OJX" secondAttribute="bottom" constant="15" id="Ie3-33-x4a"/>
+                        <constraint firstItem="t3F-JO-OJX" firstAttribute="centerX" secondItem="xWG-aw-XOv" secondAttribute="centerX" id="OnS-Kb-f7i"/>
+                        <constraint firstItem="HMM-g6-T7L" firstAttribute="centerX" secondItem="xWG-aw-XOv" secondAttribute="centerX" id="gz5-7u-aEm"/>
+                        <constraint firstAttribute="trailing" secondItem="z1K-ES-OSI" secondAttribute="trailing" constant="10" id="ltu-as-7eu"/>
+                        <constraint firstItem="86k-NO-3nS" firstAttribute="top" secondItem="tUD-ps-sy3" secondAttribute="bottom" constant="20" id="o4n-SK-hll"/>
+                        <constraint firstItem="tUD-ps-sy3" firstAttribute="leading" secondItem="xWG-aw-XOv" secondAttribute="leading" constant="15" id="tha-qv-i9p"/>
+                        <constraint firstAttribute="trailing" secondItem="tUD-ps-sy3" secondAttribute="trailing" constant="15" id="uCf-Ji-oZX"/>
+                        <constraint firstAttribute="width" constant="300" id="ucA-nm-DMt"/>
+                        <constraint firstItem="tUD-ps-sy3" firstAttribute="top" secondItem="HMM-g6-T7L" secondAttribute="bottom" constant="15" id="yzW-uQ-e5d"/>
+                        <constraint firstItem="z1K-ES-OSI" firstAttribute="top" secondItem="xWG-aw-XOv" secondAttribute="top" constant="10" id="zbQ-z3-qxe"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="OgW-KL-gPp"/>
+            <constraints>
+                <constraint firstItem="xWG-aw-XOv" firstAttribute="centerX" secondItem="iNX-P8-pjO" secondAttribute="centerX" id="SYM-pR-dfY"/>
+                <constraint firstItem="xWG-aw-XOv" firstAttribute="centerY" secondItem="iNX-P8-pjO" secondAttribute="centerY" id="ldT-Wq-v4V"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="CloseImage" destination="z1K-ES-OSI" id="XFq-ZU-blt"/>
+                <outlet property="ContentView" destination="xWG-aw-XOv" id="ent-r7-NXn"/>
+                <outlet property="CustomEnter" destination="86k-NO-3nS" id="gfe-CY-8dh"/>
+                <outlet property="CustomImage" destination="t3F-JO-OJX" id="aeA-A4-1bm"/>
+                <outlet property="CustomMainLabel" destination="HMM-g6-T7L" id="Bzb-54-g4h"/>
+                <outlet property="CustomTextField" destination="tUD-ps-sy3" id="KeJ-Dp-b4c"/>
+            </connections>
+            <point key="canvasLocation" x="95.652173913043484" y="146.98660714285714"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="closeMenu.png" width="700" height="700"/>
+        <image name="logo.png" width="160" height="60"/>
+        <systemColor name="darkTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -510,7 +510,7 @@ class DevicaDUSettings: UIViewController {
     }
     @objc func textFieldDidMax(_ textField: UITextField) {
         print(textField.text!)
-        checkMaxLength(textField: textField, maxLength: 3)
+        checkMaxLength(textField: textField, maxLength: 5)
     }
     @objc func textFieldDidChangeFirst(_ textField: UITextField) {
         print(textField.text!)
@@ -602,12 +602,12 @@ class DevicaDUSettings: UIViewController {
                 self.showToast(message: "Delta value 1 to 179".localized(code), seconds: 2.0)
                 quest = 1
             }
-            if Int(self.TextFieldVkl.text ?? "0") ?? 0 <= 1 || Int(self.TextFieldVkl.text ?? "0") ?? 0 >= 99 {
-                self.showToast(message: "Delay value only 1 to 99".localized(code), seconds: 2.0)
+            if Int(self.TextFieldVkl.text ?? "0") ?? 0 < 1 || Int(self.TextFieldVkl.text ?? "0") ?? 0 > 65535 {
+                self.showToast(message: "Delay value only 1 to 65535".localized(code), seconds: 2.0)
                 quest = 1
             }
-            if Int(self.TextFieldVikl.text ?? "0") ?? 0 <= 1 || Int(self.TextFieldVikl.text ?? "0") ?? 0 >= 99 {
-                self.showToast(message: "Delay value only 1 to 99".localized(code), seconds: 2.0)
+            if Int(self.TextFieldVikl.text ?? "0") ?? 0 < 1 || Int(self.TextFieldVikl.text ?? "0") ?? 0 > 65535 {
+                self.showToast(message: "Delay value only 1 to 65535".localized(code), seconds: 2.0)
                 quest = 1
             }
             if quest == 0 {
@@ -835,12 +835,12 @@ class DevicaDUSettings: UIViewController {
                 self.showToast(message: "Value down only 1 to 179".localized(code), seconds: 2.0)
                 quest = 1
             }
-            if Int(self.TextFieldOtZV.text ?? "0") ?? 0 < 1 || Int(self.TextFieldOtZV.text ?? "0") ?? 0 > 99 {
-                self.showToast(message: "Delay value only 1 to 99".localized(code), seconds: 2.0)
+            if Int(self.TextFieldOtZV.text ?? "0") ?? 0 < 1 || Int(self.TextFieldOtZV.text ?? "0") ?? 0 > 65535 {
+                self.showToast(message: "Delay value only 1 to 65535".localized(code), seconds: 2.0)
                 quest = 1
             }
-            if Int(self.TextFieldOtZVi.text ?? "0") ?? 0 < 1 || Int(self.TextFieldOtZVi.text ?? "0") ?? 0 > 99 {
-                self.showToast(message: "Delay value only 1 to 99".localized(code), seconds: 2.0)
+            if Int(self.TextFieldOtZVi.text ?? "0") ?? 0 < 1 || Int(self.TextFieldOtZVi.text ?? "0") ?? 0 > 65535 {
+                self.showToast(message: "Delay value only 1 to 65535".localized(code), seconds: 2.0)
                 quest = 1
             }
             if quest == 0 {
@@ -1190,10 +1190,10 @@ extension DevicaDUSettings: UICollectionViewDelegateFlowLayout, UICollectionView
                     modeLabel = "0"
                 }
                 if indexPath.row == 1 {
-                    modeLabel = "4"
+                    modeLabel = "5"
                 }
                 if indexPath.row == 2 {
-                    modeLabel = "5"
+                    modeLabel = "4"
                 }
                 if indexPath.row == 3 {
                     modeLabel = "6"
@@ -1313,7 +1313,7 @@ class CustomCell: UICollectionViewCell {
     }()
     
     fileprivate var lotView: AnimationView = {
-        let lotView = AnimationView(name: isNight ? "du_ble_black_2" : "du_ble_white_2")
+        let lotView = AnimationView(name: isNight ? "du-ble_black_1" : "du_ble_white_1")
         lotView.frame = CGRect(x: 0, y: 0, width: 171, height: 116)
         lotView.animationSpeed = 3.0
         lotView.loopMode = .loop
@@ -1324,7 +1324,7 @@ class CustomCell: UICollectionViewCell {
         return lotView
     }()
         fileprivate var lotViewVer: AnimationView = {
-            let lotView = AnimationView(name: isNight ? "du-ble_black_1" : "du_ble_white_1")
+            let lotView = AnimationView(name: isNight ? "du_ble_black_2" : "du_ble_white_2")
             lotView.frame = CGRect(x: 0, y: 0, width: 171, height: 116)
             lotView.animationSpeed = 3.0
             lotView.loopMode = .loop
