@@ -14,7 +14,6 @@ class StartScreenController: UIViewController {
     let ConnectionSelectC = StartAppMenuController()
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewShow()
     }
     let image = startScreens[Int(arc4random_uniform(UInt32(startScreens.count)))]
     
@@ -62,8 +61,13 @@ class StartScreenController: UIViewController {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(true)
+        navigationController?.navigationBar.isHidden = true
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        viewShow()
+
     }
     fileprivate func moveOpenFile() {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)

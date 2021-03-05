@@ -64,11 +64,11 @@ class CustomAlert: UIView {
     func customeizingContentView() {
         CustomTextField.attributedPlaceholder = NSAttributedString(string: "Password".localized(code),attributes: [NSAttributedString.Key.foregroundColor: UIColor(rgb: isNight ? 0x979797 : 0xB8B8B8).withAlphaComponent(0.5)])
         CustomTextField.layer.borderColor = UIColor(rgb: 0xE7E7E7).cgColor
+        CustomTextField.layer.masksToBounds = true
         CustomTextField.layer.borderWidth = 1.0
         CustomTextField.layer.cornerRadius = 10
         CustomTextField.tintColor = .red
         CustomTextField.keyboardAppearance = isNight ? .dark : .light
-
         ContentView.layer.shadowColor = UIColor(rgb: 0xE80000).cgColor
         ContentView.layer.shadowRadius = 20.0
         ContentView.layer.shadowOpacity = 0.2

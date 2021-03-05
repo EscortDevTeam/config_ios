@@ -116,13 +116,13 @@ class BlackBoxTHController: UIViewController, UINavigationControllerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        navigationCusmotizing(nav: navigationController!, navItem: navigationItem, title: "Black box")
         labelDays.textColor = isNight ? UIColor.white : UIColor.black
         labelHours.textColor = isNight ? UIColor.white : UIColor.black
         DownloadDataForLastLabel.text = "Download data for the last".localized(code)
         getButton.setTitle("Show".localized(code), for: .normal)
         getAllButton.setTitle("Show all".localized(code), for: .normal)
         deleteAllButton.setTitle("Delete all".localized(code), for: .normal)
-        MainLabel.text = "Black box".localized(code)
 //        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -245,6 +245,7 @@ class BlackBoxTHController: UIViewController, UINavigationControllerDelegate {
             let graffic = GrafficTHController()
             realmBox = realm.objects(ModelBox.self).filter("nameDevice = %@", "TH " + nameDevice)
             graffic.parametrValues = realmBox
+            cancelTap()
             navigationController?.pushViewController(graffic, animated: true)
 //            programSetCell()
             print("save all: \(reload)")
@@ -440,34 +441,6 @@ class BlackBoxTHController: UIViewController, UINavigationControllerDelegate {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(DeleteButtonClick(_:)), for: UIControl.Event.touchUpInside)
        return button
-    }()
-    
-    lazy var backView: UIImageView = {
-        let backView = UIImageView()
-        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40) - (iphone5s ? 10 : 0), width: 50, height: 40)
-        let back = UIImageView(image: UIImage(named: "back")!)
-        back.image = back.image!.withRenderingMode(.alwaysTemplate)
-        back.frame = CGRect(x: 8, y: 0 , width: 8, height: 19)
-        back.center.y = backView.bounds.height/2
-        backView.addSubview(back)
-        return backView
-    }()
-   
-    lazy var MainLabel: UILabel = {
-        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy - (iphone5s ? 10 : 0), width: Int(screenWidth-24), height: 40))
-        text.text = "Select connection type".localized(code)
-        text.textColor = UIColor(rgb: 0x272727)
-        text.font = UIFont(name:"BankGothicBT-Medium", size: (iphone5s ? 17.0 : 19.0))
-        return text
-    }()
-
-    lazy var themeBackView3: UIView = {
-        let v = UIView()
-        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12) + (iphone5s ? 10 : 0) )
-        v.layer.shadowRadius = 3.0
-        v.layer.shadowOpacity = 0.2
-        v.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
-        return v
     }()
     
     lazy var activityIndicator: UIActivityIndicatorView = {

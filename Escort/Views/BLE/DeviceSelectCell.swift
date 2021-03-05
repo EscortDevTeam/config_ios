@@ -44,11 +44,12 @@ class DeviceSelectCell: UITableViewCell {
         
         let conteiner = UIView()
         conteiner.backgroundColor = .clear
+        conteiner.translatesAutoresizingMaskIntoConstraints = false
         self.content.addSubview(conteiner)
         self.container = conteiner
         
         let label = UILabel()
-        label.font = UIFont(name:"FuturaPT-Light", size: screenWidth / 20)
+        label.font = UIFont(name:"FuturaPT-Light", size: screenWidth / 18)
         label.textAlignment = .center
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -57,7 +58,7 @@ class DeviceSelectCell: UITableViewCell {
         self.label = label
         
         let labelNext = UILabel()
-        labelNext.font = UIFont(name:"FuturaPT-Medium", size: screenWidth / 20)
+        labelNext.font = UIFont(name:"FuturaPT-Medium", size: screenWidth / 18)
         labelNext.textAlignment = .center
         labelNext.textColor = .black
         labelNext.translatesAutoresizingMaskIntoConstraints = false
@@ -71,7 +72,7 @@ class DeviceSelectCell: UITableViewCell {
         labelMac.textColor = UIColor(rgb: 0x998F99)
         labelMac.translatesAutoresizingMaskIntoConstraints = false
         labelMac.numberOfLines = 0
-        self.content.addSubview(labelMac)
+//        self.content.addSubview(labelMac)
         self.labelPassword = labelMac
         
         let imageUI = UIImageView()
@@ -83,30 +84,32 @@ class DeviceSelectCell: UITableViewCell {
         
         
         NSLayoutConstraint.activate([
-            self.content!.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25),
-            self.content!.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -25),
+            self.content!.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            self.content!.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             self.content!.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             self.content!.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            self.content!.bottomAnchor.constraint(equalTo: self.imageUI!.bottomAnchor, constant: 25),
+            self.content!.bottomAnchor.constraint(equalTo: self.labelNext!.bottomAnchor, constant: 25),
             
-            self.container!.leadingAnchor.constraint(equalTo: self.imageUI!.trailingAnchor, constant: 20),
-            self.container!.trailingAnchor.constraint(equalTo: self.content!.trailingAnchor, constant: -20),
+            self.container!.leadingAnchor.constraint(equalTo: self.imageUI!.trailingAnchor, constant: 15),
+            self.container!.trailingAnchor.constraint(equalTo: self.content!.trailingAnchor, constant: -15),
             self.container!.centerYAnchor.constraint(equalTo: self.content.centerYAnchor),
             self.container!.bottomAnchor.constraint(equalTo: self.labelNext.bottomAnchor, constant: 25),
+            self.container!.topAnchor.constraint(equalTo: self.content.topAnchor, constant: 15),
 
-            self.label!.leadingAnchor.constraint(equalTo: self.imageUI!.trailingAnchor, constant: 0),
-            self.label!.trailingAnchor.constraint(equalTo: self.content!.trailingAnchor, constant: 0),
-            self.label!.topAnchor.constraint(equalTo: self.container.topAnchor),
+            self.label!.leadingAnchor.constraint(equalTo: self.container!.leadingAnchor, constant: 0),
+            self.label!.trailingAnchor.constraint(equalTo: self.container!.trailingAnchor, constant: 0),
+            self.label!.topAnchor.constraint(equalTo: self.container.topAnchor, constant: 10),
 
-            self.labelNext!.leadingAnchor.constraint(equalTo: self.imageUI!.trailingAnchor, constant: 20),
-            self.labelNext!.trailingAnchor.constraint(equalTo: self.content!.trailingAnchor, constant: -20),
-            self.labelNext!.topAnchor.constraint(equalTo: self.label.bottomAnchor, constant: 10),
+            self.labelNext!.leadingAnchor.constraint(equalTo: self.container!.leadingAnchor, constant: 0),
+            self.labelNext!.trailingAnchor.constraint(equalTo: self.container!.trailingAnchor, constant: 0),
+            self.labelNext!.topAnchor.constraint(equalTo: self.label.bottomAnchor, constant: 5),
+            self.labelNext!.bottomAnchor.constraint(equalTo: self.container.bottomAnchor, constant: -10),
 
             self.imageUI!.leadingAnchor.constraint(equalTo: self.content.leadingAnchor, constant: 25),
             self.imageUI!.centerYAnchor.constraint(equalTo: self.content.centerYAnchor),
             self.imageUI!.heightAnchor.constraint(equalToConstant: 72),
             self.imageUI!.widthAnchor.constraint(equalToConstant: 72),
-            self.imageUI!.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -25)
+//            self.imageUI!.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -25)
         ])
         setupTheme()
     }

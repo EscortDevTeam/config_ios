@@ -17,8 +17,22 @@ class StartAppMenuController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.isHidden = false
+            
+        self.navigationController?.navigationBar.layer.shadowColor = UIColor.black.cgColor
+        self.navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+        self.navigationController?.navigationBar.layer.shadowRadius = 3.0
+        self.navigationController?.navigationBar.layer.shadowOpacity = 0.2
+
         registerTableView()
         setupTheme()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        navigationCusmotizing(nav: navigationController!, navItem: navigationItem, title: " ")
+        navigationController?.navigationBar.isHidden = true
+//        navigationCusmotizing(nav: navigationController!, navItem: navigationItem, title: "МЕНЮ")
+//        navigationController?.navigationBar.backIndicatorImage = nil
+//        navigationController?.navigationBar.backIndicatorTransitionMaskImage = nil
     }
     func tableViewScrollToBottom(animated: Bool) {
         if isFirstApp == true {

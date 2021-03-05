@@ -28,8 +28,6 @@ class TLController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        view.addSubview(themeBackView3)
-        view.addSubview(MainLabel)
         view.addSubview(bgImage)
         createFooter()
         createTableView()
@@ -37,20 +35,12 @@ class TLController: UIViewController {
 //        viewShow()
         NSLayoutConstraint.activate([
             
-            self.tableView.topAnchor.constraint(equalTo: themeBackView3.bottomAnchor ),
+            self.tableView.topAnchor.constraint(equalTo: view.topAnchor ),
             self.tableView.bottomAnchor.constraint(equalTo: footer.topAnchor),
             self.tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             self.tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
         ])
-        view.addSubview(backView)
-        
-        backView.addTapGesture{
-            self.timer.invalidate()
-            nameDevice = ""
-            temp = nil
-            self.navigationController?.popViewController(animated: true)
-        }
         setupTheme()
     }
     
@@ -67,6 +57,7 @@ class TLController: UIViewController {
             deviceTLVC.delegate = self
             deviceTLVC.delegateAlert = self
             deviceTLVC.viewModel = viewModel
+            deviceTLVC.labelMain = "Settings"
 //            deviceTLVC.passwortIsEnter = false
             self.navigationController?.pushViewController(deviceTLVC, animated: true)
         }
@@ -146,32 +137,7 @@ class TLController: UIViewController {
         img.image = img.image!.withRenderingMode(.alwaysTemplate)
         return img
     }()
-    
-    fileprivate lazy var backView: UIImageView = {
-        let backView = UIImageView()
-        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40) - (iphone5s ? 10 : 0), width: 50, height: 40)
-        let back = UIImageView(image: UIImage(named: "back")!)
-        back.image = back.image!.withRenderingMode(.alwaysTemplate)
-        back.frame = CGRect(x: 8, y: 0 , width: 8, height: 19)
-        back.center.y = backView.bounds.height/2
-        backView.addSubview(back)
-        return backView
-    }()
-    fileprivate lazy var themeBackView3: UIView = {
-        let v = UIView()
-        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12) + (iphone5s ? 10 : 0))
-        v.layer.shadowRadius = 3.0
-        v.layer.shadowOpacity = 0.2
-        v.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
-        return v
-    }()
-    fileprivate lazy var MainLabel: UILabel = {
-        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy - (iphone5s ? 10 : 0), width: Int(screenWidth-60), height: 40))
-        text.text = "Type of bluetooth sensor".localized(code)
-        text.textColor = UIColor(rgb: 0x272727)
-        text.font = UIFont(name:"BankGothicBT-Medium", size: (iphone5s ? 17.0 : 19.0))
-        return text
-    }()
+
     fileprivate lazy var cellHelpIcon: UIImageView = {
         let cellHelpIcon = UIImageView(image: UIImage(named: viewModel.isTL ? (isNight ? "boxquestion-white" : "boxquestion-black") : (isNight ? "blackboxicon-white" : "blackboxicon-black"))!)
         cellHelpIcon.frame = CGRect(x: 1, y: 0, width: 47, height: 47)
@@ -189,7 +155,7 @@ class TLController: UIViewController {
     }()
 
     fileprivate lazy var footer: UIView = {
-    let footer = UIView(frame: CGRect(x: 0, y: screenHeight - 90, width: screenWidth, height: 90))
+    let footer = UIView(frame: CGRect(x: 0, y: screenHeight - 180, width: screenWidth, height: 90))
         footer.layer.shadowRadius = 3.0
         footer.layer.shadowOpacity = 0.2
         footer.layer.shadowOffset = CGSize(width: 0.0, height: -4.0)
@@ -236,12 +202,11 @@ class TLController: UIViewController {
         timer.invalidate()
     }
     override func viewWillAppear(_ animated: Bool) {
-        warning = false
+        navigationCusmotizing(nav: navigationController!, navItem: navigationItem, title: (viewModel.isTL ? "TL" : "TH") + " BLE \(nameDevice)")
         sensorImage.image = (viewModel.isTL ? UIImage(named: "tlBleBack") : UIImage(named: "th-Icon"))
         cellHelpIcon.image = UIImage(named: viewModel.isTL ? (isNight ? "boxquestion-white" : "boxquestion-black") : (isNight ? "blackboxicon-white" : "blackboxicon-black"))
         sensorImage.sizeToFit()
         sensorImage.image = sensorImage.image!.withRenderingMode(.alwaysTemplate)
-        MainLabel.text = (viewModel.isTL ? "TL" : "TH") + " BLE"
         cellSettingName.text = (viewModel.isTL ? "Reference".localized(code) : "Black box".localized(code))
         cellSettingAddName.text = "Settings".localized(code)
         cellHelpAction(isTL: viewModel.isTL)
@@ -275,20 +240,14 @@ class TLController: UIViewController {
     fileprivate func setupTheme() {
         if #available(iOS 13.0, *) {
             view.theme.backgroundColor = themed { $0.backgroundColor }
-            themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
             footer.theme.backgroundColor = themed { $0.backgroundNavigationColor }
             cellSettingName.theme.textColor = themed{ $0.navigationTintColor }
             cellSettingAddName.theme.textColor = themed{ $0.navigationTintColor }
-            MainLabel.theme.textColor = themed{ $0.navigationTintColor }
-            backView.theme.tintColor = themed{ $0.navigationTintColor }
             sensorImage.theme.tintColor = themed{ $0.navigationTintColor }
             cellSettingSeparetor.theme.backgroundColor = themed{ $0.navigationTintColor }
             degreeIcon.theme.tintColor = themed{ $0.navigationTintColor }
         } else {
             view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
-            themeBackView3.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
-            MainLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
-            backView.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             cellSettingName.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             cellSettingAddName.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             sensorImage.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
@@ -301,6 +260,7 @@ class TLController: UIViewController {
 }
 extension TLController: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        navigationItem.title = "\(viewModel.isTL ? "TL" : "TH") \(nameDevice)".localized(code)
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SignalCell", for: indexPath) as! SignalCell
             cell.layer.backgroundColor = UIColor.clear.cgColor

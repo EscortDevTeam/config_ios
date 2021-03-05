@@ -75,6 +75,7 @@ class NumberDeviceCell: UITableViewCell {
             self.label!.topAnchor.constraint(equalTo: contentView.topAnchor),
 
             self.labelPassword!.leadingAnchor.constraint(equalTo: self.label!.trailingAnchor, constant: 20),
+            self.labelPassword!.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             self.labelPassword!.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
 
 //            self.imageUI!.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25),

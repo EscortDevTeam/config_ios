@@ -11,8 +11,6 @@ import AVFoundation
 
 class QRScannerViewController: UIViewController {
     
-    var hamburger = UIImageView(image: UIImage(named: isNight ? "LanternWhite" : "Lantern")!)
-
     @IBOutlet weak var scannerView: QRScannerView! {
         didSet {
             scannerView.delegate = self
@@ -79,74 +77,19 @@ class QRScannerViewController: UIViewController {
             }
         }
     }
-    fileprivate lazy var backView: UIImageView = {
-        let backView = UIImageView()
-        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40) - (iphone5s ? 10 : 0), width: 50, height: 40)
-        let back = UIImageView(image: UIImage(named: "back")!)
-        back.image = back.image!.withRenderingMode(.alwaysTemplate)
-        back.frame = CGRect(x: 8, y: 0 , width: 8, height: 19)
-        back.center.y = backView.bounds.height/2
-        backView.addSubview(back)
-        return backView
-    }()
-    fileprivate lazy var themeBackView3: UIView = {
-        let v = UIView()
-        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12) + (iphone5s ? 10 : 0))
-        v.layer.shadowRadius = 3.0
-        v.layer.shadowOpacity = 0.2
-        v.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
-        return v
-    }()
-    fileprivate lazy var MainLabel: UILabel = {
-        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy - (iphone5s ? 10 : 0), width: Int(screenWidth-60), height: 40))
-        text.text = "Tank calibration".localized(code)
-        text.font = UIFont(name:"BankGothicBT-Medium", size: iphone5s ? 17.0 : 19.0)
-        return text
-    }()
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.addSubview(themeBackView3)
-        MainLabel.text = "QR-CODE".localized(code)
-        view.addSubview(MainLabel)
-        view.addSubview(backView)
-
-        backView.addTapGesture{
-            self.navigationController?.popViewController(animated: true)
-        }
-        hamburger = UIImageView(image: UIImage(named: isNight ? "LanternWhite" : "Lantern")!)
-        let hamburgerPlace = UIView()
-        var yHamb = screenHeight/22
-        if screenWidth == 414 {
-            yHamb = screenHeight/20
-        }
-        if screenHeight >= 750 {
-            yHamb = screenHeight/16
-            if screenWidth == 375 {
-                yHamb = screenHeight/19
-            }
-        }
-        hamburgerPlace.frame = CGRect(x: screenWidth-50, y: yHamb-10, width: 35, height: 45)
-        hamburger.frame = CGRect(x: screenWidth-45, y: yHamb-10, width: 25, height: 35)
-        
-        view.addSubview(hamburger)
-        view.addSubview(hamburgerPlace)
-        
-        
-        hamburgerPlace.addTapGesture {
-            self.lightOn()
-        }
         setupTheme()
 
     }
-    func lightOn() {
+    @objc func lightOn() {
         let device = AVCaptureDevice.default(for: AVMediaType.video)
         if device!.hasTorch {
             do {
                 try device!.lockForConfiguration()
                 device!.torchMode = device!.torchMode == AVCaptureDevice.TorchMode.on ? .off : .on
                 device!.unlockForConfiguration()
-                hamburger.image = device!.torchMode == AVCaptureDevice.TorchMode.on ? #imageLiteral(resourceName: "LanternRed") : (isNight ? #imageLiteral(resourceName: "LanternWhite") : #imageLiteral(resourceName: "Lantern") )
             } catch {
                 print(error)
             }
@@ -160,12 +103,20 @@ class QRScannerViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationCusmotizing(nav: navigationController!, navItem: navigationItem, title: "QR-CODE")
+        let img = (isNight ? #imageLiteral(resourceName: "LanternWhite") : #imageLiteral(resourceName: "Lantern") ).withRenderingMode(.alwaysOriginal)
+        let rightButton = UIBarButtonItem(image: img,
+                                          style: UIBarButtonItem.Style.plain,
+                                              target: self,
+                                              action: #selector(lightOn))
+        navigationItem.rightBarButtonItem = rightButton
+
         if checkPopQR == true {
             showToast(message: "Не удалось подключиться", seconds: 2.0)
             checkPopQR = false
         }
-        hamburger.image = (isNight ? #imageLiteral(resourceName: "LanternWhite") : #imageLiteral(resourceName: "Lantern") )
         checkQR = false
+        QRCODE = ""
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
 //        if !scannerView.isRunning {
 //            scannerView.startScanning()
@@ -187,14 +138,8 @@ class QRScannerViewController: UIViewController {
     fileprivate func setupTheme() {
         if #available(iOS 13.0, *) {
             view.theme.backgroundColor = themed { $0.backgroundColor }
-            themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
-            MainLabel.theme.textColor = themed{ $0.navigationTintColor }
-            backView.theme.tintColor = themed{ $0.navigationTintColor }
         } else {
             view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
-            themeBackView3.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
-            MainLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
-            backView.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
         }
      }
 }

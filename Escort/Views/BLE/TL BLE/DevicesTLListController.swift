@@ -29,11 +29,12 @@ protocol ConnectedDelegate: class {
 }
 
 class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate, ConnectedDelegate {
+    
     let realm: Realm  = {
         return try! Realm()
     }()
-    
-    let viewAlpha = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
+    let searchController = UISearchController(searchResultsController: nil)
+
     let searchBar = UISearchBar(frame: CGRect(x: 0, y: headerHeight + (iphone5s ? 10 : 0), width: screenWidth, height: 35))
     var attributedTitle = NSAttributedString()
     let attributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -41,6 +42,7 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
     var peripheralsSearch = [CBPeripheral]()
     var manager:CBCentralManager? = nil
     var timer = Timer()
+    var timerConnection = Timer()
     var stringAll: String = ""
     var iter = false
     var parsedData:[String : AnyObject] = [:]
@@ -85,20 +87,7 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
         alertView.frame.origin.y = screenHeight / 2
         alertViewNewPassword.center.y = screenHeight / 2
     }
-    let cancelLabel: UILabel = {
-        let cancelLabel = UILabel()
-        cancelLabel.text = "Отменить"
-        cancelLabel.translatesAutoresizingMaskIntoConstraints = false
-        cancelLabel.textColor = .red
-        cancelLabel.clipsToBounds = false
-        cancelLabel.isHidden = true
-        cancelLabel.font = UIFont(name: "FuturaPT-Medium", size: 20)
-        cancelLabel.layer.shadowColor = UIColor.white.cgColor
-        cancelLabel.layer.shadowRadius = 5.0
-        cancelLabel.layer.shadowOpacity = 0.7
-        cancelLabel.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
-        return cancelLabel
-    }()
+
     var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .red
@@ -188,11 +177,12 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
                     if(!peripherals.contains(peripheral)) {
                         if peripheral.name! == (isTL ? "TL" : "TH") + "_\(QRCODE)" {
                             print("YEEEES \(peripheral.name!)")
+//                            self.connectDav   iceLabel.text = "Подключение к " + peripheral.name!
                             self.manager?.connect(peripheral, options: nil)
-                            self.view.isUserInteractionEnabled = true
-                            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
                             self.manager?.stopScan()
+                            qrcodeConnecting(peripheral: peripheral)
                             self.startActivityIndicator()
+
                         }
                     }
                 }
@@ -202,9 +192,19 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
     func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?) {
         RSSIMain = "\(RSSI)"
     }
+    func qrcodeConnecting(peripheral: CBPeripheral) {
+        timerConnection = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { (timer) in
+            if peripheral.state == CBPeripheralState.connecting {
+                print("again connecting")
+                self.manager?.connect(peripheral, options: nil)
+            }
+        }
+    }
     func centralManager(
         _ central: CBCentralManager,
         didConnect peripheral: CBPeripheral) {
+        timerConnection.invalidate()
+        QRCODE = ""
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         if let navController = self.navigationController {
             blackBoxStart = false
@@ -218,7 +218,7 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
             stopActivityIndicator()
             navController.pushViewController(tlVC, animated: true)
         }
-        self.viewAlpha.isHidden = true
+        viewAlphaAlways.isHidden = true
 
 //        self.cancelLabel.isHidden = true
         
@@ -289,7 +289,7 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
         let sdValThree1 = "SD,LK:1:\(nothing),"
         let sdParam = "SW,WM:1:\(wmPar),"
         let sdParamYet = "PW:1:\(mainPassword)"
-        let passZero = "SP,PN:1:2211\r"
+        let passZero = "SP,PN:1:0\r"
         let passDelete = "SP,PN:1:0,"
         let passInstall = "SP,PN:1:\(mainPassword)\r"
         let enterPass = "SP,PN:1:\(mainPassword),"
@@ -537,12 +537,14 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
                                 blackBox.nameDevice = "TH " + nameDevice
                                 let intTime: Int? = Int(packet[3])
                                 blackBox.time = "\(intTime! - 120 * i)"
-                                let tempeture = Double(packet[4 + 5 * i])! / 10
+                                guard let tempDouble = Double(packet[4 + 5 * i]) else {return}
+                                let tempeture = tempDouble / 10
                                 print("tempeture: \(tempeture)")
                                 blackBox.temp = "\(tempeture)"
                                 blackBox.pressere = packet[5 + 5 * i]
                                 blackBox.lux = packet[6 + 5 * i]
-                                let humidity = Double(packet[7 + 5 * i])! / 10
+                                guard let humidityDouble = Double(packet[7 + 5 * i]) else {return}
+                                let humidity = humidityDouble / 10
                                 blackBox.humidity = "\(humidity)"
                                 blackBox.hallSensor = packet[8 + 5 * i]
                                 countStringBlackBox += 1
@@ -670,9 +672,6 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
                         if zero == 1 {
                             newPassword = false
                             zero = 0
-                            let window = UIApplication.shared.keyWindow!
-                            window.rootViewController?.showToast(message: "Default password is already set".localized(code), seconds: 1.0)
-                            newPassword = false
                         }
                         print("APO 0")
                         if let viewControllers = navigationController?.viewControllers {
@@ -827,32 +826,6 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
     var tableViewData = [cellData]()
     weak var tableView: UITableView!
     
-    fileprivate lazy var themeBackView3: UIView = {
-        let v = UIView()
-        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12) + (iphone5s ? 10 : 0))
-        v.layer.shadowRadius = 3.0
-        v.layer.shadowOpacity = 0.2
-        v.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
-        return v
-    }()
-    fileprivate lazy var MainLabel: UILabel = {
-        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy - (iphone5s ? 10 : 0), width: Int(screenWidth-70), height: 40))
-        text.text = "Type of bluetooth sensor".localized(code)
-        text.textColor = UIColor(rgb: 0x272727)
-        text.font = UIFont(name:"BankGothicBT-Medium", size: (iphone5s ? 17.0 : 19.0))
-        return text
-    }()
-    fileprivate lazy var backView: UIImageView = {
-        let backView = UIImageView()
-        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40) - (iphone5s ? 10 : 0), width: 50, height: 40)
-        let back = UIImageView(image: UIImage(named: "back")!)
-        back.image = back.image!.withRenderingMode(.alwaysTemplate)
-        back.frame = CGRect(x: 8, y: 0 , width: 8, height: 19)
-        back.center.y = backView.bounds.height/2
-        backView.addSubview(back)
-        return backView
-    }()
-    
     override func loadView() {
         super.loadView()
         
@@ -860,7 +833,7 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
         tableView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            self.view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: tableView.topAnchor, constant:  (iphone5s ? -80 : -100)),
+            self.view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: tableView.topAnchor),
             self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
             self.view.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
             self.view.trailingAnchor.constraint(equalTo: tableView.trailingAnchor, constant: 1),
@@ -877,7 +850,20 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        searchController.searchResultsUpdater = self
+        // 2
+        searchController.obscuresBackgroundDuringPresentation = false
+        // 3
+        searchController.searchBar.placeholder = "Search devices"
+        
+        searchController.searchBar.keyboardType = .numberPad
+
+        // 4
+        navigationItem.searchController = searchController
+        // 5
+//        navigationItem.hidesSearchBarWhenScrolling = true
+        definesPresentationContext = true
+
         alertView.CustomTextField.delegate = self
         initialY = alertView.frame.origin.y
         
@@ -886,23 +872,16 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
         initialY = alertViewNewPassword.frame.origin.y
 
         tlVC.delegate = self
-        searchBar.delegate = self
-        searchBar.searchBarStyle = .minimal
-        searchBar.showsCancelButton = true
-        searchBar.keyboardType = UIKeyboardType.decimalPad
-        view.addSubview(searchBar)
         viewShow()
-        view.addSubview(cancelLabel)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
 
-        cancelLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        cancelLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 45).isActive = true
-        
+
         cancelLabel.addTapGesture { [self] in
             print("Stop")
+            stopActivityIndicator()
             self.navigationController?.popViewController(animated: true)
-            
         }
         rightCount = 0
         manager = CBCentralManager ( delegate : self , queue : nil , options : nil )
@@ -922,7 +901,7 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        MainLabel.text = "List of available devices".localized(code)
+        navigationCusmotizing(nav: navigationController!, navItem: navigationItem, title: "List of available devices")
         searchBar.text = ""
         self.tableView.alpha = 0.0
         self.searchBar.endEditing(true)
@@ -986,9 +965,8 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
         }
     }
     func startActivityIndicator() {
-        self.viewAlpha.isHidden = false
-        self.cancelLabel.isHidden = false
-        cancelLabel.superview?.bringSubviewToFront(cancelLabel)
+        viewAlphaAlways.isHidden = false
+        cancelLabel.isHidden = false
         activityIndicator.startAnimating()
         UIView.animate(withDuration: 0.5, animations: { [self] in
             self.tableView.alpha = 0.0
@@ -998,8 +976,8 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
     }
     func stopActivityIndicator() {
         activityIndicator.stopAnimating()
-        self.viewAlpha.isHidden = true
-        self.cancelLabel.isHidden = true
+        viewAlphaAlways.isHidden = true
+        cancelLabel.isHidden = true
         tableView.isHidden = false
         UIView.animate(withDuration: 0.5, animations: { [self] in
             self.tableView.alpha = 1.0
@@ -1064,30 +1042,17 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
         tableViewData.removeAll()
         searchList.removeAll()
         peripheralName.removeAll()
-        if QRCODE == ""{
+//        if QRCODE == "" {
             if tableViewData.count != 0 {
                 tableView.reloadData()
             }
-        }
+//        }
     }
     private func viewShow() {
         
-        view.addSubview(themeBackView3)
-        MainLabel.text = "List of available devices".localized(code)
-        view.addSubview(MainLabel)
-        view.addSubview(backView)
-
-        self.backView.addTapGesture{
-            self.generator.impactOccurred()
-            self.navigationController?.popViewController(animated: true)
-        }
-        
         view.addSubview(bgImage)
         activityIndicator.startAnimating()
-        viewAlpha.isHidden = true
-        viewAlpha.addSubview(activityIndicator)
-        activityIndicator.center = viewAlpha.center
-        view.addSubview(viewAlpha)
+        viewAlphaAlways.isHidden = true
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
             if QRCODE == "" {
@@ -1104,18 +1069,12 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
     fileprivate func setupTheme() {
         if #available(iOS 13.0, *) {
             view.theme.backgroundColor = themed { $0.backgroundColor }
-            MainLabel.theme.textColor = themed{ $0.navigationTintColor }
-            themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
             searchBar.theme.tintColor = themed{ $0.navigationTintColor }
             searchBar.theme.backgroundColor = themed { $0.backgroundColor }
-            backView.theme.tintColor = themed{ $0.navigationTintColor }
         } else {
             view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
-            themeBackView3.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
-            MainLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             searchBar.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             searchBar.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
-            backView.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
         }
 
         if isNight {
@@ -1125,8 +1084,27 @@ class DevicesTLListController: UIViewController, CBCentralManagerDelegate, CBPer
         }
     }
 }
-extension DevicesTLListController: UISearchBarDelegate {
+extension DevicesTLListController: UISearchBarDelegate, UISearchResultsUpdating {
     
+    func updateSearchResults(for searchController: UISearchController) {
+//        let searchBar = searchController.searchBar
+        let searchText = searchController.searchBar.text
+        if searchText == "" {
+            manager?.scanForPeripherals(withServices: nil, options: nil)
+            searching = false
+            tableView.reloadData()
+        } else {
+            searchList = peripheralName.filter({$0.lowercased().contains(searchText!)})
+            print("searchList: \(searchList)")
+            //        print("peripheralName: \(peripheralName)")
+            manager?.stopScan()
+            searching = true
+            tableView.reloadData()
+        }
+//        if searchText == "" {
+//            searchBarCancelButtonClicked(searchBar)
+//        }
+    }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == ""{
             manager?.scanForPeripherals(withServices: nil, options: nil)
@@ -1270,7 +1248,7 @@ extension DevicesTLListController: UITableViewDataSource {
                     self.generator.impactOccurred()
                     temp = nil
                     nameDevice = ""
-                    self.viewAlpha.isHidden = false
+                    viewAlphaAlways.isHidden = false
                     zeroTwo = 0
                     zero = 0
                     countNot = 0

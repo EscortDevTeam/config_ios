@@ -27,3 +27,12 @@ protocol BlackBoxTHDelegate {
     func passwordAlert()
     func newPasswordAlert()
 }
+
+protocol SettingsDUDelegate {
+    func buttonSetMode()
+    func buttonSetParameters(load: Int)
+}
+protocol DUViewDelegate {
+    func buttonSetMode()
+    func delegateSetParameters(load: Int)
+}

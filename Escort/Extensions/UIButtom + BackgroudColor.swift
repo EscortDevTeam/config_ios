@@ -73,6 +73,7 @@ var viewAlphaAlways: UIView = {
     view.frame.size = CGSize(width: 50, height: 50)
     view.layer.shadowColor = UIColor.white.cgColor
     view.layer.shadowRadius = 5.0
+    view.transform = CGAffineTransform(scaleX: 2, y: 2)
     if #available(iOS 13.0, *) {
         view.style = .medium
     } else {
@@ -83,6 +84,29 @@ var viewAlphaAlways: UIView = {
     view.center = viewAlpha.center
     view.startAnimating()
     viewAlpha.addSubview(view)
+    cancelLabel.center = viewAlpha.center
+    viewAlpha.addSubview(cancelLabel)
+    cancelLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    cancelLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 45).isActive = true
+
+//    cancelLabel.addTapGesture {
+//        print("Stop")
+//        UIApplication.shared.keyWindow?.rootViewController?.navigationController?.popViewController(animated: true)
+//    }
     viewAlpha.isHidden = true
     return viewAlpha
+}()
+let cancelLabel: UILabel = {
+    let cancelLabel = UILabel()
+    cancelLabel.text = "Отменить"
+    cancelLabel.translatesAutoresizingMaskIntoConstraints = false
+    cancelLabel.textColor = .red
+    cancelLabel.clipsToBounds = false
+    cancelLabel.isHidden = false
+    cancelLabel.font = UIFont(name: "FuturaPT-Medium", size: 20)
+    cancelLabel.layer.shadowColor = UIColor.white.cgColor
+    cancelLabel.layer.shadowRadius = 5.0
+    cancelLabel.layer.shadowOpacity = 0.7
+    cancelLabel.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+    return cancelLabel
 }()

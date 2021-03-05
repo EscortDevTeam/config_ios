@@ -24,6 +24,8 @@ class ViewModelDevice {
     let tlParametrs = ["signal", "№123456", "redLine", "Temperature", "Level", "Connected"]
     
     let thParametrs = ["signal", "№123456", "redLine", "Temperature", "Humidity", "Luminosity", "Magnetic field", "Connected"]
+    
+    let duParametrs = ["signal", "№123456", "redLine", "Angle", "Mode", "Event notific.", "Connected", "Set 0"]
 
     let colorConnected = [UIColor(rgb: 0xCF2121), UIColor(rgb: 0x00A778)]
     
@@ -66,5 +68,80 @@ class ViewModelDevice {
         dateFormatter.timeZone = .current
         let localDate = dateFormatter.string(from: date)
         return localDate
+    }
+    func detectDuModeString(intMode: Int, intModeS: Int) -> [String] {
+        switch intMode {
+        case 0:
+            return ["Transportation".localized(code), "Accelerometer is off".localized(code)]
+        case 4:
+            switch intModeS {
+            case 0:
+                return ["Vertical rotation control".localized(code), "Inactive".localized(code)]
+            case 1:
+                return ["Vertical rotation control".localized(code), "To the left".localized(code)]
+            case 2:
+                return ["Vertical rotation control".localized(code), "To the right".localized(code)]
+            default:
+                return ["",""]
+            }
+        case 5:
+            switch intModeS {
+            case 0:
+                return ["Horizontal rotation control".localized(code), "Inactive".localized(code)]
+            case 1:
+                return ["Horizontal rotation control".localized(code), "To the left".localized(code)]
+            case 2:
+                return ["Horizontal rotation control".localized(code), "To the right".localized(code)]
+            default:
+                return ["",""]
+            }
+        case 6:
+            switch intModeS {
+            case 0:
+                return ["Angle control".localized(code), "Inactive".localized(code)]
+            case 1:
+                return ["Angle control".localized(code), "Active".localized(code)]
+            default:
+                return ["",""]
+            }
+        case 9:
+            switch intModeS {
+            case 0:
+                return ["Bucket".localized(code), "Inactive".localized(code)]
+            case 1:
+                return ["Bucket".localized(code), "Active".localized(code)]
+            default:
+                return ["",""]
+            }
+        case 10:
+            switch intModeS {
+            case 0:
+                return ["Plow".localized(code), "Inactive".localized(code)]
+            case 1:
+                return ["Plow".localized(code), "Active".localized(code)]
+            default:
+                return ["",""]
+            }
+        default:
+            return ["",""]
+        }
+    }
+    func detectDuModeInt(intMode: String) -> Int {
+        switch intMode {
+        case "Transportation".localized(code):
+            return 0
+        case "Vertical rotation control".localized(code):
+            return 2
+        case "Horizontal rotation control".localized(code):
+            return 1
+        case "Angle control".localized(code):
+            return 3
+        case "Bucket".localized(code):
+            return 4
+        case "Plow".localized(code):
+            return 5
+        default:
+            return 0
+        }
     }
 }

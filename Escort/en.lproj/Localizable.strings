@@ -34,11 +34,11 @@
 
 "Bluetooth on" = "Bluetooth on";
 
-"Type of bluetooth sensor" = "Type of bluetooth sensor";
+"Type of bluetooth sensor" = "TYPE OF BLUETOOTH SENSOR";
 
 "For further work, you must enable Bluetooth" = "For further work, you must enable Bluetooth";
 
-"List of available devices" = "List of available devices";
+"List of available devices" = "LIST OF AVAILABLE DEVICES";
 
 "Warning" = "Warning";
 
@@ -68,11 +68,11 @@
 
 "Not stable" = "Not stable";
 
-"Settings" = "Settings";
+"Settings" = "SETTINGS";
 
-"Additional Features" = "Additional Features";
+"Additional Features" = "ADDITIONAL FEATURES";
 
-"Reference" = "Reference";
+"Reference" = "REFERENCE";
 
 "Sensor is password-protected" = "Sensor is password-protected";
 
@@ -418,7 +418,7 @@
 //MARK: - Update FW finish
 
 //MARK: - BlackBox start
-"Black box" = "Black box";
+"Black box" = "BLACK BOX";
 "Delete?" = "Delete?";
 "Are you sure you want to delete all records?" = "Are you sure you want to delete all records?";
 "Black box is emptied" = "Black box is emptied";
@@ -447,7 +447,7 @@
 "Synchronize time" = "Synchronize time";
 "Synchronization is complete" = "Synchronization is complete";
 "Synchronization failed" = "Synchronization failed";
-"Graph сhart" = "Graph сhart";
+"Graph сhart" = "GRAPH CHART";
 "Download data for the last" = "Download data for the last";
 //MARK: - BlackBox finish
 
@@ -473,6 +473,6 @@
 "Default password is already set" = "Default password is already set";
 "Fuel level sensor" = "Fuel level sensor";
 "Tilt angle sensor" = "Tilt angle sensor";
-"Temperature and luminosity sensor" = "Temperature and luminosity sensor";
-"Temperature, humidity and magnetic field sensor" = "Temperature, humidity and magnetic field sensor";
+"Temperature and luminosity sensor" = "Temperature sensor";
+"Temperature, humidity and magnetic field sensor" = "Temperature and humidity sensor";
 "Date" = "Date";

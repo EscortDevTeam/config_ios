@@ -55,7 +55,7 @@ class DevicaDUSettings: UIViewController {
         setupTheme()
     }
     override func viewWillAppear(_ animated: Bool) {
-        warning = false
+        navigationCusmotizing(nav: navigationController!, navItem: navigationItem, title: "Settings")
     }
     
     fileprivate lazy var bgImage: UIImageView = {
@@ -1257,16 +1257,16 @@ class CustomCell: UICollectionViewCell {
         }
     }
     
-    fileprivate let bg: UIImageView = {
+    let bg: UIImageView = {
        let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
-                iv.layer.cornerRadius = 12
+        iv.layer.cornerRadius = 12
         return iv
     }()
     
-    fileprivate let view: UIView = {
+    let view: UIView = {
        let iv = UIView()
         iv.frame = CGRect(x: 10, y: 10, width: 150, height: 100)
 //        iv.contentMode = .scaleAspectFill
@@ -1277,7 +1277,7 @@ class CustomCell: UICollectionViewCell {
         iv.clipsToBounds = true
         return iv
     }()
-    fileprivate let viewLine: UIView = {
+    let viewLine: UIView = {
         let v = UIView()
         v.frame = CGRect(x: 0, y: 0, width: 170, height: 192)
         let v1 = UIView()
@@ -1289,19 +1289,19 @@ class CustomCell: UICollectionViewCell {
         v.addSubview(v1)
 
         let iv = UIView()
-        iv.frame = CGRect(x: 5, y: 180, width: 160, height: 2)
+        iv.frame = CGRect(x: 5, y: 183, width: 160, height: 2)
         iv.backgroundColor = UIColor(rgb: 0xCF2121) // цвет обводки
         v.addSubview(iv)
 
         return v
     }()
     
-    fileprivate let viewImage: UIImageView = {
+    let viewImage: UIImageView = {
         let iv = UIImageView()
         iv.frame = CGRect(x: 25, y: 10, width: 128, height: 90)
         return iv
     }()
-    fileprivate let viewLabel: UILabel = {
+    let viewLabel: UILabel = {
         let iv = UILabel()
         iv.frame = CGRect(x: 5, y: 105, width: 160, height: 80)
         iv.numberOfLines = 3
@@ -1312,28 +1312,28 @@ class CustomCell: UICollectionViewCell {
         return iv
     }()
     
-    fileprivate var lotView: AnimationView = {
+    var lotView: AnimationView = {
         let lotView = AnimationView(name: isNight ? "du-ble_black_1" : "du_ble_white_1")
         lotView.frame = CGRect(x: 0, y: 0, width: 171, height: 116)
         lotView.animationSpeed = 3.0
         lotView.loopMode = .loop
-//        lotView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        //        lotView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         lotView.play()
         //        iv.contentMode = .scaleAspectFill
         //        iv.clipsToBounds = true
         return lotView
     }()
-        fileprivate var lotViewVer: AnimationView = {
-            let lotView = AnimationView(name: isNight ? "du_ble_black_2" : "du_ble_white_2")
-            lotView.frame = CGRect(x: 0, y: 0, width: 171, height: 116)
-            lotView.animationSpeed = 3.0
-            lotView.loopMode = .loop
-    //        lotView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-            lotView.play()
-            //        iv.contentMode = .scaleAspectFill
-            //        iv.clipsToBounds = true
-            return lotView
-        }()
+    var lotViewVer: AnimationView = {
+        let lotView = AnimationView(name: isNight ? "du_ble_black_2" : "du_ble_white_2")
+        lotView.frame = CGRect(x: 0, y: 0, width: 171, height: 116)
+        lotView.animationSpeed = 3.0
+        lotView.loopMode = .loop
+        //        lotView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        lotView.play()
+        //        iv.contentMode = .scaleAspectFill
+        //        iv.clipsToBounds = true
+        return lotView
+    }()
     
     
     override init(frame: CGRect) {
@@ -1357,7 +1357,7 @@ class CustomCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    fileprivate func setupTheme() {
+    func setupTheme() {
         if #available(iOS 13.0, *) {
             viewLabel.theme.textColor = themed { $0.navigationTintColor }
         } else {

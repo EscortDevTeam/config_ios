@@ -54,6 +54,11 @@
 		B52AB2ED243C56EA007BFCB7 /* FolderFilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AB2EC243C56EA007BFCB7 /* FolderFilesViewController.swift */; };
 		B52AB2EF243C570C007BFCB7 /* FilePreselectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52AB2EE243C570C007BFCB7 /* FilePreselectionDelegate.swift */; };
 		B536BE5523C9E3880030EB1F /* MapColectionTwoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B536BE5423C9E3880030EB1F /* MapColectionTwoCell.swift */; };
+		B536DBC025DFB03700566593 /* DeviceDUSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B536DBBF25DFB03700566593 /* DeviceDUSettingsController.swift */; };
+		B536DBC425DFB5BA00566593 /* DuCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B536DBC325DFB5BA00566593 /* DuCollectionCell.swift */; };
+		B536DBC725E0F2F200566593 /* DuControlAngleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B536DBC625E0F2F100566593 /* DuControlAngleCell.swift */; };
+		B536DBCA25E77E8800566593 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B536DBC925E77E8700566593 /* NavigationBar.swift */; };
+		B536DBCE25E7EFC700566593 /* DuCovshCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B536DBCD25E7EFC600566593 /* DuCovshCell.swift */; };
 		B536F43823AD151A0007C93C /* MainVCNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B536F43723AD15190007C93C /* MainVCNavController.swift */; };
 		B537B21623E821E800520263 /* DeviceDUPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = B537B21523E821E800520263 /* DeviceDUPassword.swift */; };
 		B537B21823E8299000520263 /* DevicaDUSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B537B21723E8299000520263 /* DevicaDUSettings.swift */; };
@@ -104,6 +109,7 @@
 		B56E98FC23B62C05002B292A /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56E98FB23B62C05002B292A /* MapCell.swift */; };
 		B574930D22EED58900DE9371 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B574930C22EED58900DE9371 /* CoreBluetooth.framework */; };
 		B5756425243C50F100BDEC9C /* DFUViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5756424243C50F100BDEC9C /* DFUViewController.swift */; };
+		B57AC55B25F0C8DD007904A2 /* MetricKitFunctional.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57AC55A25F0C8DD007904A2 /* MetricKitFunctional.swift */; };
 		B57E1331240F7CCC00167280 /* ReferenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57E1330240F7CCC00167280 /* ReferenceController.swift */; };
 		B580F0A52420CD9C00FE66A8 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = B580F0A42420CD9C00FE66A8 /* Notifications.swift */; };
 		B580F0A82420E8EA00FE66A8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B580F0A72420E8EA00FE66A8 /* GoogleService-Info.plist */; };
@@ -124,6 +130,7 @@
 		B5925F5E25DA952D0071FDAC /* GrafficsParametrCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5925F5D25DA952D0071FDAC /* GrafficsParametrCell.swift */; };
 		B5925F6225DBAC0E0071FDAC /* SettingsReloadTLCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5925F6125DBAC0E0071FDAC /* SettingsReloadTLCell.swift */; };
 		B592972A23FC48C0009C214F /* UIImageRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B592972923FC48C0009C214F /* UIImageRepresentation.swift */; };
+		B599598B25DE907F004B8BAC /* DUSetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B599598A25DE907F004B8BAC /* DUSetCell.swift */; };
 		B59AFFBB239103E100C0DAF0 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59AFFBA239103E100C0DAF0 /* QRScannerViewController.swift */; };
 		B59AFFBD2391075B00C0DAF0 /* QRScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59AFFBC2391075B00C0DAF0 /* QRScannerView.swift */; };
 		B59AFFBF239107BE00C0DAF0 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59AFFBE239107BE00C0DAF0 /* UIViewController+Alert.swift */; };
@@ -149,6 +156,7 @@
 		B5B6620B25D557D700A5653C /* CustomNewPasswordAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5B6620A25D557D700A5653C /* CustomNewPasswordAlert.xib */; };
 		B5B89090239E678800FD727B /* Charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B8908F239E678800FD727B /* Charts.swift */; };
 		B5B8F561236C15D70072EEFB /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B8F560236C15D70072EEFB /* LocalizedString.swift */; };
+		B5C4A48C25DE4D5F007A8A55 /* AlertPasswordDU.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C4A48B25DE4D5F007A8A55 /* AlertPasswordDU.swift */; };
 		B5D424EE23916B3000F7EBB4 /* RateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D424ED23916B3000F7EBB4 /* RateManager.swift */; };
 		B5D978B6243E5A63008F23C7 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D978B5243E5A63008F23C7 /* MenuController.swift */; };
 		B5D978BC243F0A75008F23C7 /* NavigationControllerBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D978BB243F0A75008F23C7 /* NavigationControllerBar.swift */; };
@@ -245,6 +253,11 @@
 		B52AB2EC243C56EA007BFCB7 /* FolderFilesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderFilesViewController.swift; sourceTree = "<group>"; };
 		B52AB2EE243C570C007BFCB7 /* FilePreselectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePreselectionDelegate.swift; sourceTree = "<group>"; };
 		B536BE5423C9E3880030EB1F /* MapColectionTwoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapColectionTwoCell.swift; sourceTree = "<group>"; };
+		B536DBBF25DFB03700566593 /* DeviceDUSettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDUSettingsController.swift; sourceTree = "<group>"; };
+		B536DBC325DFB5BA00566593 /* DuCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuCollectionCell.swift; sourceTree = "<group>"; };
+		B536DBC625E0F2F100566593 /* DuControlAngleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuControlAngleCell.swift; sourceTree = "<group>"; };
+		B536DBC925E77E8700566593 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		B536DBCD25E7EFC600566593 /* DuCovshCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuCovshCell.swift; sourceTree = "<group>"; };
 		B536F43723AD15190007C93C /* MainVCNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVCNavController.swift; sourceTree = "<group>"; };
 		B537B21523E821E800520263 /* DeviceDUPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDUPassword.swift; sourceTree = "<group>"; };
 		B537B21723E8299000520263 /* DevicaDUSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicaDUSettings.swift; sourceTree = "<group>"; };
@@ -299,6 +312,7 @@
 		B56E98FB23B62C05002B292A /* MapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
 		B574930C22EED58900DE9371 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		B5756424243C50F100BDEC9C /* DFUViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DFUViewController.swift; sourceTree = "<group>"; };
+		B57AC55A25F0C8DD007904A2 /* MetricKitFunctional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricKitFunctional.swift; sourceTree = "<group>"; };
 		B57E1330240F7CCC00167280 /* ReferenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceController.swift; sourceTree = "<group>"; };
 		B580F0A42420CD9C00FE66A8 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		B580F0A62420DBB000FE66A8 /* Escort.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Escort.entitlements; sourceTree = "<group>"; };
@@ -323,6 +337,7 @@
 		B5925F5D25DA952D0071FDAC /* GrafficsParametrCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrafficsParametrCell.swift; sourceTree = "<group>"; };
 		B5925F6125DBAC0E0071FDAC /* SettingsReloadTLCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsReloadTLCell.swift; sourceTree = "<group>"; };
 		B592972923FC48C0009C214F /* UIImageRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageRepresentation.swift; sourceTree = "<group>"; };
+		B599598A25DE907F004B8BAC /* DUSetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DUSetCell.swift; sourceTree = "<group>"; };
 		B59AFFBA239103E100C0DAF0 /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
 		B59AFFBC2391075B00C0DAF0 /* QRScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerView.swift; sourceTree = "<group>"; };
 		B59AFFBE239107BE00C0DAF0 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
@@ -348,6 +363,7 @@
 		B5B6620A25D557D700A5653C /* CustomNewPasswordAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomNewPasswordAlert.xib; sourceTree = "<group>"; };
 		B5B8908F239E678800FD727B /* Charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charts.swift; sourceTree = "<group>"; };
 		B5B8F560236C15D70072EEFB /* LocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedString.swift; sourceTree = "<group>"; };
+		B5C4A48B25DE4D5F007A8A55 /* AlertPasswordDU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPasswordDU.swift; sourceTree = "<group>"; };
 		B5D424ED23916B3000F7EBB4 /* RateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateManager.swift; sourceTree = "<group>"; };
 		B5D978B5243E5A63008F23C7 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		B5D978BB243F0A75008F23C7 /* NavigationControllerBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerBar.swift; sourceTree = "<group>"; };
@@ -545,6 +561,29 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		B536DBBD25DE929B00566593 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				B5676FB023F14E72003182D7 /* du_ble_white_1.json */,
+				B5676FAD23F14E71003182D7 /* du_ble_black_2.json */,
+				B5441EC3248123CE001D5598 /* animation_светлая тема.json */,
+				B5676FAF23F14E71003182D7 /* du_ble_white_2.json */,
+				B5676FAE23F14E71003182D7 /* du-ble_black_1.json */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
+		B536DBC225DFB49D00566593 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				B599598A25DE907F004B8BAC /* DUSetCell.swift */,
+				B536DBC325DFB5BA00566593 /* DuCollectionCell.swift */,
+				B536DBC625E0F2F100566593 /* DuControlAngleCell.swift */,
+				B536DBCD25E7EFC600566593 /* DuCovshCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		B540DF9325CADB51002B3FCA /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -597,14 +636,13 @@
 			isa = PBXGroup;
 			children = (
 				B54B5AE923E7ECA300B1CDD9 /* DevicesDUController.swift */,
+				B5C4A48B25DE4D5F007A8A55 /* AlertPasswordDU.swift */,
 				B54B5AEB23E7EF3B00B1CDD9 /* DeviceDUBleController.swift */,
 				B537B21523E821E800520263 /* DeviceDUPassword.swift */,
 				B537B21723E8299000520263 /* DevicaDUSettings.swift */,
-				B5676FAD23F14E71003182D7 /* du_ble_black_2.json */,
-				B5676FB023F14E72003182D7 /* du_ble_white_1.json */,
-				B5676FAF23F14E71003182D7 /* du_ble_white_2.json */,
-				B5676FAE23F14E71003182D7 /* du-ble_black_1.json */,
-				B5441EC3248123CE001D5598 /* animation_светлая тема.json */,
+				B536DBBF25DFB03700566593 /* DeviceDUSettingsController.swift */,
+				B536DBC225DFB49D00566593 /* Cell */,
+				B536DBBD25DE929B00566593 /* Lottie */,
 			);
 			path = "DU BLE";
 			sourceTree = "<group>";
@@ -832,6 +870,7 @@
 				C41730D222CB3D7700177C54 /* LanguageSelectModel.swift */,
 				C41730E022CB899500177C54 /* ConnectionSelectModel.swift */,
 				C41730D422CB40DC00177C54 /* Common.swift */,
+				B536DBC925E77E8700566593 /* NavigationBar.swift */,
 				C41730F322CB9E2C00177C54 /* DeviceSelectModel.swift */,
 				C424A91722D631F7008E154F /* DevicesListModel.swift */,
 				B549894623AB71EA00B164BB /* Theme.swift */,
@@ -910,6 +949,7 @@
 				C41730CF22CB3C7F00177C54 /* Extensions */,
 				C41730A122C8B00000177C54 /* Resources */,
 				C491782F22C8A94D0006106E /* AppDelegate.swift */,
+				B57AC55A25F0C8DD007904A2 /* MetricKitFunctional.swift */,
 				B580F0A42420CD9C00FE66A8 /* Notifications.swift */,
 				B5D424ED23916B3000F7EBB4 /* RateManager.swift */,
 				B54A482D2488F6BD00214B62 /* Info.plist */,
@@ -934,7 +974,7 @@
 				C491782822C8A94D0006106E /* Sources */,
 				C491782922C8A94D0006106E /* Frameworks */,
 				C491782A22C8A94D0006106E /* Resources */,
-				41DB8889157E15F085D1BBBF /* [CP] Embed Pods Frameworks */,
+				675CB408155CD3BA7D4DE4B3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1038,7 +1078,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		41DB8889157E15F085D1BBBF /* [CP] Embed Pods Frameworks */ = {
+		675CB408155CD3BA7D4DE4B3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1088,9 +1128,12 @@
 				B5921AF223FE59CD0061272D /* CalibrationCell.swift in Sources */,
 				B5658A3B241042CE00836D97 /* CellSupport.swift in Sources */,
 				B52AB2E9243C5670007BFCB7 /* AppFilesViewController.swift in Sources */,
+				B536DBCE25E7EFC700566593 /* DuCovshCell.swift in Sources */,
 				B5676FC823F3DDCB003182D7 /* AddSensorTableView.swift in Sources */,
 				B5A4CA3D242B371F0071E6E6 /* LoggingController.swift in Sources */,
 				B540DF9F25CBD901002B3FCA /* SignalCell.swift in Sources */,
+				B536DBC425DFB5BA00566593 /* DuCollectionCell.swift in Sources */,
+				B57AC55B25F0C8DD007904A2 /* MetricKitFunctional.swift in Sources */,
 				B540DF8E25CACDD2002B3FCA /* DeviceNewSelectController.swift in Sources */,
 				B5676FD323F40178003182D7 /* AddSensorCellFour.swift in Sources */,
 				C491784422C8A9F30006106E /* StartScreenModel.swift in Sources */,
@@ -1132,6 +1175,7 @@
 				B5A8197B23B480100053570B /* SetupMapObject.swift in Sources */,
 				B52AB2DA243C5477007BFCB7 /* BaseViewController.swift in Sources */,
 				B54FD86223DE0B6100875B91 /* MapCellOneMoreAdd.swift in Sources */,
+				B536DBC025DFB03700566593 /* DeviceDUSettingsController.swift in Sources */,
 				B5676FDD23F692A5003182D7 /* MapCollectionPhotoPlaceCell.swift in Sources */,
 				B525FDA323EC2DC20094FDE7 /* MapLvlTopOneCell.swift in Sources */,
 				B525FD9323EBE2480094FDE7 /* SetupMapLoadView.swift in Sources */,
@@ -1150,6 +1194,7 @@
 				B5F698C523A768C2001DC6D1 /* DevicesListControllerNew.swift in Sources */,
 				B5658A3924103E0100836D97 /* CellCalc.swift in Sources */,
 				B5925F5E25DA952D0071FDAC /* GrafficsParametrCell.swift in Sources */,
+				B536DBC725E0F2F200566593 /* DuControlAngleCell.swift in Sources */,
 				B546385D23714AF60073C447 /* SettingAppController.swift in Sources */,
 				B52AB2DE243C54EE007BFCB7 /* ScannerDelegate.swift in Sources */,
 				B592972A23FC48C0009C214F /* UIImageRepresentation.swift in Sources */,
@@ -1161,10 +1206,13 @@
 				B5A8198023B4A36A0053570B /* StatusBarCustom.swift in Sources */,
 				C41730CE22CB3A2C00177C54 /* UIColor+hexColor.swift in Sources */,
 				B52AB2ED243C56EA007BFCB7 /* FolderFilesViewController.swift in Sources */,
+				B536DBCA25E77E8800566593 /* NavigationBar.swift in Sources */,
 				B51C96A825CBDEDB005854FB /* IDDeviceCell.swift in Sources */,
 				B5891E2523ED66CF00509749 /* PDF.swift in Sources */,
 				B5658A35240FD82B00836D97 /* CellSettingDUT.swift in Sources */,
+				B5C4A48C25DE4D5F007A8A55 /* AlertPasswordDU.swift in Sources */,
 				B507AE8823FD5B4B00A677D6 /* SetupMapNewOrDowl.swift in Sources */,
+				B599598B25DE907F004B8BAC /* DUSetCell.swift in Sources */,
 				B525FD9E23EBFA370094FDE7 /* MapTrackFourCell.swift in Sources */,
 				B540DF9125CACE07002B3FCA /* DeviceSelectCell.swift in Sources */,
 				B5676FCF23F3E77F003182D7 /* AddSensorCellTwo.swift in Sources */,
@@ -1391,7 +1439,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.44;
+				MARKETING_VERSION = 1.0.45;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.fmeter.escortconnect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Push Profile";
@@ -1417,7 +1465,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.44;
+				MARKETING_VERSION = 1.0.45;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.fmeter.escortconnect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Push Profile";

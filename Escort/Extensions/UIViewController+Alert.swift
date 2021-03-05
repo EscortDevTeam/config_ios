@@ -25,7 +25,7 @@ extension UIViewController {
         alert.view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
         alert.view.alpha = 0.6
         alert.view.layer.cornerRadius = 15
-        alert.view.layer.shadowColor = UIColor(rgb: 0xE80000).cgColor
+        alert.view.layer.shadowColor = isNight ? UIColor(rgb: 0xF2F3F4).withAlphaComponent(0.75).cgColor : UIColor.black.cgColor
         alert.view.layer.shadowRadius = 20.0
         alert.view.layer.shadowOpacity = 0.5
         alert.view.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)

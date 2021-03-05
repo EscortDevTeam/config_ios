@@ -78,25 +78,6 @@ class GrafficTHController: UIViewController {
     
     let generator = UIImpactFeedbackGenerator(style: .light)
     
-    lazy var backView: UIImageView = {
-        let backView = UIImageView()
-        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40) - (iphone5s ? 10 : 0), width: 50, height: 40)
-        let back = UIImageView(image: UIImage(named: "back")!)
-        back.image = back.image!.withRenderingMode(.alwaysTemplate)
-        back.frame = CGRect(x: 8, y: 0 , width: 8, height: 19)
-        back.center.y = backView.bounds.height/2
-        backView.addSubview(back)
-        return backView
-    }()
-   
-    lazy var MainLabel: UILabel = {
-        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy - (iphone5s ? 10 : 0), width: Int(screenWidth-24), height: 40))
-        text.text = "Select connection type".localized(code)
-        text.textColor = UIColor(rgb: 0x272727)
-        text.font = UIFont(name:"BankGothicBT-Medium", size: (iphone5s ? 17.0 : 19.0))
-        return text
-    }()
-    
     lazy var saveView: UIImageView = {
         let back = UIImageView(image: UIImage(named: "save")!)
         back.image = back.image!.withRenderingMode(.alwaysTemplate)
@@ -145,21 +126,16 @@ class GrafficTHController: UIViewController {
     
     lazy var alphaView: UIView = {
         let v = UIView()
-        v.frame = CGRect(x: 0, y: headerHeight-(hasNotch ? 5 : 12) + (iphone5s ? 10 : 0), width: screenWidth, height: screenHeight)
+        v.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
         v.alpha = 0.5
         v.backgroundColor = UIColor(rgb: 0x181818)
         return v
     }()
     var myInt = 0
 
-    lazy var themeBackView3: UIView = {
-        let v = UIView()
-        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12) + (iphone5s ? 10 : 0) )
-        v.layer.shadowRadius = 3.0
-        v.layer.shadowOpacity = 0.2
-        v.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
-        return v
-    }()
+    override func viewWillAppear(_ animated: Bool) {
+        navigationCusmotizing(nav: navigationController!, navItem: navigationItem, title: "Graph сhart")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -199,17 +175,8 @@ class GrafficTHController: UIViewController {
 
         // convert to Integer
         myInt = Int(timeInterval)
-        view.addSubview(themeBackView3)
         view.addSubview(alphaView)
         
-        MainLabel.text = "Graph сhart".localized(code)
-        
-        view.addSubview(MainLabel)
-        view.addSubview(backView)
-        backView.addTapGesture{
-            self.generator.impactOccurred()
-            self.navigationController?.popViewController(animated: true)
-        }
         setupTheme()
         setData()
         cosntrains()
@@ -239,40 +206,50 @@ class GrafficTHController: UIViewController {
         shareLabel.addTapGesture {
             self.shareTap()
         }
-
+        
     }
     
     func saveTap() {
-        guard let timeFirts = parametrValues?.first?.time else {return}
-        let file = "Black box".localized(code) + " №\("TH " + nameDevice) \(viewModel.unixTimeStringtoStringFull(unixTime: timeFirts)).csv"
-        var contents = "TH_\(nameDevice), \("Date".localized(code)), \("Temperature".localized(code)), \("Luminosity".localized(code)), \("Humidity".localized(code)), \("Hall sensor triggering".localized(code))\n"
-        for i in 0...parametrValues!.count - 1 {
-            guard let id = parametrValues?[i].id else {return}
-            contents = contents + " \(id),"
-            guard let time = parametrValues?[i].time else {return}
-            contents = contents + " \(viewModel.unixTimeStringtoStringFull(unixTime: time)),"
-            guard let temp = parametrValues?[i].temp else {return}
-            contents = contents + " \(temp),"
-            guard let lux = parametrValues?[i].lux else {return}
-            contents = contents + " \(lux),"
-            guard let humidity = parametrValues?[i].humidity else {return}
-            contents = contents + " \(humidity),"
-            guard let hallSensor = parametrValues?[i].hallSensor else {return}
-            contents = contents + " \(hallSensor)\n"
-        }
-        let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        
-        let fileURL = dir.appendingPathComponent(file)
-        fileURLBlackBox = fileURL
-        var filesToShare = [Any]()
-        
-        do {
-            try contents.write(to: fileURL, atomically: false, encoding: .utf8)
-            filesToShare.append(fileURL)
-            self.showToast(message: "Recording was successful".localized(code) + " \(file)", seconds: 1.0)
-        }
-        catch {
-            self.showToast(message: "Error".localized(code), seconds: 1.0)
+        viewAlphaAlways.isHidden = false
+        DispatchQueue.global(qos: .background).async { [self] in
+            guard let timeFirts = parametrValues?.first?.time else {return}
+            let file = "Black box".localized(code) + " №\("TH " + nameDevice) \(viewModel.unixTimeStringtoStringFull(unixTime: timeFirts)).csv"
+            var contents = "TH_\(nameDevice), \("Date".localized(code)), \("Temperature".localized(code)), \("Luminosity".localized(code)), \("Humidity".localized(code)), \("Hall sensor triggering".localized(code))\n"
+            DispatchQueue.main.async { [self] in
+                for i in 0...parametrValues!.count - 1 {
+                    guard let id = parametrValues?[i].id else {return}
+                    contents = contents + " \(id),"
+                    guard let time = parametrValues?[i].time else {return}
+                    contents = contents + " \(viewModel.unixTimeStringtoStringFull(unixTime: time)),"
+                    guard let temp = parametrValues?[i].temp else {return}
+                    contents = contents + " \(temp),"
+                    guard let lux = parametrValues?[i].lux else {return}
+                    contents = contents + " \(lux),"
+                    guard let humidity = parametrValues?[i].humidity else {return}
+                    contents = contents + " \(humidity),"
+                    guard let hallSensor = parametrValues?[i].hallSensor else {return}
+                    contents = contents + " \(hallSensor)\n"
+                }
+            }
+            let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            
+            let fileURL = dir.appendingPathComponent(file)
+            fileURLBlackBox = fileURL
+            var filesToShare = [Any]()
+            
+            do {
+                try contents.write(to: fileURL, atomically: false, encoding: .utf8)
+                filesToShare.append(fileURL)
+                DispatchQueue.main.async {
+                    viewAlphaAlways.isHidden = true
+                    self.showToast(message: "Recording was successful".localized(code) + " \(file)", seconds: 1.0)
+                }
+            }
+            catch {
+                DispatchQueue.main.async {
+                    self.showToast(message: "Error".localized(code), seconds: 1.0)
+                }
+            }
         }
     }
     func shareTap() {
@@ -330,7 +307,7 @@ class GrafficTHController: UIViewController {
         
         paramatrLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant:  20).isActive = true
         paramatrLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        paramatrLabel.topAnchor.constraint(equalTo: themeBackView3.bottomAnchor, constant: 10).isActive = true
+        paramatrLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
         paramatrLabel.bottomAnchor.constraint(equalTo: lineChartView.topAnchor, constant: -10).isActive = true
 
         lineChartView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant:  20).isActive = true
@@ -393,16 +370,8 @@ class GrafficTHController: UIViewController {
     func setupTheme() {
         if #available(iOS 13.0, *) {
             view.theme.backgroundColor = themed { $0.backgroundColor }
-            themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
-            MainLabel.theme.textColor = themed{ $0.navigationTintColor }
-//            paramatrLabel.theme.textColor = themed{ $0.navigationTintColor }
-            backView.theme.tintColor = themed{ $0.navigationTintColor }
         } else {
             view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
-            themeBackView3.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
-            MainLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
-//            paramatrLabel.textColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
-            backView.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
         }
     }
 }
@@ -450,6 +419,7 @@ extension GrafficTHController: UICollectionViewDelegate, UICollectionViewDataSou
                 let timeParametr = ((parametrValues?[(parametrValues!.count - 1) - i].time)! as NSString).doubleValue
                 let xValue = (timeParametr - referenceTimeInterval) / (3600 * 24)
                 yValues2.append(ChartDataEntry(x: Double(xValue) , y: Double((parametrValues?[i].temp)!) ?? 0))
+                print("\(xValue),  \(Double((parametrValues?[i].temp)!) ?? 0)")
                 let intHum = Double((parametrValues?[i].temp)!)
                 if let doubleHum = intHum  {
                     lvlBlackBoxInt.append(doubleHum)
@@ -533,9 +503,7 @@ extension ChartXAxisFormatter: IAxisValueFormatter {
         else {
             return ""
         }
-
         let date = Date(timeIntervalSince1970: value * 3600 * 24 + referenceTimeInterval)
         return dateFormatter.string(from: date)
     }
-
 }

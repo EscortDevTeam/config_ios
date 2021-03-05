@@ -28,11 +28,11 @@
 "Now it’s much easier to install!" = "Теперь устанавливать намного проще!";
 
 
-"Type of bluetooth sensor" = "Тип bluetooth датчика";
+"Type of bluetooth sensor" = "ТИП BLUETOOTH ДАТЧИКА";
 
 "For further work, you must enable Bluetooth" = "Для дальнейшей работы необходимо включить Bluetooth";
 
-"List of available devices" = "Список устройств";
+"List of available devices" = "СПИСОК УСТРОЙСТВ";
 
 "Warning" = "Предупреждение";
 
@@ -56,11 +56,11 @@
 
 "Not stable" = "Не стабилен";
 
-"Settings" = "Настройки";
+"Settings" = "НАСТРОЙКИ";
 
-"Additional Features" = "Доп. возможности";
+"Additional Features" = "ДОП. ВОЗМОЖНОСТИ";
 
-"Reference" = "Справка";
+"Reference" = "СПРАВКА";
 
 "Wait" = "Подождать";
 
@@ -418,7 +418,7 @@
 //MARK: - Update FW finish
 
 //MARK: - BlackBox start
-"Black box" = "Черный ящик";
+"Black box" = "ЧЁРНЫЙ ЯЩИК";
 "Delete?" = "Удалить?";
 "Are you sure you want to delete all records?" = "Вы точно хотите удалить все данные с черного ящика?";
 "Black box is emptied" = "Черный ящик пуст";
@@ -447,7 +447,7 @@
 "Synchronize time" = "Синхронизировать время";
 "Synchronization is complete" = "Синхронизация прошла успешно";
 "Synchronization failed" = "Не удалось синхронизировать";
-"Graph сhart" = "График";
+"Graph сhart" = "ГРАФИК";
 "Download data for the last" = "Выгрузить за последние";
 //MARK: - BlackBox finish
 
@@ -469,10 +469,10 @@
 "Hall sensor triggering" = "Сработка датчика хола";
 "Need to create a password" = "Необходимо создать пароль";
 "Default password is already set" = "Установлен пароль по умолчанию";
-"Fuel level sensor" = "Датчик уровна топлива";
+"Fuel level sensor" = "Датчик уровня топлива";
 "Tilt angle sensor" = "Датчик угла наклона";
-"Temperature and luminosity sensor" = "Датчик температуры и освещенности";
-"Temperature, humidity and magnetic field sensor" = "Датчик температуры, влажности и магнитного поля";
+"Temperature and luminosity sensor" = "Датчик температуры";
+"Temperature, humidity and magnetic field sensor" = "Датчик температуры и влажности";
 "Date" = "Дата";
 "New password" = "Придумайте пароль";
 "Repeat new password" = "Повторите пароль";

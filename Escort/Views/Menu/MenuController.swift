@@ -90,7 +90,7 @@ class MenuController: UIViewController {
         let textMain = UILabel(frame: CGRect(x: 20, y: 20, width: screenWidth-40, height: 20))
         textMain.center.x = view.center.x
         textMain.textAlignment = .center
-        textMain.text = "Menu".localized(code)
+        textMain.text = "App settings".localized(code)
         textMain.font = UIFont(name:"FuturaPT-Medium", size: 20)
         textMain.frame.origin.x = 20
         return textMain
@@ -129,7 +129,7 @@ class MenuController: UIViewController {
                 code = "ru"
                 UserDefaults.standard.set(code, forKey: "code")
                 self.aboutApp.text = "Language".localized(code)
-                self.textMain.text = "Menu".localized(code)
+                self.textMain.text = "App settings".localized(code)
                 self.styleBackground.text = "Appearance".localized(code)
                 self.delegate?.buttonChangeThemeMode()
             }))
@@ -138,7 +138,7 @@ class MenuController: UIViewController {
                 code = "en"
                 UserDefaults.standard.set(code, forKey: "code")
                 self.aboutApp.text = "Language".localized(code)
-                self.textMain.text = "Menu".localized(code)
+                self.textMain.text = "App settings".localized(code)
                 self.styleBackground.text = "Appearance".localized(code)
                 self.delegate?.buttonChangeThemeMode()
             }))
@@ -157,12 +157,12 @@ class MenuController: UIViewController {
                 code = "es"
                 UserDefaults.standard.set(code, forKey: "code")
                 self.aboutApp.text = "Language".localized(code)
-                self.textMain.text = "Menu".localized(code)
+                self.textMain.text = "App settings".localized(code)
                 self.styleBackground.text = "Appearance".localized(code)
                 self.delegate?.buttonChangeThemeMode()
             }))
             
-            alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: { (_) in
+            alert.addAction(UIAlertAction(title: "Cancel".localized(code), style: .cancel, handler: { (_) in
                 print("Назад")
             }))
             

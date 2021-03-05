@@ -46,11 +46,11 @@
 
 "CodeLangu" = "es";
 
-"Type of bluetooth sensor" = "Tipo del sensor Bluetooth";
+"Type of bluetooth sensor" = "TIPO DEL SENSOR BLUETOOTH";
 
 "For further work, you must enable Bluetooth" = "Para continuar el funcionamiento es necesario activar Bluetooth";
 
-"List of available devices" = "La lista de dispositivos disponibles";
+"List of available devices" = "LA LISTA DE DISPOSITIOS DISPONIBLES";
 
 "Warning" = "Advertencia";
 
@@ -70,11 +70,11 @@
 
 "Not stable" = "No estable";
 
-"Settings" = "Configuraciones";
+"Settings" = "CONFIGURACIONES";
 
-"Additional Features" = "Opciones adicionales";
+"Additional Features" = "OPCIONES ADICIONALES";
 
-"Reference" = "Ayuda";
+"Reference" = "AYUDA";
 
 "Sensor is password-protected" = "Sensor está protegido por la contraseña";
 
@@ -423,7 +423,7 @@
 //MARK: - Update FW finish
 
 //MARK: - BlackBox start
-"Black box" = "Caja negra";
+"Black box" = "CAJA NEGRA";
 "Delete?" = "¿Eliminar?";
 "Are you sure you want to delete all records?" = "¿Está seguro que quiere eliminar todos los registros de caja negra?";
 "Black box is emptied" = "Caja negra está vacía";
@@ -452,7 +452,7 @@
 "Synchronize time" = "Sincronizar tiempo";
 "Synchronization is complete" = "Sincronización se finalizó";
 "Synchronization failed" = "Sincronización falló";
-"Graph сhart" = "Gráfica";
+"Graph сhart" = "Gráfica GRÁFICA CHART";
 "Download data for the last" = "Descargar datos de los últimos";
 //MARK: - BlackBox finish
 
@@ -478,6 +478,6 @@
 "Default password is already set" = "Sensor ya posee contraseña de fábrica";
 "Fuel level sensor" = "Sensor de nivel de combustible";
 "Tilt angle sensor" = "Sensor de ángulo de inclinación";
-"Temperature and luminosity sensor" = "Sensor de temperatura y luminosidad";
-"Temperature, humidity and magnetic field sensor" = "Sensor de temperatura, humedad y campo magnético";
+"Temperature and luminosity sensor" = "Sensor de temperatura";
+"Temperature, humidity and magnetic field sensor" = "Sensor de temperatura y humedad";
 "Date" = "Fecha";

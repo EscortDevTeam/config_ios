@@ -8,7 +8,7 @@
 
 import UIKit
 import UserNotifications
-
+import MetricKit
 import Firebase
 
 @UIApplicationMain
@@ -22,8 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
-    
+    if #available(iOS 13.0, *) {
+        MXMetricManager.shared.add(self)
+    } else {
+        // Fallback on earlier versions
+    }
     let navgiationController = UINavigationController()
     navgiationController.navigationBar.isHidden = true
     UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.red]
@@ -63,6 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let newViewController = storyBoard.instantiateViewController(withIdentifier: "DFUViewController") as! DFUViewController
     newViewController.modalPresentationStyle = .fullScreen
     navgiationController.pushViewController(StartScreenController(), animated: true)
+    
     window = UIWindow(frame: UIScreen.main.bounds)
     window?.rootViewController = navgiationController
     window?.makeKeyAndVisible()
@@ -128,6 +132,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Print full message.
     print(userInfo)
   }
+    func applicationWillTerminate(_ application: UIApplication) {
+        if #available(iOS 13.0, *) {
+            MXMetricManager.shared.remove(self)
+        } else {
+            // Fallback on earlier versions
+        }
+    }
 
   func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                    fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
@@ -222,4 +233,11 @@ extension AppDelegate : MessagingDelegate {
 //    print("Received data message: \(remoteMessage.appData)")
 //  }
   // [END ios_10_data_message]
+}
+
+extension AppDelegate: MXMetricManagerSubscriber {
+    @available(iOS 13.0, *)
+    func didReceive(_ payloads: [MXMetricPayload]) {
+        print("metric")
+    }
 }

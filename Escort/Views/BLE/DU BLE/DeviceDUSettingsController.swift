@@ -1,29 +1,56 @@
 //
-//  TLTHSettingsController.swift
+//  DeviceDUSettingsController.swift
 //  Escort
 //
-//  Created by Володя Зверев on 08.02.2021.
+//  Created by Володя Зверев on 19.02.2021.
 //  Copyright © 2021 pavit.design. All rights reserved.
 //
 
 import UIKit
 
-class TLTHSettingsController : UIViewController {
+class DeviceDUSettingsController : UIViewController {
     
     var tableView: UITableView!
     let generator = UIImpactFeedbackGenerator(style: .light)
     let blackBoxVC = BlackBoxTHController()
     var viewModel: ViewModelDevice = ViewModelDevice()
-    var delegate: PasswordDelegate?
+    var delegate: DUViewDelegate?
     var delegateAlert: BlackBoxTHDelegate?
     var passwortIsEnter = false
     var numberOfButton: Int = 0
-    var labelMain = ""
+
+    fileprivate lazy var themeBackView3: UIView = {
+        let v = UIView()
+        v.frame = CGRect(x: 0, y: 0, width: screenWidth+20, height: headerHeight-(hasNotch ? 5 : 12) + (iphone5s ? 10 : 0))
+        v.layer.shadowRadius = 3.0
+        v.layer.shadowOpacity = 0.2
+        v.layer.shadowOffset = CGSize(width: 0.0, height: 4.0)
+        return v
+    }()
+    fileprivate lazy var MainLabel: UILabel = {
+        let text = UILabel(frame: CGRect(x: 24, y: dIy + (hasNotch ? dIPrusy+30 : 40) + dy - (iphone5s ? 10 : 0), width: Int(screenWidth-24), height: 40))
+        text.text = "Type of bluetooth sensor".localized(code)
+        text.textColor = UIColor(rgb: 0x272727)
+        text.font = UIFont(name:"BankGothicBT-Medium", size: (iphone5s ? 17.0 : 19.0))
+        return text
+    }()
+
+    fileprivate lazy var backView: UIImageView = {
+        let backView = UIImageView()
+        backView.frame = CGRect(x: 0, y: dIy + dy + (hasNotch ? dIPrusy+30 : 40) - (iphone5s ? 10 : 0), width: 50, height: 40)
+        let back = UIImageView(image: UIImage(named: "back")!)
+        back.image = back.image!.withRenderingMode(.alwaysTemplate)
+        back.frame = CGRect(x: 8, y: 0 , width: 8, height: 19)
+        back.center.y = backView.bounds.height/2
+        backView.addSubview(back)
+        return backView
+    }()
     
     fileprivate func createTableView() {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.separatorStyle = .none
         self.view.sv(tableView)
+        tableView.allowsSelection = false
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .clear
@@ -36,16 +63,53 @@ class TLTHSettingsController : UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        navigationCusmotizing(nav: navigationController!, navItem: navigationItem, title: "\(labelMain)")
-        tableView.reloadData()
+        navigationCusmotizing(nav: navigationController!, navItem: navigationItem, title: "Settings")
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
-    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        reloadSettings()
+    }
+    func reloadSettings() {
+        guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? DuCollectionCell else {return}
+        cell.collectionView?.reloadData()
+        cell.collectionView?.scrollToItem(at:IndexPath(item: viewModel.detectDuModeInt(intMode: modeLabel), section: 0), at: .right, animated: true)
+        tableView.reloadData()
+    }
+    @objc func adjustForKeyboard(notification: Notification) {
+        if notification.name == UIResponder.keyboardWillHideNotification {
+            let contentInset:UIEdgeInsets = UIEdgeInsets.zero
+            guard let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? DuControlAngleCell else {return}
+            tableView.contentInset = contentInset
+            cell.setButton.contentEdgeInsets = contentInset
+            
+        } else {
+            guard let userInfo = notification.userInfo else { return }
+            var keyboardFrame:CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+            keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+            var contentInset:UIEdgeInsets = self.tableView.contentInset
+            contentInset.bottom = keyboardFrame.size.height
+            tableView.contentInset = contentInset
+//            tableView.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height - view.safeAreaInsets.bottom - 80, right: 0)
+        }
+        tableView.scrollIndicatorInsets = tableView.contentInset
+        tableView.scrollToRow(at: IndexPath(row: 1, section: 0), at: .bottom, animated: true)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         createTableView()
         registerCell()
+//        view.addSubview(themeBackView3)
+        
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        
+        MainLabel.text = "Settings".localized(code)
+//        view.addSubview(MainLabel)
+//        view.addSubview(backView)
+        backView.addTapGesture { self.popVC() }
 
         NSLayoutConstraint.activate([
             
@@ -68,55 +132,44 @@ class TLTHSettingsController : UIViewController {
     func registerCell() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(SettingsPasswordCell.self, forCellReuseIdentifier: "SettingsPasswordCell")
+        tableView.register(DuControlAngleCell.self, forCellReuseIdentifier: "DuControlAngleCell")
         tableView.register(SettingsReloadCell.self, forCellReuseIdentifier: "SettingsReloadCell")
         tableView.register(SettingsNewPasswordCell.self, forCellReuseIdentifier: "SettingsNewPasswordCell")
         tableView.register(SettingsReloadTLCell.self, forCellReuseIdentifier: "SettingsReloadTLCell")
+        tableView.register(DuCollectionCell.self, forCellReuseIdentifier: "DuCollectionCell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
+        tableView.register(DuCovshCell.self, forCellReuseIdentifier: "DuCovshCell")
 
     }
 }
 
-extension TLTHSettingsController: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
+extension DeviceDUSettingsController: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            if newPassword {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsNewPasswordCell", for: indexPath) as! SettingsNewPasswordCell
-                cell.delegate = self
-                cell.mainLabel.text = "Password for changing settings".localized(code)
-                cell.setButton.setTitle("Set".localized(code), for: .normal)
-                cell.passwordFirstTextField.text = mainPassword
-                cell.passwordFirstLabel.text = "Password".localized(code)
-                cell.passwordSecondLabel.text = "Password".localized(code)
-                cell.passwordSecondTextField.text = mainPassword
-                return cell
-            } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsPasswordCell", for: indexPath) as! SettingsPasswordCell
-                cell.passwordTextField.text = mainPassword
-                cell.delegate = self
-                cell.passwordLabel.text = "Password".localized(code)
-                cell.mainLabel.text = "Password for changing settings".localized(code)
-                if mainPassword == "" {
-                    cell.passwordTextField.layer.borderColor = UIColor(rgb: 0xE7E7E7).cgColor
-                    cell.passwordTextField.isEnabled = true
-                    cell.setButton.setTitle("Enter".localized(code), for: .normal)
-                } else {
-                    cell.passwordTextField.isEnabled = false
-                    cell.passwordTextField.layer.borderColor =  UIColor(rgb: 0x00A778).cgColor
-                    cell.setButton.setTitle("Remove".localized(code), for: .normal)
-                }
-                return cell
-            }
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DuCollectionCell", for: indexPath) as! DuCollectionCell
+            cell.delegate = self
+            return cell
         } else {
-            if viewModel.isTL {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsReloadTLCell", for: indexPath) as! SettingsReloadTLCell
-                cell.setButton.setTitle("FW update".localized(code), for: .normal)
+            if viewModel.detectDuModeInt(intMode: modeLabel) == 3 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "DuControlAngleCell", for: indexPath) as! DuControlAngleCell
+                cell.passwordFirstTextField.text = full
+                cell.passwordSecondTextField.text = nothing
                 cell.delegate = self
                 return cell
-            } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsReloadCell", for: indexPath) as! SettingsReloadCell
-                cell.setButton.setTitle("FW update".localized(code), for: .normal)
-                cell.sinfButton.setTitle("Synchronize time".localized(code), for: .normal)
+            } else if viewModel.detectDuModeInt(intMode: modeLabel) == 4 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "DuCovshCell", for: indexPath) as! DuCovshCell
+                cell.passwordFirstTextField.text = nothing
+                cell.passwordSecondTextField.text = zaderV
+                cell.passwordThreedTextField.text = zaderVi
                 cell.delegate = self
+                return cell
+            }  else if viewModel.detectDuModeInt(intMode: modeLabel) == 5 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "DuControlAngleCell", for: indexPath) as! DuControlAngleCell
+//                cell.delegate = self
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
+                cell.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
                 return cell
             }
         }
@@ -137,10 +190,7 @@ extension TLTHSettingsController: UITableViewDelegate, UITableViewDataSource, UI
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-    }
     func popToVC() {
         print("popTo")
         for obj in (self.navigationController?.viewControllers)! {
@@ -154,7 +204,7 @@ extension TLTHSettingsController: UITableViewDelegate, UITableViewDataSource, UI
 
     }
 }
-extension TLTHSettingsController: PasswordSetDelegate, UpdateButtomDelegate {
+extension DeviceDUSettingsController: PasswordSetDelegate, UpdateButtomDelegate {
     func updateDevice() {
         numberOfButton = 2
         if mainPassword == "" {
@@ -173,14 +223,14 @@ extension TLTHSettingsController: PasswordSetDelegate, UpdateButtomDelegate {
             viewAlphaAlways.isHidden = false
             self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
             reload = 1
-            self.delegate?.buttonReloadDevice()
+//            self.delegate?.buttonReloadDevice()
         } else {
             let alert = UIAlertController(title: "Save the black box data before updating FW?".localized(code), message: "If you update the FW, the black box data will be lost".localized(code), preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Save data".localized(code), style: .default, handler: { action in
                                             switch action.style{
                                             case .default:
                                                 print("Сохранить данные")
-                                                self.delegate?.pushSaveData()
+//                                                self.delegate?.pushSaveData()
                                             case .cancel:
                                                 print("cancel")
                                             case .destructive:
@@ -199,9 +249,9 @@ extension TLTHSettingsController: PasswordSetDelegate, UpdateButtomDelegate {
                                                 viewAlphaAlways.isHidden = false
                                                 self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
                                                 reload = 13
-                                                self.delegate?.buttonReloadDevice()
+//                                                self.delegate?.buttonReloadDevice()
                                                 reload = 1
-                                                self.delegate?.buttonReloadDevice()
+//                                                self.delegate?.buttonReloadDevice()
                                             @unknown default:
                                                 fatalError()
                                             }}))
@@ -232,7 +282,7 @@ extension TLTHSettingsController: PasswordSetDelegate, UpdateButtomDelegate {
         } else {
             reload = 14
             viewAlphaAlways.isHidden = false
-            delegate?.buttonReloadDevice()
+//            delegate?.buttonReloadDevice()
         }
 
     }
@@ -242,10 +292,10 @@ extension TLTHSettingsController: PasswordSetDelegate, UpdateButtomDelegate {
         numberOfButton = 0
         if bool {
             reload = 9
-            delegate?.actionSetPassword()
+//            delegate?.actionSetPassword()
         } else {
             reload = 7
-            delegate?.actionDeletePassword()
+//            delegate?.actionDeletePassword()
         }
         
     }
@@ -253,8 +303,45 @@ extension TLTHSettingsController: PasswordSetDelegate, UpdateButtomDelegate {
     func setupTheme() {
         if #available(iOS 13.0, *) {
             view.theme.backgroundColor = themed { $0.backgroundColor }
+            themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
+            MainLabel.theme.textColor = themed{ $0.navigationTintColor }
+            backView.theme.tintColor = themed{ $0.navigationTintColor }
         } else {
             view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
+            themeBackView3.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
+            MainLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
+            backView.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
         }
     }
+}
+
+extension DeviceDUSettingsController: SettingsDUDelegate {
+    func buttonSetMode() {
+        numberOfButton = 1
+        if mainPassword == "" {
+            if newPassword {
+                delegateAlert?.newPasswordAlert()
+            } else {
+                delegateAlert?.passwordAlert()
+            }
+        } else {
+            viewAlphaAlways.isHidden = false
+            delegate?.buttonSetMode()
+        }
+    }
+    func buttonSetParameters(load: Int) {
+        numberOfButton = 2
+        if mainPassword == "" {
+            if newPassword {
+                delegateAlert?.newPasswordAlert()
+            } else {
+                delegateAlert?.passwordAlert()
+            }
+        } else {
+            viewAlphaAlways.isHidden = false
+            delegate?.delegateSetParameters(load: load)
+        }
+    }
+    
+    
 }

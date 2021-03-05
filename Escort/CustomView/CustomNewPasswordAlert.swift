@@ -75,7 +75,8 @@ class CustomNewPasswordAlert: UIView, UITextFieldDelegate {
         CustomTextField.layer.cornerRadius = 10
         CustomTextField.tintColor = .red
         CustomTextField.keyboardAppearance = isNight ? .dark : .light
-        
+        CustomTextField.layer.masksToBounds = true
+
         CustomTextFieldSecond.attributedPlaceholder = NSAttributedString(string: "Repeat new password".localized(code),attributes: [NSAttributedString.Key.foregroundColor: UIColor(rgb: isNight ? 0x979797 : 0xB8B8B8).withAlphaComponent(0.5)])
         CustomTextFieldSecond.layer.borderColor = UIColor(rgb: 0xE7E7E7).cgColor
         CustomTextFieldSecond.layer.borderWidth = 1.0

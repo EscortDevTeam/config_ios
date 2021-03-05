@@ -12,26 +12,23 @@ import UIKit
 extension BlackBoxTHController {
     
     func viewShow() {
-        view.addSubview(themeBackView3)
         viewAlpha.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        MainLabel.text = "Black box".localized(code)
-        
-        view.addSubview(MainLabel)
-        view.addSubview(backView)
-        backView.addTapGesture{
-            let alert = UIAlertController(title: "Close?".localized(code), message: "Are you sure you want to stop downloading the data from the black box?".localized(code), preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "No".localized(code), style: .default, handler: { _ in
-                //Cancel Action
-            }))
-            alert.addAction(UIAlertAction(title: "Yes".localized(code),
-                                          style: .destructive,
-                                          handler: {(_: UIAlertAction!) in
-                                            let  vc =  self.navigationController?.viewControllers.filter({$0 is TLController}).first
-                                            self.navigationController?.popToViewController(vc!, animated: true)
-            }))
-            self.present(alert, animated: true, completion: nil)
-        }
+//        MainLabel.text = "Black box".localized(code)
+
+//        backView.addTapGesture{
+//            let alert = UIAlertController(title: "Close?".localized(code), message: "Are you sure you want to stop downloading the data from the black box?".localized(code), preferredStyle: .alert)
+//
+//            alert.addAction(UIAlertAction(title: "No".localized(code), style: .default, handler: { _ in
+//                //Cancel Action
+//            }))
+//            alert.addAction(UIAlertAction(title: "Yes".localized(code),
+//                                          style: .destructive,
+//                                          handler: {(_: UIAlertAction!) in
+//                                            let  vc =  self.navigationController?.viewControllers.filter({$0 is TLController}).first
+//                                            self.navigationController?.popToViewController(vc!, animated: true)
+//            }))
+//            self.present(alert, animated: true, completion: nil)
+//        }
         
         cancelLabel.addTapGesture {
             self.cancelTap()
@@ -113,8 +110,8 @@ extension BlackBoxTHController {
     func createLogger() {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         timerStart()
-        view.addSubview(viewAlphaLogger)
-        view.addSubview(viewLogger)
+        UIApplication.shared.keyWindow?.rootViewController?.view.addSubview(viewAlphaLogger)
+        UIApplication.shared.keyWindow?.rootViewController?.view.addSubview(viewLogger)
         cancelButton.setTitle("Stop".localized(code), for: .normal)
         viewLogger.addSubview(cancelButton)
 
@@ -158,16 +155,10 @@ extension BlackBoxTHController {
     func setupTheme() {
         if #available(iOS 13.0, *) {
             view.theme.backgroundColor = themed { $0.backgroundColor }
-            themeBackView3.theme.backgroundColor = themed { $0.backgroundNavigationColor }
-            MainLabel.theme.textColor = themed{ $0.navigationTintColor }
             DownloadDataForLastLabel.theme.textColor = themed{ $0.navigationTintColor }
-            backView.theme.tintColor = themed{ $0.navigationTintColor }
         } else {
             view.backgroundColor = UIColor(rgb: isNight ? 0x1F2222 : 0xFFFFFF)
-            themeBackView3.backgroundColor = UIColor(rgb: isNight ? 0x272727 : 0xFFFFFF)
-            MainLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
             DownloadDataForLastLabel.textColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
-            backView.tintColor = UIColor(rgb: isNight ? 0xFFFFFF : 0x1F1F1F)
         }
     }
 }
